@@ -1,0 +1,21 @@
+{
+  "generator-fountain-angular1": {
+    "version": "1.0.0-rc2",
+    "props": {
+      "framework": "angular1",
+      "modules": "inject",
+      "js": "js",
+      "ci": [],
+      "css": "less",
+      "resolved": "/Users/alex/.nvm/versions/node/v7.0.0/lib/node_modules/generator-fountain-webapp/node_modules/generator-fountain-angular1/generators/app/index.js",
+      "namespace": "fountain-angular1",
+      "argv": {
+        "remain": [],
+        "cooked": [],
+        "original": []
+      },
+      "sample": "todoMVC",
+      "router": "uirouter"
+    }
+  }
+}
