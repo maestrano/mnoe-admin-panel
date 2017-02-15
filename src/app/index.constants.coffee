@@ -7,3 +7,10 @@
     staffChanged: 'staffListChanged',
     staffAdded: 'staffAdded'
     })
+  .constant('LOCALES', {
+    locales: [
+      { id: 'en-AU', name: 'English (Australia)' }
+    ],
+    preferredLanguage: 'en-AU',
+    fallbackLanguage: 'en-AU'
+  })

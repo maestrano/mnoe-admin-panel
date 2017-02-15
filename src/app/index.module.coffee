@@ -18,5 +18,7 @@
   'angularMoment',
   'duScroll',
   'ngPageTitle',
-  'mnoUiElements'
+  'mnoUiElements',
+  'pascalprecht.translate',
+  'ngSanitize'
 ]
