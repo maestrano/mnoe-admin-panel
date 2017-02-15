@@ -37,38 +37,11 @@
 .top-buffer-10 { margin-top: 10*@top-buffer-height; }
 
 //--------------------------------------
-// RDash fixes
-//--------------------------------------
-
-// RDash overload bootstrap rows...
-// This is the real bootstrap class behavior
-.bs-row {
-  margin-left: -15px !important;
-  margin-right: -15px !important;
-}
-
-.row > div {
-  margin-bottom: 0;
-}
-
-.row.header {
-  margin-bottom: 0;
-}
-
-.page-content {
-  padding-bottom: 15px;
-}
-
-.widget .widget-body button {
-  margin-left: 0;
-}
-
-//--------------------------------------
 // General less
 //--------------------------------------
 body {
   background: #f3f3f3;
-  font-family: Montserrat;
+  font-family: inherit;
 }
 
 a {
@@ -85,7 +58,7 @@ a {
 }
 
 .label-cell {
-  //border-bottom: 1px dashed @brand-primary;
+  border-bottom: 1px dashed @brand-primary;
   margin-bottom: 10px;
 }
 
