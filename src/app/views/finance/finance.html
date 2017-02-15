@@ -1,31 +1,35 @@
 <div class="row">
   <div class="col-lg-3 col-md-6 col-xs-12">
-    <rd-kpi class="kpi-color-1" description="Current billing" icon="fa-file-text-o" loading="!vm.invoices.currentBillingAmount">
-      <rd-kpi-body-currency amount="{{vm.invoices.currentBillingAmount.amount}}" currency="{{vm.invoices.currentBillingAmount.currency}}"><rd-kpi-body-currency>
-    </rd-kpi>
+    <mno-kpi class="kpi-color-1" description="Current billing" icon="fa-file-text-o"
+             value="{{vm.invoices.currentBillingAmount.amount}}" unit="{{vm.invoices.currentBillingAmount.currency}}"
+             loading="!vm.invoices.currentBillingAmount">
+    </mno-kpi>
   </div>
   <div class="col-lg-3 col-md-6 col-xs-12">
-    <rd-kpi class="kpi-color-2" description="Last customer invoicing" icon="fa-file-text-o" loading="!vm.invoices.lastInvoicingAmount">
-      <rd-kpi-body-currency amount="{{vm.invoices.lastInvoicingAmount.amount}}" currency="{{vm.invoices.lastInvoicingAmount.currency}}"><rd-kpi-body-currency>
-    </rd-kpi>
+    <mno-kpi class="kpi-color-2" description="Last customer invoicing" icon="fa-file-text-o"
+             value="{{vm.invoices.lastInvoicingAmount.amount}}" unit="{{vm.invoices.lastInvoicingAmount.currency}}"
+             loading="!vm.invoices.lastInvoicingAmount">
+    </mno-kpi>
   </div>
   <div class="col-lg-3 col-md-6 col-xs-12">
-    <rd-kpi class="kpi-color-3" description="Last revenue" icon="fa-file-text-o" loading="!vm.invoices.lastPortfolioAmount">
-      <rd-kpi-body-currency amount="{{vm.invoices.lastPortfolioAmount.amount}}" currency="{{vm.invoices.lastPortfolioAmount.currency}}"><rd-kpi-body-currency>
-    </rd-kpi>
+    <mno-kpi class="kpi-color-3" description="Last revenue" icon="fa-file-text-o"
+             value="{{vm.invoices.lastPortfolioAmount.amount}}" unit="{{vm.invoices.lastPortfolioAmount.currency}}"
+             loading="!vm.invoices.lastPortfolioAmount">
+    </mno-kpi>
   </div>
   <div class="col-lg-3 col-md-6 col-xs-12">
-    <rd-kpi class="kpi-color-4" description="Last commission" icon="fa-file-text-o" loading="!vm.invoices.lastCommissionAmount">
-      <rd-kpi-body-currency amount="{{vm.invoices.lastCommissionAmount.amount}}" currency="{{vm.invoices.lastCommissionAmount.currency}}"><rd-kpi-body-currency>
-    </rd-kpi>
+    <mno-kpi class="kpi-color-4" description="Last commission" icon="fa-file-text-o"
+             value="{{vm.invoices.lastCommissionAmount.amount}}" unit="{{vm.invoices.lastCommissionAmount.currency}}"
+             loading="!vm.invoices.lastCommissionAmount">
+    </mno-kpi>
   </div>
 </div>
 
 <div class="row">
   <div class="col-lg-6">
-    <rd-widget>
-      <rd-widget-header icon="fa-exclamation-circle" title="Customer accounts in arrears"></rd-widget-header>
-      <rd-widget-body classes="large no-padding">
+    <mno-widget icon="fa-exclamation-circle" heading="Customer accounts in arrears">
+      <mno-widget-header></mno-widget-header>
+      <mno-widget-body class="large no-padding">
         <div class="table-responsive">
           <table class="table">
             <thead>
@@ -43,19 +47,19 @@
                 <td>{{arrear.category}}</td>
               </tr>
               <!-- <tr ng-repeat="orgaInArrear in vm.invoices.organizationsInArrears">
-                <td><a ui-sref="dashboard.home.organization({orgId: orgaInArrear.id})">{{orgaInArrear.name}}</a></td>
+                <td><a ui-sref="dashboard.customers.organization({orgId: orgaInArrear.id})">{{orgaInArrear.name}}</a></td>
                 <td>AUD 56.00</td>
               </tr> -->
             </tbody>
           </table>
         </div>
-      </rd-widget-body>
-    </rd-widget>
+      </mno-widget-body>
+    </mno-widget>
   </div>
   <div class="col-lg-6">
-    <rd-widget>
-      <rd-widget-header icon="fa-file-text-o" title="Your partner reports"></rd-widget-header>
-      <rd-widget-body loading="!vm.invoices.tenantInvoices" classes="large no-padding">
+    <mno-widget icon="fa-file-text-o" heading="Your partner reports" is-loading="!vm.invoices.tenantInvoices">
+      <mno-widget-header></mno-widget-header>
+      <mno-widget-body class="large no-padding">
         <div class="table-responsive">
           <table class="table">
             <thead>
@@ -81,7 +85,7 @@
             </tbody>
           </table>
         </div>
-      </rd-widget-body>
-    </rd-widget>
+      </mno-widget-body>
+    </mno-widget>
   </div>
 </div>

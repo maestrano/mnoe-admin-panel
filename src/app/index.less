@@ -1,5 +1,6 @@
 @import "../../bower_components/bootstrap/less/bootstrap.less";
 @import "../../bower_components/font-awesome/less/font-awesome.less";
+@import "../../bower_components/mno-ui-elements/dist/mno-ui-elements.less";
 
 /**
  *  If you want to override some bootstrap variables, you have to change values here.
@@ -8,20 +9,6 @@
 @icon-font-path: '../../bower_components/bootstrap/fonts/';
 @fa-font-path: "../../bower_components/font-awesome/fonts";
 @font-path: '/admin/fonts';
-
-// Colors (https://color.adobe.com/Elemental-color-theme-7207545/)
-@elemental-pink: #E54661;
-@elemental-orange: #FFA644;
-@elemental-green: #998A2F;
-@elemental-aqua: #2C594F;
-@elemental-blue: #002D40;
-
-@color-danger: #d43f3a;
-
-@kpi-color-1: @elemental-pink;
-@kpi-color-2: @elemental-orange;
-@kpi-color-3: @elemental-green;
-@kpi-color-4: @elemental-aqua;
 
 @mno-row-sublink-color: black;
 
@@ -39,38 +26,11 @@
 .top-buffer-10 { margin-top: 10*@top-buffer-height; }
 
 //--------------------------------------
-// RDash fixes
-//--------------------------------------
-
-// RDash overload bootstrap rows...
-// This is the real bootstrap class behavior
-.bs-row {
-  margin-left: -15px !important;
-  margin-right: -15px !important;
-}
-
-.row > div {
-  margin-bottom: 0;
-}
-
-.row.header {
-  margin-bottom: 0;
-}
-
-.page-content {
-  padding-bottom: 15px;
-}
-
-.widget .widget-body button {
-  margin-left: 0;
-}
-
-//--------------------------------------
 // General less
 //--------------------------------------
 body {
   background: #f3f3f3;
-  font-family: Montserrat;
+  font-family: inherit;
 }
 
 a {
@@ -87,7 +47,7 @@ a {
 }
 
 .label-cell {
-  //border-bottom: 1px dashed @brand-primary;
+  border-bottom: 1px dashed @brand-primary;
   margin-bottom: 10px;
 }
 

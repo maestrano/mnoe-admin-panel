@@ -1,9 +1,9 @@
-<rd-widget>
-  <rd-widget-header icon="fa-sitemap" title="{{organizations.widgetTitle}}">
+<mno-widget icon="fa-sitemap" heading="{{organizations.widgetTitle}}" is-loading="!list">
+  <mno-widget-header>
     &nbsp;<a href="" ng-click="switchState()" ng-show="list && organizations.switchLinkTitle">{{organizations.switchLinkTitle}}</a>
     <input type="text" ng-model="organizations.search" ng-change="searchChange()" placeholder="Search all" class="form-control input-sm search-bar" />
-  </rd-widget-header>
-  <rd-widget-body loading="!list" classes="large no-padding">
+  </mno-widget-header>
+  <mno-widget-body class="large no-padding">
     <table class="table table-layout-fixed">
       <thead>
         <tr>
@@ -14,7 +14,7 @@
       <tbody>
         <tr ng-repeat="organization in organizations.displayList">
           <td>
-            <a ui-sref="dashboard.home.organization({orgId: organization.id})">
+            <a ui-sref="dashboard.customers.organization({orgId: organization.id})">
               {{::organization.name}}
             </a>
           </td>
@@ -22,5 +22,5 @@
         </tr>
       </tbody>
     </table>
-  </rd-widget-body>
-</rd-widget>
+  </mno-widget-body>
+</mno-widget>

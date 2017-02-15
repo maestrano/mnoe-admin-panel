@@ -17,5 +17,6 @@
   'smart-table',
   'angularMoment',
   'duScroll',
-  'ngPageTitle'
+  'ngPageTitle',
+  'mnoUiElements'
 ]

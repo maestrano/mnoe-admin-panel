@@ -33,7 +33,7 @@
         # App to be connected?
         if _.isEmpty(response.organization.active_apps)
           # Go to organization screen
-          $state.go('dashboard.home.organization', {orgId: response.organization.id})
+          $state.go('dashboard.customers.organization', {orgId: response.organization.id})
         else
           # Go to connect your apps screen
           $state.go('dashboard.customers.connect-app', {orgId: response.organization.id})

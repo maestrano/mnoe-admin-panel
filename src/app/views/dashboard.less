@@ -6,13 +6,53 @@
       text-decoration: none;
     }
     span {
-      vertical-align: top;
-      padding-top: 20px;
-      display: inline-block;
 
-      &:hover {
-        text-decoration: underline;
+    }
+  }
+}
+
+mno-admin-header {
+  .user {
+    .item {
+      a {
+        display: inline-block;
+        width: 100%;
+
+        .name {
+          vertical-align: top;
+          text-align: @mno-admin-header-height;
+          display: inline-block;
+          color: @mno-admin-header-user-color;
+          font-size: 14px;
+          line-height: @mno-admin-header-height;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        img {
+          height: 40px;
+          margin-top: (@mno-admin-header-height - 40px) / 2;
+          display: inline-block;
+          margin-right: 10px;
+        }
+
+        &:focus, &:hover {
+          text-decoration: none;
+        }
       }
+    }
+  }
+
+  .meta {
+    height: @mno-admin-header-height;
+    padding-left: 15px;
+    margin-right: 130px;
+
+    .page {
+      font-size: 17px;
+      padding-top: 11px;
     }
   }
 }

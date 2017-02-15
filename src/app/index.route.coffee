@@ -15,26 +15,6 @@
       controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'Home'
-    .state 'dashboard.home.user',
-      data:
-        pageTitle:'User'
-      url: '^/user/:userId'
-      views: '@dashboard':
-        templateUrl: 'app/views/user/user.html'
-        controller: 'UserController'
-        controllerAs: 'vm'
-      ncyBreadcrumb:
-        label: 'User'
-    .state 'dashboard.home.organization',
-      data:
-        pageTitle:'Organization'
-      url: '^/organization/:orgId'
-      views: '@dashboard':
-        templateUrl: 'app/views/organization/organization.html'
-        controller: 'OrganizationController'
-        controllerAs: 'vm'
-      ncyBreadcrumb:
-        label: 'Organisation'
     .state 'dashboard.finance',
       data:
         pageTitle:'Finance'
@@ -75,6 +55,26 @@
       controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'Customers'
+    .state 'dashboard.customers.user',
+      data:
+        pageTitle:'User'
+      url: '^/user/:userId'
+      views: '@dashboard':
+        templateUrl: 'app/views/user/user.html'
+        controller: 'UserController'
+        controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'User'
+    .state 'dashboard.customers.organization',
+      data:
+        pageTitle:'Organization'
+      url: '^/organization/:orgId'
+      views: '@dashboard':
+        templateUrl: 'app/views/organization/organization.html'
+        controller: 'OrganizationController'
+        controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'Organisation'
     .state 'dashboard.customers.create-step-1',
       url: '^/customers/create-customer'
       views: '@dashboard':
