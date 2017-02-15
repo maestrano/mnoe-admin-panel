@@ -1,15 +1,15 @@
-<mno-widget icon="fa-users" heading="{{users.widgetTitle}}" is-loading="users.loading">
+<mno-widget icon="fa-users" heading="{{users.widgetTitle | translate}}" is-loading="users.loading">
   <mno-widget-header>
-    &nbsp;<a href="" ng-click="switchState()" ng-show="users.list && users.switchLinkTitle" ng-class="{'disabled': users.loading}">{{users.switchLinkTitle}}</a>
-    <input type="text" ng-model="users.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }' placeholder="Search all" class="form-control input-sm search-bar" />
+    &nbsp;<a href="" ng-click="switchState()" ng-show="users.list && users.switchLinkTitle" ng-class="{'disabled': users.loading}" translate>{{users.switchLinkTitle}}</a>
+    <input type="text" ng-model="users.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }' placeholder="{{'mnoe_admin_panel.dashboard.user.widget.search_users.placeholder.search_all' | translate}}" class="form-control input-sm search-bar" />
   </mno-widget-header>
   <mno-widget-body class="large no-padding">
     <table class="table table-layout-fixed">
       <thead>
         <tr>
-          <th>Username</th>
-          <th width="110">Last login</th>
-          <th width="100">Creation</th>
+          <th translate>mnoe_admin_panel.dashboard.user.widget.search_users.table.username</th>
+          <th width="110" translate>mnoe_admin_panel.dashboard.user.widget.search_users.table.last_login</th>
+          <th width="100" translate>mnoe_admin_panel.dashboard.user.widget.search_users.table.creation</th>
         </tr>
       </thead>
       <tbody>
