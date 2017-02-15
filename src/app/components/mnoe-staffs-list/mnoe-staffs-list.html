@@ -1,8 +1,8 @@
-<rd-widget>
-  <rd-widget-header icon="fa-wrench" title="{{$ctrl.staff.widgetTitle}}">
+<mno-widget icon="fa-wrench" heading="{{$ctrl.staff.widgetTitle}}" is-loading="staff.loading">
+  <mno-widget-header>
     &nbsp;All staff
-  </rd-widget-header>
-  <rd-widget-body classes="large no-padding"> <!-- loading="staff.loading"  -->
+  </mno-widget-header>
+  <mno-widget-body class="large no-padding">
     <div>
       <table class="table" st-pipe="$ctrl.callServer" st-table="$ctrl.displayed">
       <table st-pipe="$ctrl.callServer" st-table="$ctrl.listOfStaff" class="table table-striped" >
@@ -58,8 +58,8 @@
       	</tbody>
       </table>
     </div>
-  </rd-widget-body>
-  <rd-widget-footer ng-show="$ctrl.listOfStaff && $ctrl.state == 'all' && !searchMode">
+  </mno-widget-body>
+  <mno-widget-footer ng-show="$ctrl.listOfStaff && $ctrl.state == 'all' && !searchMode">
     <mno-pagination
       page="$ctrl.staff.page"
       nb-items="$ctrl.staff.nbItems"
@@ -67,5 +67,5 @@
       on-change-cb="$ctrl.staff.pageChangedCb(nbItems, page)"
       is-loading="$ctrl.staff.loading">
     </mno-pagination>
-  </rd-widget-footer>
-</rd-widget>
+  </mno-widget-footer>
+</mno-widget>

@@ -4,9 +4,9 @@
       <h1>Create a new customer</h1>
 
       <form name="vm.form" novalidate>
-        <rd-widget id="org-form" class="top-buffer-2">
-          <rd-widget-header icon="fa-sitemap" title="Organisation details"></rd-widget-header>
-          <rd-widget-body>
+        <mno-widget id="org-form" icon="fa-sitemap" heading="Organisation details" class="top-buffer-2">
+          <mno-widget-header></mno-widget-header>
+          <mno-widget-body>
             <div class="flex-container flex-center">
               <div class="form-group flex-50">
                 <label class="control-label" for="organization-name">Organisation name</label>
@@ -17,14 +17,14 @@
                 </div>
               </div>
             </div>
-          </rd-widget-body>
-        </rd-widget>
+          </mno-widget-body>
+        </mno-widget>
 
-        <rd-widget class="top-buffer-2">
-          <rd-widget-header icon="fa-rocket" title="Select your apps">
+        <mno-widget class="top-buffer-2" is-loading="!vm.marketplace" icon="fa-rocket" heading="Select your apps">
+          <mno-widget-header>
             <input type="text" ng-model="vm.appSearch" placeholder="Search" class="form-control input-sm search-bar">
-          </rd-widget-header>
-          <rd-widget-body loading="!vm.marketplace">
+          </mno-widget-header>
+          <mno-widget-body>
             <div class="apps-container">
               <div class="app-icon" ng-repeat="app in vm.marketplace.apps | filter:{name: vm.appSearch}">
                 <div class="app-icon-wrapper" ng-click="vm.toggleApp(app)">
@@ -38,11 +38,13 @@
                 </div>
               </div>
             </div>
-          </rd-widget-body>
-        </rd-widget>
+          </mno-widget-body>
+        </mno-widget>
 
         <button type="submit" class="btn btn-danger pull-right top-buffer-2" ng-click="vm.submitOrganisation()" ng-disabled="vm.isLoading">
-          <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+          <span ng-show="vm.isLoading">
+            <i class="fa fa-spinner fa-pulse fa-fw"></i>
+          </span>
           Create
         </button>
       </form>

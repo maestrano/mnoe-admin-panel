@@ -1,9 +1,9 @@
-<rd-widget>
-  <rd-widget-header icon="fa-users" title="{{users.widgetTitle}}">
+<mno-widget icon="fa-users" heading="{{users.widgetTitle}}" is-loading="!list">
+  <mno-widget-header>
     &nbsp;<a href="" ng-click="switchState()" ng-show="list && users.switchLinkTitle">{{users.switchLinkTitle}}</a>
     <input type="text" ng-model="users.search" ng-change="searchChange()" placeholder="Search all" class="form-control input-sm search-bar" />
-  </rd-widget-header>
-  <rd-widget-body loading="!list" classes="medium no-padding">
+  </mno-widget-header>
+  <mno-widget-body class="medium no-padding">
     <table class="table table-layout-fixed">
       <thead>
         <tr>
@@ -38,5 +38,5 @@
         </tr>
       </tbody>
     </table>
-  </rd-widget-body>
-</rd-widget>
+  </mno-widget-body>
+</mno-widget>

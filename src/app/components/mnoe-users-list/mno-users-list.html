@@ -1,9 +1,9 @@
-<rd-widget>
-  <rd-widget-header icon="fa-users" title="{{users.widgetTitle}}">
+<mno-widget icon="fa-users" heading="{{users.widgetTitle}}" is-loading="users.loading">
+  <mno-widget-header>
     &nbsp;<a href="" ng-click="switchState()" ng-show="users.list && users.switchLinkTitle" ng-class="{'disabled': users.loading}">{{users.switchLinkTitle}}</a>
     <input type="text" ng-model="users.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }' placeholder="Search all" class="form-control input-sm search-bar" />
-  </rd-widget-header>
-  <rd-widget-body loading="users.loading" classes="large no-padding">
+  </mno-widget-header>
+  <mno-widget-body class="large no-padding">
     <table class="table table-layout-fixed">
       <thead>
         <tr>
@@ -30,8 +30,8 @@
         </tr>
       </tbody>
     </table>
-  </rd-widget-body>
-  <rd-widget-footer ng-show="users.list && state == 'all' && !searchMode">
+  </mno-widget-body>
+  <mno-widget-footer ng-show="users.list && state == 'all' && !searchMode">
     <mno-pagination
       page="users.page"
       nb-items="users.nbItems"
@@ -39,5 +39,5 @@
       on-change-cb="users.pageChangedCb(nbItems, page)"
       is-loading="users.loading">
     </mno-pagination>
-  </rd-widget-footer>
-</rd-widget>
+  </mno-widget-footer>
+</mno-widget>
