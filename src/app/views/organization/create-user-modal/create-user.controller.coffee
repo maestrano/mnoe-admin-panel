@@ -8,11 +8,11 @@
     vm.isLoading = true
     MnoeUsers.addUser(organization, vm.user).then(
       (success) ->
-        toastr.success("#{vm.user.name} #{vm.user.surname} has been successfully added.")
+        toastr.success('mnoe_admin_panel.dashboard.organization.create_user.toastr_success', {extraData: {username: "#{vm.user.name} #{vm.user.surname}"}})
         # Close the modal returning the item to the parent window
         $uibModalInstance.close(success.data.user)
       (error) ->
-        toastr.error("An error occurred while adding #{vm.user.name} #{vm.user.surname}.")
+        toastr.error('mnoe_admin_panel.dashboard.organization.create_user.toastr_error', {extraData: {username: "#{vm.user.name} #{vm.user.surname}"}})
         MnoErrorsHandler.processServerError(error)
     ).finally(-> vm.isLoading = false)
 

@@ -1,5 +1,10 @@
 @App
-  .constant('USER_ROLES', ['Member', 'Power User', 'Admin', 'Super Admin'])
+  .constant('USER_ROLES', [
+    {value: 'Member', label: 'mnoe_admin_panel.constants.user_roles.member'},
+    {value: 'Power user', label: 'mnoe_admin_panel.constants.user_roles.power_user'},
+    {value: 'Admin', label: 'mnoe_admin_panel.constants.user_roles.admin'},
+    {value: 'SuperAdmin', label: 'mnoe_admin_panel.constants.user_roles.super_admin'}
+  ])
   .constant('ADMIN_ROLES', ['admin', 'staff'])  # Must be lower case
   .constant('STAFF_PAGE_AUTH', ['admin'])
   .constant('OBS_KEYS', {
