@@ -1,26 +1,26 @@
 <div class="row">
   <div class="col-lg-3 col-md-6 col-xs-12">
-    <mno-kpi class="kpi-color-1" description="Users" icon="fa-users"
+    <mno-kpi class="kpi-color-1" description="{{'mnoe_admin_panel.dashboard.home.kpi.users' | translate}}" icon="fa-users"
              value="{{vm.users.kpi.total_count}}"
-             loading="!vm.users.kpi" mno-ui-sref="dashboard.customers" link-text="{{vm.users.kpi.new_month_count}} new this current month"></mno-kpi>
+             loading="!vm.users.kpi" mno-ui-sref="dashboard.customers" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.users.link_text' | translate:{'quantity': vm.users.kpi.new_month_count} }}"></mno-kpi>
   </div>
 
   <div class="col-lg-3 col-md-6 col-xs-12">
-    <mno-kpi class="kpi-color-2" description="Organizations" icon="fa-sitemap"
+    <mno-kpi class="kpi-color-2" description="{{'mnoe_admin_panel.dashboard.home.kpi.organizations' | translate}}" icon="fa-sitemap"
              value="{{vm.organizations.kpi.total_count}}"
-             loading="!vm.organizations.kpi" mno-ui-sref="dashboard.customers" link-text="{{vm.organizations.kpi.with_cc_count}} with a credit card"></mno-kpi>
+             loading="!vm.organizations.kpi" mno-ui-sref="dashboard.customers" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.organizations.link_text' | translate:{'quantity': vm.organizations.kpi.with_cc_count} }}"></mno-kpi>
   </div>
 
   <div class="col-lg-3 col-md-6 col-xs-12">
-    <mno-kpi class="kpi-color-3" description="Last customer invoicing" icon="fa-file-text-o"
+    <mno-kpi class="kpi-color-3" description="{{'mnoe_admin_panel.dashboard.home.kpi.last_customer_invoicing' | translate}}" icon="fa-file-text-o"
              value="{{vm.invoices.lastInvoicingAmount.amount}}" unit="{{vm.invoices.lastInvoicingAmount.currency}}"
-             loading="!vm.invoices.lastInvoicingAmount" mno-ui-sref="dashboard.finance" link-text="{{vm.organizations.kpi.with_cc_count}} with a credit card"></mno-kpi>
+             loading="!vm.invoices.lastInvoicingAmount" mno-ui-sref="dashboard.finance" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.last_customer_invoicing.link_text' | translate}}"></mno-kpi>
   </div>
 
   <div class="col-lg-3 col-md-6 col-xs-12">
-    <mno-kpi class="kpi-color-4" description="Still to be paid" icon="fa-money"
+    <mno-kpi class="kpi-color-4" description="{{'mnoe_admin_panel.dashboard.home.kpi.to_be_paid' | translate}}" icon="fa-money"
              value="{{vm.invoices.outstandingAmount.amount}}" unit="{{vm.invoices.outstandingAmount.currency}}"
-             loading="!vm.invoices.outstandingAmount" mno-ui-sref="dashboard.finance" link-text="{{vm.organizations.kpi.with_cc_count}} with a credit card"></mno-kpi>
+             loading="!vm.invoices.outstandingAmount" mno-ui-sref="dashboard.finance" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.to_be_paid.link_text' | translate}}"></mno-kpi>
   </div>
 </div>
 
