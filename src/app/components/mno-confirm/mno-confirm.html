@@ -1,11 +1,11 @@
 <div class="modal-header">
   <button type="button" class="close" aria-label="Close" ng-click="modalOptions.close()"><span aria-hidden="true">&times;</span></button>
-  <h4 class="modal-title" translate>{{modalOptions.headerText}}</h4>
+  <h4 class="modal-title">{{modalOptions.headerText | translate:modalOptions.headerTextExtraData}}</h4>
 </div>
 <div class="modal-body">
-  <p translate>{{modalOptions.bodyText}}</p>
+  <p>{{modalOptions.bodyText | translate:modalOptions.bodyTextExtraData}}</p>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-default" ng-click="modalOptions.close()" translate>{{modalOptions.closeButtonText}}</button>
-  <button type="button" class="btn btn-primary" ng-click="modalOptions.ok();" translate>{{modalOptions.actionButtonText}}</button>
+  <button type="button" class="btn btn-default" ng-click="modalOptions.close()">{{modalOptions.closeButtonText | translate:modalOptions.closeButtonTextExtraData}}</button>
+  <button type="button" class="btn btn-primary" ng-click="modalOptions.ok();">{{modalOptions.actionButtonText | translate:modalOptions.actionButtonTextExtraData}}</button>
 </div>

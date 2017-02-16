@@ -5,7 +5,10 @@
     {value: 'Admin', label: 'mnoe_admin_panel.constants.user_roles.admin'},
     {value: 'SuperAdmin', label: 'mnoe_admin_panel.constants.user_roles.super_admin'}
   ])
-  .constant('ADMIN_ROLES', ['admin', 'staff'])  # Must be lower case
+  .constant('ADMIN_ROLES', [
+    {value: 'admin', label: 'mnoe_admin_panel.constants.admin_roles.admin'},
+    {value: 'staff', label: 'mnoe_admin_panel.constants.admin_roles.staff'}
+  ])  # Must be lower case
   .constant('STAFF_PAGE_AUTH', ['admin'])
   .constant('OBS_KEYS', {
     userChanged: 'userListChanged',

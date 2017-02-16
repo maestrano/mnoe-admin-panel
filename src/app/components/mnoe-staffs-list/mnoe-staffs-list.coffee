@@ -49,6 +49,9 @@
     # Widget state
     vm.state = vm.view
 
+    vm.getAdminRoleLabel = (admin_role) ->
+      return _.find(vm.staff.roles, (role) -> role.value == admin_role).label
+
     vm.staff =
       editmode: []
       search: {}
@@ -72,20 +75,20 @@
           (error) ->
             # Display an error
             $log.error('Error while saving user', error)
-            toastr.error('An error occurred while saving the user.')
+            toastr.error('mnoe_admin_panel.dashboard.staff.widget.list.toastr_error')
         )
 
       remove: (staff) ->
         modalOptions =
-          closeButtonText: 'Cancel'
-          actionButtonText: 'Delete Team Member'
-          headerText: 'Delete ' + staff.name + ' ' + staff.surname + '?'
-          bodyText: 'Are you sure you want to delete this team member?'
+          closeButtonText: 'mnoe_admin_panel.dashboard.staff.modal.add_staff.cancel'
+          actionButtonText: 'mnoe_admin_panel.dashboard.staff.modal.add_staff.delete'
+          headerText: 'mnoe_admin_panel.dashboard.staff.modal.add_staff.proceed'
+          headerTextExtraData: { staff_name: "#{staff.name} #{staff.surname}"}
+          bodyText: 'mnoe_admin_panel.dashboard.staff.modal.add_staff.perform'
 
         MnoConfirm.showModal(modalOptions).then( ->
-          console.log 'Remove staff role:' + staff
           MnoeUsers.removeStaff(staff.id).then( ->
-            toastr.success("#{staff.name} #{staff.surname} has been successfully removed.")
+            toastr.success('mnoe_admin_panel.dashboard.staff.widget.list.toastr_success', {extraData: {staff_name: "#{staff.name} #{staff.surname}"}})
           )
         )
 
