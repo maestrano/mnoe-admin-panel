@@ -49,13 +49,13 @@
 
     # Display all the users
     setAllUsersList = () ->
-      scope.users.widgetTitle = 'mnoe_admin_panel.dashboard.user.widget.all_users.title'
-      scope.users.switchLinkTitle = 'mnoe_admin_panel.dashboard.user.widget.all_users.switch_link_title'
+      scope.users.widgetTitle = 'mnoe_admin_panel.dashboard.users.widget.list.all_users.title'
+      scope.users.switchLinkTitle = 'mnoe_admin_panel.dashboard.users.widget.list.all_users.switch_link_title'
 
     # Display only the last 10 users
     setLastUsersList = () ->
-      scope.users.widgetTitle = 'mnoe_admin_panel.dashboard.user.widget.last_users.title'
-      scope.users.switchLinkTitle = 'mnoe_admin_panel.dashboard.user.widget.last_users.switch_link_title'
+      scope.users.widgetTitle = 'mnoe_admin_panel.dashboard.users.widget.list.last_users.title'
+      scope.users.switchLinkTitle = 'mnoe_admin_panel.dashboard.users.widget.list.last_users.switch_link_title'
 
     scope.searchChange = () ->
       # Only search if the string is >= than 3 characters
@@ -70,7 +70,7 @@
     # Display only the search results
     setSearchUsersList = (search) ->
       scope.users.loading = true
-      scope.users.widgetTitle = 'mnoe_admin_panel.dashboard.user.widget.search_users.title'
+      scope.users.widgetTitle = 'mnoe_admin_panel.dashboard.users.widget.list.search_users.title'
       delete scope.users.switchLinkTitle
       search = scope.users.search.toLowerCase()
       terms = {'surname.like': "#{search}%", 'name.like': "#{search}%", 'email.like': "%#{search}%" }
