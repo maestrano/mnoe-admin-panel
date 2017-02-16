@@ -69,15 +69,17 @@
               })
           )
 
-          vm.ListOfApps = _.map(_.difference(vm.appNidsToAdd, active_apps_nids),
+          vm.arrayOfApps = _.map(_.difference(vm.appNidsToAdd, active_apps_nids),
             (app_nid) ->
               _.find(vm.marketplace.filtered_apps, {
                 nid: app_nid
               }).name
           )
 
+          vm.ListOfApps = vm.arrayOfApps.join(', ')
+
       (error) ->
-        toastr.error("We could not process your request, please try again.", {preventDuplicates: false})
+        toastr.error("mnoe_admin_panel.dashboard.organization.add_app.toastr_error", {preventDuplicates: false})
 
     ).finally(-> vm.loading.apps = false)
 
