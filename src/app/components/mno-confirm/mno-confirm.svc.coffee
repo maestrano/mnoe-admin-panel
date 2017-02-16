@@ -2,10 +2,10 @@
   _self = this
 
   modalOptions =
-    closeButtonText: 'Close'
-    actionButtonText: 'OK'
-    headerText: 'Proceed?'
-    bodyText: 'Perform this action?'
+    closeButtonText: 'mnoe_admin_panel.dashboard.mno_confirm.close'
+    actionButtonText: 'mnoe_admin_panel.dashboard.mno_confirm.ok'
+    headerText: 'mnoe_admin_panel.dashboard.mno_confirm.proceed'
+    bodyText: 'mnoe_admin_panel.dashboard.mno_confirm.perform'
 
   modalDefaults =
     backdrop: true
