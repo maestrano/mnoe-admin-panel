@@ -12,25 +12,25 @@
     # Variables initialization
     scope.organizations =
       displayList: []
-      widgetTitle: 'Loading organizations...'
+      widgetTitle: 'mnoe_admin_panel.dashboard.organization.widget.local_list.loading_users.title'
       search: ''
 
     # Display all the organizations
     setAllOrganizationsList = () ->
-      scope.organizations.widgetTitle = 'All organizations (' + scope.list.length + ')'
-      scope.organizations.switchLinkTitle = '(last 10)'
+      scope.organizations.widgetTitle = 'mnoe_admin_panel.dashboard.organization.widget.local_list.all_organizations.title'
+      scope.organizations.switchLinkTitle = 'mnoe_admin_panel.dashboard.organization.widget.local_list.all_organizations.switch_link_title'
       scope.organizations.displayList = $filter('orderBy')(scope.list, 'email')
 
     # Display only the last 10 organizations
     setLastOrganizationsList = () ->
-      scope.organizations.widgetTitle = 'Last 10 organizations'
-      scope.organizations.switchLinkTitle = '(view all)'
+      scope.organizations.widgetTitle = 'mnoe_admin_panel.dashboard.organization.widget.local_list.last_organizations.title'
+      scope.organizations.switchLinkTitle = 'mnoe_admin_panel.dashboard.organization.widget.local_list.last_organizations.switch_link_title'
       scope.organizations.displayList = $filter('orderBy')(scope.list, '-created_at')
       scope.organizations.displayList = $filter('limitTo')(scope.organizations.displayList, 10)
 
     # Display only the search results
     setSearchOrganizationsList = () ->
-      scope.organizations.widgetTitle = 'Search result'
+      scope.organizations.widgetTitle = 'mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.title'
       delete scope.organizations.switchLinkTitle
       searchToLowerCase = scope.organizations.search.toLowerCase()
       scope.organizations.displayList = _.filter(scope.list, (user) ->
