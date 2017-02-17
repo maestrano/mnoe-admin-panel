@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-12">
-    <h1><i class="fa fa-users"></i> User info</h1>
+    <h1><i class="fa fa-users"></i>{{'mnoe_admin_panel.dashboard.user.subtitle' | translate}}</h1>
     <div class="panel panel-default top-buffer-2">
       <div class="panel-heading" ng-show="vm.user">
         <h3 ng-show="user.name && user.surname" class="panel-title">{{::vm.user.name}} {{::vm.user.surname}}</h3>
@@ -10,35 +10,35 @@
         <mno-loading-ellipsis ng-show="!vm.user"></mno-loading-ellipsis>
         <div ng-show="vm.user">
           <div class="bs-row row">
-            <div class="col-md-3"><div class="label-cell">Email</div></div>
+            <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.email</div></div>
             <div class="col-md-3">{{::vm.user.email}}</div>
           </div>
           <div class="bs-row row">
-            <div class="col-md-3"><div class="label-cell">UID</div></div>
+            <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.uid</div></div>
             <div class="col-md-3">{{::vm.user.uid}}</div>
           </div>
           <div class="bs-row row">
-            <div class="col-md-3"><div class="label-cell">Phone</div></div>
-            <div class="col-md-3">{{vm.user.phone || '(none)'}}</div>
+            <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.phone</div></div>
+            <div class="col-md-3">{{vm.user.phone || 'mnoe_admin_panel.dashboard.user.table.phone.none' | translate}}</div>
           </div>
           <div class="bs-row row">
-            <div class="col-sm-3"><div class="label-cell">Admin role</div></div>
-            <div class="col-sm-3">{{vm.user.admin_role || '(none)'}}</div>
+            <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.admin_role</div></div>
+            <div class="col-sm-3">{{vm.user.admin_role || 'mnoe_admin_panel.dashboard.user.table.admin_role.none' | translate}}</div>
           </div>
           <div class="bs-row row">
-            <div class="col-sm-3"><div class="label-cell">Creation date</div></div>
+            <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.creation_date</div></div>
             <div class="col-sm-3">{{vm.user.created_at | amCalendar }}</div>
           </div>
           <div class="bs-row row">
-            <div class="col-sm-3"><div class="label-cell">Confirmed</div></div>
-            <div class="col-sm-3">{{(vm.user.confirmed_at | amCalendar) || '(Not confirmed yet)'}}</div>
+            <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.confirmed</div></div>
+            <div class="col-sm-3">{{(vm.user.confirmed_at | amCalendar) || 'mnoe_admin_panel.dashboard.user.table.never_confirmed' | translate}}</div>
           </div>
           <div class="bs-row row">
-            <div class="col-sm-3"><div class="label-cell">Last sign in</div></div>
-            <div class="col-sm-3">{{(vm.user.last_sign_in_at | amCalendar) || '(Never signed in yet)'}}</div>
+            <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.last_sign_in</div></div>
+            <div class="col-sm-3">{{(vm.user.last_sign_in_at | amCalendar) || 'mnoe_admin_panel.dashboard.user.table.never_signed_in' | translate}}</div>
           </div>
           <div class="bs-row row">
-            <div class="col-sm-3"><div class="label-cell">Number of sign in</div></div>
+            <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.number_of_sign_in</div></div>
             <div class="col-sm-3">{{vm.user.sign_in_count}}</div>
           </div>
         </div>
@@ -46,8 +46,7 @@
     </div>
     <div class="bs-row">
       <div class="col-sm-4 col-sm-offset-4">
-        <button class="btn btn-primary center-block"
-          ng-click="vm.impersonateUser()">Log In as User</button>
+        <button class="btn btn-primary center-block" ng-click="vm.impersonateUser()" translate>mnoe_admin_panel.dashboard.user.login_button</button>
       </div>
       <div class="col-sm-12 top-buffer-2">
         <mnoe-organizations-local-list list="vm.user.organizations" view="all"></mnoe-organizations-local-list>
