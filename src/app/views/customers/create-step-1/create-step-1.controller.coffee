@@ -28,7 +28,7 @@
 
     MnoeOrganizations.create(vm.organization).then(
       (response) ->
-        toastr.success("Organisation #{vm.organization.name} has been successfully created.")
+        toastr.success('mnoe_admin_panel.dashboard.customers.create_customer.toastr_success', {extraData: {organization_name: vm.organization.name}})
         response = response.data.plain()
         # App to be connected?
         if _.isEmpty(response.organization.active_apps)
@@ -39,7 +39,7 @@
           $state.go('dashboard.customers.connect-app', {orgId: response.organization.id})
       (error) ->
         $document.scrollTopAnimated(0)
-        toastr.error("An error occurred while creating organisation #{vm.organization.name}.")
+        toastr.error('mnoe_admin_panel.dashboard.customers.create_customer.toastr_error', {extraData: {organization_name: vm.organization.name}})
         MnoErrorsHandler.processServerError(error, vm.form)
     ).finally(-> vm.isLoading = false)
 

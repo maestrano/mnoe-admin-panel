@@ -1,28 +1,28 @@
 <div id="create-step-1">
   <div class="row">
     <div class="col-xs-12">
-      <h1>Create a new customer</h1>
+      <h1 translate>mnoe_admin_panel.dashboard.customers.create_customer.create_customer</h1>
 
       <form name="vm.form" novalidate>
-        <mno-widget id="org-form" icon="fa-sitemap" heading="Organisation details" class="top-buffer-2">
+        <mno-widget id="org-form" icon="fa-sitemap" heading="{{'mnoe_admin_panel.dashboard.customers.create_customer.organization_details' | translate}}" class="top-buffer-2">
           <mno-widget-header></mno-widget-header>
           <mno-widget-body>
             <div class="flex-container flex-center">
               <div class="form-group flex-50">
-                <label class="control-label" for="organization-name">Organisation name</label>
-                <input id="organization-name" name="name" type="text" ng-model="vm.organization.name" class="form-control" required>
+                <label class="control-label" for="organization-name" translate>mnoe_admin_panel.dashboard.customers.create_customer.organization_name</label>
+                <input id="organization-name" name="{{'mnoe_admin_panel.dashboard.customers.create_customer.name' | translate}}" type="text" ng-model="vm.organization.name" class="form-control" required>
                 <div ng-messages="vm.form.name.$error" role="alert" ng-if="vm.form.name.$dirty || vm.form.$submitted">
-                  <p ng-message="required" class="text-danger">Name is required.</p>
-                  <p ng-message="server" class="help-block">Name {{ main.errorHandler.errorMessage('name') }}</p>
+                  <p ng-message="required" class="text-danger" translate>mnoe_admin_panel.dashboard.customers.create_customer.required.name</p>
+                  <p ng-message="server" class="help-block" translate-value-error="{{ main.errorHandler.errorMessage('name') }}" translate>mnoe_admin_panel.dashboard.customers.create_customer.error.name</p>
                 </div>
               </div>
             </div>
           </mno-widget-body>
         </mno-widget>
 
-        <mno-widget class="top-buffer-2" is-loading="!vm.marketplace" icon="fa-rocket" heading="Select your apps">
+        <mno-widget class="top-buffer-2" is-loading="!vm.marketplace" icon="fa-rocket" heading="{{'mnoe_admin_panel.dashboard.customers.create_customer.select_your_app' | translate}}">
           <mno-widget-header>
-            <input type="text" ng-model="vm.appSearch" placeholder="Search" class="form-control input-sm search-bar">
+            <input type="text" ng-model="vm.appSearch" placeholder="{{'mnoe_admin_panel.dashboard.customers.create_customer.search' | translate}}" class="form-control input-sm search-bar">
           </mno-widget-header>
           <mno-widget-body>
             <div class="apps-container">
@@ -45,7 +45,7 @@
           <span ng-show="vm.isLoading">
             <i class="fa fa-spinner fa-pulse fa-fw"></i>
           </span>
-          Create
+          {{'mnoe_admin_panel.dashboard.customers.create_customer.create' | translate}}
         </button>
       </form>
     </div>
