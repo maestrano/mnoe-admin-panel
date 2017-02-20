@@ -236,6 +236,7 @@
   "mnoe_admin_panel.dashboard.staff.add_staff.modal.placeholder.surname": "Last name",
   "mnoe_admin_panel.dashboard.staff.add_staff.modal.placeholder.email": "Email",
   "mnoe_admin_panel.dashboard.staff.add_staff.modal.placeholder.role": "- Role -",
+  "mnoe_admin_panel.dashboard.staff.add_staff.modal.toastr_success": "{{username}} has been successfully added.",
   "mnoe_admin_panel.dashboard.staff.add_staff.modal.toastr_error_email": "An error occurred while sending an email to {{email}}.",
   "mnoe_admin_panel.dashboard.staff.add_staff.modal.toastr_error": "An error occurred while adding {{user_name}}.",
   "mnoe_admin_panel.dashboard.staff.add_staff.modal.toastr_success": "{{user_name}} has been successfully added.",

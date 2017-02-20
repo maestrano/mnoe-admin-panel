@@ -19,4 +19,7 @@
     main.user = MnoeCurrentUser.user
   )
 
+  main.exit = ->
+    MnoeCurrentUser.logout()
+
   return
