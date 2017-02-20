@@ -30,11 +30,12 @@
   )
 
   .config(($translateProvider, LOCALES) ->
-    # # Path to translations files
-    # $translateProvider.useStaticFilesLoader({
-    #   prefix: 'locales/',
-    #   suffix: '.json'
-    # })
+    # Path to translations files
+    $translateProvider.useStaticFilesLoader({
+      prefix: 'locales/',
+      suffix: '.json'
+    })
+
     # language strategy
     $translateProvider.preferredLanguage(LOCALES.preferredLanguage)
     $translateProvider.fallbackLanguage(LOCALES.fallbackLanguage)
