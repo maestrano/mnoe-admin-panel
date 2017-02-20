@@ -31,7 +31,7 @@
                   <div class="checked" ng-show="app.checked">
                     <i class="fa fa-check fa-5x"></i>
                   </div>
-                  <img class="app-logo img-thumbnail" ng-src="{{::main.trustSrc(app.logo)}}" alt="{{::app.name}} logo" title="{{::app.tiny_description}}">
+                  <img class="app-logo img-thumbnail" ng-src="{{::main.trustSrc(app.logo)}}" alt="{{mnoe_admin_panel.dashboard.customers.create_customer.app_logo | template:{app: app.name}}}" title="{{::app.tiny_description}}">
                 </div>
                 <div class="app-title">
                   {{::app.name}}

@@ -80,11 +80,11 @@
 
       remove: (staff) ->
         modalOptions =
-          closeButtonText: 'mnoe_admin_panel.dashboard.staff.modal.add_staff.cancel'
-          actionButtonText: 'mnoe_admin_panel.dashboard.staff.modal.add_staff.delete'
-          headerText: 'mnoe_admin_panel.dashboard.staff.modal.add_staff.proceed'
+          closeButtonText: 'mnoe_admin_panel.dashboard.staff.modal.remove_staff.vm.user =cancel'
+          actionButtonText: 'mnoe_admin_panel.dashboard.staff.modal.remove_staff.vm.user =delete'
+          headerText: 'mnoe_admin_panel.dashboard.staff.modal.remove_staff.vm.user =proceed'
           headerTextExtraData: { staff_name: "#{staff.name} #{staff.surname}"}
-          bodyText: 'mnoe_admin_panel.dashboard.staff.modal.add_staff.perform'
+          bodyText: 'mnoe_admin_panel.dashboard.staff.modal.remove_staff.vm.user =perform'
 
         MnoConfirm.showModal(modalOptions).then( ->
           MnoeUsers.removeStaff(staff.id).then( ->
