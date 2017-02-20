@@ -50,13 +50,13 @@
 
     # Display all the organisations
     setAllOrganizationsList = () ->
-      scope.organizations.widgetTitle = 'All organisations'
-      scope.organizations.switchLinkTitle = '(last 10)'
+      scope.organizations.widgetTitle = 'mnoe_admin_panel.dashboard.organization.widget.list.all_organizations.title'
+      scope.organizations.switchLinkTitle = 'mnoe_admin_panel.dashboard.organization.widget.list.all_users.switch_link_title'
 
     # Display only the last 10 organisations
     setLastOrganizationsList = () ->
-      scope.organizations.widgetTitle = 'Last 10 organisations'
-      scope.organizations.switchLinkTitle = '(view all)'
+      scope.organizations.widgetTitle = 'mnoe_admin_panel.dashboard.organization.widget.list.last_organizations.title'
+      scope.organizations.switchLinkTitle = 'mnoe_admin_panel.dashboard.organization.widget.list.last_organizations.switch_link_title'
 
     scope.searchChange = () ->
       # Only search if the string is >= than 3 characters
@@ -71,7 +71,7 @@
     # Display only the search results
     setSearchOrganizationsList = (search) ->
       scope.organizations.loading = true
-      scope.organizations.widgetTitle = 'Search result'
+      scope.organizations.widgetTitle = 'mnoe_admin_panel.dashboard.organization.widget.list.search_users.title'
       delete scope.organizations.switchLinkTitle
       search = scope.organizations.search.toLowerCase()
       terms = {'name.like': "%#{search}%"}

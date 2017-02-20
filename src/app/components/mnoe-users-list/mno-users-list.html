@@ -1,29 +1,29 @@
-<mno-widget icon="fa-users" heading="{{users.widgetTitle}}" is-loading="users.loading">
+<mno-widget icon="fa-users" heading="{{users.widgetTitle | translate}}" is-loading="users.loading">
   <mno-widget-header>
-    &nbsp;<a href="" ng-click="switchState()" ng-show="users.list && users.switchLinkTitle" ng-class="{'disabled': users.loading}">{{users.switchLinkTitle}}</a>
-    <input type="text" ng-model="users.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }' placeholder="Search all" class="form-control input-sm search-bar" />
+    &nbsp;<a href="" ng-click="switchState()" ng-show="users.list && users.switchLinkTitle" ng-class="{'disabled': users.loading}" translate>{{users.switchLinkTitle}}</a>
+    <input type="text" ng-model="users.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }' placeholder="{{'mnoe_admin_panel.dashboard.users.widget.list.search_users.placeholder.search_all' | translate}}" class="form-control input-sm search-bar" />
   </mno-widget-header>
   <mno-widget-body class="large no-padding">
     <table class="table table-layout-fixed">
       <thead>
         <tr>
-          <th>Username</th>
-          <th width="110">Last login</th>
-          <th width="100">Creation</th>
+          <th translate>mnoe_admin_panel.dashboard.users.widget.list.table.username</th>
+          <th width="110" translate>mnoe_admin_panel.dashboard.users.widget.list.table.last_login</th>
+          <th width="100" translate>mnoe_admin_panel.dashboard.users.widget.list.table.creation</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="user in users.list">
           <td>
             <a ui-sref="dashboard.customers.user({userId: user.id})">
-              <div ng-show="user.name && user.surname">{{::user.name}}  {{::user.surname}}</div>
+              <div ng-show="user.name && user.surname">{{::user.name}} {{::user.surname}}</div>
               <div ng-show="!user.name && !user.surname">nc</div>
               <small>{{::user.email}}</small>
             </a>
           </td>
           <td>
             <span data-toggle="tooltip" title="{{::user.last_sign_in_at | date: 'H:m - dd/MM/yyyy'}}">
-              {{(user.last_sign_in_at | amTimeAgo) || 'never'}}
+              {{(user.last_sign_in_at | amTimeAgo) || ('mnoe_admin_panel.dashboard.users.widget.list.never' | translate)}}
             </span>
           </td>
           <td>{{::user.created_at | date: 'dd/MM/yyyy'}}</td>

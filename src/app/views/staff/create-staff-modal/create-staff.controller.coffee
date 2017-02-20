@@ -11,7 +11,7 @@
         # Send an email to the new staff
         sendConfirmationEmail(vm.user)
       (error) ->
-        toastr.error("An error occurred while adding #{vm.user.name} #{vm.user.surname}.")
+        toastr.error('mnoe_admin_panel.dashboard.staff.add_staff.modal.toastr_error', {extraData: { user_name: "#{vm.user.name} #{vm.user.surname}" }})
         $log.error("An error occurred:", error)
     ).finally(-> vm.isLoading = false)
 
@@ -21,19 +21,18 @@
   sendConfirmationEmail = (user) ->
     MnoeUsers.sendSignupEmail(user.email).then(
       (success) ->
-        toastr.success("#{user.name} #{user.surname} has been successfully added.")
+        toastr.success('mnoe_admin_panel.dashboard.staff.add_staff.modal.toastr_success', {extraData: { user_name: "#{vm.user.name} #{vm.user.surname}" }})
         # Close the modal returning the item to the parent window
         $uibModalInstance.close(success.data)
       (error) ->
-        toastr.error("An error occurred while sending an email to #{user.email}.")
+        toastr.error('mnoe_admin_panel.dashboard.staff.add_staff.modal.toastr_error_email', {extraData: { user_name: user.email }})
         $log.error("An error occurred:", error)
 
         # Remove the staff that has been added
         MnoeUsers.removeStaff(vm.user.id).then(
-          (success) ->
+          () ->
           (error) ->
-            toastr.error("An error occurred while deleting the user.")
-            $log.error("An error occurred:", error)
+            $log.error("An error occurred while deleting the user:", error)
         )
     )
 

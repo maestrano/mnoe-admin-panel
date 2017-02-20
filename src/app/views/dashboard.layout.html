@@ -1,4 +1,4 @@
-<mno-admin hide-footer="true" name="Dashboard">
+<mno-admin hide-footer="true" name="{{'mnoe_admin_panel.dashboard.layout.sidebar.title' | translate}}">
   <mno-admin-header>
     <div class="row header">
       <div class="col-xs-12">
@@ -11,7 +11,7 @@
             <ul class="dropdown-menu dropdown-menu-right">
               <li class="link">
                 <a href="/dashboard/">
-                  Exit
+                  {{'mnoe_admin_panel.dashboard.layout.exit' | translate}}
                 </a>
               </li>
             </ul>
@@ -19,7 +19,7 @@
         </div>
         <div class="meta">
           <div class="page">
-            Admin Panel
+            {{'mnoe_admin_panel.dashboard.layout.title' | translate}}
           </div>
           <div class="breadcrumb-links">
             <div ncy-breadcrumb></div>
@@ -30,29 +30,26 @@
   </mno-admin-header>
 
   <mno-admin-nav>
-      <li class="sidebar-title"><span>NAVIGATION</span></li>
-      <li class="sidebar-list" ui-sref-active="active">
-        <a ui-sref="dashboard.home">Dashboard <span class="menu-icon fa fa-tachometer"></span></a>
-      </li>
-      <li class="sidebar-list" ui-sref-active="active">
-        <a ui-sref="dashboard.finance">Finance <span class="menu-icon fa fa-money"></span></a>
-      </li>
-      <li class="sidebar-list" ui-sref-active="active">
-        <a ui-sref="dashboard.customers">Customers<span class="menu-icon fa fa-users"></span></a>
-      </li>
-      <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ui-sref-active="active">
-        <a ui-sref="dashboard.staff">Staff <span class="menu-icon fa fa-wrench"></span></a>
-      </li>
-      <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="main.isReviewingEnabled" ui-sref-active="active">
-        <a ui-sref="dashboard.reviews">Comments <span class="menu-icon fa fa-comment"></span></a>
-      </li>
-
+    <li class="sidebar-title"><span>{{'mnoe_admin_panel.dashboard.layout.sidebar.navigation' | translate}}</span></li>
+    <li class="sidebar-list" ui-sref-active="active">
+      <a ui-sref="dashboard.home">{{'mnoe_admin_panel.dashboard.layout.sidebar.home' | translate}}<span class="menu-icon fa fa-tachometer"></span></a>
+    </li>
+    <li class="sidebar-list" ui-sref-active="active">
+      <a ui-sref="dashboard.finance">{{'mnoe_admin_panel.dashboard.layout.sidebar.finance' | translate}}<span class="menu-icon fa fa-money"></span></a>
+    </li>
+    <li class="sidebar-list" ui-sref-active="active">
+      <a ui-sref="dashboard.customers">{{'mnoe_admin_panel.dashboard.layout.sidebar.customers' | translate}}<span class="menu-icon fa fa-users"></span></a>
+    </li>
+    <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ui-sref-active="active">
+      <a ui-sref="dashboard.staff">{{'mnoe_admin_panel.dashboard.layout.sidebar.staff' | translate}}<span class="menu-icon fa fa-wrench"></span></a>
+    </li>
+    <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="main.isReviewingEnabled" ui-sref-active="active">
+      <a ui-sref="dashboard.reviews">{{'mnoe_admin_panel.dashboard.layout.sidebar.comments' | translate}}<span class="menu-icon fa fa-comment"></span></a>
+    </li>
   </mno-admin-nav>
 
   <mno-admin-content>
       <!-- Main Content -->
       <div ui-view></div>
   </mno-admin-content>
-
-  <mno-admin-footer></mno-admin-footer>
 </mno-admin>

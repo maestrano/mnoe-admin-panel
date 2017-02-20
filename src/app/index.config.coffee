@@ -3,7 +3,6 @@
     # Enable log
     $logProvider.debugEnabled true
     # Set options third-party lib
-    toastrConfig.allowHtml = true
     toastrConfig.timeOut = 3000
     toastrConfig.positionClass = 'toast-top-right'
     toastrConfig.preventDuplicates = true
@@ -28,4 +27,36 @@
           $q.reject rejection
       }
     )
+  )
+
+  .config(($translateProvider, LOCALES) ->
+    # Path to translations files
+    $translateProvider.useStaticFilesLoader({
+      prefix: 'locales/',
+      suffix: '.json'
+    })
+
+    # language strategy
+    $translateProvider.preferredLanguage(LOCALES.preferredLanguage)
+    $translateProvider.fallbackLanguage(LOCALES.fallbackLanguage)
+    $translateProvider.useMissingTranslationHandlerLog()
+    $translateProvider.useSanitizeValueStrategy('sanitize')
+    $translateProvider.addInterpolation('$translateMessageFormatInterpolation')
+
+    # remember language
+    # $translateProvider.useLocalStorage()
+  )
+
+  # Overwrite default template for i18n purpose
+  .config(($breadcrumbProvider) ->
+    $breadcrumbProvider.setOptions({
+      template: '''
+        <ol class="breadcrumb">
+          <li ng-repeat="step in steps" ng-class="{active: $last}" ng-switch="$last || !!step.abstract">
+            <a ng-switch-when="false" href="{{step.ncyBreadcrumbLink}}">{{step.ncyBreadcrumbLabel | translate}}</a>
+          <span ng-switch-when="true">{{step.ncyBreadcrumbLabel | translate}}</span>
+          </li>
+        </ol>
+    '''
+    })
   )

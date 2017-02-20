@@ -9,7 +9,7 @@
         # Apps has been succesfuly removed
       (error) ->
         # Something went wrong
-        toastr.error("There was a problem and your app has not been deleted.")
+        toastr.error('mnoe_admin_panel.dashboard.organization.remove_app.toastr_error')
     )
 
 
