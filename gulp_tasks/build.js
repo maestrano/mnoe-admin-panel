@@ -11,6 +11,7 @@ const sourcemaps = require('gulp-sourcemaps');
 const uglifySaveLicense = require('uglify-save-license');
 const inject = require('gulp-inject');
 const ngAnnotate = require('gulp-ng-annotate');
+const replace = require('gulp-replace');
 
 const conf = require('../conf/gulp.conf');
 
@@ -37,6 +38,8 @@ function build() {
     .pipe(rev())
     .pipe(jsFilter.restore)
     .pipe(cssFilter)
+    .pipe(replace('../../bower_components/bootstrap/fonts/', '../fonts/'))
+    .pipe(replace('../../bower_components/font-awesome/fonts', '../fonts'))
     .pipe(cssnano())
     .pipe(rev())
     .pipe(cssFilter.restore)
