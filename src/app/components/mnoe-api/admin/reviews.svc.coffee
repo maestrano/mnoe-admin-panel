@@ -10,7 +10,7 @@
       (error) ->
         # Display an error
         $log.error('Error while fetching reviews', error)
-        toastr.error('An error occured while fetching the reviews.')
+        toastr.error('mnoe_admin_panel.dashboard.reviews_list.toastr_error')
     )
 
   # UPDATE /mnoe/jpi/v1/admin/app_reviews/1
@@ -21,7 +21,7 @@
       (error) ->
         # Display an error
         $log.error('Error while updating review', error)
-        toastr.error('An error occured while updating the review.')
+        toastr.error('mnoe_admin_panel.dashboard.feedback.toastr_error')
     )
 
   @updateDescription = (review) ->
@@ -31,7 +31,7 @@
       (error) ->
         # Display an error
         $log.error('Error while updating review', error)
-        toastr.error('An error occured while updating the review.')
+        toastr.error('mnoe_admin_panel.dashboard.feedback.toastr_error')
     )
 
   @replyQuestion = (id, replyText) ->
@@ -41,7 +41,7 @@
       (error) ->
         # Display an error
         $log.error('Error while updating review', error)
-        toastr.error('An error occured while replying to question.')
+        toastr.error('mnoe_admin_panel.dashboard.questions_reply_modal.toastr_error')
     )
 
   @replyFeedback = (id, replyText) ->
@@ -51,7 +51,7 @@
       (error) ->
         # Display an error
         $log.error('Error while updating review', error)
-        toastr.error('An error occured while replying to review.')
+        toastr.error('mnoe_admin_panel.dashboard.comment_edit.toastr_error')
     )
 
   return @

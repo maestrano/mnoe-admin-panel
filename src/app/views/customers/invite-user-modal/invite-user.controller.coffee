@@ -8,11 +8,11 @@
     vm.isLoading = true
     MnoeUsers.sendSignupEmail(vm.user.email).then(
       (success) ->
-        toastr.success("An email to #{vm.user.email} has been successfully sent.")
+        toastr.success('mnoe_admin_panel.dashboard.customers.invite_user_modal.toastr_success', {extraData: {email: vm.user.email}})
         # Close the modal returning the item to the parent window
         $uibModalInstance.close(vm.user.email)
       (error) ->
-        toastr.error("An error occurred while sending an email to #{vm.user.email}.")
+        toastr.error('mnoe_admin_panel.dashboard.customers.invite_user_modal.toastr_error', {extraData: {email: vm.user.email}})
         MnoErrorsHandler.processServerError(error)
     ).finally(-> vm.isLoading = false)
 

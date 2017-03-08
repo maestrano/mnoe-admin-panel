@@ -14,7 +14,7 @@
       controller: 'HomeController'
       controllerAs: 'vm'
       ncyBreadcrumb:
-        label: 'Home'
+        label: 'mnoe_admin_panel.dashboard.home.title'
     .state 'dashboard.finance',
       data:
         pageTitle:'Finance'
@@ -23,7 +23,7 @@
       controller: 'FinanceController'
       controllerAs: 'vm'
       ncyBreadcrumb:
-        label: 'Finance'
+        label: 'mnoe_admin_panel.dashboard.finance.title'
     .state 'dashboard.staff',
       data:
         pageTitle:'Staff'
@@ -32,7 +32,7 @@
       controller: 'StaffController'
       controllerAs: 'vm'
       ncyBreadcrumb:
-        label: 'Staff'
+        label: 'mnoe_admin_panel.dashboard.staff.title'
       resolve:
         skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
     .state 'dashboard.reviews',
@@ -42,7 +42,7 @@
       templateUrl: 'app/views/reviews/reviews.html'
       controllerAs: 'vm'
       ncyBreadcrumb:
-        label: 'Reviews'
+        label: 'mnoe_admin_panel.dashboard.reviews.title'
       resolve:
         skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
         skipCondition: (RoutingHelper, REVIEWS_CONFIG) -> RoutingHelper.skipUnlessCondition(REVIEWS_CONFIG && REVIEWS_CONFIG.enabled)
@@ -54,7 +54,7 @@
       controller: 'CustomersController'
       controllerAs: 'vm'
       ncyBreadcrumb:
-        label: 'Customers'
+        label: 'mnoe_admin_panel.dashboard.customers.title'
     .state 'dashboard.customers.user',
       data:
         pageTitle:'User'
@@ -64,7 +64,7 @@
         controller: 'UserController'
         controllerAs: 'vm'
       ncyBreadcrumb:
-        label: 'User'
+        label: 'mnoe_admin_panel.dashboard.user.title'
     .state 'dashboard.customers.organization',
       data:
         pageTitle:'Organization'
@@ -74,7 +74,7 @@
         controller: 'OrganizationController'
         controllerAs: 'vm'
       ncyBreadcrumb:
-        label: 'Organisation'
+        label: 'mnoe_admin_panel.dashboard.organization.title'
     .state 'dashboard.customers.create-step-1',
       url: '^/customers/create-customer'
       views: '@dashboard':
@@ -82,7 +82,7 @@
         controller: 'CreateStep1Controller'
         controllerAs: 'vm'
       ncyBreadcrumb:
-        label: 'Create a new customer'
+        label: 'mnoe_admin_panel.dashboard.customers.create_customer.title'
     .state 'dashboard.customers.connect-app',
       url: '^/customers/:orgId/connect-apps'
       views: '@dashboard':
@@ -90,6 +90,6 @@
         controller: 'ConnectAppController'
         controllerAs: 'vm'
       ncyBreadcrumb:
-        label: 'Connect cloud apps'
+        label: 'mnoe_admin_panel.dashboard.customers.connect_app.title'
 
   $urlRouterProvider.otherwise '/home'

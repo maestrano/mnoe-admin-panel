@@ -1,24 +1,24 @@
 <div class="row">
   <div class="col-lg-3 col-md-6 col-xs-12">
-    <mno-kpi class="kpi-color-1" description="Current billing" icon="fa-file-text-o"
+    <mno-kpi class="kpi-color-1" description="{{'mnoe_admin_panel.dashboard.finance.current_billing' | translate}}" icon="fa-file-text-o"
              value="{{vm.invoices.currentBillingAmount.amount}}" unit="{{vm.invoices.currentBillingAmount.currency}}"
              loading="!vm.invoices.currentBillingAmount">
     </mno-kpi>
   </div>
   <div class="col-lg-3 col-md-6 col-xs-12">
-    <mno-kpi class="kpi-color-2" description="Last customer invoicing" icon="fa-file-text-o"
+    <mno-kpi class="kpi-color-2" description="{{'mnoe_admin_panel.dashboard.finance.last_customer_invoicing' | translate}}" icon="fa-file-text-o"
              value="{{vm.invoices.lastInvoicingAmount.amount}}" unit="{{vm.invoices.lastInvoicingAmount.currency}}"
              loading="!vm.invoices.lastInvoicingAmount">
     </mno-kpi>
   </div>
   <div class="col-lg-3 col-md-6 col-xs-12">
-    <mno-kpi class="kpi-color-3" description="Last revenue" icon="fa-file-text-o"
+    <mno-kpi class="kpi-color-3" description="{{'mnoe_admin_panel.dashboard.finance.last_revenue' | translate}}" icon="fa-file-text-o"
              value="{{vm.invoices.lastPortfolioAmount.amount}}" unit="{{vm.invoices.lastPortfolioAmount.currency}}"
              loading="!vm.invoices.lastPortfolioAmount">
     </mno-kpi>
   </div>
   <div class="col-lg-3 col-md-6 col-xs-12">
-    <mno-kpi class="kpi-color-4" description="Last commission" icon="fa-file-text-o"
+    <mno-kpi class="kpi-color-4" description="{{'mnoe_admin_panel.dashboard.finance.last_commission' | translate}}" icon="fa-file-text-o"
              value="{{vm.invoices.lastCommissionAmount.amount}}" unit="{{vm.invoices.lastCommissionAmount.currency}}"
              loading="!vm.invoices.lastCommissionAmount">
     </mno-kpi>
@@ -27,16 +27,16 @@
 
 <div class="row">
   <div class="col-lg-6">
-    <mno-widget icon="fa-exclamation-circle" heading="Customer accounts in arrears">
+    <mno-widget icon="fa-exclamation-circle" heading="{{'mnoe_admin_panel.dashboard.finance.customer_accounts_in_arrears' | translate}}">
       <mno-widget-header></mno-widget-header>
       <mno-widget-body class="large no-padding">
         <div class="table-responsive">
           <table class="table">
             <thead>
               <tr>
-                <th>Organisation</th>
-                <th>Amount</th>
-                <th>Reason</th>
+                <th translate>mnoe_admin_panel.dashboard.finance.table.organization</th>
+                <th translate>mnoe_admin_panel.dashboard.finance.table.amount</th>
+                <th translate>mnoe_admin_panel.dashboard.finance.table.reason</th>
               </tr>
             </thead>
             <tbody>
@@ -57,18 +57,18 @@
     </mno-widget>
   </div>
   <div class="col-lg-6">
-    <mno-widget icon="fa-file-text-o" heading="Your partner reports" is-loading="!vm.invoices.tenantInvoices">
+    <mno-widget icon="fa-file-text-o" heading="{{'mnoe_admin_panel.dashboard.finance.current_billing.your+partner_report' | translate}}" is-loading="!vm.invoices.tenantInvoices">
       <mno-widget-header></mno-widget-header>
       <mno-widget-body class="large no-padding">
         <div class="table-responsive">
           <table class="table">
             <thead>
               <tr>
-                <th>Start</th>
-                <th>End</th>
-                <th>Revenue</th>
-                <th>Commission</th>
-                <th class="text-center">Paid</th>
+                <th translate>mnoe_admin_panel.dashboard.finance.table.start</th>
+                <th translate>mnoe_admin_panel.dashboard.finance.table.end</th>
+                <th translate>mnoe_admin_panel.dashboard.finance.table.revenue</th>
+                <th translate>mnoe_admin_panel.dashboard.finance.table.commission</th>
+                <th class="text-center" translate>mnoe_admin_panel.dashboard.finance.table.paid</th>
               </tr>
             </thead>
             <tbody>
@@ -78,8 +78,8 @@
                 <td>{{invoice.total_portfolio_amount.options.iso_code}} {{invoice.total_portfolio_amount.value}}</td>
                 <td>{{invoice.total_commission_amount.options.iso_code}} {{invoice.total_commission_amount.value}}</td>
                 <td class="text-center">
-                  <span ng-if="invoice.paid_at" class="text-success">Yes</span>
-                  <span ng-if="!invoice.paid_at" class="text-danger">No</span>
+                  <span ng-if="invoice.paid_at" class="text-success" translate>mnoe_admin_panel.dashboard.finance.table.yes</span>
+                  <span ng-if="!invoice.paid_at" class="text-danger" translate>mnoe_admin_panel.dashboard.finance.table.no</span>
                 </td>
               </tr>
             </tbody>

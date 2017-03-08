@@ -8,27 +8,6 @@
 @elemental-aqua:    #2C594F;
 @elemental-blue:    #002D40;
 
-@mno-dark:        #17262d;
-@mno-green:       #d1e55c;
-@mno-blue:        #00e5f0;
-@mno-purple:      #977bf0;
-@mno-grey:        #626d6d;
-@mno-white:       #fff;
-@mno-light-blue:  #abc4c6;
-@mno-light-grey:  #e6edee;
-
-@mno-web-green:   #47ff00;
-@mno-web-yellow:  #fbd925;
-@mno-web-orange:  #ff7300;
-@mno-web-pink:    #ed1e79;
-@color-danger:    #d43f3a;
-
-@brand-primary:         darken(#428bca, 6.5%);
-@brand-success:         #5cb85c;
-@brand-info:            #5bc0de;
-@brand-warning:         #f0ad4e;
-@brand-danger:          #d9534f;
-
 /* General */
 @border-radius-base:      4px;
 @border-radius-large:     6px;
@@ -47,30 +26,27 @@
 @mno-admin-kpi-bg-color-3:  @elemental-green;
 @mno-admin-kpi-bg-color-4:  @elemental-aqua;
 
-
 /* Header vars */
-@mno-admin-header-bg-color:           #fff;
-@mno-admin-header-font-color:         #000;
+@mno-admin-header-bg-color:           lighten(@bg-main-color, 5%);
+@mno-admin-header-font-color:         @text-main-strong-color;
 @mno-admin-header-height:             60px;
 @mno-admin-header-title-text-size:    18px;
-@mno-admin-header-title-text-color:   @mno-admin-header-font-color;
+@mno-admin-header-title-text-color:   @text-main-strong-color;
 
-@mno-admin-header-user-color:         #919191;
+@mno-admin-header-user-color:         @text-main-color;
 
 /* Main content */
-@mno-admin-content-bg-color:          #f1f1f1;
+@mno-admin-content-bg-color:          @bg-main-color;
 
 /* Navigation - Sidebar */
-@mno-admin-sidebar-base-color:        #30426a;
-@mno-admin-sidebar-menu-base-color:   #e99d1a;
-
+@mno-admin-sidebar-base-color:                      @bg-inverse-color;
 @mno-admin-sidebar-header-color:                    darken(@mno-admin-sidebar-base-color, 5%);
 @mno-admin-sidebar-footer-color:                    darken(@mno-admin-sidebar-base-color, 5%);
-@mno-admin-sidebar-title-color:                     #738bc0;
-@mno-admin-sidebar-menu-item-font-color:            #b2bfdc;
-@mno-admin-sidebar-menu-item-font-hover-color:      #fff;
-@mno-admin-sidebar-menu-item-hover-color:           @mno-admin-sidebar-menu-base-color;
-@mno-admin-sidebar-menu-item-hover-border-color:    @mno-admin-sidebar-menu-base-color;
+@mno-admin-sidebar-title-color:                     lighten(@mno-admin-sidebar-base-color, 45%);
+@mno-admin-sidebar-menu-item-font-color:            @text-inverse-color;
+@mno-admin-sidebar-menu-item-font-hover-color:      @text-inverse-strong-color;
+@mno-admin-sidebar-menu-item-hover-color:           @decorator-main-color;
+@mno-admin-sidebar-menu-item-hover-border-color:    @decorator-main-color;
 @mno-admin-sidebar-menu-item-hover-bg-color:        darken(@mno-admin-sidebar-base-color, 3%);
 @mno-admin-sidebar-menu-active-item-font-color:     @mno-admin-sidebar-menu-item-font-hover-color;
 @mno-admin-sidebar-menu-active-item-border-color:   @mno-admin-sidebar-menu-item-hover-border-color;
@@ -79,31 +55,43 @@
 @mno-admin-sidebar-reduced-width:                   70px;
 
 /* Widget */
-@mno-widget-bg-color:                     @mno-white;
-@mno-widget-border-color:                 darken(@mno-admin-content-bg-color, 3%);
-@mno-widget-header-font-color:            @mno-grey;
-@mno-widget-header-bg-color:              lighten(@mno-admin-content-bg-color, 3%);
-@mno-widget-header-border-bottom-color:   darken(@mno-admin-content-bg-color, 3%);
-@mno-widget-body-loader-color:            @mno-admin-sidebar-base-color;
+@mno-widget-bg-color:                     lighten(@bg-main-color, 5%);
+@mno-widget-border-color:                 darken(@mno-widget-bg-color, 15%);
+@mno-widget-header-bg-color:              darken(@mno-widget-bg-color, 2%);
+@mno-widget-header-font-color:            @text-main-color;
+@mno-widget-header-border-bottom-color:   @mno-widget-border-color;
+@mno-widget-body-loader-color:            @decorator-touch-color;
+@mno-widget-footer-bg-color:              darken(@mno-widget-bg-color, 2%);
+@mno-widget-footer-border-top-color:      @mno-widget-header-border-bottom-color;
 
 /* Forms */
-@input-bg:                       #fff;
-@input-bg-disabled:              @gray-lighter;
-@input-color:                    @gray;
-@input-border:                   #ccc;
+@input-bg:                       lighten(@bg-main-color, 5%);
+@input-bg-disabled:              darken(@bg-main-color, 10%);
+@input-color:                    @text-main-color;
+@input-border:                   darken(@bg-main-color, 15%);
 @input-border-radius:            @border-radius-base;
 @input-border-radius-large:      @border-radius-large;
 @input-border-radius-small:      @border-radius-small;
-@input-border-focus:             #66afe9;
-@input-color-placeholder:        #999;
+@input-border-focus:             @decorator-main-color;
+@input-color-placeholder:        lighten(@text-main-color, 5%);
 @form-group-margin-bottom:       15px;
-@legend-color:                   @gray-dark;
-@legend-border-color:            #e5e5e5;
+@legend-color:                   @text-main-strong-color;
+@legend-border-color:            darken(@bg-main-color, 10%);
 @input-group-addon-bg:           @gray-lighter;
 @input-group-addon-border-color: @input-border;
 
+/* Table */
+@table-header-border-color:     darken(@bg-main-color, 15%);
+@table-border-color:            darken(@bg-main-color, 10%);
+@table-bg:                      lighten(@bg-main-color, 5%);
+@table-bg-accent:               @bg-main-color;
+@table-bg-hover:                darken(@bg-main-color, 10%);
+@table-bg-active:               @table-bg-hover;
+@headings-color:                @text-main-color;
+@mno-row-sublink-color:         @text-main-strong-color;
+
 /* DropDown */
-@dropdown-bg:                   @mno-white;
+@dropdown-bg:                   lighten(@bg-main-color, 5%);
 @dropdown-divider-bg:           darken(@dropdown-bg, 5%);
 @dropdown-link-color:           #333333;
 @dropdown-link-hover-color:     darken(@dropdown-link-color, 5%);
@@ -113,18 +101,17 @@
 @dropdown-link-disabled-color:  @dropdown-link-hover-color;
 @dropdown-header-color:         @dropdown-link-hover-color;
 @dropdown-border:               rgba(0,0,0,.15);
-@dropdown-fallback-border:      #ccc;
+@dropdown-fallback-border:      @bg-main-color;
 
 /* Modals */
 @modal-inner-padding:                   15px;
 @modal-title-padding:                   15px;
 @modal-title-line-height:               @line-height-base;
-@modal-content-bg:                      #fff;
+@modal-content-bg:                      lighten(@bg-main-color, 5%);
 @modal-content-border-color:            rgba(0,0,0,.2);
-@modal-content-fallback-border-color:   #999;
 @modal-backdrop-bg:                     #000;
 @modal-backdrop-opacity:                .5;
-@modal-header-border-color:             #e5e5e5;
+@modal-header-border-color:             darken(@modal-content-bg, 10%);
 @modal-footer-border-color:             @modal-header-border-color;
 
 @modal-lg: 900px;

@@ -1,33 +1,33 @@
 <div id="create-user">
   <div class="modal-header">
-    <h3 class="modal-title">Add a new user</h3>
+    <h3 class="modal-title" translate>mnoe_admin_panel.dashboard.organization.create_user.add</h3>
   </div>
 
   <form name="vm.form.user" novalidate>
     <div class="modal-body">
       <div class="row">
         <div class="col-sm-6">
-          <input type="text" class="form-control input-sm" id="user-first-name" ng-model="vm.user.name" placeholder="First Name" aria-label="First Name" required>
+          <input type="text" class="form-control input-sm" id="user-first-name" ng-model="vm.user.name" placeholder="{{'mnoe_admin_panel.dashboard.organization.create_user.form.first_name' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.organization.create_user.form.first_name' | translate}}" required>
         </div>
         <div class="col-sm-6">
-          <input type="text" class="form-control input-sm" id="user-last-name" ng-model="vm.user.surname" placeholder="Last Name" aria-label="Last Name" required>
+          <input type="text" class="form-control input-sm" id="user-last-name" ng-model="vm.user.surname" placeholder="{{'mnoe_admin_panel.dashboard.organization.create_user.form.last_name' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.organization.create_user.form.last_name' | translate}}" required>
         </div>
       </div>
 
       <div class="row top-buffer-1">
         <div class="col-sm-6">
-          <input type="phone" class="form-control input-sm" id="user-phone" ng-model="vm.user.phone" placeholder="Phone" aria-label="Phone" required>
+          <input type="phone" class="form-control input-sm" id="user-phone" ng-model="vm.user.phone" placeholder="{{'mnoe_admin_panel.dashboard.organization.create_user.form.phone' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.organization.create_user.form.phone' | translate}}" required>
         </div>
 
         <div class="col-sm-6">
-          <input type="email" class="form-control input-sm" id="user-email" ng-model="vm.user.email" placeholder="Email" aria-label="Email" required>
+          <input type="email" class="form-control input-sm" id="user-email" ng-model="vm.user.email" placeholder="{{'mnoe_admin_panel.dashboard.organization.create_user.form.email' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.organization.create_user.form.email' | translate}}" required>
         </div>
       </div>
 
       <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
-          <select ng-model="vm.user.role" class="form-control input-sm top-buffer-1" ng-options="role for role in vm.USER_ROLES" required>
-            <option value='' disabled selected style="display: none;">Role</option>
+          <select ng-model="vm.user.role" class="form-control input-sm top-buffer-1" ng-options="role.value as role.label | translate for role in vm.USER_ROLES" required>
+            <option value='' disabled selected style="display: none;" translate>mnoe_admin_panel.dashboard.organization.create_user.form.role</option>
           </select>
         </div>
       </div>
@@ -39,9 +39,9 @@
       <div class="col-xs-12">
         <button type="button" ng-click="vm.onSubmit()" ng-disabled="vm.isLoading || vm.form.user.$invalid" class="btn btn-primary">
           <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
-          Save
+          {{'mnoe_admin_panel.dashboard.organization.create_user.save' | translate}}
         </button>
-        <a href="" ng-click="vm.onCancel()"><i class="fa fa-times"></i> cancel</a>
+        <a href="" ng-click="vm.onCancel()"><i class="fa fa-times"></i>{{'mnoe_admin_panel.dashboard.organization.create_user.cancel' | translate}}</a>
       </div>
     </div>
   </div>

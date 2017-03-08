@@ -8,8 +8,8 @@
     "xero_country": "AU"
   }
   vm.countries = [
-    {name: "Australia", value: "AU"},
-    {name: "USA", value: "US"}
+    {label: "mnoe_admin_panel.constants.countries.australia", value: "AU"},
+    {label: "mnoe_admin_panel.constants.countries.usa", value: "US"}
   ]
 
   vm.connect = (form) ->

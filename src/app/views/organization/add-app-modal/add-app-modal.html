@@ -1,17 +1,18 @@
 <div id="add-app-modal">
   <!-- Modal Header -->
   <div class="modal-header">
-    <h3 class="modal-title">Add more apps</h3>
+    <h3 class="modal-title" translate>mnoe_admin_panel.dashboard.organization.add_app.title</h3>
     <div class="close" type="button" ng-click="vm.closeModal()">×</div>
   </div>
   <!-- Modal Body -->
   <div class="modal-body" style="max-height:{{vm.modal_height}};">
     <div class="alert alert-danger modal-error" ng-if="vm.displayError">
       <div class="close" type="button" ng-click="vm.closeError()" >×</div>
-      <strong>Error:</strong> <b ng-repeat="app in vm.ListOfApps track by $index">{{app}}{{$last ? '' : ', '}}</b> could not be added. Please try again in a moment.
-    </div>
+        <strong translate>mnoe_admin_panel.dashboard.organization.add_app.error</strong>
+        {{'mnoe_admin_panel.dashboard.organization.add_app.error_message' | translate:{'app_list': vm.ListOfApps} }}
+      </div>
     <div class="apps-search" ng-if="!vm.loading.modal">
-      <input type="search" ng-model="vm.appSearch" placeholder="Search..."/>
+      <input type="search" ng-model="vm.appSearch" placeholder="{{'mnoe_admin_panel.dashboard.organization.add_app.search' | translate}}"/>
     </div>
     <div class="apps-container">
       <div class="app-loader" ng-if="vm.loading.modal">
@@ -36,10 +37,10 @@
       <div class="col-md-12">
         <button ng-click="vm.addApps()" ng-disabled="vm.loading.apps" class="btn btn-primary arrow">
           <span ng-show="vm.loading.apps"><i class="fa fa-pulse fa-spinner"></i></span>
-          Add
+          {{'mnoe_admin_panel.dashboard.organization.add_app.add' | translate}}
         </button>
-        <button ng-click="vm.closeModal()" class="btn btn-default">
-          Cancel
+        <button ng-click="vm.closeModal()" class="btn btn-default" translate>
+          mnoe_admin_panel.dashboard.organization.add_app.cancel
         </button>
       </div>
     </div>

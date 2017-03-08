@@ -13,25 +13,25 @@
     # Variables initialization
     scope.users =
       displayList: []
-      widgetTitle: 'Loading users...'
+      widgetTitle: 'mnoe_admin_panel.dashboard.users.widget.local_list.loading_users.title'
       search: ''
 
     # Display all the users
     setAllUsersList = () ->
-      scope.users.widgetTitle = 'All users (' + scope.list.length + ')'
-      scope.users.switchLinkTitle = '(last 10)'
+      scope.users.widgetTitle = 'mnoe_admin_panel.dashboard.users.widget.local_list.all_users.title'
+      scope.users.switchLinkTitle = 'mnoe_admin_panel.dashboard.users.widget.local_list.all_users.switch_link_title'
       scope.users.displayList = $filter('orderBy')(scope.list, 'email')
 
     # Display only the last 10 users
     setLastUsersList = () ->
-      scope.users.widgetTitle = 'Last 10 users'
-      scope.users.switchLinkTitle = '(view all)'
+      scope.users.widgetTitle = 'mnoe_admin_panel.dashboard.users.widget.local_list.last_users.title'
+      scope.users.switchLinkTitle = 'mnoe_admin_panel.dashboard.users.widget.local_list.last_users.switch_link_title'
       scope.users.displayList = $filter('orderBy')(scope.list, '-created_at')
       scope.users.displayList = $filter('limitTo')(scope.users.displayList, 10)
 
     # Display only the search results
     setSearchUsersList = () ->
-      scope.users.widgetTitle = 'Search result'
+      scope.users.widgetTitle = 'mnoe_admin_panel.dashboard.users.widget.local_list.search_users.title'
       delete scope.users.switchLinkTitle
       searchToLowerCase = scope.users.search.toLowerCase()
       scope.users.displayList = _.filter(scope.list, (user) ->
@@ -70,11 +70,11 @@
       user.isSendingInvite = true
       MnoeUsers.inviteUser(scope.organization, user).then(
         (response) ->
-          toastr.success("#{user.name} #{user.surname}'s invitation has been sent.")
+          toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.toastr_success', {extraData: {username: "#{user.name} #{user.surname}"}})
           # Update status
           user.status = response.data.user.status
         (error) ->
-          toastr.error("An error occurred: #{user.name} #{user.surname}'s invitation has not been sent.")
+          toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.toastr_error', {extraData: {username: "#{user.name} #{user.surname}"}})
           MnoErrorsHandler.processServerError(error)
       ).finally(-> user.isSendingInvite = false)
 

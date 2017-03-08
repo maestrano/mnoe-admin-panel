@@ -1,14 +1,14 @@
-<mno-widget icon="fa-sitemap" heading="{{organizations.widgetTitle}}" is-loading="!list">
+<mno-widget icon="fa-sitemap" heading="{{organizations.widgetTitle | translate:{'length': list.length} }}" is-loading="!list">
   <mno-widget-header>
-    &nbsp;<a href="" ng-click="switchState()" ng-show="list && organizations.switchLinkTitle">{{organizations.switchLinkTitle}}</a>
-    <input type="text" ng-model="organizations.search" ng-change="searchChange()" placeholder="Search all" class="form-control input-sm search-bar" />
+    &nbsp;<a href="" ng-click="switchState()" ng-show="list && organizations.switchLinkTitle" translate>{{organizations.switchLinkTitle}}</a>
+    <input type="text" ng-model="organizations.search" ng-change="searchChange()" placeholder="{{'mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.placeholder.search_all' | translate}}" class="form-control input-sm search-bar" />
   </mno-widget-header>
   <mno-widget-body class="large no-padding">
     <table class="table table-layout-fixed">
       <thead>
         <tr>
-          <th>Name</th>
-          <th style="width: 100px;">Creation</th>
+          <th translate>mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.name</th>
+          <th style="width: 100px;" translate>mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.creation</th>
         </tr>
       </thead>
       <tbody>

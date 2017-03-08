@@ -5,7 +5,7 @@
   @list = (limit, offset, sort) ->
     promise = MnoeAdminApiSvc.all('users').getList({order_by: sort, limit: limit, offset: offset}).then(
       (response) ->
-        MnoeObservables.notifyObservers(OBS_KEYS.userChanged, promise)
+        MnoeObservables.notifyObservers(OBS_KEYS.userChanged, response)
         response
     )
 
@@ -49,13 +49,13 @@
   # Update the admin-role of a staff to nothing
   # UPDATE /mnoe/jpi/v1/admin/users/:id
   @removeStaff = (id) ->
-    promise = MnoeAdminApiSvc.one('users', id).patch({admin_role: ""}).then(
+    promise = MnoeAdminApiSvc.one('users', id).patch({admin_role: null}).then(
       (response) ->
         MnoeObservables.notifyObservers(OBS_KEYS.staffChanged, promise)
       (error) ->
         # Display an error
         $log.error('Error while deleting user', error)
-        toastr.error('An error occured while deleting the user.')
+        toastr.error('mnoe_admin_panel.dashboard.staff.modal.remove_staff.toastr_error')
     )
 
   # Invite a user to join an organization

@@ -7,7 +7,9 @@
 
     scope.editmode = []
     scope.listOfReviews = []
-    scope.statuses = ['approved', 'rejected']
+    scope.statuses = [
+      {value: 'approved', label: 'mnoe_admin_panel.dashboard.reviews_list.status_label.approved'},
+      {value: 'rejected', label: 'mnoe_admin_panel.dashboard.reviews_list.status_label.rejected'}]
 
     #====================================
     # Comment modal

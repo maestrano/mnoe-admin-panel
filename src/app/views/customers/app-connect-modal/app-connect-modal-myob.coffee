@@ -7,7 +7,9 @@
     perform: true
     version: "essentials"
   }
-  vm.versions = [{name: "Account Right Live", value: "account_right"}, {name: "Essentials", value: "essentials"}]
+  vm.versions = [
+    {label: "mnoe_admin_panel.dashboard.customers.connect_app.myob.version_type.right_live", value: "account_right"},
+    {label: "mnoe_admin_panel.dashboard.customers.connect_app.myob.version_type.essentials", value: "essentials"}]
 
   vm.connect = (form) ->
     $window.location.href = MnoAppsInstances.oAuthConnectPath(app, $httpParamSerializer(form))
