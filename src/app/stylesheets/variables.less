@@ -1,13 +1,6 @@
 @import "../../../bower_components/bootstrap/less/bootstrap.less";
 @import "../../../bower_components/mno-ui-elements/dist/mno-ui-elements.less";
 
-// Colors (https://color.adobe.com/Elemental-color-theme-7207545/)
-@elemental-pink:    #E54661;
-@elemental-orange:  #FFA644;
-@elemental-green:   #998A2F;
-@elemental-aqua:    #2C594F;
-@elemental-blue:    #002D40;
-
 /* General */
 @border-radius-base:      4px;
 @border-radius-large:     6px;
@@ -16,19 +9,20 @@
 @container-desktop:       100%;
 @container-tablet:        100%;
 
-/* KPI themes */
-@mno-admin-kpi-color-1:     @mno-white;
-@mno-admin-kpi-color-2:     @mno-white;
-@mno-admin-kpi-color-3:     @mno-white;
-@mno-admin-kpi-color-4:     @mno-white;
-@mno-admin-kpi-bg-color-1:  @elemental-pink;
-@mno-admin-kpi-bg-color-2:  @elemental-orange;
-@mno-admin-kpi-bg-color-3:  @elemental-green;
-@mno-admin-kpi-bg-color-4:  @elemental-aqua;
+/* KPIs vars */
+@mno-kpi-color-1:    @mnoe-admin-panel-white;
+@mno-kpi-bg-color-1: @elemental-pink;
+@mno-kpi-color-2:    @mnoe-admin-panel-white;
+@mno-kpi-bg-color-2: @elemental-orange;
+@mno-kpi-color-3:    @mnoe-admin-panel-white;
+@mno-kpi-bg-color-3: @elemental-green;
+@mno-kpi-color-4:    @mnoe-admin-panel-white;
+@mno-kpi-bg-color-4: @elemental-aqua;
 
 /* Header vars */
 @mno-admin-header-bg-color:           lighten(@bg-main-color, 5%);
 @mno-admin-header-font-color:         @text-main-strong-color;
+@mno-admin-header-logo-border:        1px solid @mno-admin-header-font-color;
 @mno-admin-header-height:             60px;
 @mno-admin-header-title-text-size:    18px;
 @mno-admin-header-title-text-color:   @text-main-strong-color;
