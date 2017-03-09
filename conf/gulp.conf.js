@@ -17,6 +17,7 @@ exports.ngModule = 'frontendAdmin';
  *  The main paths of your project handle these with care
  */
 exports.paths = {
+  customisation: '../../../frontend-admin-panel/',
   src: 'src',
   dist: 'dist',
   tmp: '.tmp',

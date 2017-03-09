@@ -36,5 +36,18 @@ function watch(done) {
     conf.path.src('**/*.css')
   ], gulp.series('styles'));
   gulp.watch(conf.path.src('**/*.js'), gulp.series('inject'));
+
+  // Watch 'mno-ui-elements'
+  gulp.watch('bower_components/mno-ui-elements/dist/mno-ui-elements.js', gulp.series('inject'));
+  gulp.watch('bower_components/mno-ui-elements/dist/mno-ui-elements.less', gulp.series('styles'));
+
+  // Copy changed file in frontend to mno-enterprise-angular
+  gulp.watch(conf.path.customisation('/**/*'), function(event) {
+    if(event.type === 'changed') {
+      gulp.src(event.path, { 'base': conf.paths.customisation })
+        .pipe(gulp.dest('./'));
+    }
+  });
+
   done();
 }
