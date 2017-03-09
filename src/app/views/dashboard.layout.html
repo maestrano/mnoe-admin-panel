@@ -1,12 +1,24 @@
 <mno-admin hide-footer="true" name="{{'mnoe_admin_panel.dashboard.layout.sidebar.title' | translate}}">
   <mno-admin-header>
-    <div class="row header">
-      <div class="col-xs-12">
-        <div class="user pull-right">
+    <div class="header">
+      <div class="header-container">
+        <div class="meta">
+          <img class="logo" src="images/main-logo.png">
+          <div class="title-wrapper">
+            <div class="page">
+              {{'mnoe_admin_panel.dashboard.layout.title' | translate}}
+            </div>
+            <div class="breadcrumb-links">
+              <div ncy-breadcrumb></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="user">
           <div class="item" uib-dropdown>
             <a href="#" uib-dropdown-toggle>
               <span class="name">{{ main.user.name }} {{ main.user.surname }}</span>
-              <img src="assets/images/avatar.jpg">
+              <img src="images/avatar.jpg">
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
               <li class="link">
@@ -15,14 +27,6 @@
                 </a>
               </li>
             </ul>
-          </div>
-        </div>
-        <div class="meta">
-          <div class="page">
-            {{'mnoe_admin_panel.dashboard.layout.title' | translate}}
-          </div>
-          <div class="breadcrumb-links">
-            <div ncy-breadcrumb></div>
           </div>
         </div>
       </div>
