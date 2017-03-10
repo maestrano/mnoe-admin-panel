@@ -42,11 +42,10 @@ function watch(done) {
   gulp.watch('bower_components/mno-ui-elements/dist/mno-ui-elements.less', gulp.series('styles'));
 
   // Copy changed file in frontend to mno-enterprise-angular
-  gulp.watch(conf.path.customisation('/**/*'), function(event) {
-    if(event.type === 'changed') {
-      gulp.src(event.path, { 'base': conf.paths.customisation })
-        .pipe(gulp.dest('./'));
-    }
+  var override = gulp.watch(conf.path.customisation('/**/*'));
+  override.on('change', function(path) {
+    gulp.src(path, { 'base': conf.paths.customisation })
+      .pipe(gulp.dest('./'));
   });
 
   done();
