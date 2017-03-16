@@ -17,4 +17,16 @@
     else
       true
 
+  @isOrganizationManagementEnabled = () ->
+    if ADMIN_PANEL_CONFIG.customer_management? && ADMIN_PANEL_CONFIG.customer_management.organization?
+      ADMIN_PANEL_CONFIG.customer_management.organization.enabled
+    else
+      true
+
+  @isUserManagementEnabled = () ->
+    if ADMIN_PANEL_CONFIG.customer_management? && ADMIN_PANEL_CONFIG.customer_management.user?
+      ADMIN_PANEL_CONFIG.customer_management.user.enabled
+    else
+      true
+
   return @

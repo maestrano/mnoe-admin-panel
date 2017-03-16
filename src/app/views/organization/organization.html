@@ -49,7 +49,7 @@
       </mno-widget>
     </div>
   </div>
-  <div class="row">
+  <div class="row" ng-if="main.adminConfig.isUserManagementEnabled()">
     <div class="col-xs-12 top-buffer-1">
       <button role="button" ng-click="vm.users.createUserModal()" ng-disabled="!vm.organization" class="btn btn-primary" translate>
         mnoe_admin_panel.dashboard.organization.add_a_user

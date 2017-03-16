@@ -55,14 +55,6 @@
         controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.organization.title'
-    .state 'dashboard.customers.create-step-1',
-      url: '^/customers/create-customer'
-      views: '@dashboard':
-        templateUrl: 'app/views/customers/create-step-1/create-step-1.html'
-        controller: 'CreateStep1Controller'
-        controllerAs: 'vm'
-      ncyBreadcrumb:
-        label: 'mnoe_admin_panel.dashboard.customers.create_customer.title'
     .state 'dashboard.customers.connect-app',
       url: '^/customers/:orgId/connect-apps'
       views: '@dashboard':
@@ -98,5 +90,15 @@
         label: 'mnoe_admin_panel.dashboard.staff.title'
       resolve:
         skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
+
+  if adminConfig.isOrganizationManagementEnabled()
+    $stateProvider.state 'dashboard.customers.create-step-1',
+      url: '^/customers/create-customer'
+      views: '@dashboard':
+        templateUrl: 'app/views/customers/create-step-1/create-step-1.html'
+        controller: 'CreateStep1Controller'
+        controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.customers.create_customer.title'
 
   $urlRouterProvider.otherwise '/home'
