@@ -17,6 +17,12 @@
     else
       true
 
+  @isAppManagementEnabled = () ->
+    if ADMIN_PANEL_CONFIG.apps_management?
+      ADMIN_PANEL_CONFIG.apps_management.enabled
+    else
+      true
+
   @isOrganizationManagementEnabled = () ->
     if ADMIN_PANEL_CONFIG.customer_management? && ADMIN_PANEL_CONFIG.customer_management.organization?
       ADMIN_PANEL_CONFIG.customer_management.organization.enabled
