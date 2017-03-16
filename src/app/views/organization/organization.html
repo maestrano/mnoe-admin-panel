@@ -30,14 +30,14 @@
               <div class="bs-row row apps-box">
                 <div class="app-wrapper col-xs-6 col-sm-4 col-md-3" ng-repeat="app in vm.organization.active_apps">
                   <div class="small-app-card ellipsis">
-                    <i class="fa fa-trash app-remove" ng-click="vm.openRemoveAppModal(app, $index)" uib-tooltip="{{'mnoe_admin_panel.dashboard.organization.remove_app' | translate:{'app_name': app.app_name} }}" tooltip-append-to-body="true"></i>
+                    <i ng-if="main.adminConfig.isAppManagementEnabled()" class="fa fa-trash app-remove" ng-click="vm.openRemoveAppModal(app, $index)" uib-tooltip="{{'mnoe_admin_panel.dashboard.organization.remove_app' | translate:{'app_name': app.app_name} }}" tooltip-append-to-body="true"></i>
                     <i ng-show="vm.status[app.nid]" class="fa fa-check-circle app-state state-success" uib-tooltip="{{'mnoe_admin_panel.dashboard.organization.app_connected' | translate:{'app_name': app.app_name} }}" tooltip-append-to-body="true"></i>
                     <i ng-show="!vm.status[app.nid]" class="fa fa-exclamation-circle app-state state-warning" uib-tooltip="{{'mnoe_admin_panel.dashboard.organization.app_not_connected' | translate:{'app_name': app.app_name} }}" tooltip-append-to-body="true"></i>
                     <img ng-src="{{::app.app_logo}}" width="60">
                     <span>{{::app.app_name}}</span>
                   </div>
                 </div>
-                <div class="app-wrapper col-xs-6 col-sm-4 col-md-3">
+                <div class="app-wrapper col-xs-6 col-sm-4 col-md-3" ng-if="main.adminConfig.isAppManagementEnabled()">
                   <div class="small-app-card ellipsis add-app" ng-click="vm.openAddAppModal()">
                     <span>{{'mnoe_admin_panel.dashboard.organization.add_an_app' | translate}}<i class="fa fa-plus"></i></span>
                   </div>
@@ -49,7 +49,7 @@
       </mno-widget>
     </div>
   </div>
-  <div class="row">
+  <div class="row" ng-if="main.adminConfig.isUserManagementEnabled()">
     <div class="col-xs-12 top-buffer-1">
       <button role="button" ng-click="vm.users.createUserModal()" ng-disabled="!vm.organization" class="btn btn-primary" translate>
         mnoe_admin_panel.dashboard.organization.add_a_user
@@ -60,7 +60,7 @@
     <div class="col-md-6">
       <mnoe-users-local-list list="vm.organization.members" organization="vm.organization" view="all"></mnoe-users-local-list>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" ng-if="main.adminConfig.isFinanceEnabled()">
       <mno-widget icon="fa-file-text-o" heading="{{'mnoe_admin_panel.dashboard.organization.invoices.title' | translate}}" is-loading="!vm.organization.invoices" >
         <mno-widget-header></mno-widget-header>
         <mno-widget-body class="medium no-padding">

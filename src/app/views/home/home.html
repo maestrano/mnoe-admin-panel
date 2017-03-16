@@ -11,13 +11,13 @@
              loading="!vm.organizations.kpi" mno-ui-sref="dashboard.customers" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.organizations.link_text' | translate:{'quantity': vm.organizations.kpi.with_cc_count} }}"></mno-kpi>
   </div>
 
-  <div class="col-lg-3 col-md-6 col-xs-12">
+  <div class="col-lg-3 col-md-6 col-xs-12" ng-if="main.adminConfig.isFinanceEnabled()">
     <mno-kpi class="kpi-color-3" description="{{'mnoe_admin_panel.dashboard.home.kpi.last_customer_invoicing' | translate}}" icon="fa-file-text-o"
              value="{{vm.invoices.lastInvoicingAmount.amount}}" unit="{{vm.invoices.lastInvoicingAmount.currency}}"
              loading="!vm.invoices.lastInvoicingAmount" mno-ui-sref="dashboard.finance" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.last_customer_invoicing.link_text' | translate}}"></mno-kpi>
   </div>
 
-  <div class="col-lg-3 col-md-6 col-xs-12">
+  <div class="col-lg-3 col-md-6 col-xs-12" ng-if="main.adminConfig.isFinanceEnabled()">
     <mno-kpi class="kpi-color-4" description="{{'mnoe_admin_panel.dashboard.home.kpi.to_be_paid' | translate}}" icon="fa-money"
              value="{{vm.invoices.outstandingAmount.amount}}" unit="{{vm.invoices.outstandingAmount.currency}}"
              loading="!vm.invoices.outstandingAmount" mno-ui-sref="dashboard.finance" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.to_be_paid.link_text' | translate}}"></mno-kpi>

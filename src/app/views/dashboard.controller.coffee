@@ -1,4 +1,4 @@
-@App.controller 'DashboardController', ($scope, $cookies, $sce, MnoeMarketplace, MnoErrorsHandler, MnoeCurrentUser, STAFF_PAGE_AUTH, REVIEWS_CONFIG) ->
+@App.controller 'DashboardController', ($scope, $cookies, $sce, MnoeMarketplace, MnoErrorsHandler, MnoeCurrentUser, MnoeAdminConfig, STAFF_PAGE_AUTH, REVIEWS_CONFIG) ->
   'ngInject'
   main = this
 
@@ -6,6 +6,8 @@
   main.staffPageAuthorized = STAFF_PAGE_AUTH
 
   main.isReviewingEnabled = REVIEWS_CONFIG && REVIEWS_CONFIG.enabled
+  main.isFinanceEnabled = MnoeAdminConfig.isFinanceEnabled()
+  main.adminConfig = MnoeAdminConfig
 
   main.trustSrc = (src) ->
     $sce.trustAsResourceUrl(src)

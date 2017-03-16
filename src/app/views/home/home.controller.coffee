@@ -1,4 +1,4 @@
-@App.controller 'HomeController', (moment, MnoeUsers, MnoeOrganizations, MnoeInvoices) ->
+@App.controller 'HomeController', (moment, MnoeUsers, MnoeOrganizations, MnoeInvoices, MnoeAdminConfig) ->
   'ngInject'
   vm = this
 
@@ -20,11 +20,11 @@
   MnoeInvoices.lastInvoicingAmount().then(
     (response) ->
       vm.invoices.lastInvoicingAmount = response.data
-  )
+  ) if MnoeAdminConfig.isFinanceEnabled()
 
   MnoeInvoices.outstandingAmount().then(
     (response) ->
       vm.invoices.outstandingAmount = response.data
-  )
+  ) if MnoeAdminConfig.isFinanceEnabled()
 
   return

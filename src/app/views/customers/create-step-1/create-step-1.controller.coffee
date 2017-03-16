@@ -1,4 +1,4 @@
-@App.controller 'CreateStep1Controller', ($scope, $document, $state, toastr, MnoeOrganizations, MnoeMarketplace, MnoErrorsHandler) ->
+@App.controller 'CreateStep1Controller', ($scope, $document, $state, toastr, MnoeAdminConfig, MnoeOrganizations, MnoeMarketplace, MnoErrorsHandler) ->
   'ngInject'
   vm = this
 
@@ -24,7 +24,7 @@
     MnoErrorsHandler.resetErrors(vm.form)
 
     # List of checked apps
-    vm.organization.app_nids = _.map(_.filter(vm.marketplace.apps, {checked: true}), 'nid')
+    vm.organization.app_nids = _.map(_.filter(vm.marketplace.apps, {checked: true}), 'nid') if MnoeAdminConfig.isAppManagementEnabled()
 
     MnoeOrganizations.create(vm.organization).then(
       (response) ->
@@ -47,6 +47,6 @@
     (response) ->
       # Copy the marketplace as we will work on the cached object
       vm.marketplace = angular.copy(response.data)
-  )
+  ) if MnoeAdminConfig.isAppManagementEnabled()
 
   return

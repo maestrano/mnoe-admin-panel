@@ -38,13 +38,13 @@
     <li class="sidebar-list" ui-sref-active="active">
       <a ui-sref="dashboard.home">{{'mnoe_admin_panel.dashboard.layout.sidebar.home' | translate}}<span class="menu-icon fa fa-tachometer"></span></a>
     </li>
-    <li class="sidebar-list" ui-sref-active="active">
+    <li class="sidebar-list" ng-if="main.isFinanceEnabled" ui-sref-active="active">
       <a ui-sref="dashboard.finance">{{'mnoe_admin_panel.dashboard.layout.sidebar.finance' | translate}}<span class="menu-icon fa fa-money"></span></a>
     </li>
     <li class="sidebar-list" ui-sref-active="active">
       <a ui-sref="dashboard.customers">{{'mnoe_admin_panel.dashboard.layout.sidebar.customers' | translate}}<span class="menu-icon fa fa-users"></span></a>
     </li>
-    <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ui-sref-active="active">
+    <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="main.adminConfig.isStaffEnabled()" ui-sref-active="active">
       <a ui-sref="dashboard.staff">{{'mnoe_admin_panel.dashboard.layout.sidebar.staff' | translate}}<span class="menu-icon fa fa-wrench"></span></a>
     </li>
     <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="main.isReviewingEnabled" ui-sref-active="active">

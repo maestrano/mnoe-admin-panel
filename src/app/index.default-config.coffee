@@ -4,3 +4,4 @@
 #   Uncaught Error: [$injector:unpr] Unknown provider: INTERCOM_IDProvider <- INTERCOM_ID <- AnalyticsSvc
 angular.module('mnoEnterprise.defaultConfiguration', [])
   .constant('REVIEWS_CONFIG', {enabled: false})
+  .constant('ADMIN_PANEL_CONFIG', {})

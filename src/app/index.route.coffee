@@ -1,4 +1,4 @@
-@App.config ($stateProvider, $urlRouterProvider) ->
+@App.config ($stateProvider, $urlRouterProvider, MnoeAdminConfigProvider) ->
   'ngInject'
   $stateProvider
     .state 'dashboard',
@@ -15,26 +15,6 @@
       controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.home.title'
-    .state 'dashboard.finance',
-      data:
-        pageTitle:'Finance'
-      url: '/finance'
-      templateUrl: 'app/views/finance/finance.html'
-      controller: 'FinanceController'
-      controllerAs: 'vm'
-      ncyBreadcrumb:
-        label: 'mnoe_admin_panel.dashboard.finance.title'
-    .state 'dashboard.staff',
-      data:
-        pageTitle:'Staff'
-      url: '/staff' #:staffId
-      templateUrl: 'app/views/staff/staff.html'
-      controller: 'StaffController'
-      controllerAs: 'vm'
-      ncyBreadcrumb:
-        label: 'mnoe_admin_panel.dashboard.staff.title'
-      resolve:
-        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
     .state 'dashboard.reviews',
       data:
         pageTitle:'Reviews'
@@ -75,14 +55,6 @@
         controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.organization.title'
-    .state 'dashboard.customers.create-step-1',
-      url: '^/customers/create-customer'
-      views: '@dashboard':
-        templateUrl: 'app/views/customers/create-step-1/create-step-1.html'
-        controller: 'CreateStep1Controller'
-        controllerAs: 'vm'
-      ncyBreadcrumb:
-        label: 'mnoe_admin_panel.dashboard.customers.create_customer.title'
     .state 'dashboard.customers.connect-app',
       url: '^/customers/:orgId/connect-apps'
       views: '@dashboard':
@@ -91,5 +63,42 @@
         controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.customers.connect_app.title'
+
+  # Routes depending on Feature Flags
+  adminConfig = MnoeAdminConfigProvider.$get()
+
+  if adminConfig.isFinanceEnabled()
+    $stateProvider.state 'dashboard.finance',
+      data:
+        pageTitle:'Finance'
+      url: '/finance'
+      templateUrl: 'app/views/finance/finance.html'
+      controller: 'FinanceController'
+      controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.finance.title'
+
+  if adminConfig.isStaffEnabled()
+    $stateProvider.state 'dashboard.staff',
+      data:
+        pageTitle:'Staff'
+      url: '/staff' #:staffId
+      templateUrl: 'app/views/staff/staff.html'
+      controller: 'StaffController'
+      controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.staff.title'
+      resolve:
+        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
+
+  if adminConfig.isOrganizationManagementEnabled()
+    $stateProvider.state 'dashboard.customers.create-step-1',
+      url: '^/customers/create-customer'
+      views: '@dashboard':
+        templateUrl: 'app/views/customers/create-step-1/create-step-1.html'
+        controller: 'CreateStep1Controller'
+        controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.customers.create_customer.title'
 
   $urlRouterProvider.otherwise '/home'
