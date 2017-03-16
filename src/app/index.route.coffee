@@ -1,4 +1,4 @@
-@App.config ($stateProvider, $urlRouterProvider) ->
+@App.config ($stateProvider, $urlRouterProvider, MnoeAdminConfigProvider) ->
   'ngInject'
   $stateProvider
     .state 'dashboard',
@@ -15,15 +15,6 @@
       controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.home.title'
-    .state 'dashboard.finance',
-      data:
-        pageTitle:'Finance'
-      url: '/finance'
-      templateUrl: 'app/views/finance/finance.html'
-      controller: 'FinanceController'
-      controllerAs: 'vm'
-      ncyBreadcrumb:
-        label: 'mnoe_admin_panel.dashboard.finance.title'
     .state 'dashboard.staff',
       data:
         pageTitle:'Staff'
@@ -91,5 +82,16 @@
         controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.customers.connect_app.title'
+
+  if MnoeAdminConfigProvider.$get().isFinanceEnabled()
+    $stateProvider.state 'dashboard.finance',
+      data:
+        pageTitle:'Finance'
+      url: '/finance'
+      templateUrl: 'app/views/finance/finance.html'
+      controller: 'FinanceController'
+      controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.finance.title'
 
   $urlRouterProvider.otherwise '/home'
