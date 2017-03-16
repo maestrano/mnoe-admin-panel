@@ -5,6 +5,12 @@
 @App.factory 'MnoeAdminConfig', ($log, ADMIN_PANEL_CONFIG) ->
   _self = @
 
+  @isImpersonationEnabled = () ->
+    if ADMIN_PANEL_CONFIG.impersonation
+      not ADMIN_PANEL_CONFIG.impersonation.disabled
+    else
+      true
+
   @isStaffEnabled = () ->
     if ADMIN_PANEL_CONFIG.staff?
       ADMIN_PANEL_CONFIG.staff.enabled

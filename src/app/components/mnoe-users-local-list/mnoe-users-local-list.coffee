@@ -1,7 +1,7 @@
 #
 # Mnoe Users List
 #
-@App.directive('mnoeUsersLocalList', ($window, $filter, $log, toastr, MnoeUsers, MnoErrorsHandler) ->
+@App.directive('mnoeUsersLocalList', ($window, $filter, $log, toastr, MnoeAdminConfig, MnoeUsers, MnoErrorsHandler) ->
   restrict: 'E'
   scope: {
     list: '='
@@ -15,6 +15,8 @@
       displayList: []
       widgetTitle: 'mnoe_admin_panel.dashboard.users.widget.local_list.loading_users.title'
       search: ''
+
+    scope.isImpersonationEnabled = MnoeAdminConfig.isImpersonationEnabled()
 
     # Display all the users
     setAllUsersList = () ->
