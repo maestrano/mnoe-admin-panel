@@ -5,6 +5,12 @@
 @App.factory 'MnoeAdminConfig', ($log, ADMIN_PANEL_CONFIG) ->
   _self = @
 
+  @isStaffEnabled = () ->
+    if ADMIN_PANEL_CONFIG.staff?
+      ADMIN_PANEL_CONFIG.staff.enabled
+    else
+      true
+
   @isFinanceEnabled = () ->
     if ADMIN_PANEL_CONFIG.finance?
       ADMIN_PANEL_CONFIG.finance.enabled

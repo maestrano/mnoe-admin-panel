@@ -15,17 +15,6 @@
       controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.home.title'
-    .state 'dashboard.staff',
-      data:
-        pageTitle:'Staff'
-      url: '/staff' #:staffId
-      templateUrl: 'app/views/staff/staff.html'
-      controller: 'StaffController'
-      controllerAs: 'vm'
-      ncyBreadcrumb:
-        label: 'mnoe_admin_panel.dashboard.staff.title'
-      resolve:
-        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
     .state 'dashboard.reviews',
       data:
         pageTitle:'Reviews'
@@ -83,7 +72,10 @@
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.customers.connect_app.title'
 
-  if MnoeAdminConfigProvider.$get().isFinanceEnabled()
+  # Routes depending on Feature Flags
+  adminConfig = MnoeAdminConfigProvider.$get()
+
+  if adminConfig.isFinanceEnabled()
     $stateProvider.state 'dashboard.finance',
       data:
         pageTitle:'Finance'
@@ -93,5 +85,18 @@
       controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.finance.title'
+
+  if adminConfig.isStaffEnabled()
+    $stateProvider.state 'dashboard.staff',
+      data:
+        pageTitle:'Staff'
+      url: '/staff' #:staffId
+      templateUrl: 'app/views/staff/staff.html'
+      controller: 'StaffController'
+      controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.staff.title'
+      resolve:
+        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
 
   $urlRouterProvider.otherwise '/home'
