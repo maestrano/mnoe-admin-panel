@@ -1,0 +1,44 @@
+<mno-widget icon="fa-file-text-o" heading="{{$ctrl.events.widgetTitle}}" is-loading="events.loading">
+  <mno-widget-header>
+    &nbsp;{{ 'mnoe_admin_panel.dashboard.audit_log.widget.list.title' | translate}}
+  </mno-widget-header>
+  <mno-widget-body class="no-padding">
+    <div>
+      <!--<table class="class" st-pipe="$ctrl.callServer" st-table="$ctrl.displayed">-->
+      <table st-pipe="$ctrl.callServer" st-table="$ctrl.events.list" class="table table-striped">
+        <thead>
+          <tr>
+            <th st-sort="created_at" class="col-lg-2" translate>mnoe_admin_panel.dashboard.audit_log.widget.list.table.date</th>
+            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.audit_log.widget.list.table.user</th>
+            <th st-sort="key" class="col-lg-2" translate>mnoe_admin_panel.dashboard.audit_log.widget.list.table.action</th>
+            <th st-sort="description" class="col-lg-2" translate>mnoe_admin_panel.dashboard.audit_log.widget.list.table.description</th>
+          </tr>
+        </thead>
+        <tbody ng-show="$ctrl.events.loading">
+          <tr>
+            <td colspan="6" class="text-center" translate>mnoe_admin_panel.dashboard.audit_log.widget.list.loading_events</td>
+          </tr>
+        </tbody>
+        <tbody ng-show="!$ctrl.events.loading">
+          <tr ng-repeat="event in $ctrl.events.list">
+            <td title="{{ event.created_at | amDateFormat: 'DD/MM/YYYY, h:mm:ss a' }}">
+              {{event.created_at | amCalendar }}
+            </td>
+            <td>{{event.user.name}} {{event.user.surname}}</td>
+            <td>{{event.key}}</td>
+            <td>{{event.description}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mno-widget-body>
+  <mno-widget-footer ng-show="$ctrl.events.list">
+    <mno-pagination
+      page="$ctrl.events.page"
+      nb-items="$ctrl.events.nbItems"
+      total-items="$ctrl.events.totalItems"
+      on-change-cb="$ctrl.events.pageChangedCb(nbItems, page)"
+      is-loading="$ctrl.events.loading">
+    </mno-pagination>
+  </mno-widget-footer>
+</mno-widget>
