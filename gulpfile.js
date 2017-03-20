@@ -35,7 +35,10 @@ function watch(done) {
     conf.path.src('**/*.less'),
     conf.path.src('**/*.css')
   ], gulp.series('styles'));
-  gulp.watch(conf.path.src('**/*.js'), gulp.series('inject'));
+  gulp.watch([
+    conf.path.src('**/*.js'),
+    conf.path.src('**/*.coffee')
+  ], gulp.series('inject'));
 
   // Watch 'mno-ui-elements'
   gulp.watch('bower_components/mno-ui-elements/dist/mno-ui-elements.js', gulp.series('inject'));
