@@ -15,7 +15,7 @@
   </div>
 
   <div class="row">
-    <div class="col-xs-12" ng-if="main.adminConfig.isOrganizationManagementEnabled()">
+    <div class="col-xs-12" ng-if="::main.adminConfig.isOrganizationManagementEnabled()">
       <div class="btn-group pull-right top-buffer-1" uib-dropdown keyboard-nav>
         <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>
           {{'mnoe_admin_panel.dashboard.customers.main.new_customer' | translate}} &nbsp;<span class="caret"></span>
