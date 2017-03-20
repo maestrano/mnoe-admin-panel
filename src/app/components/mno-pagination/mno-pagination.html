@@ -8,11 +8,11 @@
   </select>
 </div>
 
-<uib-pagination ng-model="page" ng-show="totalItems > nbItems"
+<ul uib-pagination ng-model="page" ng-show="totalItems > nbItems"
   total-items="totalItems"
   items-per-page="nbItems"
   ng-change="onPageChange()"
   max-size="pagination.maxPages"
   rotate="false"
   ng-disabled="isLoading">
-</uib-pagination>
+</ul>
