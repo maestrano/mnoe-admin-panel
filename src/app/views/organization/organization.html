@@ -72,6 +72,7 @@
                   <th translate>mnoe_admin_panel.dashboard.organization.invoices.table.end</th>
                   <th translate>mnoe_admin_panel.dashboard.organization.invoices.table.amount</th>
                   <th class="text-center" translate>mnoe_admin_panel.dashboard.organization.invoices.table.paid</th>
+                  <th class="text-center"></th>
                 </tr>
               </thead>
               <tbody>
@@ -82,6 +83,11 @@
                   <td class="text-center">
                     <span ng-if="invoice.paid" class="text-success" translate>mnoe_admin_panel.dashboard.organization.invoices.table.yes</span>
                     <span ng-if="!invoice.paid" class="text-danger" translate>mnoe_admin_panel.dashboard.organization.invoices.table.no</span>
+                  </td>
+                  <td class="text-center">
+                    <a ng-if="invoice.link" ng-href="{{invoice.link}}" target="_blank">
+                      <i class="fa fa-cloud-download"></i>
+                    </a>
                   </td>
                 </tr>
               </tbody>
