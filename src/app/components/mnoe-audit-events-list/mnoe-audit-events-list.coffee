@@ -3,9 +3,7 @@
 #
 @App.component('mnoeAuditEventsList', {
   templateUrl: 'app/components/mnoe-audit-events-list/mnoe-audit-events-list.html',
-  bindings: {
-    view: '@'
-  }
+  bindings: {}
   controller: ($log, MnoeAuditEvents) ->
     vm = this
 
@@ -15,9 +13,6 @@
       nbItems: 20
       page: 1
       list: []
-
-    # Widget state
-    vm.state = vm.view
 
     # Manage sorting, search and pagination
     vm.callServer = (tableState) ->
