@@ -11,14 +11,19 @@
       search: {}
       sort: "created_at.desc"
       nbItems: 20
+      offset: 0
       page: 1
       list: []
+      pageChangedCb: (nbItems, page) ->
+        vm.events.nbItems = nbItems
+        vm.events.page = page
+        vm.events.offset = (page  - 1) * nbItems
+        fetchEvents(nbItems, vm.events.offset)
 
     # Manage sorting, search and pagination
     vm.callServer = (tableState) ->
-      sort   = updateSort(tableState.sort)
-      search = null
-      fetchEvents(vm.events.nbItems, vm.events.offset, sort, search)
+      vm.events.sort = updateSort(tableState.sort)
+      fetchEvents(vm.events.nbItems, vm.events.offset, vm.events.sort)
 
     # Update sorting parameters
     updateSort = (sortState = {}) ->
@@ -30,12 +35,10 @@
         else
           sort += ".asc"
 
-      # Update staff sort
-      vm.events.sort = sort
       return sort
 
     # Fetch events
-    fetchEvents = (limit, offset, sort = vm.events.sort, search = vm.events.search) ->
+    fetchEvents = (limit, offset, sort = vm.events.sort) ->
       vm.events.loading = true
       # TODO: search
       return MnoeAuditEvents.list(limit, offset, sort).then(
@@ -43,9 +46,6 @@
           vm.events.totalItems = response.headers('x-total-count')
           vm.events.list = response.data
       ).finally(-> vm.events.loading = false)
-
-    # Initial call and start the listeners
-    fetchEvents(vm.events.nbItems, 0)
 
     return
 })

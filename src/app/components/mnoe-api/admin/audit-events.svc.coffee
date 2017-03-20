@@ -20,7 +20,4 @@
     _.forEach observerCallbacks, (callback) ->
       callback(listPromise)
 
-#  @count = () ->
-#    MnoeAdminApiSvc.all('organizations').customGET('count')
-
   return @
