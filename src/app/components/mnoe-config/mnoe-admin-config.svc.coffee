@@ -5,6 +5,12 @@
 @App.factory 'MnoeAdminConfig', ($log, ADMIN_PANEL_CONFIG) ->
   _self = @
 
+  @isAuditLogEnabled = () ->
+    if ADMIN_PANEL_CONFIG.audit_log
+      ADMIN_PANEL_CONFIG.audit_log.enabled
+    else
+      true
+
   @isImpersonationEnabled = () ->
     if ADMIN_PANEL_CONFIG.impersonation
       not ADMIN_PANEL_CONFIG.impersonation.disabled

@@ -67,6 +67,17 @@
   # Routes depending on Feature Flags
   adminConfig = MnoeAdminConfigProvider.$get()
 
+  if adminConfig.isAuditLogEnabled()
+    $stateProvider.state 'dashboard.audit-log',
+      data:
+        pageTitle:'Audit Log'
+      url: '/audit-log'
+      templateUrl: 'app/views/audit-log/audit-log.html'
+      controller: 'AuditLogController'
+      controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.audit_log.title'
+
   if adminConfig.isFinanceEnabled()
     $stateProvider.state 'dashboard.finance',
       data:
