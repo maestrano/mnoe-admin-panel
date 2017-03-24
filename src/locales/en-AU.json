@@ -31,6 +31,7 @@
   "mnoe_admin_panel.dashboard.audit_log.widget.list.loading_events": "Loading Events",
   "mnoe_admin_panel.dashboard.audit_log.widget.list.table.date": "Date",
   "mnoe_admin_panel.dashboard.audit_log.widget.list.table.user": "User",
+  "mnoe_admin_panel.dashboard.audit_log.widget.list.table.organization": "Organization",
   "mnoe_admin_panel.dashboard.audit_log.widget.list.table.action": "Action",
   "mnoe_admin_panel.dashboard.audit_log.widget.list.table.description": "Description",
   "mnoe_admin_panel.dashboard.customers.title": "Customers",

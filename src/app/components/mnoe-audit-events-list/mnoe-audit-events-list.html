@@ -10,6 +10,7 @@
           <tr>
             <th st-sort="created_at" class="col-lg-2" translate>mnoe_admin_panel.dashboard.audit_log.widget.list.table.date</th>
             <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.audit_log.widget.list.table.user</th>
+            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.audit_log.widget.list.table.organization</th>
             <th st-sort="key" class="col-lg-2" translate>mnoe_admin_panel.dashboard.audit_log.widget.list.table.action</th>
             <th st-sort="description" class="col-lg-2" translate>mnoe_admin_panel.dashboard.audit_log.widget.list.table.description</th>
           </tr>
@@ -24,7 +25,10 @@
             <td title="{{ event.created_at | amDateFormat: 'DD/MM/YYYY, h:mm:ss a' }}">
               {{event.created_at | amCalendar }}
             </td>
-            <td>{{event.user.name}} {{event.user.surname}}</td>
+            <td title="{{event.user.email}}">
+              {{event.user.name}} {{event.user.surname}}
+            </td>
+            <td>{{event.organization.name || "-" }}</td>
             <td>{{event.key}}</td>
             <td>{{event.description}}</td>
           </tr>
