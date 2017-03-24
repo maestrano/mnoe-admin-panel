@@ -1,9 +1,9 @@
 @App
   .constant('USER_ROLES', [
     {value: 'Member', label: 'mnoe_admin_panel.constants.user_roles.member'},
-    {value: 'Power user', label: 'mnoe_admin_panel.constants.user_roles.power_user'},
+    {value: 'Power User', label: 'mnoe_admin_panel.constants.user_roles.power_user'},
     {value: 'Admin', label: 'mnoe_admin_panel.constants.user_roles.admin'},
-    {value: 'SuperAdmin', label: 'mnoe_admin_panel.constants.user_roles.super_admin'}
+    {value: 'Super Admin', label: 'mnoe_admin_panel.constants.user_roles.super_admin'}
   ])
   .constant('ADMIN_ROLES', [
     {value: 'admin', label: 'mnoe_admin_panel.constants.admin_roles.admin'},
