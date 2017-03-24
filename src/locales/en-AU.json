@@ -27,6 +27,7 @@
   "mnoe_admin_panel.dashboard.home.kpi.to_be_paid": "Still to be paid",
   "mnoe_admin_panel.dashboard.home.kpi.to_be_paid.link_text": "View more",
   "mnoe_admin_panel.dashboard.audit_log.title": "Audit Log",
+  "mnoe_admin_panel.dashboard.audit_log.main.export": "Export",
   "mnoe_admin_panel.dashboard.audit_log.widget.list.title": "Events",
   "mnoe_admin_panel.dashboard.audit_log.widget.list.loading_events": "Loading Events",
   "mnoe_admin_panel.dashboard.audit_log.widget.list.table.date": "Date",

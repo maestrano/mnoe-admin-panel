@@ -1,5 +1,13 @@
 <div id="audit-log" class="row">
   <div class="col-lg-10 col-lg-offset-1 col-md-12">
+    <div class="btn-group pull-right top-buffer-1">
+      <a type="button" class="btn btn-primary" href="/mnoe/jpi/v1/admin/audit_events.csv">
+        <i class="fa fa-download"></i>
+        {{'mnoe_admin_panel.dashboard.audit_log.main.export' | translate}}
+      </a>
+    </div>
+  </div>
+  <div class="col-lg-10 col-lg-offset-1 col-md-12">
     <mnoe-audit-events-list></mnoe-audit-events-list>
   </div>
 </div>
