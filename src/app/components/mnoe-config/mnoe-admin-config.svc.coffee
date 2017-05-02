@@ -1,8 +1,6 @@
 # This service is a wrapper around the config we fetch from the backend
-# TODO: service or factory?
-
 # MnoeAdminConfig.financeEnabled?
-@App.factory 'MnoeAdminConfig', ($log, ADMIN_PANEL_CONFIG) ->
+@App.factory 'MnoeAdminConfig', ($log, ADMIN_PANEL_CONFIG, PAYMENT_CONFIG, ORGANIZATION_MANAGEMENT) ->
   _self = @
 
   @isAuditLogEnabled = () ->
@@ -46,5 +44,12 @@
       ADMIN_PANEL_CONFIG.customer_management.user.enabled
     else
       true
+
+  # Do not display CC info if Billing or Payment is disabled in the frontend
+  @isPaymentEnabled = () ->
+    payment_disabled = (PAYMENT_CONFIG? && PAYMENT_CONFIG.disabled)
+    billing_disabled = (ORGANIZATION_MANAGEMENT? && ORGANIZATION_MANAGEMENT.billing? && not ORGANIZATION_MANAGEMENT.billing.enabled)
+
+    not (payment_disabled || billing_disabled)
 
   return @

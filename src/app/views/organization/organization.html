@@ -14,7 +14,7 @@
               {{vm.organization.uid}}
             </div>
           </div>
-          <div class="bs-row row">
+          <div class="bs-row row" ng-if="::main.adminConfig.isPaymentEnabled()">
             <div class="col-xs-6">
               <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.credit_card</div>
             </div>
