@@ -1,8 +1,9 @@
-@App.controller 'CreateUserController', ($filter, $stateParams, $uibModalInstance, toastr, MnoeUsers, MnoErrorsHandler, USER_ROLES, organization) ->
+@App.controller 'CreateUserController', ($filter, $stateParams, $uibModalInstance, toastr, MnoeUsers, MnoErrorsHandler, USER_ROLES, organization, Miscellaneous) ->
   'ngInject'
   vm = this
 
   vm.USER_ROLES = USER_ROLES
+  vm.countryCodes = Miscellaneous.countryCodes
 
   vm.onSubmit = () ->
     vm.isLoading = true
