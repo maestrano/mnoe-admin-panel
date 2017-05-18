@@ -13,7 +13,12 @@
       </thead>
       <tbody>
         <tr ng-repeat="organization in organizations.list">
-          <td><a ui-sref="dashboard.customers.organization({orgId: organization.id})">{{::organization.name}}</a></td>
+          <td>
+            <a ui-sref="dashboard.customers.organization({orgId: organization.id})">
+              {{::organization.name}}
+              <em ng-show="organization.account_frozen" class="text-muted" translate>mnoe_admin_panel.dashboard.organization.account_frozen_state</em>
+            </a>
+          </td>
           <td>{{::organization.created_at | date: 'dd/MM/yyyy'}}</td>
         </tr>
       </tbody>
