@@ -6,6 +6,12 @@
   vm.organizations = {}
   vm.invoices = {}
 
+  # If finance is activated display the number of org with cc
+  if MnoeAdminConfig.isPaymentEnabled()
+    vm.organisationKpiLocale = 'mnoe_admin_panel.dashboard.home.kpi.organizations.finance_text'
+  else
+    vm.organisationKpiLocale = 'mnoe_admin_panel.dashboard.home.kpi.organizations.link_text'
+
   # API calls
   MnoeUsers.count().then(
     (response) ->
