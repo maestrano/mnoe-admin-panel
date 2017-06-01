@@ -53,6 +53,9 @@
     <li class="sidebar-list" ng-if="::main.adminConfig.isAuditLogEnabled()" ui-sref-active="active">
       <a ui-sref="dashboard.audit-log">{{'mnoe_admin_panel.dashboard.layout.sidebar.audit_log' | translate}}<span class="menu-icon fa fa-book"></span></a>
     </li>
+    <li class="sidebar-list" ui-sref-active="active">
+      <a ui-sref="dashboard.dashboard-templates">{{'mnoe_admin_panel.dashboard.layout.sidebar.dashboard_templates' | translate}}<span class="menu-icon fa fa-bar-chart"></span></a>
+    </li>
   </mno-admin-nav>
 
   <mno-admin-content>

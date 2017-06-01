@@ -63,6 +63,13 @@
         controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.customers.connect_app.title'
+    .state 'dashboard.dashboard-templates',
+      url: '/bashboard-templates'
+      templateUrl: 'app/views/dashboard-templates/dashboard-templates.html'
+      controller: 'DashboardTemplatesController'
+      controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.dashboard_templates.title'
 
   # Routes depending on Feature Flags
   adminConfig = MnoeAdminConfigProvider.$get()
