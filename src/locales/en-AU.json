@@ -100,6 +100,7 @@
   "mnoe_admin_panel.dashboard.dashboard_templates.modal.are_you_sure": "Are you sure you want to delete this template?",
   "mnoe_admin_panel.dashboard.dashboard_templates.modal.cancel": "Cancel",
   "mnoe_admin_panel.dashboard.dashboard_templates.modal.delete": "Delete",
+  "mnoe_admin_panel.dashboard.impac.title": "Impac!",
   "mnoe_admin_panel.dashboard.user.title": "User",
   "mnoe_admin_panel.dashboard.user.subtitle": "User info",
   "mnoe_admin_panel.dashboard.user.table.email": "Email",

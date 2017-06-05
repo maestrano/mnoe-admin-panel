@@ -2,14 +2,14 @@
 @App.service 'MnoeDashboardTemplates', (MnoeAdminApiSvc) ->
   _self = @
 
-  @list = () ->
-    promise = MnoeAdminApiSvc.all("/dashboard_templates").getList().then(
+  @list = (limit, offset, sort) ->
+    promise = MnoeAdminApiSvc.all("/dashboard_templates").getList({order_by: sort, limit: limit, offset: offset}).then(
       (response) ->
-        notifyListObservers(promise)
         response
     )
 
-  observerCallbacks = []
+  @templates = (limit, offset, sort, params = {}) ->
+    return _getTemplates(limit, offset, sort, params)
 
   @delete = (dashboardTemplateId) ->
     promise = MnoeAdminApiSvc.one("dashboard_templates", dashboardTemplateId).remove().then(
@@ -18,9 +18,13 @@
         response
     )
 
-  # Call this when you know 'list' has been changed
-  notifyListObservers = (listPromise) ->
-    _.forEach observerCallbacks, (callback) ->
-      callback(listPromise)
+  @search = (terms) ->
+    MnoeAdminApiSvc.all("/dashboard_templates").getList({terms: terms})
+
+  _getTemplates = (limit, offset, sort, params = {}) ->
+    params["order_by"] = sort
+    params["limit"] = limit
+    params["offset"] = offset
+    return MnoeAdminApiSvc.all("/dashboard_templates").getList(params)
 
   return @

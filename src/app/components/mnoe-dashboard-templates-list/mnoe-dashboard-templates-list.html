@@ -5,12 +5,18 @@
   <mno-widget-body class="no-padding">
     <div>
       <table st-pipe="$ctrl.callServer" class="table table-striped" st-table="$ctrl.dasboardTemplates.list">
+      <table st-pipe="$ctrl.callServer" st-table="$ctrl.dasboardTemplates.list" class="table table-striped" >
         <thead>
           <tr>
-            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.dashboard_templates.widget.list.template_name</th>
+            <th st-sort="name" class="col-lg-2" translate>mnoe_admin_panel.dashboard.dashboard_templates.widget.list.template_name</th>
             <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.dashboard_templates.widget.list.status</th>
             <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.dashboard_templates.widget.list.created</th>
             <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.dashboard_templates.widget.list.updated</th>
+          </tr>
+          <tr>
+            <th>
+              <input st-search="name" placeholder="{{'mnoe_admin_panel.dashboard.staff.widget.list.placeholder.search_name' | translate}}" class="form-control input-sm search-bar" type="text"/>
+            </th>
           </tr>
         </thead>
         <tbody >
@@ -38,4 +44,13 @@
       </table>
     </div>
   </mno-widget-body>
+  <mno-widget-footer ng-show="$ctrl.dashboardTemplates.list">
+    <mno-pagination
+      page="$ctrl.dashboardTemplates.page"
+      nb-items="$ctrl.dashboardTemplates.nbItems"
+      total-items="$ctrl.dashboardTemplates.totalItems"
+      on-change-cb="$ctrl.dashboardTemplates.pageChangedCb(nbItems, page)"
+      is-loading="$ctrl.dashboardTemplates.loading">
+    </mno-pagination>
+  </mno-widget-footer>
 </mno-widget>
