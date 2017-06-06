@@ -14,12 +14,17 @@
   @delete = (dashboardTemplateId) ->
     promise = MnoeAdminApiSvc.one("dashboard_templates", dashboardTemplateId).remove().then(
       (response) ->
-        notifyListObservers(promise)
         response
     )
 
   @search = (terms) ->
     MnoeAdminApiSvc.all("/dashboard_templates").getList({terms: terms})
+
+  @update = (dashboardTemplate) ->
+    promise = MnoeAdminApiSvc.one("dashboard_templates", dashboardTemplate.id).patch(dashboardTemplate).then(
+      (response) ->
+        response
+      )
 
   _getTemplates = (limit, offset, sort, params = {}) ->
     params["order_by"] = sort
@@ -28,3 +33,4 @@
     return MnoeAdminApiSvc.all("/dashboard_templates").getList(params)
 
   return @
+

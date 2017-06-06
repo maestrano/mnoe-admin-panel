@@ -4,11 +4,11 @@
 @App.component('mnoeDashboardTemplatesList', {
   templateUrl: 'app/components/mnoe-dashboard-templates-list/mnoe-dashboard-templates-list.html',
   bindings: {}
-  controller: ($uibModal, MnoeDashboardTemplates) ->
+  controller: ($uibModal, MnoeDashboardTemplates, toastr) ->
     vm = this
 
     vm.dashboardTemplates =
-      editmode: []
+      editMode: {}
       search: {}
       sort: "name"
       nbItems: 10
@@ -23,6 +23,9 @@
       sort = updateSort (tableState.sort)
       search = updateSearch (tableState.search)
       fetchDashboardTemplates(vm.dashboardTemplates.nbItems, vm.dashboardTemplates.offset, sort, search)
+
+    vm.toggleEditMode = (dashboardTemplate) ->
+      dashboardTemplate.editMode = !dashboardTemplate.editMode
 
     # Update sorting parameters
     updateSort = (sortState = {}) ->
@@ -46,22 +49,40 @@
           search[ 'where[' + attr + '.like]' ] = value + '%'
 
       # Update dashboardTemplates sort
-      console.log(search)
       vm.dashboardTemplates.search = search
       return search
+
+    #====================================
+    # Dashboard Template Update
+    #====================================
+    vm.update = (dashboardTemplate) ->
+      if dashboardTemplate.newName && (dashboardTemplate.newName != dashboardTemplate.name)
+        dashboardTemplate.name = dashboardTemplate.newName
+        MnoeDashboardTemplates.update(dashboardTemplate).then(
+          (success) ->
+            toastr.success('mnoe_admin_panel.dashboard.dashboard_templates.widget.list.toastr.successfully')
+          (error) ->
+            toastr.error('mnoe_admin_panel.dashboard.dashboard_templates.widget.list.toastr.error')
+        ).finally(-> dashboardTemplate.editMode = !dashboardTemplate.editMode)
+      else
+        dashboardTemplate.editMode = !dashboardTemplate.editMode
+
     #====================================
     # Dashboard Template deletion Modal
     #====================================
-    vm.openDeleteDashboardTemplate = (dashboardTemplate) ->
+    vm.openDeleteModal = (dashboardTemplate) ->
       modalInstance = $uibModal.open(
         templateUrl: 'app/views/dashboard-templates/modals/delete-dashboard-template-modal.html'
         controller: 'deleteDashboardTemplateCtrl'
         size: 'lg'
+        backdrop: 'static',
         resolve:
           dashboardTemplate: dashboardTemplate
       ).closed.then(-> fetchDashboardTemplates())
 
-    # Fetch dashboard templates
+    #====================================
+    # Retrieve Dashboard Templates
+    #====================================
     fetchDashboardTemplates = (limit, offset, sort = vm.dashboardTemplates.sort, search = vm.dashboardTemplates.search) ->
       vm.dashboardTemplates.loading = true
       return MnoeDashboardTemplates.templates(limit, offset, sort, search).then(
