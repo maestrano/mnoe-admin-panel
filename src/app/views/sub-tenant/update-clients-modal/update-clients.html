@@ -1,0 +1,45 @@
+<div id="sub-tenant-modal">
+  <div class="modal-header">
+    <h3 class="modal-title">Select clients</h3>
+  </div>
+
+  <div class="modal-body">
+    <rd-widget>
+      <rd-widget-header icon="fa-sitemap" title="Select Organization">&nbsp;
+        <input type="text" ng-model="vm.organizations.search" ng-change="vm.searchChange()" placeholder="Search all"
+               class="form-control input-sm search-bar"/>
+      </rd-widget-header>
+      <rd-widget-body loading="vm.organizations.loading" classes="large no-padding">
+        <table class="table table-layout-fixed">
+          <thead>
+          <tr>
+            <th>Uid</th>
+            <th>Name</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="organization in vm.organizations.list">
+            <td>{{::organization.uid}}</td>
+            <td>{{organization.name}}</td>
+            <td><input type="checkbox" ng-model="vm.selectedOrganizations[organization.id]"></td>
+          </tr>
+          </tbody>
+        </table>
+      </rd-widget-body>
+    </rd-widget>
+
+  </div>
+
+
+  <div class="modal-footer">
+    <div class="row actions">
+      <div class="col-xs-12">
+        <button type="button" ng-click="vm.onSubmit()" ng-disabled="vm.isLoading" class="btn btn-primary">
+          <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+          Save
+        </button>
+        <a href="" ng-click="vm.onCancel()"><i class="fa fa-times"></i> cancel</a>
+      </div>
+    </div>
+  </div>
+</div>

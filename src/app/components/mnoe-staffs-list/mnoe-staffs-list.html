@@ -1,31 +1,30 @@
 <mno-widget icon="fa-wrench" heading="{{$ctrl.staff.widgetTitle}}" is-loading="staff.loading">
   <mno-widget-header>
-    &nbsp;{{ 'mnoe_admin_panel.dashboard.staff.widget.list.title' | translate}}
+    &nbsp;{{ 'mnoe_admin_panel.dashboard.staffs.widget.list.title' | translate}}
   </mno-widget-header>
   <mno-widget-body class="large no-padding">
     <div>
-      <table class="table" st-pipe="$ctrl.callServer" st-table="$ctrl.displayed">
       <table st-pipe="$ctrl.callServer" st-table="$ctrl.listOfStaff" class="table table-striped" >
         <thead>
           <tr>
-            <th st-sort="name" class="col-lg-2" translate>mnoe_admin_panel.dashboard.staff.widget.list.table.first_name</th>
-            <th st-sort="surname" class="col-lg-3" translate>mnoe_admin_panel.dashboard.staff.widget.list.table.last_name</th>
-            <th st-sort="created_at" class="col-lg-3" translate>mnoe_admin_panel.dashboard.staff.widget.list.table.creation</th>
-            <th st-sort="admin_role" class="col-lg-3" translate>mnoe_admin_panel.dashboard.staff.widget.list.table.role</th>
+            <th st-sort="name" class="col-lg-2" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.first_name</th>
+            <th st-sort="surname" class="col-lg-3" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.last_name</th>
+            <th st-sort="created_at" class="col-lg-3" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.creation</th>
+            <th st-sort="admin_role" class="col-lg-3" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.role</th>
             <th></th>
             <th></th>
         	</tr>
         	<tr>
             <th>
-                <input st-search="name" placeholder="{{'mnoe_admin_panel.dashboard.staff.widget.list.placeholder.search_name' | translate}}" class="form-control input-sm search-bar" type="text"/>
+                <input st-search="name" placeholder="{{'mnoe_admin_panel.dashboard.staffs.widget.list.placeholder.search_name' | translate}}" class="form-control input-sm search-bar" type="text"/>
             </th>
             <th>
-                <input st-search="surname" placeholder="{{'mnoe_admin_panel.dashboard.staff.widget.list.placeholder.search_surname' | translate}}" class="form-control input-sm search-bar" type="text"/>
+                <input st-search="surname" placeholder="{{'mnoe_admin_panel.dashboard.staffs.widget.list.placeholder.search_surname' | translate}}" class="form-control input-sm search-bar" type="text"/>
             </th>
             <th></th>
             <th>
               <select st-search="admin_role" class="form-control input-sm">
-                <option value="" selected translate>mnoe_admin_panel.dashboard.staff.widget.list.table.admin_role.all</option>
+                <option value="" selected translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.admin_role.all</option>
                 <option value="{{role.value}}" ng-repeat="role in $ctrl.staff.roles">{{ role.label | translate }}</option>
               </select>
             </th>
@@ -35,12 +34,12 @@
       	</thead>
         <tbody ng-show="$ctrl.staff.loading">
           <tr>
-            <td colspan="6" class="text-center" translate>mnoe_admin_panel.dashboard.staff.widget.list.loading_staff</td>
+            <td colspan="6" class="text-center" translate>mnoe_admin_panel.dashboard.staffs.widget.list.loading_staff</td>
           </tr>
         </tbody>
       	<tbody ng-show="!$ctrl.staff.loading" >
           <tr ng-repeat="staffElem in $ctrl.listOfStaff">
-            <td>{{staffElem.name}}</td>
+            <td><a ui-sref="dashboard.staff({staffId: staffElem.id})">{{staffElem.name}}</a></td>
             <td>{{staffElem.surname}}</td>
             <td>{{staffElem.created_at | date: 'dd/MM/yyyy'}}</td>
             <td><span ng-show="!$ctrl.staff.editmode[staffElem.id]" translate>{{$ctrl.getAdminRoleLabel(staffElem.admin_role)}}</span>

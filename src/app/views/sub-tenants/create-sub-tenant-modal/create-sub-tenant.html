@@ -1,0 +1,27 @@
+<div id="sub-tenant-modal">
+  <div class="modal-header">
+    <h3 class="modal-title">Add a new Division</h3>
+  </div>
+
+  <form name="vm.form.sub-tenant" novalidate>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <input type="text" class="form-control input-sm" id="sub-tenant-first-name" ng-model="vm.subTenant.name" placeholder="Name" aria-label="Name" required>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="modal-footer">
+    <div class="row actions">
+      <div class="col-xs-12">
+        <button type="button" ng-click="vm.onSubmit()" ng-disabled="vm.isLoading || vm.form.subTenant.$invalid" class="btn btn-primary">
+          <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+          Save
+        </button>
+        <a href="" ng-click="vm.onCancel()"><i class="fa fa-times"></i> cancel</a>
+      </div>
+    </div>
+  </div>
+</div>

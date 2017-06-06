@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h1><i class="fa fa-institution"></i>Division info</h1>
+    <div class="panel panel-default top-buffer-2">
+      <div class="panel-body">
+        <rd-loading ng-show="!vm.subTenant"></rd-loading>
+        <div ng-show="vm.subTenant">
+          <div class="bs-row row">
+            <div class="col-md-3"><div class="label-cell">Name</div></div>
+            <div class="col-md-3">{{::vm.subTenant.name}}</div>
+          </div>
+          <div class="bs-row row">
+            <div class="col-sm-3"><div class="label-cell">Creation date</div></div>
+            <div class="col-sm-3">{{vm.subTenant.created_at | amCalendar }}</div>
+          </div>
+          <div class="bs-row row">
+            <div class="col-sm-3"><div class="label-cell">Update date</div></div>
+            <div class="col-sm-3">{{vm.subTenant.updated_at | amCalendar}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bs-row">
+      <div class="col-sm-6">
+        <h2><i class="fa fa-users"></i> Clients</h2>
+        <button class="btn btn-primary center-block" ng-show="vm.subTenant" ng-click="vm.updateClientsModal()">Add/Remove Clients</button>
+        <mnoe-organizations-local-list list="vm.subTenant.clients" view="all"></mnoe-organizations-local-list>
+      </div>
+      <div class="col-sm-6"><h2><i class="fa fa-users"></i> Account Managers</h2>
+        <button class="btn btn-primary center-block" ng-show="vm.subTenant" ng-click="vm.updateAccountManagerModal()">Add/Remove Account Manager</button>
+        <mnoe-users-local-list list="vm.subTenant.account_managers" view="all"></mnoe-users-local-list>
+      </div>
+    </div>
+
+  </div>
+</div>

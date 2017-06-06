@@ -18,6 +18,11 @@
 
       fetchStaffs(vm.staff.nbItems, vm.staff.offset, sort, search)
 
+    vm.roleLabel = (id) ->
+      if id
+        role = _.find(ADMIN_ROLES, {id:id})
+        if role then role.label else id
+
     # Update sorting parameters
     updateSort = (sortState = {}) ->
       sort = "surname"
@@ -76,20 +81,20 @@
           (error) ->
             # Display an error
             $log.error('Error while saving user', error)
-            toastr.error('mnoe_admin_panel.dashboard.staff.widget.list.toastr_error')
+            toastr.error('mnoe_admin_panel.dashboard.staffs.widget.list.toastr_error')
         )
 
       remove: (staff) ->
         modalOptions =
-          closeButtonText: 'mnoe_admin_panel.dashboard.staff.modal.remove_staff.cancel'
-          actionButtonText: 'mnoe_admin_panel.dashboard.staff.modal.remove_staff.delete'
-          headerText: 'mnoe_admin_panel.dashboard.staff.modal.remove_staff.proceed'
+          closeButtonText: 'mnoe_admin_panel.dashboard.staffs.modal.remove_staff.cancel'
+          actionButtonText: 'mnoe_admin_panel.dashboard.staffs.modal.remove_staff.delete'
+          headerText: 'mnoe_admin_panel.dashboard.staffs.modal.remove_staff.proceed'
           headerTextExtraData: { staff_name: "#{staff.name} #{staff.surname}"}
-          bodyText: 'mnoe_admin_panel.dashboard.staff.modal.remove_staff.perform'
+          bodyText: 'mnoe_admin_panel.dashboard.staffs.modal.remove_staff.perform'
 
         MnoConfirm.showModal(modalOptions).then( ->
           MnoeUsers.removeStaff(staff.id).then( ->
-            toastr.success('mnoe_admin_panel.dashboard.staff.widget.list.toastr_success', {extraData: {staff_name: "#{staff.name} #{staff.surname}"}})
+            toastr.success('mnoe_admin_panel.dashboard.staffs.widget.list.toastr_success', {extraData: {staff_name: "#{staff.name} #{staff.surname}"}})
           )
         )
 
@@ -103,16 +108,13 @@
           vm.staff.oneAdminLeft = _.filter(response.data, {'admin_role': 'admin'}).length == 1
       ).finally(-> vm.staff.loading = false)
 
-    # Initial call and start the listeners
-    fetchStaffs(vm.staff.nbItems, 0).then( ->
-      # Notify me if a user is added
-      MnoeObservables.registerCb(OBS_KEYS.staffAdded, ->
-        fetchStaffs(vm.staff.nbItems, vm.staff.offset)
-      )
-      # Notify me if the list changes
-      MnoeObservables.registerCb(OBS_KEYS.staffChanged, ->
-        fetchStaffs(vm.staff.nbItems, vm.staff.offset)
-      )
+    # Start the listeners
+    MnoeObservables.registerCb(OBS_KEYS.staffAdded, ->
+      fetchStaffs(vm.staff.nbItems, vm.staff.offset)
+    )
+    # Notify me if the list changes
+    MnoeObservables.registerCb(OBS_KEYS.staffChanged, ->
+      fetchStaffs(vm.staff.nbItems, vm.staff.offset)
     )
 
     onStaffAdded = ->

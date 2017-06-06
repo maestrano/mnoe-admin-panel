@@ -13,7 +13,6 @@
             </div>
           </div>
         </div>
-
         <div class="user">
           <div class="item" uib-dropdown>
             <a href="#" uib-dropdown-toggle>
@@ -32,7 +31,6 @@
       </div>
     </div>
   </mno-admin-header>
-
   <mno-admin-nav>
     <li class="sidebar-title"><span>{{'mnoe_admin_panel.dashboard.layout.sidebar.navigation' | translate}}</span></li>
     <li class="sidebar-list" ui-sref-active="active">
@@ -45,7 +43,10 @@
       <a ui-sref="dashboard.customers">{{'mnoe_admin_panel.dashboard.layout.sidebar.customers' | translate}}<span class="menu-icon fa fa-users"></span></a>
     </li>
     <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="::main.adminConfig.isStaffEnabled()" ui-sref-active="active">
-      <a ui-sref="dashboard.staff">{{'mnoe_admin_panel.dashboard.layout.sidebar.staff' | translate}}<span class="menu-icon fa fa-wrench"></span></a>
+      <a ui-sref="dashboard.staffs">{{'mnoe_admin_panel.dashboard.layout.sidebar.staffs' | translate}}<span class="menu-icon fa fa-wrench"></span></a>
+    </li>
+    <li class="sidebar-list" ng-show="main.user.admin_role == 'admin'" ng-if="::main.adminConfig.isStaffEnabled()">
+      <a ui-sref="dashboard.sub-tenants">{{'mnoe_admin_panel.dashboard.layout.sidebar.sub_tenants' | translate}}<span class="menu-icon fa fa-institution"></span></a>
     </li>
     <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="main.isReviewingEnabled" ui-sref-active="active">
       <a ui-sref="dashboard.reviews">{{'mnoe_admin_panel.dashboard.layout.sidebar.reviews' | translate}}<span class="menu-icon fa fa-star-half-o"></span></a>

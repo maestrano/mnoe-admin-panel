@@ -25,7 +25,6 @@
         angular.copy(response.data, _self.user)
         response.data
     )
-
   @skipIfNotAdmin = () ->
     deferred = $q.defer()
     _self.getUser().then(->
@@ -57,5 +56,15 @@
       () ->
         _self.skipIfNotAdmin()
     )
+
+  @skipIfNotAdminRole = (admin_roles) ->
+    if _self.user.admin_role? && _self.user.admin_role in admin_roles
+      return $q.resolve()
+    else
+      $timeout(->
+        # Runs after the authentication promise has been rejected.
+        $state.go('dashboard.home')
+      )
+      $q.reject()
 
   return @

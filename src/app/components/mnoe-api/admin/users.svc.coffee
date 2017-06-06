@@ -55,7 +55,6 @@
       (error) ->
         # Display an error
         $log.error('Error while deleting user', error)
-        toastr.error('mnoe_admin_panel.dashboard.staff.modal.remove_staff.toastr_error')
     )
 
   # Invite a user to join an organization

@@ -1,13 +1,58 @@
 <div class="row">
-  <div class="col-xs-8 col-lg-offset-1 top-buffer-1">
-    <button role="button" ng-click="vm.staff.createModal()" class="btn btn-primary" translate>
-      mnoe_admin_panel.dashboard.staff.add_staff
+  <div class="col-xs-12">
+    <h1><i class="fa fa-user"></i> Staff info</h1>
+    <div class="panel panel-default top-buffer-2">
+      <div class="panel-body">
+        <rd-loading ng-show="!vm.staff"></rd-loading>
+        <div ng-show="vm.staff">
+          <div class="bs-row row">
+            <div class="col-md-3"><div class="label-cell">Name</div></div>
+            <div class="col-md-3">{{vm.staff.name}}</div>
+          </div>
+          <div class="bs-row row">
+            <div class="col-md-3"><div class="label-cell">Surname</div></div>
+            <div class="col-md-3">{{vm.staff.surname}}</div>
+          </div>
+          <div class="bs-row row">
+            <div class="col-md-3"><div class="label-cell">Email</div></div>
+            <div class="col-md-3">{{vm.staff.email}}</div>
+          </div>
+          <div class="bs-row row">
+            <div class="col-sm-3"><div class="label-cell">Admin Role</div></div>
+            <div class="col-md-3">{{vm.staff.admin_role}}</div>
+          </div>
+          <div class="bs-row row">
+            <div class="col-sm-3"><div class="label-cell">Creation date</div></div>
+            <div class="col-sm-3">{{vm.staff.created_at | amCalendar }}</div>
+          </div>
+          <div class="bs-row row">
+            <div class="col-sm-3"><div class="label-cell">Creation date</div></div>
+            <div class="col-sm-3">{{vm.staff.created_at | amCalendar }}</div>
+          </div>
+          </div>
+          <div class="bs-row row">
+            <div class="col-sm-3"><div class="label-cell">Division</div></div>
+            <div class="col-sm-3" ng-show="vm.subTenants">
+              <select ng-options="subtenant.id as subtenant.name for subtenant in vm.subTenants"  class="form-control input-sm" ng-model="vm.staff.mnoe_sub_tenant_id">
+                <option value=""></option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary center-block" ng-show="vm.staff" ng-disabled="vm.isSaving" ng-click="vm.updateStaff()" translate>
+      <span ng-show="vm.isSaving"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+      mnoe_admin_panel.dashboard.staff.update_staff
     </button>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-lg-10 col-lg-offset-1 col-md-12">
-    <mnoe-staffs-list view="all"></mnoe-staffs-list>
+    <div class="bs-row">
+      <div class="col-sm-12">
+        <h2><i class="fa fa-users"></i> Clients</h2>
+        <div ng-show="vm.staff && vm.staff.subtenant">
+          <button class="btn btn-primary center-block" ng-show="vm.staff"  ng-click="vm.updateClientsModal() translate">mnoe_admin_panel.dashboard.staff.add_remove_clients</button>
+          <mnoe-organizations-local-list list="vm.staff.clients" view="all"></mnoe-organizations-local-list>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
