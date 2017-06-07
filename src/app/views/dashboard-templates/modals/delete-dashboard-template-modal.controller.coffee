@@ -11,7 +11,7 @@
         toastr.success('mnoe_admin_panel.dashboard.dashboard_templates.widget.list.toastr.deleted.successfully')
       (error) ->
         toastr.error('mnoe_admin_panel.dashboard.dashboard_templates.widget.list.toastr.deleted.error')
-    ).finally(-> $uibModalInstance.close(true)
-    $scope.isLoading = false )
+    ).finally(-> $scope.isLoading = false
+    $uibModalInstance.close(true))
 
   return

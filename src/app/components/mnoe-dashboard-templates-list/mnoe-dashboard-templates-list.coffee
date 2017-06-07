@@ -25,6 +25,7 @@
       fetchDashboardTemplates(vm.dashboardTemplates.nbItems, vm.dashboardTemplates.offset, sort, search)
 
     vm.toggleEditMode = (dashboardTemplate) ->
+      dashboardTemplate.newName = ''
       dashboardTemplate.editMode = !dashboardTemplate.editMode
 
     # Update sorting parameters
@@ -84,7 +85,6 @@
           if result
             fetchDashboardTemplates()
       )
-
 
     #====================================
     # Retrieve Dashboard Templates
