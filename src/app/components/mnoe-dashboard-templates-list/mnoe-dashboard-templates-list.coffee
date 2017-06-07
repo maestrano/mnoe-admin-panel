@@ -60,9 +60,9 @@
         dashboardTemplate.name = dashboardTemplate.newName
         MnoeDashboardTemplates.update(dashboardTemplate).then(
           (success) ->
-            toastr.success('mnoe_admin_panel.dashboard.dashboard_templates.widget.list.toastr.successfully')
+            toastr.success('mnoe_admin_panel.dashboard.dashboard_templates.widget.list.toastr.updated.successfully')
           (error) ->
-            toastr.error('mnoe_admin_panel.dashboard.dashboard_templates.widget.list.toastr.error')
+            toastr.error('mnoe_admin_panel.dashboard.dashboard_templates.widget.list.toastr.updated.error')
         ).finally(-> dashboardTemplate.editMode = !dashboardTemplate.editMode)
       else
         dashboardTemplate.editMode = !dashboardTemplate.editMode
@@ -70,15 +70,21 @@
     #====================================
     # Dashboard Template deletion Modal
     #====================================
-    vm.openDeleteModal = (dashboardTemplate) ->
+    vm.openDeleteModal = (dashboardTemplateId) ->
       modalInstance = $uibModal.open(
         templateUrl: 'app/views/dashboard-templates/modals/delete-dashboard-template-modal.html'
         controller: 'deleteDashboardTemplateCtrl'
         size: 'lg'
-        backdrop: 'static',
         resolve:
-          dashboardTemplate: dashboardTemplate
-      ).closed.then(-> fetchDashboardTemplates())
+          dashboardTemplateId: dashboardTemplateId
+      )
+      modalInstance.result.then(
+        (result) ->
+          # If the user delete a dashboard template
+          if result
+            fetchDashboardTemplates()
+      )
+
 
     #====================================
     # Retrieve Dashboard Templates
