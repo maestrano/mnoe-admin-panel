@@ -1,18 +1,20 @@
-<div class="modal-header">
-  <div class="close" type="button" ng-click="close()" >×</div>
-  <h3>{{ 'mnoe_admin_panel.dashboard.dashboard_templates.modal.delete_dashboard' | translate }}</h3>
-</div>
-<div class="modal-body">
-  <p>{{ 'mnoe_admin_panel.dashboard.dashboard_templates.modal.are_you_sure' | translate }}</p>
-</div>
-<div class="modal-footer">
-  <div class="row">
-    <div class="col-sm-12">
-      <button class="btn btn-shaded" ng-click="close()" ng-hide="isLoading" ng-disabled="isLoading">{{ 'mnoe_admin_panel.dashboard.dashboard_templates.modal.cancel' | translate }}</button>
-      <button class="btn btn-danger" ng-click="delete()" ng-disabled="isLoading">
-        <i class="fa fa-spinner fa-pulse loader" ng-if="isLoading"></i>
-        {{ 'mnoe_admin_panel.dashboard.dashboard_templates.modal.delete' | translate }}
-      </button>
+<div id="delete-dashboard-template-modal">
+  <div class="close center" type="button" ng-click="close()">×</div>
+  <div class="modal-header">
+    <h3>{{ 'mnoe_admin_panel.dashboard.dashboard_templates.modal.delete_dashboard' | translate }}</h3>
+  </div>
+  <div class="modal-body">
+    <p>{{ 'mnoe_admin_panel.dashboard.dashboard_templates.modal.are_you_sure' | translate }}</p>
+  </div>
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-sm-12">
+        <button class="btn btn-shaded" ng-click="close()" ng-hide="isLoading" ng-disabled="isLoading">{{ 'mnoe_admin_panel.dashboard.dashboard_templates.modal.cancel' | translate }}</button>
+        <button class="btn btn-danger" ng-click="delete()" ng-disabled="isLoading">
+          <i class="fa fa-spinner fa-pulse loader" ng-if="isLoading"></i>
+          {{ 'mnoe_admin_panel.dashboard.dashboard_templates.modal.delete' | translate }}
+        </button>
+      </div>
     </div>
   </div>
 </div>
