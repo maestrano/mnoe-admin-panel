@@ -13,7 +13,6 @@
             <th translate>mnoe_admin_panel.dashboard.reviews_list.rating</th>
             <th translate>mnoe_admin_panel.dashboard.reviews_list.date</th>
             <th translate>mnoe_admin_panel.dashboard.reviews_list.status</th>
-            <th translate>mnoe_admin_panel.dashboard.reviews_list.edit</th>
           </tr>
         </thead>
         <tbody>
@@ -44,14 +43,16 @@
             <td>
               {{review.created_at | date: 'dd/MM/yyyy' }}
             </td>
-            <td><span ng-show="!editmode[review.id]">{{review.status}}</span>
-              <select ng-model="review.status" ng-show="editmode[review.id]" >
-                <option ng-repeat="status in statuses" value="{{status.value}}" translate>{{status.label}}</option>
-              </select>
-            </td>
-            <td>
-              <a href="" ng-hide="editmode[review.id]" ng-click="editmode[review.id] = true"><i class="fa fa-pencil"></i></a>
-              <a href="" ng-show="editmode[review.id]" ng-click="update(review)"><i class="fa fa-check"></i></a>
+            <td><p ng-show="!editmode[review.id]">{{review.status}}</p>
+              <p>
+                <select ng-model="review.status" ng-show="editmode[review.id]" >
+                  <option ng-repeat="status in statuses" value="{{status.value}}" translate>{{status.label}}</option>
+                </select>
+              </p>
+              <div class="text-right">
+                <button type="button" name="button" ng-hide="editmode[review.id]" ng-click="editmode[review.id] = true" translate>mnoe_admin_panel.dashboard.reviews_list.status.edit</button>
+                <button type="button" name="button" ng-show="editmode[review.id]" ng-click="update(review)" translate>mnoe_admin_panel.dashboard.reviews_list.status.update</button>
+              </div>
             </td>
           </tr>
         </tbody>
