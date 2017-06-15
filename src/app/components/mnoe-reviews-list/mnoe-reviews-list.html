@@ -43,7 +43,8 @@
             <td>
               {{review.created_at | date: 'dd/MM/yyyy' }}
             </td>
-            <td><span ng-show="!editmode[review.id]">{{review.status}}</span>
+            <td>
+              <span ng-show="!editmode[review.id]">{{review.status}}</span>
               <select ng-model="review.status" ng-show="editmode[review.id]" >
                 <option ng-repeat="status in statuses" value="{{status.value}}" translate>{{status.label}}</option>
               </select>
