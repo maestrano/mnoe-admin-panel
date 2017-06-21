@@ -1,16 +1,27 @@
 # Service for managing the comments and reviews.
-@App.service 'MnoeReviews', (MnoeAdminApiSvc, $log, toastr) ->
+@App.service 'MnoeReviews', (MnoeAdminApiSvc, MnoeApiSvc, $log, toastr) ->
   _self = @
 
-  # GET List /mnoe/jpi/v1/admin/app_reviews
-  @list = () ->
-    MnoeAdminApiSvc.all('app_reviews').getList().then(
+  # GET List /mnoe/jpi/v1/admin/app_feedbacks
+  @listFeedbacks = () ->
+    MnoeAdminApiSvc.all('app_feedbacks').getList().then(
       (response) ->
         response
       (error) ->
         # Display an error
         $log.error('Error while fetching reviews', error)
         toastr.error('mnoe_admin_panel.dashboard.reviews_list.toastr_error')
+    )
+
+  # GET List /mnoe/jpi/v1/admin/app_questions
+  @listQuestions = () ->
+    MnoeAdminApiSvc.all('app_questions').getList().then(
+      (response) ->
+        response
+      (error) ->
+        # Display an error
+        $log.error('Error while fetching questions', error)
+        toastr.error('mnoe_admin_panel.dashboard.questions_list.toastr_error')
     )
 
   # UPDATE /mnoe/jpi/v1/admin/app_reviews/1

@@ -26,6 +26,17 @@
       resolve:
         skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
         skipCondition: (RoutingHelper, REVIEWS_CONFIG) -> RoutingHelper.skipUnlessCondition(REVIEWS_CONFIG && REVIEWS_CONFIG.enabled)
+    .state 'dashboard.questions',
+      data:
+        pageTitle:'Questions'
+      url: '/questions'
+      templateUrl: 'app/views/questions/questions.html'
+      controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.questions.title'
+      resolve:
+        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
+        skipCondition: (RoutingHelper, QUESTIONS_CONFIG) -> RoutingHelper.skipUnlessCondition(QUESTIONS_CONFIG && QUESTIONS_CONFIG.enabled)
     .state 'dashboard.customers',
       data:
         pageTitle:'Customers'
