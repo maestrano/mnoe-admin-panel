@@ -1,17 +1,16 @@
 # This service is a wrapper around the config we fetch from the backend
-# MnoeAdminConfig.financeEnabled?
-@App.factory 'MnoeAdminConfig', ($log, ADMIN_PANEL_CONFIG, PAYMENT_CONFIG, ORGANIZATION_MANAGEMENT) ->
+@App.factory 'MnoeAdminConfig', ($log, ADMIN_PANEL_CONFIG, DASHBOARD_CONFIG) ->
   _self = @
 
   @isAuditLogEnabled = () ->
-    if ADMIN_PANEL_CONFIG.audit_log
+    if ADMIN_PANEL_CONFIG.audit_log?
       ADMIN_PANEL_CONFIG.audit_log.enabled
     else
       true
 
   @isImpersonationEnabled = () ->
-    if ADMIN_PANEL_CONFIG.impersonation
-      not ADMIN_PANEL_CONFIG.impersonation.disabled
+    if ADMIN_PANEL_CONFIG.impersonation?
+      ADMIN_PANEL_CONFIG.impersonation.enabled
     else
       true
 
@@ -34,22 +33,26 @@
       true
 
   @isOrganizationManagementEnabled = () ->
-    if ADMIN_PANEL_CONFIG.customer_management? && ADMIN_PANEL_CONFIG.customer_management.organization?
+    if ADMIN_PANEL_CONFIG.customer_management?.organization?
       ADMIN_PANEL_CONFIG.customer_management.organization.enabled
     else
       true
 
   @isUserManagementEnabled = () ->
-    if ADMIN_PANEL_CONFIG.customer_management? && ADMIN_PANEL_CONFIG.customer_management.user?
+    if ADMIN_PANEL_CONFIG.customer_management?.customer_management.user?
       ADMIN_PANEL_CONFIG.customer_management.user.enabled
     else
       true
 
   # Do not display CC info if Billing or Payment is disabled in the frontend
   @isPaymentEnabled = () ->
-    payment_disabled = (PAYMENT_CONFIG? && PAYMENT_CONFIG.disabled)
-    billing_disabled = (ORGANIZATION_MANAGEMENT? && ORGANIZATION_MANAGEMENT.billing? && not ORGANIZATION_MANAGEMENT.billing.enabled)
+
+    payment_disabled = (DASHBOARD_CONFIG.payment? && not DASHBOARD_CONFIG.payment.enabled)
+    billing_disabled = (DASHBOARD_CONFIG.organization_management?.billing? && not DASHBOARD_CONFIG.organization_management.billing.enabled)
 
     not (payment_disabled || billing_disabled)
+
+  @isReviewingEnabled = () ->
+    DASHBOARD_CONFIG.reviews?.enabled
 
   return @
