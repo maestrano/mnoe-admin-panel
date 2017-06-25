@@ -67,6 +67,19 @@
   # Routes depending on Feature Flags
   adminConfig = MnoeAdminConfigProvider.$get()
 
+
+  # TODO: conditional routes
+  $stateProvider.state 'dashboard.settings',
+    data:
+      pageTitle: 'Frontend Settings'
+    url: '/settings'
+    templateUrl: 'app/views/settings/settings.html'
+    controller: 'SettingsController'
+    controllerAs: 'vm'
+    ncyBreadcrumb:
+      label: 'mnoe_admin_panel.dashboard.settings.title'
+
+
   if adminConfig.isAuditLogEnabled()
     $stateProvider.state 'dashboard.audit-log',
       data:
