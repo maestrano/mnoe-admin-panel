@@ -28,12 +28,7 @@
           review: review
       ).result.then(
         (review) ->
-          MnoeReviews.updateDescription(review).then(
-            (response) ->
-              # Remove the edit mode for this review
-              #delete scope.editmode[review.id]
-          )
-
+          MnoeReviews.updateDescription(review)
       )
 
     scope.openFeedbackReplyModal = (review) ->
@@ -46,7 +41,6 @@
             (response) ->
               review.comments.unshift(response.data.app_comment)
           )
-
       )
 
     fetchReviews = () ->

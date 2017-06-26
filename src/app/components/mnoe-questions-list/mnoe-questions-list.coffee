@@ -28,12 +28,7 @@
           review: question
       ).result.then(
         (question) ->
-          MnoeReviews.updateDescription(question).then(
-            (response) ->
-              # Remove the edit mode for this review
-              #delete scope.editmode[review.id]
-          )
-
+          MnoeReviews.updateDescription(question)
       )
 
     scope.openEditAnswerModal = (answer) ->
@@ -44,12 +39,7 @@
           review: answer
       ).result.then(
         (answer) ->
-          MnoeReviews.updateDescription(answer).then(
-            (response) ->
-              # Remove the edit mode for this review
-              #delete scope.editmode[review.id]
-          )
-
+          MnoeReviews.updateDescription(answer)
       )
 
     scope.openQuestionReplyModal = (question) ->
