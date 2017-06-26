@@ -3,5 +3,5 @@
 # to define this constants you don't get errors like:
 #   Uncaught Error: [$injector:unpr] Unknown provider: INTERCOM_IDProvider <- INTERCOM_ID <- AnalyticsSvc
 angular.module('mnoEnterprise.defaultConfiguration', [])
-  .constant('REVIEWS_CONFIG', {enabled: false})
+  .constant('DASHBOARD_CONFIG', {})
   .constant('ADMIN_PANEL_CONFIG', {})

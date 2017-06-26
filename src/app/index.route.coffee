@@ -25,7 +25,7 @@
         label: 'mnoe_admin_panel.dashboard.reviews.title'
       resolve:
         skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
-        skipCondition: (RoutingHelper, REVIEWS_CONFIG) -> RoutingHelper.skipUnlessCondition(REVIEWS_CONFIG && REVIEWS_CONFIG.enabled)
+        skipCondition: (RoutingHelper, MnoeAdminConfig) -> RoutingHelper.skipUnlessCondition(MnoeAdminConfig.isReviewingEnabled())
     .state 'dashboard.customers',
       data:
         pageTitle:'Customers'
@@ -66,6 +66,19 @@
 
   # Routes depending on Feature Flags
   adminConfig = MnoeAdminConfigProvider.$get()
+
+
+  # TODO: conditional routes
+  $stateProvider.state 'dashboard.settings',
+    data:
+      pageTitle: 'Frontend Settings'
+    url: '/settings'
+    templateUrl: 'app/views/settings/settings.html'
+    controller: 'SettingsController'
+    controllerAs: 'vm'
+    ncyBreadcrumb:
+      label: 'mnoe_admin_panel.dashboard.settings.title'
+
 
   if adminConfig.isAuditLogEnabled()
     $stateProvider.state 'dashboard.audit-log',
