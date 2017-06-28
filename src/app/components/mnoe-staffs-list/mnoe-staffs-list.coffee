@@ -38,7 +38,7 @@
       if searchingState.predicateObject
         for attr, value of searchingState.predicateObject
           if attr == "admin_role"
-            search[ 'where[admin_role.in][]' ] = [value]
+            search[ 'where[admin_role.in]' ] = value
           else
             search[ 'where[' + attr + '.like]' ] = value + '%'
 
