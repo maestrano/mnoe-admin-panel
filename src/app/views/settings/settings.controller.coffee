@@ -1,4 +1,4 @@
-@App.controller 'SettingsController', ($timeout, $window, CONFIG_JSON_SCHEMA, MnoeTenant) ->
+@App.controller 'SettingsController', ($timeout, $window, toastr, CONFIG_JSON_SCHEMA, MnoeTenant) ->
   'ngInject'
   vm = this
 
@@ -24,27 +24,41 @@
       ]
     }
     {
-      type: "actions"
-      items: [
-        type: "submit"
-        title: "Save"
-      ]
+      type: 'actions'
+      items: [{
+        type: 'button'
+        title: 'Cancel'
+        style: 'btn-danger'
+        onClick: 'vm.cancel(settingsForm)'
+      }, {
+        type: 'submit'
+        title: 'Save'
+        style: 'btn-primary'
+      }]
     }
   ]
 
-  MnoeTenant.get().then(
-    (response) ->
-      vm.settingsModel = response.data.frontend_config
-  )
+  # Load config from the Tenant
+  loadConfig = ->
+    MnoeTenant.get().then(
+      (response) ->
+        vm.settingsModel = response.data.frontend_config
+    )
+
+  loadConfig()
+
+  vm.cancel = (form) ->
+    vm.settingsModel = {}
+    form.$setPristine()
+    loadConfig()
 
   vm.saveSettings = (form) ->
     MnoeTenant.update(vm.settingsModel).then(
       ->
-        $timeout(->
-          $window.location.reload()
-        , 2000)
+        toastr.success('mnoe_admin_panel.dashboard.settings.save.toastr_success')
+
       ->
-        console.log("Error")
+        toastr.error('mnoe_admin_panel.dashboard.settings.save.toastr_error')
     )
 
   return

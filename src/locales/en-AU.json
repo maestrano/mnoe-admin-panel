@@ -90,6 +90,8 @@
   "mnoe_admin_panel.dashboard.customers.connect_app.myob.close": "Close",
   "mnoe_admin_panel.dashboard.customers.connect_app.myob.connect": "Connect",
   "mnoe_admin_panel.dashboard.settings.title": "Settings",
+  "mnoe_admin_panel.dashboard.settings.save.toastr_error": "Error while saving your changes",
+  "mnoe_admin_panel.dashboard.settings.save.toastr_success": "We're deploying your changes, please note that it may take up to 20min for your changes to take effect",
   "mnoe_admin_panel.dashboard.user.title": "User",
   "mnoe_admin_panel.dashboard.user.subtitle": "User info",
   "mnoe_admin_panel.dashboard.user.table.email": "Email",
