@@ -68,17 +68,29 @@
   adminConfig = MnoeAdminConfigProvider.$get()
 
   if adminConfig.areSettingsEnabled()
-    $stateProvider.state 'dashboard.settings',
-      data:
-        pageTitle: 'Frontend Settings'
-      url: '/settings'
-      templateUrl: 'app/views/settings/settings.html'
-      controller: 'SettingsController'
-      controllerAs: 'vm'
-      ncyBreadcrumb:
-        label: 'mnoe_admin_panel.dashboard.settings.title'
-      resolve:
-        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
+    $stateProvider
+      .state 'dashboard.settings',
+        data:
+          pageTitle: 'Frontend Settings'
+        url: '/settings'
+        templateUrl: 'app/views/settings/settings.html'
+        controller: 'SettingsController'
+        controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.settings.title'
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
+      .state 'dashboard.domain',
+        data:
+          pageTitle: 'Domain & SSL'
+        url: '/settings/domain'
+        templateUrl: 'app/views/settings/domain/domain.html'
+        controller: 'SettingsDomainController'
+        controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.settings.domain.title'
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
 
   if adminConfig.isAuditLogEnabled()
     $stateProvider.state 'dashboard.audit-log',

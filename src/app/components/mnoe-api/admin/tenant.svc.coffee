@@ -8,4 +8,10 @@
   @update = (config) ->
     MnoeAdminApiSvc.one('tenant').patch(tenant: {frontend_config: config})
 
+  @updateDomain = (params) ->
+    MnoeAdminApiSvc.one('tenant').one('domain').patch(tenant: params)
+
+  @addSSLCerts = (params) ->
+    MnoeAdminApiSvc.one('tenant').all('ssl_certificates').post(tenant: params)
+
   return @

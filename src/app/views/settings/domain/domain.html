@@ -1,0 +1,84 @@
+<div id="settings-domain">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1 translate>mnoe_admin_panel.dashboard.settings.domain.title</h1>
+
+      <mno-widget id="domain-form" icon="fa-globe" heading="{{'mnoe_admin_panel.dashboard.settings.domain.domain_name' | translate}}">
+        <mno-widget-header></mno-widget-header>
+        <mno-widget-body>
+          <form name="vm.form.domain">
+            <div class="alert alert-info">
+              <span><i class="fa fa-info-circle"></i></span>
+              {{'mnoe_admin_panel.dashboard.settings.domain.notice' | translate}}
+            </div>
+            <div class="flex-container flex-center">
+              <div class="form-group flex-50">
+                <label class="control-label" for="domain" translate>mnoe_admin_panel.dashboard.settings.domain.domain_name</label>
+                <input id="domain" type="text" ng-model="vm.tenant.domain" class="form-control" required>
+                <div ng-messages="vm.form.domain.$error" role="alert" ng-if="vm.form.domain.$dirty || vm.form.domain.$submitted">
+                  <p ng-message="required" class="text-danger" translate>mnoe_admin_panel.dashboard.settings.domain.required.domain_name</p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-danger top-buffer-2" ng-click="vm.updateDomain()" ng-disabled="vm.isDomainSaving || vm.isLoading || vm.form.domain.$invalid">
+                <span ng-show="vm.isDomainSaving || vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+                {{'mnoe_admin_panel.dashboard.settings.domain.save' | translate}}
+              </button>
+            </div>
+          </form>
+        </mno-widget-body>
+      </mno-widget>
+
+      <mno-widget id="domain-form" icon="fa-lock" heading="{{'mnoe_admin_panel.dashboard.settings.ssl.title' | translate}}">
+        <mno-widget-header></mno-widget-header>
+        <mno-widget-body>
+          <form name="vm.form.ssl">
+            <div class="alert alert-warning">
+              <span><i class="fa fa-warning"></i></span>
+              {{'mnoe_admin_panel.dashboard.settings.ssl.notice' | translate}}
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="cert-domain" translate>mnoe_admin_panel.dashboard.settings.ssl.domain.title</label>
+              <input id="cert-domain" name="domain" type="text" ng-model="vm.ssl.domain" class="form-control" required></input>
+              <div ng-messages="vm.form.ssl.domain.$error" role="alert" ng-if="vm.form.ssl.domain.$dirty || vm.form.ssl.$submitted">
+                <p ng-message="required" class="text-danger" translate>mnoe_admin_panel.dashboard.settings.ssl.required.domain</p>
+              </div>
+              <span id="helpBlock" class="help-block" translate>mnoe_admin_panel.dashboard.settings.ssl.domain.help</span>
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="ssl-certificate" translate>mnoe_admin_panel.dashboard.settings.ssl.certificate.title</label>
+              <textarea id="ssl-certificate" name="certificate" class="form-control" ng-model="vm.ssl.certificate" rows="5" required></textarea>
+              <div ng-messages="vm.form.ssl.certificate.$error" role="alert" ng-if="vm.form.ssl.certificate.$dirty || vm.form.ssl.$submitted">
+                <p ng-message="required" class="text-danger" translate>mnoe_admin_panel.dashboard.settings.ssl.required.certificate</p>
+              </div>
+              <span id="helpBlock" class="help-block" translate>mnoe_admin_panel.dashboard.settings.ssl.certificate.help</span>
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="ssl-private-key" translate>mnoe_admin_panel.dashboard.settings.ssl.private_key.title</label>
+              <textarea id="ssl-private-key" name="private_key" class="form-control" ng-model="vm.ssl.private_key" rows="5" required></textarea>
+              <div ng-messages="vm.form.ssl.private_key.$error" role="alert" ng-if="vm.form.ssl.private_key.$dirty || vm.form.ssl.$submitted">
+                <p ng-message="required" class="text-danger" translate>mnoe_admin_panel.dashboard.settings.ssl.required.private_key</p>
+              </div>
+              <span id="helpBlock" class="help-block" translate>mnoe_admin_panel.dashboard.settings.ssl.private_key.help</span>
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="ssl-ca-bundle" translate>mnoe_admin_panel.dashboard.settings.ssl.ca_bundle.title</label>
+              <textarea id="ssl-private-ca-bundle" name="ca_bundle" class="form-control" ng-model="vm.ssl.ca_bundle" rows="5" required></textarea>
+              <div ng-messages="vm.form.ssl.ca_bundle.$error" role="alert" ng-if="vm.form.ssl.ca_bundle.$dirty || vm.form.ssl.$submitted">
+                <p ng-message="required" class="text-danger" translate>mnoe_admin_panel.dashboard.settings.ssl.required.ca_bundle</p>
+              </div>
+              <span id="helpBlock" class="help-block" translate>mnoe_admin_panel.dashboard.settings.ssl.ca_bundle.help</span>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-danger top-buffer-2" ng-click="vm.uploadCerts()" ng-disabled="vm.isCertSaving || vm.isLoading || vm.form.ssl.$invalid">
+                <span ng-show="vm.isCertSaving || vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+                {{'mnoe_admin_panel.dashboard.settings.ssl.save' | translate}}
+              </button>
+            </div>
+          </form>
+        </mno-widget-body>
+      </mno-widget>
+    </div>
+  </div>
+</div>
