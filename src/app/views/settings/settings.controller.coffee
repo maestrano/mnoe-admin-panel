@@ -23,19 +23,6 @@
         }
       ]
     }
-    {
-      type: 'actions'
-      items: [{
-        type: 'button'
-        title: 'Cancel'
-        style: 'btn-danger'
-        onClick: 'vm.cancel(settingsForm)'
-      }, {
-        type: 'submit'
-        title: 'Save'
-        style: 'btn-primary'
-      }]
-    }
   ]
 
   # Load config from the Tenant
@@ -52,13 +39,13 @@
     form.$setPristine()
     loadConfig()
 
-  vm.saveSettings = (form) ->
+  vm.saveSettings = () ->
+    vm.isLoading = true
     MnoeTenant.update(vm.settingsModel).then(
       ->
         toastr.success('mnoe_admin_panel.dashboard.settings.save.toastr_success')
-
       ->
         toastr.error('mnoe_admin_panel.dashboard.settings.save.toastr_error')
-    )
+    ).finally(-> vm.isLoading = false)
 
   return
