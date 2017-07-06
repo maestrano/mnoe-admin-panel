@@ -84,7 +84,7 @@
         data:
           pageTitle: 'Domain & SSL'
         url: '/settings/domain'
-        templateUrl: 'app/views/settings/domain/domain.html'
+        templateUrl: 'app/views/settings/domain.html'
         controller: 'SettingsDomainController'
         controllerAs: 'vm'
         ncyBreadcrumb:
