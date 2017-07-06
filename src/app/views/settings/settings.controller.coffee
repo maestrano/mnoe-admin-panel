@@ -1,4 +1,4 @@
-@App.controller 'SettingsController', ($timeout, $window, toastr, CONFIG_JSON_SCHEMA, MnoeTenant) ->
+@App.controller 'SettingsController', (toastr, CONFIG_JSON_SCHEMA, MnoeTenant) ->
   'ngInject'
   vm = this
 
