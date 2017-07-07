@@ -39,9 +39,15 @@
 
     not (payment_disabled || billing_disabled)
 
+  @isRegistrationEnabled = () ->
+    if DASHBOARD_CONFIG.registration?.enabled?
+      DASHBOARD_CONFIG.registration.enabled
+    else
+      true
+
   @isReviewingEnabled = () ->
     if DASHBOARD_CONFIG.marketplace?.reviews?.enabled?
-      DASHBOARD_CONFIG.marketplace?.reviews?.enabled?
+      DASHBOARD_CONFIG.marketplace.reviews.enabled
     else
       false
 
