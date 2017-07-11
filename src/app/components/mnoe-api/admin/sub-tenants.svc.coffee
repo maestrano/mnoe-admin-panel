@@ -14,6 +14,8 @@
       (response) ->
         MnoeObservables.notifyObservers(OBS_KEYS.subTenantAdded, promise)
         response
+      (error) ->
+        $log.error('Error while creating subTenant: ' + subTenant, error)
     )
 
   # filtering an object with an array in coffeescript
@@ -29,6 +31,8 @@
       (response) ->
         MnoeObservables.notifyObservers(OBS_KEYS.subTenantChanged, promise)
         response
+      (error) ->
+        $log.error('Error while updating subTenant: ' + id, error)
     )
 
   @delete = (id) ->

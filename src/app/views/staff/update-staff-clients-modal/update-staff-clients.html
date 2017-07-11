@@ -1,15 +1,16 @@
 <div id="sub-tenant-modal">
   <div class="modal-header">
-    <h3 class="modal-title">Select clients</h3>
+    <h3 class="modal-title" translate>mnoe_admin_panel.dashboard.staff.update_staff_clients.title</h3>
   </div>
 
   <div class="modal-body">
-    <rd-widget>
-      <rd-widget-header icon="fa-sitemap" title="Select Organization">&nbsp;
+    <mno-widget icon="fa-sitemap" heading="{{$ctrl.events.widgetTitle}}" is-loading="vm.organizations.loading">
+      <mno-widget-header>
+        {{ 'mnoe_admin_panel.dashboard.staff.update_staff_clients.title' | translate}}
         <input type="text" ng-model="vm.organizations.search" ng-change="vm.searchChange()" placeholder="Search all"
                class="form-control input-sm search-bar"/>
-      </rd-widget-header>
-      <rd-widget-body loading="vm.organizations.loading" classes="large no-padding">
+      </mno-widget-header>
+      <mno-widget-body class="no-padding">
         <table class="table table-layout-fixed">
           <thead>
           <tr>
@@ -25,12 +26,9 @@
           </tr>
           </tbody>
         </table>
-      </rd-widget-body>
-    </rd-widget>
-
+      </mno-widget-body>
+    </mno-widget>
   </div>
-
-
   <div class="modal-footer">
     <div class="row actions">
       <div class="col-xs-12">

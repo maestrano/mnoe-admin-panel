@@ -6,7 +6,7 @@
   bindings: {
     view: '@',
   }
-  controller: ($filter, $log, toastr, MnoeSubTenants, MnoConfirm, MnoeObservables, OBS_KEYS,) ->
+  controller: ($filter, $log, toastr, MnoeSubTenants, MnoConfirm, MnoeObservables, OBS_KEYS) ->
     vm = this
 
     vm.listOfSubTenant = []
@@ -48,27 +48,29 @@
       update: (subTenant) ->
         MnoeSubTenants.update(subTenant).then(
           () ->
-            toastr.success("#{subTenant.name} has been successfully updated.")
+            toastr.success('mnoe_admin_panel.dashboard.sub_tenants.update_sub_tenant.toastr_success', {extraData: {sub_tenant_name: subTenant.name}})
             # Remove the edit mode for this user
             delete vm.subTenant.editmode[subTenant.id]
           (error) ->
-            # Display an error
-            $log.error('Error while saving sub tenant', error)
-            toastr.error('An error occurred while saving the Division.')
+            $log.error('Error while updating subTenant', error)
+            toastr.error('mnoe_admin_panel.dashboard.sub_tenants.update_sub_tenant.toastr_error')
         )
 
       remove: (subTenant) ->
         modalOptions =
-          closeButtonText: 'Cancel'
-          actionButtonText: 'Delete Division'
-          headerText: 'Delete ' + subTenant.name + '?'
-          bodyText: 'Are you sure you want to delete this Division'
+          closeButtonText: 'mnoe_admin_panel.dashboard.sub_tenants.remove_sub_tenant.cancel'
+          actionButtonText: 'mnoe_admin_panel.dashboard.sub_tenants.remove_sub_tenant.delete'
+          headerText: 'mnoe_admin_panel.dashboard.sub_tenants.remove_sub_tenant.proceed'
+          headerTextExtraData: { sub_tenant_name: subTenant.name}
+          bodyText: 'mnoe_admin_panel.dashboard.sub_tenants.modal.remove_sub_tenant.perform'
 
         MnoConfirm.showModal(modalOptions).then(->
-          console.log 'Remove subTenant:' + subTenant.id
           MnoeSubTenants.delete(subTenant.id).then(->
-            toastr.success("#{subTenant.name} has been successfully removed.")
+            toastr.success('mnoe_admin_panel.dashboard.sub_tenants.remove_sub_tenant.toastr_success', {extraData: {sub_tenant_name: subTenant.name}})
           )
+          (error) ->
+            $log.error('Error while deleting subTenant', error)
+            toastr.error('mnoe_admin_panel.dashboard.sub_tenants.remove_sub_tenant.toastr_success')
         )
 
     # Fetch subTenants

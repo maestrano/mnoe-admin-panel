@@ -15,13 +15,7 @@
     vm.callServer = (tableState) ->
       sort   = updateSort (tableState.sort)
       search = updateSearch (tableState.search)
-
       fetchStaffs(vm.staff.nbItems, vm.staff.offset, sort, search)
-
-    vm.roleLabel = (id) ->
-      if id
-        role = _.find(ADMIN_ROLES, {id:id})
-        if role then role.label else id
 
     # Update sorting parameters
     updateSort = (sortState = {}) ->
@@ -79,7 +73,6 @@
             delete vm.staff.editmode[staff.id]
             MnoeCurrentUser.refreshUser()
           (error) ->
-            # Display an error
             $log.error('Error while saving user', error)
             toastr.error('mnoe_admin_panel.dashboard.staffs.widget.list.toastr_error')
         )
@@ -93,9 +86,13 @@
           bodyText: 'mnoe_admin_panel.dashboard.staffs.modal.remove_staff.perform'
 
         MnoConfirm.showModal(modalOptions).then( ->
-          MnoeUsers.removeStaff(staff.id).then( ->
+          MnoeUsers.removeStaff(staff.id).then(
+            ->
             toastr.success('mnoe_admin_panel.dashboard.staffs.widget.list.toastr_success', {extraData: {staff_name: "#{staff.name} #{staff.surname}"}})
           )
+          (error) ->
+            $log.error('Error while removing user', error)
+            toastr.error('mnoe_admin_panel.dashboard.staff.modal.remove_staff.toastr_error')
         )
 
     # Fetch staffs
@@ -133,5 +130,4 @@
       MnoeObservables.unsubscribe(OBS_KEYS.staffChanged, onStaffChanged)
 
     return
-
 })

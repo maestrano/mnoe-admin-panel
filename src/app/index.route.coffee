@@ -108,7 +108,7 @@
       controller: 'StaffsController'
       controllerAs: 'vm'
       ncyBreadcrumb:
-        label: 'mnoe_admin_panel.dashboard.staffss.title'
+        label: 'mnoe_admin_panel.dashboard.staffs.title'
       resolve:
         skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdminRole(['admin', 'sub_tenant_admin'])
     .state 'dashboard.staff',
@@ -123,7 +123,7 @@
         label: 'mnoe_admin_panel.dashboard.staffs.title'
       resolve:
         skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdminRole(['admin', 'sub_tenant_admin'])
-    .state 'dashboard.subTenants',
+    .state 'dashboard.sub-tenants',
       data:
         pageTitle:'Divisions'
       url: '/sub-tenants'
@@ -134,7 +134,7 @@
         label: 'mnoe_admin_panel.dashboard.sub_tenants.title'
       resolve:
         skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdminRole(['admin'])
-    .state 'dashboard.subTenant',
+    .state 'dashboard.sub-tenant',
       data:
         pageTitle:'Division'
       url: '^/sub-tenant/:subTenantId'

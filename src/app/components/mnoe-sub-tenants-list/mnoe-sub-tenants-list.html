@@ -1,15 +1,15 @@
-<rd-widget>
-  <rd-widget-header icon="fa-wrench" title="{{$ctrl.subTenant.widgetTitle}}">
-    &nbsp;All Division
-  </rd-widget-header>
-  <rd-widget-body classes="large no-padding"> <!-- loading="subTenant.loading"  -->
+<mno-widget icon="fa-wrench" heading="{{$ctrl.subTenant.widgetTitle}}" is-loading="subTenant.loading">
+  <mno-widget-header translate>
+    &nbsp;mnoe_admin_panel.dashboard.sub_tenants.widget.list.title
+  </mno-widget-header>
+  <mno-widget-body classes="large no-padding">
     <div>
       <table st-pipe="$ctrl.callServer" st-table="$ctrl.listOfSubTenant" class="table table-striped" >
         <thead>
           <tr>
-            <th st-sort="name" class="col-lg-2">Name</th>
-            <th st-sort="created_at" class="col-lg-2">Creation</th>
-            <th st-sort="update_at" class="col-lg-2">Update</th>
+            <th st-sort="name" class="col-lg-2" translate>mnoe_admin_panel.dashboard.sub_tenants.widget.list.table.name</th>
+            <th st-sort="created_at" class="col-lg-2" translate>mnoe_admin_panel.dashboard.sub_tenants.widget.list.table.created_at</th>
+            <th st-sort="update_at" class="col-lg-2" translate>mnoe_admin_panel.dashboard.sub_tenants.widget.list.table.updated_at</th>
         	</tr>
       	</thead>
         <tbody ng-show="$ctrl.subTenant.loading">
@@ -18,7 +18,7 @@
           </tr>
         </tbody> <tbody ng-show="!$ctrl.subTenant.loading" >
           <tr ng-repeat="subTenantElem in $ctrl.listOfSubTenant">
-            <td><a ng-show="!$ctrl.subTenant.editmode[subTenantElem.id]" ui-sref="dashboard.subTenant({subTenantId: subTenantElem.id})">{{subTenantElem.name}}</a></span>
+            <td><a ng-show="!$ctrl.subTenant.editmode[subTenantElem.id]" ui-sref="dashboard.sub-tenant({subTenantId: subTenantElem.id})">{{subTenantElem.name}}</a></span>
               <input ng-show="$ctrl.subTenant.editmode[subTenantElem.id]" name="name" type="text" ng-model="subTenantElem.name" class="form-control" required>
             </td>
 
@@ -35,8 +35,8 @@
       	</tbody>
       </table>
     </div>
-  </rd-widget-body>
-  <rd-widget-footer ng-show="$ctrl.listOfSubTenant && $ctrl.state == 'all' && !searchMode">
+  </mno-widget-body>
+  <mno-widget-footer ng-show="$ctrl.listOfSubTenant && $ctrl.state == 'all' && !searchMode">
     <mno-pagination
       page="$ctrl.subTenant.page"
       nb-items="$ctrl.subTenant.nbItems"
@@ -44,5 +44,5 @@
       on-change-cb="$ctrl.subTenant.pageChangedCb(nbItems, page)"
       is-loading="$ctrl.subTenant.loading">
     </mno-pagination>
-  </rd-widget-footer>
-</rd-widget>
+    </mno-widget-footer>
+</mno-widget>

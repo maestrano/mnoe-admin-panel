@@ -64,18 +64,16 @@
         vm.listOfStaff = response.data
     ).finally(-> vm.staff.loading = false)
 
-
-
   vm.onSubmit = () ->
     vm.isLoading = true
     subTenant.account_manager_ids = (orgId for orgId, val of vm.selectedUsers when val)
     MnoeSubTenants.update(subTenant).then(
       (result) ->
-        toastr.success("#{subTenant.name} has been successfully updated.")
+        toastr.success("mnoe_admin_panel.dashboard.sub_tenant.select_account_managers.modal.toastr_success", {extraData: { sub_tenant_name: subTenant.name }})
         $uibModalInstance.close(result.data.sub_tenant.account_managers)
       (error) ->
-        toastr.error("An error occurred while updating #{subTenant.name}.")
-        $log.error("An error occurred:", error)
+        toastr.error("mnoe_admin_panel.dashboard.sub_tenant.select_account_managers.modal.toastr_error", {extraData: { sub_tenant_name: subTenant.name }})
+        $log.error("An error occurred while updating account managers of #{subTenant.name}.", error)
     ).finally(-> vm.isLoading = false)
 
   vm.onCancel = () ->

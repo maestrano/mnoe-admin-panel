@@ -1,7 +1,8 @@
-@App.controller 'StaffController', ($log, $stateParams, $window, $uibModal, MnoeUsers, MnoeSubTenants, toastr) ->
+@App.controller 'StaffController', ($log, $stateParams, $window, $uibModal, toastr, MnoeUsers, MnoeSubTenants, ADMIN_ROLES) ->
   'ngInject'
   vm = this
   vm.isSaving = false
+  vm.adminRoles = ADMIN_ROLES
   # Get the user
   MnoeUsers.get($stateParams.staffId).then(
     (response) ->
@@ -15,10 +16,10 @@
     vm.isSaving = true
     MnoeUsers.updateStaff(vm.staff).then(
       () ->
-        toastr.success("#{vm.staff.name} has been successfully updated.")
+        toastr.success("mnoe_admin_panel.dashboard.staff.update_staff.toastr_success", {extraData: { staff_name: "#{vm.staff.name} #{vm.staff.surname}"}})
       (error) ->
-        toastr.error("An error occurred while updating #{vm.staff.name}.")
-        $log.error("An error occurred:", error)
+        toastr.error("mnoe_admin_panel.dashboard.staff.update_staff.toastr_error", {extraData: { staff_name: "#{vm.staff.name} #{vm.staff.surname}"}})
+        $log.error("An error occurred while updating staff:", error)
     ).finally(-> vm.isSaving = false)
 
   vm.updateClientsModal = ->

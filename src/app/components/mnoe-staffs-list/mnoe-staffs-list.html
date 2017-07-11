@@ -8,8 +8,9 @@
         <thead>
           <tr>
             <th st-sort="name" class="col-lg-2" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.first_name</th>
-            <th st-sort="surname" class="col-lg-3" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.last_name</th>
-            <th st-sort="created_at" class="col-lg-3" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.creation</th>
+            <th st-sort="surname" class="col-lg-2" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.last_name</th>
+            <th st-sort="email" class="col-lg-3" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.email</th>
+            <th st-sort="created_at" class="col-lg-2" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.created_at</th>
             <th st-sort="admin_role" class="col-lg-3" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.role</th>
             <th></th>
             <th></th>
@@ -20,6 +21,9 @@
             </th>
             <th>
                 <input st-search="surname" placeholder="{{'mnoe_admin_panel.dashboard.staffs.widget.list.placeholder.search_surname' | translate}}" class="form-control input-sm search-bar" type="text"/>
+            </th>
+            <th>
+              <input st-search="email" placeholder="{{'mnoe_admin_panel.dashboard.staffs.widget.list.placeholder.search_email' | translate}}" class="form-control input-sm search-bar" type="text"/>
             </th>
             <th></th>
             <th>
@@ -41,6 +45,7 @@
           <tr ng-repeat="staffElem in $ctrl.listOfStaff">
             <td><a ui-sref="dashboard.staff({staffId: staffElem.id})">{{staffElem.name}}</a></td>
             <td>{{staffElem.surname}}</td>
+            <td>{{staffElem.email}}</td>
             <td>{{staffElem.created_at | date: 'dd/MM/yyyy'}}</td>
             <td><span ng-show="!$ctrl.staff.editmode[staffElem.id]" translate>{{$ctrl.getAdminRoleLabel(staffElem.admin_role)}}</span>
               <select ng-model="staffElem.admin_role" ng-show="$ctrl.staff.editmode[staffElem.id]" class="user-role-select form-control input-sm">

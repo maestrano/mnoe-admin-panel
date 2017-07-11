@@ -26,8 +26,6 @@
     ).then(-> vm.organizations.loading = false)
 
 
-  # if view="all" is set on the directive, all the users are displayed
-  # if view="last" is set on the directive, the last 10 users are displayed
   displayCurrentState = () ->
     setAllOrganizationsList()
     fetchOrganizations(vm.organizations.nbItems, 0)
@@ -67,11 +65,11 @@
     subTenant.client_ids = (orgId for orgId, val of vm.selectedOrganizations when val)
     MnoeSubTenants.update(subTenant).then(
       (result) ->
-        toastr.success("#{subTenant.name} has been successfully updated.")
+        toastr.success("mnoe_admin_panel.dashboard.sub_tenant.select_clients.modal.toastr_success", {extraData: { sub_tenant_name: subTenant.name }})
         $uibModalInstance.close(result.data.sub_tenant.clients)
       (error) ->
-        toastr.error("An error occurred while updating #{subTenant.name}.")
-        $log.error("An error occurred:", error)
+        toastr.error("mnoe_admin_panel.dashboard.sub_tenant.select_clients.modal.toastr_error", {extraData: { sub_tenant_name: subTenant.name }})
+        $log.error("An error occurred while updating account managers of #{subTenant.name}.", error)
     ).finally(-> vm.isLoading = false)
 
   vm.onCancel = () ->

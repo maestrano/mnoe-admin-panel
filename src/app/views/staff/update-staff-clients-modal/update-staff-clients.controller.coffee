@@ -1,4 +1,4 @@
-@App.controller 'UpdateStaffClientsController', (staff, $filter, $stateParams, $log, $uibModalInstance, toastr, MnoeUsers, MnoErrorsHandler, MnoeOrganizations, MnoeSubTenant) ->
+@App.controller 'UpdateStaffClientsController', (staff, $filter, $stateParams, $log, $uibModalInstance, toastr, MnoeUsers, MnoErrorsHandler, MnoeOrganizations) ->
   'ngInject'
   vm = this
   # Variables initialization
@@ -26,8 +26,6 @@
     ).then(-> vm.organizations.loading = false)
 
 
-  # if view="all" is set on the directive, all the users are displayed
-  # if view="last" is set on the directive, the last 10 users are displayed
   displayCurrentState = () ->
     setAllOrganizationsList()
     fetchOrganizations(vm.organizations.nbItems, 0)
@@ -70,8 +68,8 @@
         toastr.success("#{staff.name} has been successfully updated.")
         $uibModalInstance.close(result.data.user.clients)
       (error) ->
-        toastr.error("An error occurred while updating #{staff.name}.")
-        $log.error("An error occurred:", error)
+        toastr.error('mnoe_admin_panel.dashboard.staff.add_staff.modal.toastr_error', {extraData: { staff_name: staff.name }})
+        $log.error("An error occurred while updating staff:", error)
     ).finally(-> vm.isLoading = false)
 
   vm.onCancel = () ->

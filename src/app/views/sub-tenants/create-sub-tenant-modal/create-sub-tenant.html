@@ -1,13 +1,13 @@
 <div id="sub-tenant-modal">
   <div class="modal-header">
-    <h3 class="modal-title">Add a new Division</h3>
+    <h3 class="modal-title" translate>mnoe_admin_panel.dashboard.sub_tenants.create_sub_tenant.title</h3>
   </div>
 
   <form name="vm.form.sub-tenant" novalidate>
     <div class="modal-body">
       <div class="row">
         <div class="col-sm-12">
-          <input type="text" class="form-control input-sm" id="sub-tenant-first-name" ng-model="vm.subTenant.name" placeholder="Name" aria-label="Name" required>
+          <input type="text" class="form-control input-sm" id="sub-tenant-first-name" ng-model="vm.subTenant.name" placeholder="{{'mnoe_admin_panel.dashboard.sub_tenants.create_sub_tenant.placeholder.name' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.sub_tenants.create_sub_tenant.placeholder.name' | translate}}" required>
         </div>
       </div>
     </div>

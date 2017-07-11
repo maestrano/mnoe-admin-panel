@@ -52,9 +52,7 @@
     promise = MnoeAdminApiSvc.one('users', id).patch({admin_role: null}).then(
       (response) ->
         MnoeObservables.notifyObservers(OBS_KEYS.staffChanged, promise)
-      (error) ->
-        # Display an error
-        $log.error('Error while deleting user', error)
+        response
     )
 
   # Invite a user to join an organization
