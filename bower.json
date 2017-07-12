@@ -1,6 +1,6 @@
 {
   "name": "mnoe-frontend-admin",
-  "version": "1.0.0",
+  "version": "2.0",
   "dependencies": {
     "angular": "~1.6.2",
     "angular-animate": "~1.6.2",
