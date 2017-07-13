@@ -3,7 +3,7 @@
   _self = @
 
   @list = (limit, offset, sort) ->
-    promise = MnoeAdminApiSvc.all("/dashboard_templates").getList({order_by: sort, limit: limit, offset: offset}).then(
+    promise = MnoeAdminApiSvc.all("/impac/dashboard_templates").getList({order_by: sort, limit: limit, offset: offset}).then(
       (response) ->
         response
     )
@@ -12,16 +12,16 @@
     return _getTemplates(limit, offset, sort, params)
 
   @delete = (dashboardTemplateId) ->
-    promise = MnoeAdminApiSvc.one("dashboard_templates", dashboardTemplateId).remove().then(
+    promise = MnoeAdminApiSvc.one("/impac/dashboard_templates", dashboardTemplateId).remove().then(
       (response) ->
         response
     )
 
   @search = (terms) ->
-    MnoeAdminApiSvc.all("/dashboard_templates").getList({terms: terms})
+    MnoeAdminApiSvc.all("/impac/dashboard_templates").getList({terms: terms})
 
   @update = (dashboardTemplate) ->
-    promise = MnoeAdminApiSvc.one("dashboard_templates", dashboardTemplate.id).patch(dashboardTemplate).then(
+    promise = MnoeAdminApiSvc.one("/impac/dashboard_templates", dashboardTemplate.id).patch(dashboardTemplate).then(
       (response) ->
         response
       )
@@ -30,7 +30,7 @@
     params["order_by"] = sort
     params["limit"] = limit
     params["offset"] = offset
-    return MnoeAdminApiSvc.all("/dashboard_templates").getList(params)
+    return MnoeAdminApiSvc.all("/impac/dashboard_templates").getList(params)
 
   return @
 

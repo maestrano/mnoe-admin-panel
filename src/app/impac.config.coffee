@@ -9,8 +9,14 @@ angular.module 'frontendAdmin'
   data =
     mnoHub: mnoHub
     impacApi: "#{IMPAC_CONFIG.protocol}://#{IMPAC_CONFIG.host}/api"
+    dashboards:
+      index: "#{mnoHub}/admin/impac/dashboard_templates"
+      show: "#{mnoHub}/admin/impac/dashboard_templates/:id"
+    widgets:
+      update: "#{mnoHub}/admin/impac/widgets/:id"
+      del: "#{mnoHub}/admin/impac/widgets/:id"
     kpis:
-      index: "#{mnoHub}/impac/kpis"
+      index: "#{mnoHub}/admin/impac/kpis"
 
   ImpacRoutesProvider.configureRoutes(data)
 )
@@ -24,13 +30,17 @@ angular.module 'frontendAdmin'
     dataNotFoundConfig:
       linkUrl: '#!/marketplace'
       linkTarget: '_self'
+    dhbConfig:
+      designerMode:
+        enabled: true
+        dhbLabelName: 'Template'
     # remove useless messages
     dhbErrorsConfig:
       firstTimeCreated:
         note: ''
     # configurations for the dashboard selector feature.
     dhbSelectorConfig:
-      pdfModeEnabled: true
+      pdfModeEnabled: false
     # kpis options
     dhbKpisConfig:
       enableKpis: false
