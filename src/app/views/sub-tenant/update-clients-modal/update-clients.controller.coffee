@@ -1,4 +1,4 @@
-@App.controller 'UpdateClientsController', (subTenant, $filter, $stateParams, $log, $uibModalInstance, toastr, MnoeSubTenants, MnoErrorsHandler, MnoeOrganizations) ->
+@App.controller 'UpdateClientsController', ($filter, $stateParams, $log, $uibModalInstance, toastr, MnoeSubTenants, MnoErrorsHandler, MnoeOrganizations, subTenant) ->
   'ngInject'
   vm = this
   # Variables initialization

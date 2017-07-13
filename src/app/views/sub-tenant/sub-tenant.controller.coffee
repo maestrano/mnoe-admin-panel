@@ -31,6 +31,7 @@
     modalInstance.result.then(
       (account_managers) ->
         vm.subTenant.account_managers = account_managers
+        ->
     )
 
   return

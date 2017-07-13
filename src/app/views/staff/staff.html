@@ -27,7 +27,8 @@
         <div class="bs-row row">
           <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.admin_role</div></div>
           <div class="col-md-3">
-            <select ng-model="vm.staff.admin_role" class="form-control input-sm">
+            <span ng-if="!vm.isAdmin">{{vm.staff.adminRoleName() | translate}}</span>
+            <select ng-model="vm.staff.admin_role" ng-if="vm.isAdmin" class="form-control input-sm">
               <option value="" selected translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.admin_role.all</option>
               <option value="{{role.value}}" ng-repeat="role in vm.adminRoles">{{ role.label | translate }}</option>
             </select>
@@ -44,7 +45,9 @@
         <div class="bs-row row">
           <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.sub_tenant</div></div>
           <div class="col-sm-3" ng-show="vm.subTenants">
-            <select ng-options="subtenant.id as subtenant.name for subtenant in vm.subTenants"  class="form-control input-sm" ng-model="vm.staff.mnoe_sub_tenant_id">
+            <span ng-if="!vm.isAdmin">{{vm.staff.subTenantName()}}</span>
+
+            <select ng-if="vm.isAdmin" ng-options="subtenant.id as subtenant.name for subtenant in vm.subTenants"  class="form-control input-sm" ng-model="vm.staff.mnoe_sub_tenant_id">
               <option value=""></option>
             </select>
           </div>
@@ -60,7 +63,7 @@
       </mno-widget-body>
     </mno-widget>
 
-    <div class="bs-row" ng-show="vm.staff && vm.staff.mnoe_sub_tenant_id">
+    <div class="bs-row">
       <div class="col-sm-12">
         <h2><i class="fa fa-users"></i> Clients</h2>
         <button class="btn btn-primary center-block" ng-show="vm.staff"  ng-click="vm.updateClientsModal()" translate>mnoe_admin_panel.dashboard.staff.add_remove_clients</button>

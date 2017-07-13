@@ -19,7 +19,8 @@
   # Fetch organisations
   fetchOrganizations = (limit, offset, sort = 'name') ->
     vm.organizations.loading = true
-    return MnoeOrganizations.list(limit, offset, sort).then(
+    params = {sub_tenant_id: staff.mnoe_sub_tenant_id}
+    return MnoeOrganizations.list(limit, offset, sort, params).then(
       (response) ->
         vm.organizations.totalItems = response.headers('x-total-count')
         vm.organizations.list = response.data

@@ -1,7 +1,7 @@
 #
 # Mnoe Users List
 #
-@App.directive('mnoeUsersList', ($filter, $log, $translate, MnoeUsers) ->
+@App.directive('mnoeUsersList', ($filter, $log, $translate, MnoeUsers, MnoeCurrentUser) ->
   restrict: 'E'
   scope: {
   }
@@ -25,11 +25,14 @@
     # Fetch users
     fetchUsers = (limit, offset, sort = 'surname') ->
       scope.users.loading = true
-      return MnoeUsers.list(limit, offset, sort).then(
-        (response) ->
-          scope.users.totalItems = response.headers('x-total-count')
-          scope.users.list = response.data
-      ).finally(-> scope.users.loading = false)
+      MnoeCurrentUser.getUser().then( ->
+        params = {sub_tenant_id: MnoeCurrentUser.user.mnoe_sub_tenant_id, account_manager_id: MnoeCurrentUser.user.id}
+        return MnoeUsers.list(limit, offset, sort, params).then(
+          (response) ->
+            scope.users.totalItems = response.headers('x-total-count')
+            scope.users.list = response.data
+        ).finally(-> scope.users.loading = false)
+      )
 
     scope.switchState = () ->
       scope.state = attrs.view = if attrs.view == 'all' then 'last' else 'all'

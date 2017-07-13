@@ -25,8 +25,9 @@
               </th>
               <th></th>
               <th>
-                <select st-search="admin_role" class="form-control input-sm" ng-options="role.id as role.label for role in vm.staff.roles">
-                  <option value="">All</option>
+                <select st-search="admin_role" class="form-control input-sm">
+                  <option value="" selected translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.admin_role.all</option>
+                  <option value="{{role.value}}" ng-repeat="role in vm.staff_roles">{{ role.label | translate }}</option>
                 </select>
               </th>
             </tr>
@@ -41,7 +42,7 @@
               <td>{{staffElem.name}}</td>
               <td>{{staffElem.surname}}</td>
               <td>{{staffElem.created_at | date: 'dd/MM/yyyy'}}</td>
-              <td>{{staffElem.admin_role}}</td>
+              <td translate>{{vm.getAdminRoleLabel(staffElem.admin_role)}}</td>
               <td><input type="checkbox" ng-model="vm.selectedUsers[staffElem.id]"></td>
             </tr>
             </tbody>

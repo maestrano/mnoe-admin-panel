@@ -5,6 +5,9 @@
   vm.selectedUsers = {}
   _.each(subTenant.account_manager_ids, (id) -> vm.selectedUsers[id] = true)
   vm = this
+  vm.staff_roles = ADMIN_ROLES
+  vm.getAdminRoleLabel = (admin_role) ->
+    return _.find(vm.staff_roles, (role) -> role.value == admin_role).label
 
   # Manage sorting, search and pagination
   vm.callServer = (tableState) ->
@@ -48,7 +51,6 @@
     sort: "surname"
     nbItems: 10
     page: 1
-    roles: ADMIN_ROLES
     pageChangedCb: (nbItems, page) ->
       vm.staff.nbItems = nbItems
       vm.staff.page = page

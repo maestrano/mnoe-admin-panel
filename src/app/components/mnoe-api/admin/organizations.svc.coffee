@@ -2,8 +2,11 @@
 @App.service 'MnoeOrganizations', (MnoeAdminApiSvc) ->
   _self = @
 
-  @list = (limit, offset, sort) ->
-    promise = MnoeAdminApiSvc.all("organizations").getList({order_by: sort, limit: limit, offset: offset}).then(
+  @list = (limit, offset, sort, params = {}) ->
+    params["order_by"] = sort
+    params["limit"] = limit
+    params["offset"] = offset
+    promise = MnoeAdminApiSvc.all("organizations").getList(params).then(
       (response) ->
         notifyListObservers(promise)
         response

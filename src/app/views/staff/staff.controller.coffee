@@ -1,12 +1,20 @@
-@App.controller 'StaffController', ($log, $stateParams, $window, $uibModal, toastr, MnoeUsers, MnoeSubTenants, ADMIN_ROLES) ->
+@App.controller 'StaffController', ($log, $stateParams, $window, $uibModal, toastr, MnoeCurrentUser, MnoeUsers, MnoeSubTenants, ADMIN_ROLES) ->
   'ngInject'
   vm = this
   vm.isSaving = false
   vm.adminRoles = ADMIN_ROLES
+
+  vm.isAdmin = MnoeCurrentUser.user.admin_role == 'admin'
+
   # Get the user
   MnoeUsers.get($stateParams.staffId).then(
     (response) ->
       vm.staff = response.data
+      vm.staff.subTenantName = ->
+        _.find(vm.subTenants, (subTenant) -> subTenant.id == vm.staff.mnoe_sub_tenant_id).name
+      vm.staff.adminRoleName = ->
+        _.find(vm.adminRoles, (role) -> role.value == vm.staff.admin_role).label
+
       if(vm.staff.mnoe_sub_tenant_id)
         MnoeSubTenants.get(vm.staff.mnoe_sub_tenant_id).then((r) -> vm.staff.subTenants = r.data.sub_tenants)
   )
