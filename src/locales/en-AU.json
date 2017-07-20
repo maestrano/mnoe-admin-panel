@@ -22,6 +22,12 @@
   "mnoe_admin_panel.dashboard.home.title": "Home",
   "mnoe_admin_panel.dashboard.home.kpi.users": "Users",
   "mnoe_admin_panel.dashboard.home.kpi.users.link_text": "{{quantity}} new this current month",
+  "mnoe_admin_panel.dashboard.home.kpi.active_users": "Active users",
+  "mnoe_admin_panel.dashboard.home.kpi.active_users.link_text": "View more",
+  "mnoe_admin_panel.dashboard.home.kpi.user_churn": "User churn",
+  "mnoe_admin_panel.dashboard.home.kpi.user_churn.link_text": "View more",
+  "mnoe_admin_panel.dashboard.home.kpi.most_used_products": "Most used products",
+  "mnoe_admin_panel.dashboard.home.kpi.most_used_products.link_text": "View more",
   "mnoe_admin_panel.dashboard.home.kpi.organizations": "Organisations",
   "mnoe_admin_panel.dashboard.home.kpi.organizations.finance_text": "{{quantity}} with a credit card",
   "mnoe_admin_panel.dashboard.home.kpi.organizations.link_text": "View more",
@@ -305,5 +311,15 @@
   "mnoe_admin_panel.dashboard.mno_confirm.close": "Close",
   "mnoe_admin_panel.dashboard.mno_confirm.ok": "OK",
   "mnoe_admin_panel.dashboard.mno_confirm.proceed": "Proceed?",
-  "mnoe_admin_panel.dashboard.mno_confirm.perform": "Perform this action?"
-}
+  "mnoe_admin_panel.dashboard.mno_confirm.perform": "Perform this action?",
+  "mnoe_admin_panel.dashboard.apps.widget.list.all_apps.title": "All apps",
+  "mnoe_admin_panel.dashboard.apps.widget.list.all_apps.switch_link_title": "(last 10)",
+  "mnoe_admin_panel.dashboard.apps.widget.list.last_apps.title": "Last 10 most used apps",
+  "mnoe_admin_panel.dashboard.apps.widget.list.last_apps.switch_link_title": "(view all)",
+  "mnoe_admin_panel.dashboard.apps.widget.list.search_apps.title": "Search result",
+  "mnoe_admin_panel.dashboard.apps.widget.list.search_apps.placeholder.search_all": "Search all",
+  "mnoe_admin_panel.dashboard.apps.widget.list.table.appname": "Name",
+  "mnoe_admin_panel.dashboard.apps.widget.list.table.count": "#",
+  "mnoe_admin_panel.dashboard.apps.widget.list.table.revenue": "Revenue",
+  "mnoe_admin_panel.dashboard.apps.widget.list.table.margin": "Margin"
+  }

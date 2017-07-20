@@ -1,0 +1,50 @@
+<mno-widget icon="fa-plus-circle" heading="{{apps.widgetTitle | translate}}" is-loading="apps.loading">
+  <mno-widget-header>
+    &nbsp;<a href="" ng-click="switchState()" ng-show="apps.list && apps.switchLinkTitle" ng-class="{'disabled': apps.loading}" translate>{{apps.switchLinkTitle}}</a>
+    <input type="text" ng-model="apps.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }' placeholder="{{'mnoe_admin_panel.dashboard.apps.widget.list.search_apps.placeholder.search_all' | translate}}" class="form-control input-sm search-bar" />
+  </mno-widget-header>
+  <mno-widget-body class="large no-padding">
+    <table class="table table-layout-fixed">
+      <thead>
+        <tr>
+          <th translate>mnoe_admin_panel.dashboard.apps.widget.list.table.appname</th>
+          <th width="50" translate>mnoe_admin_panel.dashboard.apps.widget.list.table.count</th>
+          <th width="80" translate>mnoe_admin_panel.dashboard.apps.widget.list.table.revenue</th>
+          <th width="80" translate>mnoe_admin_panel.dashboard.apps.widget.list.table.margin</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="app in apps.list">
+          <td>
+            <span>
+              <div ng-show="app.name">{{::app.name}}</div>
+              <div ng-show="!app.name">nc</div>
+            </span>
+          </td>
+          <td>{{::app.running_instances}}</td>
+          <td>
+            <span>
+              <div ng-show="app.revenue">{{::app.revenue}}</div>
+              <div ng-show="!app.revenue">nc</div>
+            </span>
+          </td>
+          <td>
+            <span>
+              <div ng-show="app.margin">{{::app.margin}}</div>
+              <div ng-show="!app.margin">nc</div>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </mno-widget-body>
+  <mno-widget-footer ng-show="apps.list && state == 'all' && !searchMode">
+    <mno-pagination
+      page="apps.page"
+      nb-items="apps.nbItems"
+      total-items="apps.totalItems"
+      on-change-cb="apps.pageChangedCb(nbItems, page)"
+      is-loading="apps.loading">
+    </mno-pagination>
+  </mno-widget-footer>
+</mno-widget>
