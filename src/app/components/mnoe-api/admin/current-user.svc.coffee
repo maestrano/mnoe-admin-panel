@@ -25,11 +25,13 @@
         angular.copy(response.data, _self.user)
         response.data
     )
-
   @skipIfNotAdmin = () ->
+    @skipIfNotAdminRole(['admin'])
+
+  @skipIfNotAdminRole = (admin_roles) ->
     deferred = $q.defer()
     _self.getUser().then(->
-      if _self.user.admin_role? && _self.user.admin_role == 'admin'
+      if _self.user.admin_role? && _self.user.admin_role in admin_roles
         return deferred.resolve()
       else
         $timeout(->

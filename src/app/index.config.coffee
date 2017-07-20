@@ -60,3 +60,7 @@
     '''
     })
   )
+  # https://stackoverflow.com/questions/41063947/angular-1-6-0-possibly-unhandled-rejection-error
+  .config(($qProvider) ->
+    $qProvider.errorOnUnhandledRejections(false)
+  )

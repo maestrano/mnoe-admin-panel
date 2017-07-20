@@ -1,8 +1,8 @@
-<mno-widget icon="fa-comment" heading="{{ 'mnoe_admin_panel.dashboard.reviews_list.title' | translate}}">
+<mno-widget icon="fa-star-half-o" heading="{{ 'mnoe_admin_panel.dashboard.reviews_list.title' | translate}}">
   <mno-widget-header></mno-widget-header>
   <mno-widget-body class="large no-padding widget-comments">
-    <div>
-      <table class="table table-striped" >
+    <div id="admin-review-list">
+      <table class="table" >
         <thead>
           <tr>
             <th translate>mnoe_admin_panel.dashboard.reviews_list.author</th>
@@ -12,12 +12,12 @@
             <th translate>mnoe_admin_panel.dashboard.reviews_list.message</th>
             <th translate>mnoe_admin_panel.dashboard.reviews_list.rating</th>
             <th translate>mnoe_admin_panel.dashboard.reviews_list.date</th>
+            <th translate>mnoe_admin_panel.dashboard.reviews_list.comments</th>
             <th translate>mnoe_admin_panel.dashboard.reviews_list.status</th>
-            <th translate>mnoe_admin_panel.dashboard.reviews_list.edit</th>
           </tr>
         </thead>
-        <tbody>
-          <tr ng-repeat="review in listOfReviews">
+        <tbody ng-repeat="review in listOfReviews">
+          <tr class="feedback">
             <td>
               {{review.user_name}}
             </td>
@@ -28,13 +28,12 @@
               {{review.app_name}}
             </td>
             <td>
-              {{review.type}}
+              {{'mnoe_admin_panel.dashboard.reviews_list.feedback' | translate}}
             </td>
             <td>
               <p>{{review.description}}</p>
               <div class="text-right">
-                <button type="button" name="button" ng-click="openQuestionReplyModal(review)"  ng-show="review.type == 'Question'" translate>mnoe_admin_panel.dashboard.reviews_list.button.reply</button>
-                <button type="button" name="button" ng-click="openFeedbackReplyModal(review)" ng-show="review.type == 'Feedback'" translate>mnoe_admin_panel.dashboard.reviews_list.button.comment</button>
+                <button type="button" name="button" ng-click="openFeedbackReplyModal(review)" translate>mnoe_admin_panel.dashboard.reviews_list.button.comment</button>
                 <button type="button" name="button" ng-click="openEditModal(review)" translate>mnoe_admin_panel.dashboard.reviews_list.button.edit</button>
               </div>
             </td>
@@ -44,14 +43,58 @@
             <td>
               {{review.created_at | date: 'dd/MM/yyyy' }}
             </td>
-            <td><span ng-show="!editmode[review.id]">{{review.status}}</span>
+            <td>
+              <a href="" ng-hide="review.showComments || review.comments.length == 0" ng-click="review.showComments = true">{{'mnoe_admin_panel.dashboard.reviews_list.comments.show' | translate}}&nbsp;({{review.comments.length}})</a>
+              <a href="" ng-show="review.showComments" ng-click="review.showComments = false">{{'mnoe_admin_panel.dashboard.reviews_list.comments.hide' | translate}}</a>
+            </td>
+            <td>
+              <span ng-show="!editmode[review.id]">{{review.status}}</span>
               <select ng-model="review.status" ng-show="editmode[review.id]" >
                 <option ng-repeat="status in statuses" value="{{status.value}}" translate>{{status.label}}</option>
               </select>
+              <div class="pull-right">
+                <a href="" ng-hide="editmode[review.id]" ng-click="editmode[review.id] = true"><i class="fa fa-pencil"></i></a>
+                <a href="" ng-show="editmode[review.id]" ng-click="update(review)"><i class="fa fa-check"></i></a>
+              </div>
+            </td>
+          </tr>
+          <tr class="comment" ng-show="review.showComments" ng-repeat="comment in review.comments">
+            <td>
+              {{comment.user_name}}
             </td>
             <td>
-              <a href="" ng-hide="editmode[review.id]" ng-click="editmode[review.id] = true"><i class="fa fa-pencil"></i></a>
-              <a href="" ng-show="editmode[review.id]" ng-click="update(review)"><i class="fa fa-check"></i></a>
+              {{comment.organization_name}}
+            </td>
+            <td>
+              {{comment.app_name}}
+            </td>
+            <td>
+              {{'mnoe_admin_panel.dashboard.reviews_list.comment' | translate}}
+            </td>
+            <td>
+              <p>{{comment.description}}</p>
+              <div class="text-right">
+                <button type="button" name="button" ng-click="openEditModal(comment)" translate>mnoe_admin_panel.dashboard.reviews_list.button.edit</button>
+              </div>
+            </td>
+            <td>
+              {{'mnoe_admin_panel.dashboard.reviews_list.not_applicable' | translate}}
+            </td>
+            <td>
+              {{comment.created_at | date: 'dd/MM/yyyy' }}
+            </td>
+            <td>
+              {{'mnoe_admin_panel.dashboard.reviews_list.not_applicable' | translate}}
+            </td>
+            <td>
+              <span ng-show="!editmode[comment.id]">{{comment.status}}</span>
+              <select ng-model="comment.status" ng-show="editmode[comment.id]" >
+                <option ng-repeat="status in statuses" value="{{status.value}}" translate>{{status.label}}</option>
+              </select>
+              <div class="pull-right">
+                <a href="" ng-hide="editmode[comment.id]" ng-click="editmode[comment.id] = true"><i class="fa fa-pencil"></i></a>
+                <a href="" ng-show="editmode[comment.id]" ng-click="update(comment)"><i class="fa fa-check"></i></a>
+              </div>
             </td>
           </tr>
         </tbody>

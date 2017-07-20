@@ -7,13 +7,16 @@
   ])
   .constant('ADMIN_ROLES', [
     {value: 'admin', label: 'mnoe_admin_panel.constants.admin_roles.admin'},
+    {value: 'sub_tenant_admin', label: 'mnoe_admin_panel.constants.admin_roles.sub_tenant_admin'},
     {value: 'staff', label: 'mnoe_admin_panel.constants.admin_roles.staff'}
   ])  # Must be lower case
-  .constant('STAFF_PAGE_AUTH', ['admin'])
+  .constant('STAFF_PAGE_AUTH', ['admin', 'sub_tenant_admin'])
   .constant('OBS_KEYS', {
     userChanged: 'userListChanged',
     staffChanged: 'staffListChanged',
-    staffAdded: 'staffAdded'
+    staffAdded: 'staffAdded',
+    subTenantAdded: 'subTenantAdded',
+    subTenantChanged: 'subTenantListChanged',
     })
   .constant('LOCALES', {
     locales: [

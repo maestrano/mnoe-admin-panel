@@ -5,3 +5,4 @@
 angular.module('mnoEnterprise.defaultConfiguration', [])
   .constant('REVIEWS_CONFIG', {enabled: false})
   .constant('ADMIN_PANEL_CONFIG', {})
+  .constant('QUESTIONS_CONFIG', {enabled: false})
