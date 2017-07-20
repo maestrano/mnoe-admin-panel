@@ -22,8 +22,8 @@
   @get = (id) ->
     MnoeAdminApiSvc.one('users', id).get()
 
-  @count = () ->
-    MnoeAdminApiSvc.all('users').customGET('count')
+  @kpi = () ->
+    MnoeAdminApiSvc.all('users').customGET('kpi')
 
   # Create a user if not already existing, and add it to an organization
   # POST /mnoe/jpi/v1/admin/organizations/:orgId/users

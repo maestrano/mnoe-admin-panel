@@ -1,7 +1,7 @@
 #
 # Mnoe organizations List
 #
-@App.directive('mnoeOrganizationsList', ($filter, $log, MnoeOrganizations) ->
+@App.directive('mnoeOrganizationsList', ($filter, $log, MnoeOrganizations, MnoeAdminConfig) ->
   restrict: 'E'
   scope: {
     list: '='
@@ -22,6 +22,8 @@
         scope.organizations.page = page
         offset = (page  - 1) * nbItems
         fetchOrganizations(nbItems, offset)
+
+    scope.isFinanceEnabled = MnoeAdminConfig.isFinanceEnabled()
 
     # Fetch organisations
     fetchOrganizations = (limit, offset, sort = 'name') ->
