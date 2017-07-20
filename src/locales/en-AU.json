@@ -18,7 +18,6 @@
   "mnoe_admin_panel.dashboard.layout.sidebar.staffs": "Staff",
   "mnoe_admin_panel.dashboard.layout.sidebar.reviews": "Reviews",
   "mnoe_admin_panel.dashboard.layout.sidebar.questions": "Questions",
-  "mnoe_admin_panel.dashboard.layout.sidebar.comments": "Comments",
   "mnoe_admin_panel.dashboard.layout.sidebar.audit_log": "Audit Log",
   "mnoe_admin_panel.dashboard.layout.sidebar.sub_tenants": "Divisions",
   "mnoe_admin_panel.dashboard.home.title": "Home",
