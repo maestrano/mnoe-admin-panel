@@ -5,3 +5,4 @@
 angular.module('mnoEnterprise.defaultConfiguration', [])
   .constant('DASHBOARD_CONFIG', {})
   .constant('ADMIN_PANEL_CONFIG', {})
+  .constant('QUESTIONS_CONFIG', {enabled: false})

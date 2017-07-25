@@ -1,5 +1,23 @@
 # Change Log
 
+## [v1.0.1](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.1) (2017-07-24)
+[Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.0-rc.2...v1.0.1)
+
+**Dependencies:**
+
+- mno-enterprise 3.3.1
+
+**Implemented enhancements:**
+
+- Build: display version in console and JS file header [\#39](https://github.com/maestrano/mnoe-admin-panel/pull/39) ([alexnoox](https://github.com/alexnoox))
+- \[MNOE-474\] Refresh reviews frontend [\#23](https://github.com/maestrano/mnoe-admin-panel/pull/23) ([adamaziz15](https://github.com/adamaziz15))
+
+**Fixed bugs:**
+
+- Build: Fetch images from libraries [\#38](https://github.com/maestrano/mnoe-admin-panel/pull/38) ([alexnoox](https://github.com/alexnoox))
+- \[MNOE-555\] Fix FOUC using translate-cloak [\#35](https://github.com/maestrano/mnoe-admin-panel/pull/35) ([adamaziz15](https://github.com/adamaziz15))
+- User avatar not displayed in IE11, jpg -\> png [\#30](https://github.com/maestrano/mnoe-admin-panel/pull/30) ([alexnoox](https://github.com/alexnoox))
+
 ## [v1.0.0](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.0) (2017-06-20)
 [Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.0-rc.2...v1.0.0)
 

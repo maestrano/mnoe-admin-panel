@@ -4,8 +4,8 @@
 
   main.errorHandler = MnoErrorsHandler
   main.staffPageAuthorized = STAFF_PAGE_AUTH
-
   main.isReviewingEnabled = MnoeAdminConfig.isReviewingEnabled()
+  main.areQuestionsEnabled = MnoeAdminConfig.areQuestionsEnabled()
   main.isFinanceEnabled = MnoeAdminConfig.isFinanceEnabled()
   main.adminConfig = MnoeAdminConfig
 
