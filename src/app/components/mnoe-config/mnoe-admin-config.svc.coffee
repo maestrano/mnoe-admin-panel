@@ -1,6 +1,6 @@
 # This service is a wrapper around the config we fetch from the backend
 # MnoeAdminConfig.financeEnabled?
-@App.factory 'MnoeAdminConfig', ($log, ADMIN_PANEL_CONFIG, PAYMENT_CONFIG, ORGANIZATION_MANAGEMENT) ->
+@App.factory 'MnoeAdminConfig', ($log, ADMIN_PANEL_CONFIG, PAYMENT_CONFIG, ORGANIZATION_MANAGEMENT, DEVISE_CONFIG) ->
   _self = @
 
   @isAuditLogEnabled = () ->
@@ -36,6 +36,12 @@
   @isOrganizationManagementEnabled = () ->
     if ADMIN_PANEL_CONFIG.customer_management? && ADMIN_PANEL_CONFIG.customer_management.organization?
       ADMIN_PANEL_CONFIG.customer_management.organization.enabled
+    else
+      true
+
+  @isRegistrationEnabled = () ->
+    if DEVISE_CONFIG.registration?.disabled?
+      not DASHBOARD_CONFIG.registration.disabled
     else
       true
 
