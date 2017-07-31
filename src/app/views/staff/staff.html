@@ -42,7 +42,7 @@
           <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.updated_at</div></div>
           <div class="col-sm-3">{{vm.staff.updated_at | amCalendar }}</div>
         </div>
-        <div class="bs-row row">
+        <div class="bs-row row" ng-if="vm.subTenantEnabled">
           <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.sub_tenant</div></div>
           <div class="col-sm-3" ng-show="vm.subTenants">
             <span ng-if="!vm.isAdmin">{{vm.staff.subTenantName()}}</span>
