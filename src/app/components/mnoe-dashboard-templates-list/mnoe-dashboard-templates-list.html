@@ -7,13 +7,13 @@
       <table st-pipe="$ctrl.callServer" class="table table-striped" st-table="$ctrl.dasboardTemplates.list">
         <thead>
           <tr>
-            <th st-sort="name" class="col-lg-2" translate>mnoe_admin_panel.dashboard.dashboard_templates.widget.list.template_name</th>
+            <th st-sort="name" class="col-lg-4" translate>mnoe_admin_panel.dashboard.dashboard_templates.widget.list.template_name</th>
             <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.dashboard_templates.widget.list.status</th>
             <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.dashboard_templates.widget.list.created</th>
             <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.dashboard_templates.widget.list.updated</th>
-            <th></th>
+            <th class="col-lg-2"></th>
           </tr>
-          <tr>
+<!--           <tr>
             <th>
               <input st-search="name" placeholder="{{'mnoe_admin_panel.dashboard.dashboard_templates.widget.list.search' | translate}}" class="form-control input-sm search-bar" type="text"/>
             </th>
@@ -21,7 +21,7 @@
             <th></th>
             <th></th>
             <th></th>
-          </tr>
+          </tr> -->
         </thead>
         <tbody >
           <tr ng-repeat="dashboardTemplate in $ctrl.dashboardTemplates.list">
@@ -29,14 +29,14 @@
             <td ng-show="dashboardTemplate.editMode">
               <input placeholder="{{ dashboardTemplate.name }}" ng-model="dashboardTemplate.newName" class="form-control input-sm" type="text"/>
             </td>
-            <td>{{ dashboardTemplate.status }}</td>
+            <td>{{ dashboardTemplate.status || "published"}}</td>
             <td>{{ dashboardTemplate.created_at | amCalendar }}</td>
             <td>{{ dashboardTemplate.updated_at | amCalendar }}</td>
             <td>
               <!-- Default mode -->
               <div class="pull-right" ng-show="!dashboardTemplate.editMode">
                 <div class="btn-group">
-                  <a type="button" class="btn btn-primary" ng-click="$ctrl.toggleEditMode(dashboardTemplate)">
+                  <a type="button" class="btn btn-primary" ui-sref="dashboard.dashboard-templates-edit({ dashboardId: dashboardTemplate.id })">
                     <i class="fa fa-pencil" aria-hidden="true" ></i>
                   </a>
                 </div>

@@ -70,13 +70,24 @@
       controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.dashboard_templates.title'
-    .state 'dashboard.impac',
-      url: '/impac'
+    .state 'dashboard.dashboard-templates-create',
+      url: '/dashboard-templates/create'
       templateUrl: 'app/views/impac/impac.html'
       controller: 'ImpacController'
       controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.impac.title'
+      resolve:
+        action: -> { value: 'create' }
+    .state 'dashboard.dashboard-templates-edit',
+      url: '/dashboard-templates/:dashboardId/edit'
+      templateUrl: 'app/views/impac/impac.html'
+      controller: 'ImpacController'
+      controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.impac.title'
+      resolve:
+        action: -> { value: 'edit' }
 
   # Routes depending on Feature Flags
   adminConfig = MnoeAdminConfigProvider.$get()

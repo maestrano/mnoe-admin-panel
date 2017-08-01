@@ -24,10 +24,6 @@
       search = updateSearch (tableState.search)
       fetchDashboardTemplates(vm.dashboardTemplates.nbItems, vm.dashboardTemplates.offset, sort, search)
 
-    vm.toggleEditMode = (dashboardTemplate) ->
-      dashboardTemplate.newName = ''
-      dashboardTemplate.editMode = !dashboardTemplate.editMode
-
     # Update sorting parameters
     updateSort = (sortState = {}) ->
       sort = "name"
