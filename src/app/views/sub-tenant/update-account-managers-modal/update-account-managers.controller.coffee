@@ -71,8 +71,8 @@
     subTenant.account_manager_ids = (orgId for orgId, val of vm.selectedUsers when val)
     MnoeSubTenants.update(subTenant).then(
       (result) ->
-        toastr.success("mnoe_admin_panel.dashboard.sub_tenant.select_account_managers.modal.toastr_success", {extraData: { sub_tenant_name: subTenant.name }})
         $uibModalInstance.close(result.data.sub_tenant.account_managers)
+        toastr.success("mnoe_admin_panel.dashboard.sub_tenant.select_account_managers.modal.toastr_success", {extraData: { sub_tenant_name: subTenant.name }})
       (error) ->
         toastr.error("mnoe_admin_panel.dashboard.sub_tenant.select_account_managers.modal.toastr_error", {extraData: { sub_tenant_name: subTenant.name }})
         $log.error("An error occurred while updating account managers of #{subTenant.name}.", error)

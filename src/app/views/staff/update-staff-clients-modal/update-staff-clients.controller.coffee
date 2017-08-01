@@ -6,6 +6,7 @@
   for id in staff.client_ids
     vm.selectedOrganizations[id] = true
 
+
   vm.organizations =
     search: ''
     nbItems: 10
@@ -66,10 +67,12 @@
     staff.client_ids = (orgId for orgId, val of vm.selectedOrganizations when val)
     MnoeUsers.updateStaff(staff).then(
       (result) ->
-        toastr.success("#{staff.name} has been successfully updated.")
-        $uibModalInstance.close(result.data.user.clients)
+        staff = result.data.user
+        staff.admin_role_was = staff.admin_role
+        $uibModalInstance.close(staff)
+        toastr.success("mnoe_admin_panel.dashboard.staff.update_staff.toastr_success", {extraData: { staff_name: "#{staff.name} #{staff.surname}"}})
       (error) ->
-        toastr.error('mnoe_admin_panel.dashboard.staff.add_staff.modal.toastr_error', {extraData: { staff_name: staff.name }})
+        toastr.error('mnoe_admin_panel.dashboard.staff.add_staff.modal.toastr_error', {extraData: { staff_name: "#{staff.name} #{staff.surname}" }})
         $log.error("An error occurred while updating staff:", error)
     ).finally(-> vm.isLoading = false)
 

@@ -29,7 +29,6 @@
           <div class="col-md-3">
             <span ng-if="!vm.isAdmin">{{vm.staff.adminRoleName() | translate}}</span>
             <select ng-model="vm.staff.admin_role" ng-if="vm.isAdmin" class="form-control input-sm">
-              <option value="" selected translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.admin_role.all</option>
               <option value="{{role.value}}" ng-repeat="role in vm.adminRoles">{{ role.label | translate }}</option>
             </select>
           </div>
@@ -63,7 +62,7 @@
       </mno-widget-body>
     </mno-widget>
 
-    <div class="bs-row">
+    <div class="bs-row" ng-if="vm.staff && vm.staff.admin_role_was=='staff'">
       <div class="col-sm-12">
         <h2><i class="fa fa-users"></i> Clients</h2>
         <button class="btn btn-primary center-block" ng-show="vm.staff"  ng-click="vm.updateClientsModal()" translate>mnoe_admin_panel.dashboard.staff.add_remove_clients</button>
