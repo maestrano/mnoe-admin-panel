@@ -1,0 +1,33 @@
+#impac {
+  padding-top: 15px;
+  
+  .analytics {
+    padding-top: 0;
+
+    #module__dashboard-selector {
+      .dashboard-title {
+        div[role="button"] {
+          cursor: default;
+          outline: none;
+        }
+        i.fa.fa-pencil {
+          margin: 0 !important;
+          padding-left: 20px;
+          cursor: pointer;
+          outline: none;
+        }
+        .fa.fa-chevron-down { display: none; }
+      }
+
+      .dashboard-select {
+        display: none;
+      }
+
+      // Overrides bootstrap no-gutters for the dashboard's top-bar
+      .row.buttons-bar-row.buttons-bar.no-gutters {
+        margin-left: -15px;
+        margin-right: -15px;
+      }
+    }
+  }
+}
