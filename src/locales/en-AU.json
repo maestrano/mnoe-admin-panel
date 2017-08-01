@@ -91,7 +91,7 @@
   "mnoe_admin_panel.dashboard.customers.connect_app.myob.connect": "Connect",
   "mnoe_admin_panel.dashboard.dashboard_templates.title": "Dashboard templates",
   "mnoe_admin_panel.dashboard.dashboard_templates.new_template": "New template",
-  "mnoe_admin_panel.dashboard.dashboard_templates.widget.list.title": "Dashboards",
+  "mnoe_admin_panel.dashboard.dashboard_templates.widget.list.title": "Dashboard templates",
   "mnoe_admin_panel.dashboard.dashboard_templates.widget.list.template_name": "Template name",
   "mnoe_admin_panel.dashboard.dashboard_templates.widget.list.status": "Status",
   "mnoe_admin_panel.dashboard.dashboard_templates.widget.list.created": "Created",
