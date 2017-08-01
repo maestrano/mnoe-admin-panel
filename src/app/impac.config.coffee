@@ -16,7 +16,9 @@ angular.module 'frontendAdmin'
       update: "#{mnoHub}/admin/impac/widgets/:id"
       del: "#{mnoHub}/admin/impac/widgets/:id"
     kpis:
-      index: "#{mnoHub}/admin/impac/kpis"
+      index: "#{mnoHub}/impac/kpis"
+      update: "#{mnoHub}/admin/impac/kpis/:id"
+      del: "#{mnoHub}/admin/impac/kpis/:id"
 
   ImpacRoutesProvider.configureRoutes(data)
 )
@@ -49,7 +51,7 @@ angular.module 'frontendAdmin'
         show: -> false
     # kpis options
     dhbKpisConfig:
-      enableKpis: false
+      enableKpis: true
     # alert notifications options
     alertsConfig:
       enableAlerts: false
