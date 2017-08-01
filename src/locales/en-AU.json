@@ -348,6 +348,8 @@
   "mnoe_admin_panel.dashboard.sub_tenant.name": "Name",
   "mnoe_admin_panel.dashboard.sub_tenant.created_at": "Created at",
   "mnoe_admin_panel.dashboard.sub_tenant.updated_at": "Updated at",
+  "mnoe_admin_panel.dashboard.sub_tenant.clients": "Clients",
+  "mnoe_admin_panel.dashboard.sub_tenant.account_managers": "Account Managers",
   "mnoe_admin_panel.dashboard.sub_tenant.add_remove_clients": "Add/Remove Clients",
   "mnoe_admin_panel.dashboard.sub_tenant.add_remove_account_managers": "Add/Remove Account Managers",
   "mnoe_admin_panel.dashboard.sub_tenant.select_clients.modal.title": "Select Clients",
