@@ -1,11 +1,11 @@
-@App.controller 'StaffController', ($log, $stateParams, $window, $uibModal, toastr, MnoConfirm, MnoeCurrentUser, MnoeUsers, MnoeSubTenants, ADMIN_ROLES, SUB_TENANT_CONFIG) ->
+@App.controller 'StaffController', ($log, $stateParams, $window, $uibModal, toastr, MnoConfirm, MnoeAdminConfig, MnoeCurrentUser, MnoeUsers, MnoeSubTenants, ADMIN_ROLES) ->
   'ngInject'
   vm = this
   vm.isSaving = false
   vm.adminRoles = ADMIN_ROLES
 
   vm.isAdmin = MnoeCurrentUser.user.admin_role == 'admin'
-  vm.subTenantEnabled = SUB_TENANT_CONFIG && SUB_TENANT_CONFIG.enabled
+  vm.isSubTenantEnabled = MnoeAdminConfig.isSubTenantEnabled()
 
   # Get the user
   MnoeUsers.get($stateParams.staffId).then(
@@ -37,6 +37,7 @@
       ).finally(-> vm.isSaving = false)
 
     if vm.staff.admin_role_was == 'staff' &&  vm.staff.admin_role != 'staff' && vm.staff.client_ids.length
+      # Ask for confirmation if the user is updated to admin or division admin as his clients will be cleared
       modalOptions =
         closeButtonText: 'mnoe_admin_panel.dashboard.staff.update_staff_role.cancel'
         actionButtonText: 'mnoe_admin_panel.dashboard.staff.update_staff_role.action'
