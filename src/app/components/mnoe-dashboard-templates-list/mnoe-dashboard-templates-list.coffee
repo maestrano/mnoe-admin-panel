@@ -74,5 +74,9 @@
           vm.dashboardTemplates.list = response.data
       ).finally(-> vm.dashboardTemplates.loading = false)
 
+
+    vm.toggleTemplatePublished = (id) ->
+      MnoeDashboardTemplates.toggleTemplatePublished(id)
+
     return
 })

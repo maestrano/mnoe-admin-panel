@@ -17,11 +17,10 @@
         <tbody >
           <tr ng-repeat="dashboardTemplate in $ctrl.dashboardTemplates.list">
             <td title="{{ dashboardTemplate.full_name }}">{{ dashboardTemplate.name }}</td>
-            <td>{{ dashboardTemplate.status || "published" }}</td>
+            <td><toggle size="btn-sm" ng-model="dashboardTemplate.published" ng-change="$ctrl.toggleTemplatePublished(dashboardTemplate.id)" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.published_state_tooltip' | translate }}"></toggle></td>
             <td>{{ dashboardTemplate.created_at | amCalendar }}</td>
             <td>{{ dashboardTemplate.updated_at | amCalendar }}</td>
             <td>
-              <!-- Default mode -->
               <div class="pull-right">
                 <div class="btn-group">
                   <a type="button" class="btn btn-primary" ui-sref="dashboard.dashboard-templates-edit({ dashboardId: dashboardTemplate.id })">

@@ -1,11 +1,13 @@
-@App.controller 'ImpacController', (action, $rootScope, $stateParams, $state, ImpacDashboardsSvc) ->
+@App.controller 'ImpacController', (action, $rootScope, $stateParams, $state, MnoeDashboardTemplates, ImpacDashboardsSvc) ->
   'ngInject'
   vm = this
 
   vm.createTemplate = ->
     vm.showImpac = false
     ImpacDashboardsSvc.load().then(
-      ->
+      (config) ->
+        vm.currentDashboard = config.currentDashboard
+
         # Open Create Dashboard modal
         e = document.getElementById('module__dashboard-selector')
         s = angular.element(e).scope()
@@ -32,6 +34,7 @@
         if loaded
           dashboardId = parseInt($stateParams.dashboardId)
           ImpacDashboardsSvc.setCurrentDashboard(dashboardId)
+          vm.currentDashboard = ImpacDashboardsSvc.getCurrentDashboard()
     )
 
     unless vm.callbackRegistered
@@ -39,11 +42,13 @@
         vm.dashboardLoaded = true
       vm.callbackRegistered = true
 
-
   switch action.value
     when 'create'
       vm.createTemplate()
     when 'edit'
       vm.editTemplate()
+
+  vm.toggleTemplatePublished = (id) ->
+    MnoeDashboardTemplates.toggleTemplatePublished(id)
 
   return

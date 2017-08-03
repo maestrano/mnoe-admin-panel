@@ -21,5 +21,6 @@
   'mnoUiElements',
   'pascalprecht.translate',
   'ngSanitize',
-  'maestrano.impac'
+  'maestrano.impac',
+  'ui.toggle'
 ]
