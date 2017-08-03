@@ -7,5 +7,8 @@
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" ng-click="modalOptions.close()">{{modalOptions.closeButtonText | translate:modalOptions.closeButtonTextExtraData}}</button>
-  <button type="button" class="btn btn-primary" ng-click="modalOptions.ok();">{{modalOptions.actionButtonText | translate:modalOptions.actionButtonTextExtraData}}</button>
+  <button type="button" class="btn btn-{{modalOptions.type}}" ng-click="modalOptions.ok()" ng-disabled="modalOptions.isLoading">
+    <span ng-show="modalOptions.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+    {{modalOptions.actionButtonText | translate:modalOptions.actionButtonTextExtraData}}
+  </button>
 </div>
