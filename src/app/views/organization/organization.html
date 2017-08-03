@@ -33,8 +33,11 @@
             </div>
           </div>
           <div class="bs-row row">
-            <div class="col-sm-6"><div class="label-cell">{{'mnoe_admin_panel.dashboard.organization.active_apps' | translate}}
-              <a ng-if="vm.organization.active_apps.length > 0 && vm.hasDisconnectedApps" ui-sref="dashboard.customers.connect-app({orgId: vm.organization.id})" translate>mnoe_admin_panel.dashboard.organization.connect_apps</a></div></div>
+            <div class="col-sm-6">
+              <div class="label-cell">{{'mnoe_admin_panel.dashboard.organization.active_apps' | translate}}
+                <a ng-if="vm.organization.active_apps.length > 0 && vm.hasDisconnectedApps" ui-sref="dashboard.customers.connect-app({orgId: vm.organization.id})" translate>mnoe_admin_panel.dashboard.organization.connect_apps</a>
+              </div>
+            </div>
             <div class="col-sm-6">
               <div class="bs-row row apps-box">
                 <div class="app-wrapper col-xs-6 col-sm-4 col-md-3" ng-repeat="app in vm.organization.active_apps">
