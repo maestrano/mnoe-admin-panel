@@ -90,6 +90,7 @@
   "mnoe_admin_panel.dashboard.customers.connect_app.myob.close": "Close",
   "mnoe_admin_panel.dashboard.customers.connect_app.myob.connect": "Connect",
   "mnoe_admin_panel.dashboard.dashboard_templates.title": "Dashboard Templates",
+  "mnoe_admin_panel.dashboard.dashboard_templates.back_link": "Back to templates list",
   "mnoe_admin_panel.dashboard.dashboard_templates.new_template": "New template",
   "mnoe_admin_panel.dashboard.dashboard_templates.widget.list.title": "Dashboard Templates",
   "mnoe_admin_panel.dashboard.dashboard_templates.widget.list.template_name": "Template name",

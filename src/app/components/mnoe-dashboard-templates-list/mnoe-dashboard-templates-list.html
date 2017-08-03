@@ -13,28 +13,16 @@
             <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.dashboard_templates.widget.list.updated</th>
             <th class="col-lg-2"></th>
           </tr>
-<!--           <tr>
-            <th>
-              <input st-search="name" placeholder="{{'mnoe_admin_panel.dashboard.dashboard_templates.widget.list.search' | translate}}" class="form-control input-sm search-bar" type="text"/>
-            </th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr> -->
         </thead>
         <tbody >
           <tr ng-repeat="dashboardTemplate in $ctrl.dashboardTemplates.list">
-            <td ng-show="!dashboardTemplate.editMode" title="{{ dashboardTemplate.full_name }}">{{ dashboardTemplate.name }}</td>
-            <td ng-show="dashboardTemplate.editMode">
-              <input placeholder="{{ dashboardTemplate.name }}" ng-model="dashboardTemplate.newName" class="form-control input-sm" type="text"/>
-            </td>
-            <td>{{ dashboardTemplate.status || "published"}}</td>
+            <td title="{{ dashboardTemplate.full_name }}">{{ dashboardTemplate.name }}</td>
+            <td>{{ dashboardTemplate.status || "published" }}</td>
             <td>{{ dashboardTemplate.created_at | amCalendar }}</td>
             <td>{{ dashboardTemplate.updated_at | amCalendar }}</td>
             <td>
               <!-- Default mode -->
-              <div class="pull-right" ng-show="!dashboardTemplate.editMode">
+              <div class="pull-right">
                 <div class="btn-group">
                   <a type="button" class="btn btn-primary" ui-sref="dashboard.dashboard-templates-edit({ dashboardId: dashboardTemplate.id })">
                     <i class="fa fa-pencil" aria-hidden="true" ></i>
@@ -43,19 +31,6 @@
                 <div class="btn-group" ng-click="$ctrl.openDeleteModal(dashboardTemplate.id)">
                   <a type="button" class="btn btn-primary" >
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </div>
-              <!-- Edit mode -->
-              <div class="pull-right" ng-show="dashboardTemplate.editMode">
-                <div class="btn-group">
-                  <a type="button" class="btn btn-primary" ng-click="$ctrl.update(dashboardTemplate)">
-                    <i class="fa fa-check" aria-hidden="true" ></i>
-                  </a>
-                </div>
-                <div class="btn-group" ng-click="$ctrl.toggleEditMode(dashboardTemplate)">
-                  <a type="button" class="btn btn-primary" >
-                    <i class="fa fa-times" aria-hidden="true"></i>
                   </a>
                 </div>
               </div>

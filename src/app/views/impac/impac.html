@@ -1,4 +1,6 @@
 <div id="impac">
-  <a class="back" ui-sref="dashboard.dashboard-templates">&lt;&lt; Back to templates list</a>
+  <a class="back" ui-sref="dashboard.dashboard-templates">
+    &lt;&lt; {{ 'mnoe_admin_panel.dashboard.dashboard_templates.back_link' | translate }}
+  </a>
   <impac-dashboard ng-show="vm.showImpac"></impac-dashboard>
 </div>

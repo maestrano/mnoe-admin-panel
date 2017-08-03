@@ -53,6 +53,6 @@
     not (payment_disabled || billing_disabled)
 
   @isDashboardTemplatesEnabled = ->
-    ADMIN_PANEL_CONFIG.dashboard_templates && ADMIN_PANEL_CONFIG.dashboard_templates.enabled
+    ADMIN_PANEL_CONFIG.dashboard_templates? && ADMIN_PANEL_CONFIG.dashboard_templates.enabled
 
   return @

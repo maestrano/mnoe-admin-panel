@@ -3,12 +3,10 @@
 #
 @App.component('mnoeDashboardTemplatesList', {
   templateUrl: 'app/components/mnoe-dashboard-templates-list/mnoe-dashboard-templates-list.html',
-  bindings: {}
-  controller: ($uibModal, MnoeDashboardTemplates, toastr) ->
+  controller: ($uibModal, toastr, MnoeDashboardTemplates) ->
     vm = this
 
     vm.dashboardTemplates =
-      editMode: {}
       search: {}
       sort: "name"
       nbItems: 10
@@ -20,8 +18,8 @@
         fetchDashboardTemplates(nbItems, offset)
 
     vm.callServer = (tableState) ->
-      sort = updateSort (tableState.sort)
-      search = updateSearch (tableState.search)
+      sort = updateSort(tableState.sort)
+      search = updateSearch(tableState.search)
       fetchDashboardTemplates(vm.dashboardTemplates.nbItems, vm.dashboardTemplates.offset, sort, search)
 
     # Update sorting parameters
@@ -36,7 +34,6 @@
 
       # Update dashboardTemplates sort
       vm.dashboardTemplates.sort = sort
-      return sort
 
     # Update searching parameters
     updateSearch = (searchingState = {}) ->
@@ -47,22 +44,6 @@
 
       # Update dashboardTemplates sort
       vm.dashboardTemplates.search = search
-      return search
-
-    #====================================
-    # Dashboard Template Update
-    #====================================
-    vm.update = (dashboardTemplate) ->
-      if dashboardTemplate.newName && (dashboardTemplate.newName != dashboardTemplate.name)
-        dashboardTemplate.name = dashboardTemplate.newName
-        MnoeDashboardTemplates.update(dashboardTemplate).then(
-          (success) ->
-            toastr.success('mnoe_admin_panel.dashboard.dashboard_templates.widget.list.toastr.updated.successfully')
-          (error) ->
-            toastr.error('mnoe_admin_panel.dashboard.dashboard_templates.widget.list.toastr.updated.error')
-        ).finally(-> dashboardTemplate.editMode = !dashboardTemplate.editMode)
-      else
-        dashboardTemplate.editMode = !dashboardTemplate.editMode
 
     #====================================
     # Dashboard Template deletion Modal
