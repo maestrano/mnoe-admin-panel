@@ -8,6 +8,7 @@
   main.areQuestionsEnabled = QUESTIONS_CONFIG && QUESTIONS_CONFIG.enabled
   main.isFinanceEnabled = MnoeAdminConfig.isFinanceEnabled()
   main.adminConfig = MnoeAdminConfig
+  main.isDashboardTemplatesEnabled = MnoeAdminConfig.isDashboardTemplatesEnabled()
 
   main.trustSrc = (src) ->
     $sce.trustAsResourceUrl(src)

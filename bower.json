@@ -7,6 +7,7 @@
     "url": "git@github.com:maestrano/mnoe-admin-panel.git"
   },
   "dependencies": {
+    "jquery": "~3.1.0",
     "angular": "~1.6.2",
     "angular-animate": "~1.6.2",
     "angular-aria": "~1.6.2",
@@ -32,7 +33,9 @@
     "angular-translate-loader-static-files": "^2.14.0",
     "angular-translate-interpolation-messageformat": "^2.14.0",
     "angular-sanitize": "^1.6.2",
-    "angular-message-format": "^1.6.2"
+    "angular-message-format": "^1.6.2",
+    "impac-angular": "^1.5.4",
+    "angular-bootstrap-toggle": "^0.1.2"
   },
   "devDependencies": {
     "angular-mocks": "~1.6.2"
@@ -56,6 +59,10 @@
     }
   },
   "resolutions": {
-    "angular": "~1.6.2"
+    "angular": "~1.6.2",
+    "angular-toastr": "~1.7.0",
+    "angular-bootstrap": "~2.3.0",
+    "lodash": "~3.10.1",
+    "angular-translate": "~2.14.0"
   }
 }

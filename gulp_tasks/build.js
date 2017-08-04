@@ -15,6 +15,7 @@ const replace = require('gulp-replace');
 const header = require('gulp-header');
 
 const conf = require('../conf/gulp.conf');
+const path = require('path');
 
 gulp.task('build', build);
 
@@ -38,6 +39,8 @@ function build() {
   const jsFilter = filter(conf.path.tmp('**/*.js'), {restore: true});
   const cssFilter = filter(conf.path.tmp('**/*.css'), {restore: true});
 
+  impac()
+
   return gulp.src(conf.path.tmp('/index.html'))
     .pipe(inject(partialsInjectFile, partialsInjectOptions))
     .pipe(useref({}, lazypipe().pipe(sourcemaps.init, {loadMaps: true})))
@@ -59,4 +62,11 @@ function build() {
     .pipe(htmlmin())
     .pipe(htmlFilter.restore)
     .pipe(gulp.dest(conf.path.dist()));
+}
+
+gulp.task('impac', impac);
+
+function impac() {
+  return gulp.src('bower_components/impac-angular/dist/locales/*')
+    .pipe(gulp.dest(path.join(conf.path.dist(), '/locales/impac/')));
 }

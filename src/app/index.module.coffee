@@ -20,5 +20,7 @@
   'ngPageTitle',
   'mnoUiElements',
   'pascalprecht.translate',
-  'ngSanitize'
+  'ngSanitize',
+  'maestrano.impac',
+  'ui.toggle'
 ]
