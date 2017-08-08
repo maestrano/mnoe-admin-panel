@@ -87,6 +87,16 @@
         url = "/mnoe/impersonate/user/#{user.id}?redirect_path=#{redirect}&dhbRefId=#{scope.organization.id}"
         $window.location.href = url
 
+    scope.requestAccess = (user) ->
+      MnoeUsers.requestAccess(user).then(
+        () ->
+          toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.request_access.toastr_success', {extraData: {username: "#{user.name} #{user.surname}"}})
+          user.access_request_status = 'requested'
+        (error) ->
+          toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.request_access.toastr_error', {extraData: {username: "#{user.name} #{user.surname}"}})
+          MnoErrorsHandler.processServerError(error)
+      )
+
     scope.$watch('list', (newVal) ->
       if newVal
         displayNormalState()
