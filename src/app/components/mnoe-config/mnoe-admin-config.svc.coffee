@@ -41,7 +41,7 @@
 
   @isRegistrationEnabled = () ->
     if DEVISE_CONFIG.registration?.disabled?
-      not DASHBOARD_CONFIG.registration.disabled
+      not DEVISE_CONFIG.registration.disabled
     else
       true
 
