@@ -49,7 +49,7 @@
     $translateProvider.fallbackLanguage(LOCALES.fallbackLanguage)
     $translateProvider.useMissingTranslationHandlerLog()
     $translateProvider.useSanitizeValueStrategy('sanitize')
-    $translateProvider.addInterpolation('$translateMessageFormatInterpolation')
+    $translateProvider.useMessageFormatInterpolation()
 
     # remember language
     # $translateProvider.useLocalStorage()
