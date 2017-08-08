@@ -26,6 +26,13 @@
     else
       true
 
+  @isImpersonationConsentRequired = () ->
+    if ADMIN_PANEL_CONFIG.impersonation?.consent_required?
+      ADMIN_PANEL_CONFIG.impersonation.consent_required
+    else
+      false
+
+
   @isOrganizationManagementEnabled = () ->
     if ADMIN_PANEL_CONFIG.customer_management?.organization?.enabled?
       ADMIN_PANEL_CONFIG.customer_management.organization.enabled

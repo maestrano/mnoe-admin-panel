@@ -17,6 +17,8 @@
       search: ''
 
     scope.isImpersonationEnabled = MnoeAdminConfig.isImpersonationEnabled()
+    scope.isImpersonationConsentRequired = MnoeAdminConfig.isImpersonationConsentRequired()
+
 
     # Display all the users
     setAllUsersList = () ->
