@@ -1,0 +1,33 @@
+<div class="topbar">
+  <div class="flex-row">
+    <button class="btn btn-primary compose" ng-click="$ctrl.openCreateTaskModal()">
+      <span translate>Compose</span>
+      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+    </button>
+    <mno-dropdown-filter-selector filters="$ctrl.tasksFilters" selected="$ctrl.selectedTasksFilter" on-select="$ctrl.onSelectFilter($event)"></mno-dropdown-filter-selector>
+    <div class="refresh-tasks" ng-click="$ctrl.onRefreshTasks()">
+      <i class="fa fa-refresh fa-2x fa-fw" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="hidden-sm hidden-md hidden-lg">
+    <mno-tasks-menu menus="$ctrl.menus" on-select="$ctrl.onSelectMenu($event)"></mno-tasks-menu>
+  </div>
+</div>
+<div class="main">
+  <div class="sidebar hidden-xs">
+    <mno-tasks-menu menus="$ctrl.menus" on-select="$ctrl.onSelectMenu($event)"></mno-tasks-menu>
+  </div>
+  <div class="tasks">
+    <mno-sortable-table row-collection="$ctrl.tasks.list" pipe="$ctrl.sortableTableServerPipe" fields="$ctrl.mnoSortableTableFields" row-on-click="$ctrl.sortableTableRowOnClick($event)" is-loading="$ctrl.tasks.loading"></mno-sortable-table>
+
+    <div class="pagination">
+      <mno-pagination
+        page="$ctrl.tasks.page"
+        nb-items="$ctrl.tasks.nbItems"
+        total-items="$ctrl.tasks.totalItems"
+        on-change-cb="$ctrl.tasks.pageChangedCb(nbItems, page)"
+        is-loading="$ctrl.tasks.loading">
+      </mno-pagination>
+    </div>
+  </div>
+</div>

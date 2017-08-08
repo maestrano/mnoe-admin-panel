@@ -61,4 +61,10 @@
   @isDashboardTemplatesEnabled = ->
     ADMIN_PANEL_CONFIG.dashboard_templates? && ADMIN_PANEL_CONFIG.dashboard_templates.enabled
 
+  @isTasksEnabled = ()->
+    if ADMIN_PANEL_CONFIG.tasks?
+      ADMIN_PANEL_CONFIG.tasks.enabled
+    else
+      false
+
   return @
