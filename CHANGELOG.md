@@ -1,5 +1,28 @@
 # Change Log
 
+## [v1.0.3](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.3) (2017-08-08)
+[Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.2...v1.0.3)
+
+**Implemented enhancements:**
+
+- Dashboard designer : data not found mode only [\#43](https://github.com/maestrano/mnoe-admin-panel/pull/43) ([cesar-tonnoir](https://github.com/cesar-tonnoir))
+
+**Fixed bugs:**
+
+- Fix interpolation format & missing DI [\#44](https://github.com/maestrano/mnoe-admin-panel/pull/44) ([alexnoox](https://github.com/alexnoox))
+
+## [v1.0.2](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.2) (2017-08-04)
+[Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.1...v1.0.2)
+
+**Implemented enhancements:**
+
+- Enhance mno-confirm to use callbacks [\#42](https://github.com/maestrano/mnoe-admin-panel/pull/42) ([alexnoox](https://github.com/alexnoox))
+- \[IMPAC-602\] Dashboard designer [\#25](https://github.com/maestrano/mnoe-admin-panel/pull/25) ([cesar-tonnoir](https://github.com/cesar-tonnoir))
+
+**Fixed bugs:**
+
+- Backport: Disable invite when registration is disabled [\#40](https://github.com/maestrano/mnoe-admin-panel/pull/40) ([ouranos](https://github.com/ouranos))
+
 ## [v1.0.1](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.1) (2017-07-24)
 [Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.0-rc.2...v1.0.1)
 
