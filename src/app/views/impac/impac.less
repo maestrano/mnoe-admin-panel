@@ -1,5 +1,7 @@
 #impac {
   padding-top: 15px;
+  width: 90%;
+  margin: auto;
 
   .top-navigation {
     height: 75px;
@@ -50,5 +52,35 @@
         }
       }
     }
+
+    .widget-item {
+      display:block !important;
+      .top-buttons {
+        .top-button.btn-refresh { display: none; }
+      }
+      .edit {
+        .part[setting-organizations] { display: none; }
+      }
+      .data-not-found {
+        .message {
+          font-size: 12px;
+          padding: 5px;
+          width: 90%;
+          bottom: -10px;
+          top: initial;    
+
+          a { display: none; }
+        }
+
+        img {
+          -webkit-filter: none;
+          -moz-filter: none;
+          -o-filter: none;
+          -ms-filter: none;
+          filter: none;
+        }
+      }
+    }
+
   }
 }

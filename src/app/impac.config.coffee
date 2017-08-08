@@ -13,6 +13,7 @@ angular.module 'frontendAdmin'
       index: "#{mnoHub}/admin/impac/dashboard_templates"
       show: "#{mnoHub}/admin/impac/dashboard_templates/:id"
     widgets:
+      show: "#{IMPAC_CONFIG.protocol}://#{IMPAC_CONFIG.host}/ping"
       update: "#{mnoHub}/admin/impac/widgets/:id"
       del: "#{mnoHub}/admin/impac/widgets/:id"
     kpis:
@@ -30,6 +31,7 @@ angular.module 'frontendAdmin'
   options =
     # link to the marketplace
     dataNotFoundConfig:
+      mainMessage: 'mnoe_admin_panel.impac.data_not_found_config.custom_message'
       linkUrl: '#!/marketplace'
       linkTarget: '_self'
     dhbConfig:
@@ -65,6 +67,7 @@ angular.module 'frontendAdmin'
 .config((ImpacAssetsProvider) ->
   options =
     defaultImagesPath: '/dashboard/images'
+    dataNotFound: '/dashboard/images/data_not_found'
 
   ImpacAssetsProvider.configure(options)
 )
