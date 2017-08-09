@@ -10,7 +10,9 @@
       .all('orga_relations')
       .getList()
       .then(
-        (response)-> response.data.plain()
+        # TODO: XDE -> XLO: Hack to be able to show user first name, last name and orga. Please correct mno-ui-element to accept a recipient renderer
+        # or just accept an hash id, name
+        (response)-> _.map(response.data.plain(), (orgaRel) -> {id: orgaRel.id, user: {name: orgaRel.user.name + " " + orgaRel.user.surname + " ("+ orgaRel.user.email +  ") from " + orgaRel.organization.name}})
     )
 
   @update = (id, params = {})->
