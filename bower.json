@@ -19,7 +19,7 @@
     "angular-moment": "^1.0.1",
     "angular-toastr": "~2.1.1",
     "angular-ui-router": "^0.4.2",
-    "mno-ui-elements": "maestrano/mno-ui-elements#master",
+    "mno-ui-elements": "maestrano/mno-ui-elements#feature/tasks",
     "bootstrap": "^3.3.6",
     "font-awesome": "~4.7.0",
     "lodash": "~4.17.4",
