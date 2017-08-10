@@ -1,6 +1,6 @@
 # Service for managing the users.
 @App.service 'MnoeTasks', ($log, $q, toastr, MnoeAdminApiSvc) ->
-  _self = @
+
 
   @get = (params = {})->
     MnoeAdminApiSvc.all('tasks').getList(params)
@@ -10,9 +10,7 @@
       .all('orga_relations')
       .getList()
       .then(
-        # TODO: XDE -> XLO: Hack to be able to show user first name, last name and orga. Please correct mno-ui-element to accept a recipient renderer
-        # or just accept an hash id, name
-        (response)-> _.map(response.data.plain(), (orgaRel) -> {id: orgaRel.id, user: {name: orgaRel.user.name + " " + orgaRel.user.surname + " ("+ orgaRel.user.email +  ") from " + orgaRel.organization.name}})
+        (response)-> response.data.plain()
     )
 
   @update = (id, params = {})->

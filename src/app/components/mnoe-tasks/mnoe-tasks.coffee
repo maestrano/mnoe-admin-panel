@@ -55,6 +55,7 @@
       $uibModal.open({
         component: 'mnoCreateTaskModal'
         resolve:
+          recipientFormater: () -> recipientFormater
           draftTask: ->
             angular.copy(task) if task
           recipients: MnoeTasks.getRecipients()
@@ -73,6 +74,7 @@
       $uibModal.open({
         component: 'mnoShowTaskModal'
         resolve:
+          recipientFormater: () -> recipientFormater
           task: -> angular.copy(task)
           dueDateFormat: -> 'MMMM d'
           # $uibModal resolve internally unwraps the promise, applying the result to currentUser.
@@ -107,6 +109,10 @@
       fetchTasks(limit: ctrl.tasks.nbItems, offset: ctrl.tasks.offset, order_by: ctrl.tasks.sort)
 
     # Private
+
+    recipientFormater = (orgaRel) ->
+      orgaRel.user.name + " " + orgaRel.user.surname + " ("+ orgaRel.user.email +  ") from " + orgaRel.organization.name
+
 
     # Update angular-smart-table sorting parameters
     updateTableSort = (sortState = {}) ->
@@ -177,8 +183,14 @@
 
     # Creates mnoSortableTable cmp config API, building the tasks table columns
     buildMnoSortableTable = ->
-      toColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.to'), attr: 'task_recipients[0].user.name' }
-      fromColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.from'), attr: 'owner.user.name' }
+      toOrganizationColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.organization'), attr: 'task_recipients[0].organization.name' }
+      toUserNameColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.name'), attr: 'task_recipients[0].user.name'}
+      toUserSurnameColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.surname'), attr: 'task_recipients[0].user.surname'}
+      toUserEmailColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.email'), attr: 'task_recipients[0].user.email'}
+      fromOrganizationColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.organization'), attr: 'owner.organization.name' }
+      fromUserNameColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.name'), attr: 'owner.user.name'}
+      fromUserSurnameColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.surname'), attr: 'owner.user.surname'}
+      fromUserEmailColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.email'), attr: 'owner.user.email'}
       titleColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.title'), attr: 'title', class: 'ellipsis' }
       messageColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.message'), attr: 'message', class: 'ellipsis' }
       receivedAtColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.received'), attr: 'send_at', filter: expandingDateFormat }
@@ -189,11 +201,11 @@
       doneColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.done'), attr: 'status', render: taskDoneCustomField, stopPropagation: true }
       switch ctrl.selectedMenu.name
         when 'inbox'
-          [fromColumn, titleColumn, messageColumn, receivedAtColumn, dueDateAtColumn, doneColumn]
+          [fromOrganizationColumn, fromUserNameColumn, fromUserSurnameColumn, fromUserEmailColumn, titleColumn, messageColumn, receivedAtColumn, dueDateAtColumn, doneColumn]
         when 'sent'
-          [toColumn, titleColumn, messageColumn, sentAtColumn, readAtColumn, dueDateAtColumn, doneColumn]
+          [toOrganizationColumn, toUserNameColumn, toUserSurnameColumn, toUserEmailColumn, titleColumn, messageColumn, sentAtColumn, readAtColumn, dueDateAtColumn, doneColumn]
         when 'draft'
-          [toColumn, titleColumn, messageColumn, updatedAtColumn, dueDateAtColumn]
+          [toOrganizationColumn, toUserNameColumn, toUserSurnameColumn, toUserEmailColumn, titleColumn, messageColumn, updatedAtColumn, dueDateAtColumn]
 
     # Formats dates yesterday & beyond differently from today
     expandingDateFormat = (value)->
