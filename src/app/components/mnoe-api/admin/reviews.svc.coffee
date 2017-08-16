@@ -1,23 +1,28 @@
 # Service for managing the comments and reviews.
-@App.service 'MnoeReviews', (MnoeAdminApiSvc, $log, toastr) ->
+@App.service 'MnoeReviews', (MnoeAdminApiSvc, MnoeApiSvc, $log, toastr) ->
   _self = @
 
-  # GET List /mnoe/jpi/v1/admin/app_reviews
-  @list = () ->
-    MnoeAdminApiSvc.all('app_reviews').getList().then(
-      (response) ->
-        response
+  # GET List /mnoe/jpi/v1/admin/app_feedbacks
+  @listFeedbacks = () ->
+    MnoeAdminApiSvc.all('app_feedbacks').getList().catch(
       (error) ->
         # Display an error
         $log.error('Error while fetching reviews', error)
         toastr.error('mnoe_admin_panel.dashboard.reviews_list.toastr_error')
     )
 
+  # GET List /mnoe/jpi/v1/admin/app_questions
+  @listQuestions = () ->
+    MnoeAdminApiSvc.all('app_questions').getList().catch(
+      (error) ->
+        # Display an error
+        $log.error('Error while fetching questions', error)
+        toastr.error('mnoe_admin_panel.dashboard.questions_list.toastr_error')
+    )
+
   # UPDATE /mnoe/jpi/v1/admin/app_reviews/1
   @updateRating = (review) ->
-    promise = MnoeAdminApiSvc.one('app_reviews', review.id).patch({status: review.status}).then(
-      (response) ->
-        response
+    promise = MnoeAdminApiSvc.one('app_reviews', review.id).patch({status: review.status}).catch(
       (error) ->
         # Display an error
         $log.error('Error while updating review', error)
@@ -25,9 +30,7 @@
     )
 
   @updateDescription = (review) ->
-    promise = MnoeAdminApiSvc.one('app_reviews', review.id).patch({description: review.description}).then(
-      (response) ->
-        response
+    promise = MnoeAdminApiSvc.one('app_reviews', review.id).patch({description: review.description}).catch(
       (error) ->
         # Display an error
         $log.error('Error while updating review', error)
@@ -35,9 +38,7 @@
     )
 
   @replyQuestion = (id, replyText) ->
-    promise = MnoeAdminApiSvc.all("/app_answers").post({question_id: id, app_answer: {description: replyText}}).then(
-      (response) ->
-        response
+    promise = MnoeAdminApiSvc.all("/app_answers").post({question_id: id, app_answer: {description: replyText}}).catch(
       (error) ->
         # Display an error
         $log.error('Error while updating review', error)
@@ -45,9 +46,7 @@
     )
 
   @replyFeedback = (id, replyText) ->
-    promise = MnoeAdminApiSvc.all("/app_comments").post({feedback_id: id, app_comment: {description: replyText}}).then(
-      (response) ->
-        response
+    promise = MnoeAdminApiSvc.all("/app_comments").post({feedback_id: id, app_comment: {description: replyText}}).catch(
       (error) ->
         # Display an error
         $log.error('Error while updating review', error)

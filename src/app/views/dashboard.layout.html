@@ -18,7 +18,7 @@
           <div class="item" uib-dropdown>
             <a href="#" uib-dropdown-toggle>
               <span class="name">{{ main.user.name }} {{ main.user.surname }}</span>
-              <img src="images/avatar.jpg">
+              <img src="images/avatar.png">
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
               <li class="link">
@@ -48,10 +48,19 @@
       <a ui-sref="dashboard.staff">{{'mnoe_admin_panel.dashboard.layout.sidebar.staff' | translate}}<span class="menu-icon fa fa-wrench"></span></a>
     </li>
     <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="main.isReviewingEnabled" ui-sref-active="active">
-      <a ui-sref="dashboard.reviews">{{'mnoe_admin_panel.dashboard.layout.sidebar.comments' | translate}}<span class="menu-icon fa fa-comment"></span></a>
+      <a ui-sref="dashboard.reviews">{{'mnoe_admin_panel.dashboard.layout.sidebar.reviews' | translate}}<span class="menu-icon fa fa-star-half-o"></span></a>
+    </li>
+    <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="main.areQuestionsEnabled" ui-sref-active="active">
+      <a ui-sref="dashboard.questions">{{'mnoe_admin_panel.dashboard.layout.sidebar.questions' | translate}}<span class="menu-icon fa fa-question-circle"></span></a>
     </li>
     <li class="sidebar-list" ng-if="::main.adminConfig.isAuditLogEnabled()" ui-sref-active="active">
       <a ui-sref="dashboard.audit-log">{{'mnoe_admin_panel.dashboard.layout.sidebar.audit_log' | translate}}<span class="menu-icon fa fa-book"></span></a>
+    </li>
+    <li class="sidebar-list" ui-sref-active="active">
+      <a ui-sref="dashboard.settings">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings' | translate}}<span class="menu-icon fa fa-cogs"></span></a>
+    </li>
+    <li class="sidebar-list" ui-sref-active="active">
+      <a ui-sref="dashboard.domain">{{'mnoe_admin_panel.dashboard.layout.sidebar.domain' | translate}}<span class="menu-icon fa fa-shield"></span></a>
     </li>
   </mno-admin-nav>
 

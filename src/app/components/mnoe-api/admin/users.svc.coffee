@@ -11,7 +11,7 @@
 
   @staffs = (limit, offset, sort, params = {}) ->
     # Require only users with an admin role (gets any role, not necessarly defined in the frontend)
-    if ! params['where[admin_role.in][]']
+    if ! params['where[admin_role.in]']
       params['where[admin_role.not]'] = ''
 
     return _getStaffs(limit, offset, sort, params)
@@ -22,8 +22,8 @@
   @get = (id) ->
     MnoeAdminApiSvc.one('users', id).get()
 
-  @count = () ->
-    MnoeAdminApiSvc.all('users').customGET('count')
+  @kpi = () ->
+    MnoeAdminApiSvc.all('users').customGET('kpi')
 
   # Create a user if not already existing, and add it to an organization
   # POST /mnoe/jpi/v1/admin/organizations/:orgId/users
