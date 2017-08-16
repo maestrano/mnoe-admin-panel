@@ -12,10 +12,19 @@ const uglifySaveLicense = require('uglify-save-license');
 const inject = require('gulp-inject');
 const ngAnnotate = require('gulp-ng-annotate');
 const replace = require('gulp-replace');
+const header = require('gulp-header');
 
 const conf = require('../conf/gulp.conf');
 
 gulp.task('build', build);
+
+var pkg = require('../bower.json');
+var banner = ['/**',
+  ' * <%= pkg.name %> - <%= pkg.description %>',
+  ' * @version v<%= pkg.version %>',
+  ' * @git <%= pkg.repository.url %>',
+  ' */',
+  ''].join('\n');
 
 function build() {
   const partialsInjectFile = gulp.src(conf.path.tmp('templateCacheHtml.js'), {read: false});
@@ -33,6 +42,7 @@ function build() {
     .pipe(inject(partialsInjectFile, partialsInjectOptions))
     .pipe(useref({}, lazypipe().pipe(sourcemaps.init, {loadMaps: true})))
     .pipe(jsFilter)
+    .pipe(header(banner, { pkg: pkg } ))
     .pipe(ngAnnotate())
     .pipe(uglify({preserveComments: uglifySaveLicense})).on('error', conf.errorHandler('Uglify'))
     .pipe(rev())

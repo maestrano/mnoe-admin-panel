@@ -1,6 +1,6 @@
 {
   "name": "mnoe-admin-panel",
-  "version": "1.0.0",
+  "version": "2.0.0-dev",
   "scripts": {
     "build": "gulp",
     "serve": "gulp serve",
@@ -32,11 +32,13 @@
     "gulp-cssnano": "^2.1.0",
     "gulp-eslint": "^3.0.1",
     "gulp-filter": "^5.0.0",
+    "gulp-flatten": "^0.3.1",
     "gulp-htmlmin": "^3.0.0",
     "gulp-hub": "frankwallis/gulp-hub#registry-init",
     "gulp-inject": "^4.2.0",
     "gulp-insert": "^0.5.0",
     "gulp-less": "^3.0.5",
+    "gulp-main-bower-files": "^1.6.2",
     "gulp-ng-annotate": "^2.0.0",
     "gulp-postcss": "^6.0.1",
     "gulp-replace": "^0.5.4",
