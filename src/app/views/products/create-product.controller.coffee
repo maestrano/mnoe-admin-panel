@@ -7,16 +7,18 @@
   vm.prices = {}
 
   vm.submitProduct = () ->
-    vm.isLoading = false
+    vm.isLoading = true
     if vm.product.status == 'mnoe_admin_panel.dashboard.new_product.published'
       vm.product.active = true
-    vm.pricing.prices = [{ 'currency': 'USD', 'price_cents': vm.prices.USD },
+
+    # format prices
+    vm.pricing.prices = [
+      { 'currency': 'USD', 'price_cents': vm.prices.USD },
       { 'currency': 'EUR', 'price_cents': vm.prices.EUR },
-      { 'currency': 'AUD', 'price_cents': vm.prices.AUD }]
-
+      { 'currency': 'AUD', 'price_cents': vm.prices.AUD }
+    ]
+    # merge product pricing
     vm.product.product_pricings = [vm.pricing]
-
-
 
     MnoeProducts.create(vm.product).then(
       (response) ->
