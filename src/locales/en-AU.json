@@ -1,6 +1,5 @@
 {
   "mnoe_admin_panel.constants.user_roles.member": "Member",
-  "mnoe_admin_panel.constants.user_roles.power_user": "Power User",
   "mnoe_admin_panel.constants.user_roles.admin": "Admin",
   "mnoe_admin_panel.constants.user_roles.super_admin": "Super Admin",
   "mnoe_admin_panel.constants.admin_roles.admin": "admin",
