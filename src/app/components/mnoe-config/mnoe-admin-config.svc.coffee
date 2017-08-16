@@ -67,4 +67,10 @@
     else
       false
 
+  @isNotificationsEnabled = ()->
+    if ADMIN_PANEL_CONFIG.notifications?
+      ADMIN_PANEL_CONFIG.notifications.enabled
+    else
+      false
+
   return @
