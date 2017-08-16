@@ -28,7 +28,7 @@
       return MnoeAppkpis.list(limit, offset, sort).then(
         (response) ->
           scope.apps.totalItems = response.headers('x-total-count')
-          scope.apps.list = response.data
+          scope.apps.list = response.data[0]['apps_kpi']
       ).finally(-> scope.apps.loading = false)
 
     scope.switchState = () ->
@@ -43,7 +43,7 @@
         fetchApps(scope.apps.nbItems, 0)
       else if attrs.view == 'last'
         setLastAppsList()
-        fetchApps(10, 0, 'running_instances.desc')
+        fetchApps(scope.apps.nbItems, 0, 'running_instances_count.desc')
       else
         $log.error('Value of attribute view can only be "all" or "last"')
 
