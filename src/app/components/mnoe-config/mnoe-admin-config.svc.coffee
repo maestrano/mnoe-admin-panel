@@ -32,7 +32,6 @@
     else
       false
 
-
   @isOrganizationManagementEnabled = () ->
     if ADMIN_PANEL_CONFIG.customer_management?.organization?.enabled?
       ADMIN_PANEL_CONFIG.customer_management.organization.enabled

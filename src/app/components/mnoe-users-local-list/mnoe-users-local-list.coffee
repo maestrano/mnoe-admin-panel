@@ -19,7 +19,6 @@
     scope.isImpersonationEnabled = MnoeAdminConfig.isImpersonationEnabled()
     scope.isImpersonationConsentRequired = MnoeAdminConfig.isImpersonationConsentRequired()
 
-
     # Display all the users
     setAllUsersList = () ->
       scope.users.widgetTitle = 'mnoe_admin_panel.dashboard.users.widget.local_list.all_users.title'
