@@ -17,7 +17,6 @@
     vm.orders =
       editmode: []
       search: {}
-      # sort: "surname"
       nbItems: 10
       page: 1
       pageChangedCb: (nbItems, page) ->

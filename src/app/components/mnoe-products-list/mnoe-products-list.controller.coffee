@@ -43,7 +43,7 @@
         value = searchingState.predicateObject.name
         search[ 'where[name.like]' ] = value + '%'
 
-        # Update product sort
+      # Update product sort
       vm.products.search = search
       return search
 
