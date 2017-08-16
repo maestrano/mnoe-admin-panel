@@ -1,0 +1,81 @@
+<h1 translate>mnoe_admin_panel.dashboard.product.product_info</h1>
+<a ui-sref="dashboard.products" class="text-muted">
+  <i class="fa fa-chevron-left"></i><span translate>mnoe_admin_panel.dashboard.product.back</span>
+</a>
+<div class="row">
+  <div class="col-xs-12">
+    <mno-widget is-loading="" icon="fa-shopping-basket" heading="{{vm.product.product}}">
+      <mno-widget-header></mno-widget-header>
+      <mno-widget-body>
+        <div class="bs-row row">
+          <div class="col-xs-3">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.product.name</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.product.name}}
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-3">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.product.logo</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.product.logo}}
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-3">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.product.nid</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.product.nid}}
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-3">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.product.external_id</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.product.external_id}}
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-3">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.product.status</div>
+          </div>
+          <div class="col-xs-6">
+            <option ng-if="!vm.product.active" translate>mnoe_admin_panel.dashboard.edit_product.draft</option>
+            <option ng-if="vm.product.active" translate="">mnoe_admin_panel.dashboard.edit_product.published</option>
+          </div>
+        </div>
+        <div class="text-center">
+          <h3 translate>mnoe_admin_panel.dashboard.product.product_pricing</h3>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-3">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.product.recurring_product</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.product.recurring_product}}
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-3">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.product.free_trial</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.product.free_trial}}
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-3">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.product.pricing_plan</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.product.pricing_plan}}
+          </div>
+        </div>
+      </mno-widget-body>
+    </mno-widget>
+  </div>
+</div>

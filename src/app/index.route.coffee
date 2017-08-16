@@ -148,4 +148,67 @@
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.customers.create_customer.title'
 
+  if adminConfig.isProductsEnabled()
+    $stateProvider
+      .state 'dashboard.orders',
+        data:
+          pageTitle:'Orders'
+        url: '/orders'
+        templateUrl: 'app/views/orders/orders.html'
+        controller: 'OrdersController'
+        controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.orders.title'
+      .state 'dashboard.order',
+        data:
+          pageTitle:'Order'
+        url: '^/orders/:ordId'
+        views: '@dashboard':
+          templateUrl: 'app/views/orders/order.html'
+          controller: 'OrderController'
+          controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.order.title'
+      .state 'dashboard.products',
+        data:
+          pageTitle:'Products'
+        url: '/products'
+        views: '@dashboard':
+          templateUrl: 'app/views/products/products.html'
+          controller: 'ProductsController'
+          controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.products.title'
+      .state 'dashboard.product',
+        data:
+          pageTitle:'Product'
+        url: '^/product/:productId'
+        views: '@dashboard':
+          templateUrl: 'app/views/products/product.html'
+          controller: 'ProductController'
+          controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.product.title'
+      .state 'dashboard.create-product',
+        data:
+          pageTitle:'New Product'
+        url: '^/products/create-product'
+        views: '@dashboard':
+          templateUrl: 'app/views/products/create-product.html'
+          controller: 'CreateProductController'
+          controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.create-product.title'
+      .state 'dashboard.edit-product',
+        data:
+          pageTitle:'Edit Product'
+        url: '^/products/edit-product/:productId'
+        views: '@dashboard':
+          templateUrl: 'app/views/products/edit-product.html'
+          controller: 'EditProductController'
+          controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.edit_product.title'
+
+
   $urlRouterProvider.otherwise '/home'

@@ -29,6 +29,10 @@
   @isOrganizationManagementEnabled = () ->
     if ADMIN_PANEL_CONFIG.customer_management?.organization?.enabled?
       ADMIN_PANEL_CONFIG.customer_management.organization.enabled
+
+  @isProductsEnabled = () ->
+    if ADMIN_PANEL_CONFIG.marketplace?.products?.enabled?
+      ADMIN_PANEL_CONFIG.marketplace.products.enabled
     else
       true
 

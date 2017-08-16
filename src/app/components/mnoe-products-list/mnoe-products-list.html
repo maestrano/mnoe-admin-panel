@@ -1,0 +1,66 @@
+<mno-widget icon="fa-tag" heading="{{$ctrl.products.widgetTitle}}" is-loading="$ctrl.products.loading">
+  <mno-widget-header>
+    &nbsp;{{ 'mnoe_admin_panel.dashboard.products.widget.list.title' | translate}}
+  </mno-widget-header>
+  <mno-widget-body class="large no-padding">
+    <div>
+      <table st-pipe="$ctrl.callServer" st-table="$ctrl.listOfProducts" class="table table-striped" >
+        <thead>
+          <tr>
+            <th st-sort="name" class="col-lg-4" translate>mnoe_admin_panel.dashboard.products.widget.list.table.name</th>
+            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.products.widget.list.table.status</th>
+            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.products.widget.list.table.created</th>
+            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.products.widget.list.table.updated</th>
+            <th>
+              <input st-search="name" placeholder="{{'mnoe_admin_panel.dashboard.product.widget.list.placeholder.search_product' | translate}}"  class="form-control input-sm search-bar" type="text"/>
+            </th>
+          </tr>
+          <tr>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="6" class="text-center" ng-show='$ctrl.areProducts()' translate>mnoe_admin_panel.dashboard.products.widget.list.no_products</td>
+          </tr>
+        </tbody>
+        <tbody ng-show="!$ctrl.products.loading" >
+          <tr ng-repeat="product in $ctrl.listOfProducts">
+            <td>
+              <a ui-sref="dashboard.product({productId: product.id})">{{product.name}}
+            </td>
+            <td>
+              <span ng-if="product.active" translate>mnoe_admin_panel.dashboard.products.widget.list.table.published</span>
+              <span ng-if="!product.active" translate>mnoe_admin_panel.dashboard.products.widget.list.table.draft</span>
+            </td>
+            <td>{{product.created_at | date: 'dd/MM/yyyy'}}</td>
+            <td>{{product.updated_at | date: 'dd/MM/yyyy'}}</td>
+            <td>
+              <div class="pull-right">
+                <div class="btn-group">
+                  <a type="button" class="btn btn-primary" ui-sref="dashboard.edit-product({productId: product.id})">
+                    <i class="fa fa-pencil" aria-hidden="true" ></i>
+                  </a>
+                </div>
+                <div class="btn-group" ng-click="$ctrl.delete(product)">
+                  <a type="button" class="btn btn-primary" >
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mno-widget-body>
+  <mno-widget-footer ng-show="$ctrl.listOfProducts">
+    <mno-pagination
+      page="$ctrl.products.page"
+      nb-items="$ctrl.products.nbItems"
+      total-items="$ctrl.products.totalItems"
+      on-change-cb="$ctrl.products.pageChangedCb(nbItems, page)"
+      is-loading="$ctrl.products.loading">
+    </mno-pagination>
+  </mno-widget-footer>
+</mno-widget>
+<td>
