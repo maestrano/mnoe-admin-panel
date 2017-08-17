@@ -34,11 +34,8 @@
             </button>
             <span ng-show="user.status === 'active'" translate>mnoe_admin_panel.dashboard.users.widget.local_list.active</span>
           </td>
-          <td ng-if="isImpersonationEnabled">
-            <button ng-if="isImpersonationConsentRequired || user.access_request_status === 'approved'" ng-click="impersonateUser(user)" class="btn btn-xs btn-default" translate>mnoe_admin_panel.dashboard.users.widget.local_list.login_as</button>
-
-            <button ng-if="!isImpersonationConsentRequired && (user.access_request_status === 'never_requested' || user.access_request_status === 'expired' || user.access_request_status === 'denied')" ng-click="requestAccess(user)" class="btn btn-xs btn-default" translate>mnoe_admin_panel.dashboard.users.widget.local_list.request_access</button>
-            <span ng-if="!isImpersonationConsentRequired && user.access_request_status === 'requested'" translate>mnoe_admin_panel.dashboard.users.widget.local_list.access_requested</span>
+          <td>
+            <mnoe-impersonate-button btn-class-names="btn btn-xs btn-default" user="user"></mnoe-impersonate-button>
           </td>
         </tr>
       </tbody>
