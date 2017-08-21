@@ -20,7 +20,7 @@
       }
       ctrl.menus = [
         { label: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.menus.inbox'), name: 'inbox', selected: true }
-        { label: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.menus.sent'), name: 'sent', query: { 'where[status][]': 'sent', outbox: true } }
+        { label: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.menus.sent'), name: 'sent', query: { 'where[status.ne][]': 'draft', outbox: true } }
         { label: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.menus.draft'), name: 'draft', query: { 'where[status][]': 'draft', outbox: true } }
       ]
       ctrl.tasksFilters = [
