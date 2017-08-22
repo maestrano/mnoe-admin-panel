@@ -16,7 +16,7 @@
       if MnoeAdminConfig.isImpersonationConsentRequired()
         switch vm.user.access_request_status
           when 'approved' then 'approved'
-          when 'never_requested', 'expired', 'denied' then 'requestable'
+          when 'never_requested', 'expired', 'denied', 'revoked' then 'requestable'
           when 'requested' then 'requested'
       else
         'approved'
