@@ -43,9 +43,6 @@
     vm.staff.search = search
     return search
 
-  # Widget state
-  vm.state = vm.view
-
   vm.staff =
     search: {}
     sort: "surname"

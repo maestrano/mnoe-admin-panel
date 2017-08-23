@@ -4,7 +4,10 @@
   vm.isSaving = false
   vm.adminRoles = ADMIN_ROLES
 
-  vm.isAdmin = MnoeCurrentUser.user.admin_role == 'admin'
+  MnoeCurrentUser.getUser().then( ->
+    vm.isAdmin = MnoeCurrentUser.user.admin_role == 'admin'
+  )
+
   vm.isSubTenantEnabled = MnoeAdminConfig.isSubTenantEnabled()
 
   # Get the user

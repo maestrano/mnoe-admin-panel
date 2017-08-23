@@ -49,17 +49,7 @@
           </table>
       </div>
     </rd-widget-body>
-    <rd-widget-footer ng-show="vm.listOfStaff && vm.state == 'all' && !searchMode">
-      <mno-pagination
-        page="vm.staff.page"
-        nb-items="vm.staff.nbItems"
-        total-items="vm.staff.totalItems"
-        on-change-cb="vm.staff.pageChangedCb(nbItems, page)"
-        is-loading="vm.staff.loading">
-      </mno-pagination>
-    </rd-widget-footer>
   </div>
-
 
   <div class="modal-footer">
     <div class="row actions">

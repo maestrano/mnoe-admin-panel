@@ -1,10 +1,7 @@
 # Service for managing the users.
-@App.service 'MnoeSubTenants', (MnoeAdminApiSvc, MnoeObservables, OBS_KEYS) ->
+@App.service 'MnoeSubTenants', ($log, MnoErrorsHandler, MnoeAdminApiSvc, MnoeObservables, OBS_KEYS) ->
   @list = (limit, offset, sort) ->
-    MnoeAdminApiSvc.all("sub_tenants").getList({order_by: sort, limit: limit, offset: offset}).then(
-      (response) ->
-        response
-    )
+    MnoeAdminApiSvc.all("sub_tenants").getList({order_by: sort, limit: limit, offset: offset})
 
   @get = (id) ->
     MnoeAdminApiSvc.one('sub_tenants', id).get()
@@ -15,24 +12,17 @@
         MnoeObservables.notifyObservers(OBS_KEYS.subTenantAdded, promise)
         response
       (error) ->
-        $log.error('Error while creating subTenant: ' + subTenant, error)
+        MnoErrorsHandler.processServerError(error)
     )
 
-  # filtering an object with an array in coffeescript
-  filterElements = (validate, filter) ->
-    filtered = {}
-    for key, value of validate
-      if key in filter then filtered[key] = value
-    filtered
-
   @update = (subTenant) ->
-    data = {sub_tenant: filterElements(subTenant, ["name", "client_ids", "account_manager_ids"])}
+    data = {sub_tenant: _.pick(subTenant, ["name", "client_ids", "account_manager_ids"])}
     promise = MnoeAdminApiSvc.one('sub_tenants', subTenant.id).patch(data).then(
       (response) ->
         MnoeObservables.notifyObservers(OBS_KEYS.subTenantChanged, promise)
         response
       (error) ->
-        $log.error('Error while updating subTenant: ' + id, error)
+        MnoErrorsHandler.processServerError(error)
     )
 
   @delete = (id) ->
@@ -40,7 +30,7 @@
       ->
         MnoeObservables.notifyObservers(OBS_KEYS.subTenantChanged, promise)
       (error) ->
-        $log.error('Error while deleting subTenant: ' + id, error)
+        MnoErrorsHandler.processServerError(error)
     )
 
   return @

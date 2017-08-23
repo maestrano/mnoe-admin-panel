@@ -328,6 +328,7 @@
   "mnoe_admin_panel.dashboard.staff.update_staff_role.perform": "Are you sure you want to change this staff role ? It will clear his clients.",
 
   "mnoe_admin_panel.dashboard.sub_tenants.title": "Divisions",
+  "mnoe_admin_panel.dashboard.sub_tenants.widget.list.loading": "Loading Divisions...",
   "mnoe_admin_panel.dashboard.sub_tenants.widget.list.title": "Divisions",
   "mnoe_admin_panel.dashboard.sub_tenants.widget.list.table.name": "Name",
   "mnoe_admin_panel.dashboard.sub_tenants.widget.list.table.created_at": "Created at",

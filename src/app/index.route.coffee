@@ -133,8 +133,7 @@
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.sub_tenants.title'
       resolve:
-        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdminRole(['admin'])
-        skipCondition: (RoutingHelper, MnoeAdminConfig) -> RoutingHelper.skipUnlessCondition(MnoeAdminConfig.isSubTenantEnabled())
+        skip: (MnoeCurrentUser, MnoeAdminConfig) -> MnoeCurrentUser.skipIfNotAdminRole(['admin']) || !MnoeAdminConfig.isSubTenantEnabled()
     .state 'dashboard.sub-tenant',
       data:
         pageTitle:'Division'
