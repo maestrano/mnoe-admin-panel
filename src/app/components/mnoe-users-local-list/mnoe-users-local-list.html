@@ -10,7 +10,7 @@
           <th translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.username</th>
           <th style="width: 100px;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.creation</th>
           <th style="width: 140px;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.status</th>
-          <th style="width: 100px;" ng-if="isImpersonationEnabled"></th>
+          <th style="width: 140px;" ng-if="isImpersonationEnabled"></th>
         </tr>
       </thead>
       <tbody>
@@ -34,7 +34,9 @@
             </button>
             <span ng-show="user.status === 'active'" translate>mnoe_admin_panel.dashboard.users.widget.local_list.active</span>
           </td>
-          <td ng-if="isImpersonationEnabled"><a href="" ng-click="impersonateUser(user)" translate>mnoe_admin_panel.dashboard.users.widget.local_list.login_as</a></td>
+          <td>
+            <mnoe-impersonate-button btn-class-names="btn btn-xs btn-default" user="user"></mnoe-impersonate-button>
+          </td>
         </tr>
       </tbody>
     </table>

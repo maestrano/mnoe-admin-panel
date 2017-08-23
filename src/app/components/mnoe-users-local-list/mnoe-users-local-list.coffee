@@ -1,7 +1,7 @@
 #
 # Mnoe Users List
 #
-@App.directive('mnoeUsersLocalList', ($window, $filter, $log, toastr, MnoeAdminConfig, MnoeUsers, MnoErrorsHandler) ->
+@App.directive('mnoeUsersLocalList', ($filter, $log, toastr, MnoeAdminConfig, MnoeUsers, MnoErrorsHandler) ->
   restrict: 'E'
   scope: {
     list: '='
@@ -15,8 +15,6 @@
       displayList: []
       widgetTitle: 'mnoe_admin_panel.dashboard.users.widget.local_list.loading_users.title'
       search: ''
-
-    scope.isImpersonationEnabled = MnoeAdminConfig.isImpersonationEnabled()
 
     # Display all the users
     setAllUsersList = () ->
@@ -79,13 +77,6 @@
           toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.toastr_error', {extraData: {username: "#{user.name} #{user.surname}"}})
           MnoErrorsHandler.processServerError(error)
       ).finally(-> user.isSendingInvite = false)
-
-    # Impersonate the user
-    scope.impersonateUser = (user) ->
-      if user
-        redirect = window.encodeURIComponent("#{location.pathname}#{location.hash}")
-        url = "/mnoe/impersonate/user/#{user.id}?redirect_path=#{redirect}&dhbRefId=#{scope.organization.id}"
-        $window.location.href = url
 
     scope.$watch('list', (newVal) ->
       if newVal

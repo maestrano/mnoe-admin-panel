@@ -45,9 +45,8 @@
       </div>
     </div>
     <div class="bs-row">
-      <div class="col-sm-4 col-sm-offset-4" ng-if="::main.adminConfig.isImpersonationEnabled()">
-        <button class="btn btn-primary center-block" ng-click="vm.impersonateUser()" translate>mnoe_admin_panel.dashboard.user.login_button</button>
-      </div>
+      <mnoe-impersonate-button wrapper-class-names="col-sm-4 col-sm-offset-4" btn-class-names="btn btn-primary center-block" user="vm.user"></mnoe-impersonate-button>
+
       <div class="col-sm-12 top-buffer-2">
         <mnoe-organizations-local-list list="vm.user.organizations" view="all"></mnoe-organizations-local-list>
       </div>
