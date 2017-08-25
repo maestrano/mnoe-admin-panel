@@ -1,0 +1,10 @@
+<div id="provisioning-details">
+  <h1 translate>mnoe_admin_panel.dashboard.provisioning.details.title</h1>
+  <div class="well clearfix">
+    <form name="vm.detailsForm" ng-submit="vm.submit(vm.detailsForm)" sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.subscription.custom_data"></form>
+
+    <button type="submit" ng-click="vm.submit(vm.detailsForm)" ng-disabled="(vm.detailsForm.$pristine && !vm.isEditMode) || vm.detailsForm.$invalid" class="btn btn-primary pull-right top-buffer-1" translate>
+      mnoe_admin_panel.dashboard.provisioning.details.next
+    </button>
+  </div>
+</div>

@@ -35,6 +35,7 @@
     "angular-message-format": "^1.6.2",
     "angular-schema-form": "^0.8.13",
     "angular-schema-form-bootstrap": "^0.2.0",
+    "angular-filter": "^0.5.16",
     "ng-file-upload": "^12.2.13"
   },
   "devDependencies": {

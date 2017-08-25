@@ -148,6 +148,52 @@
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.customers.create_customer.title'
 
+  if adminConfig.isOrganizationManagementEnabled() && adminConfig.isProvisioningEnabled()
+    $stateProvider
+      .state 'dashboard.provisioning',
+        abstract: true
+        templateUrl: 'app/views/provisioning/layout.html'
+        url: '/provisioning'
+      .state 'dashboard.provisioning.order',
+        data:
+          pageTitle:'Purchase - Order'
+        url: '/order/?nid&id&orgId'
+        views: '@dashboard.provisioning':
+          templateUrl: 'app/views/provisioning/order.html'
+          controller: 'ProvisioningOrderCtrl'
+          controllerAs: 'vm'
+      .state 'dashboard.provisioning.additional_details',
+        data:
+          pageTitle:'Purchase - Additional details'
+        url: '/details/'
+        views: '@dashboard.provisioning':
+          templateUrl: 'app/views/provisioning/details.html'
+          controller: 'ProvisioningDetailsCtrl'
+          controllerAs: 'vm'
+      .state 'dashboard.provisioning.confirm',
+        data:
+          pageTitle:'Purchase - Confirm'
+        url: '/confirm/'
+        views: '@dashboard.provisioning':
+          templateUrl: 'app/views/provisioning/confirm.html'
+          controller: 'ProvisioningConfirmCtrl'
+          controllerAs: 'vm'
+      .state 'dashboard.provisioning.order_summary',
+        data:
+          pageTitle:'Purchase - Order summary'
+        url: '/summary/'
+        views: '@dashboard.provisioning':
+          templateUrl: 'app/views/provisioning/summary.html'
+          controller: 'ProvisioningSummaryCtrl'
+          controllerAs: 'vm'
+      .state 'dashboard.subscriptions',
+        data:
+          pageTitle:'Subscriptions summary'
+        url: '/subscriptions'
+        templateUrl: 'app/views/provisioning/subscriptions.html'
+        controller: 'ProvisioningSubscriptionsCtrl'
+        controllerAs: 'vm'
+
   if adminConfig.isProductsEnabled()
     $stateProvider
       .state 'dashboard.orders',
