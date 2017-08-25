@@ -4,10 +4,20 @@
       <h1 translate>mnoe_admin_panel.dashboard.organization.organization_info</h1>
 
       <div class="row">
+        <div class="col-xs-12 top-buffer-1 text-right">
+          <button ng-if="::main.adminConfig.isUserManagementEnabled()" ng-click="vm.users.createUserModal()" ng-disabled="!vm.organization" class="btn btn-primary" translate>
+            mnoe_admin_panel.dashboard.organization.add_a_user
+          </button>
+          <button ng-if="::main.adminConfig.isProvisioningEnabled()" ng-click="vm.openCreateProductModal()" ng-disabled="!vm.organization" class="btn btn-primary" translate>
+            mnoe_admin_panel.dashboard.organization.create_an_order
+          </button>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-md-6">
           <mno-widget is-loading="!vm.organization.invoices" icon="fa-sitemap" heading="{{vm.organization.name}}">
             <mno-widget-header></mno-widget-header>
-            <mno-widget-body>
+            <mno-widget-body class="large">
               <div class="bs-row row">
                 <div class="col-xs-6">
                   <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.uid</div>
@@ -66,13 +76,6 @@
           <mnoe-subscriptions-list organization="vm.organization"></mnoe-subscriptions-list>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="row" ng-if="::main.adminConfig.isUserManagementEnabled()">
-    <div class="col-xs-12 top-buffer-1">
-      <button role="button" ng-click="vm.users.createUserModal()" ng-disabled="!vm.organization" class="btn btn-primary" translate>
-        mnoe_admin_panel.dashboard.organization.add_a_user
-      </button>
     </div>
   </div>
   <div class="row">

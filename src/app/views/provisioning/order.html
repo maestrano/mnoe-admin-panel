@@ -1,52 +1,30 @@
 <div id="provisioning-order">
-  <h1 translate>mnoe_admin_panel.dashboard.provisioning.order.title</h1>
 
-  <div class="well pricing-plans clearfix">
-    <div ng-show="vm.isLoading" class="text-center">
-      <i class="fa fa-refresh fa-spin fa-4x"></i>
-    </div>
+  <mno-widget is-loading="vm.isLoading" icon="fa-sitemap" heading="{{'mnoe_admin_panel.dashboard.provisioning.order.title' | translate}}">
+    <mno-widget-header></mno-widget-header>
+    <mno-widget-body class="no-padding">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th></th>
+          <th>{{ 'mnoe_admin_panel.dashboard.provisioning.order.name' | translate }}</th>
+          <th>{{ 'mnoe_admin_panel.dashboard.provisioning.order.description' | translate }}</th>
+          <th>{{ 'mnoe_admin_panel.dashboard.provisioning.order.price' | translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="pricingPlan in vm.subscription.product.product_pricings">
+          <td><input type="radio" name="optradio" ng-model="vm.subscription.product_pricing" ng-value="pricingPlan"></td>
+          <td>{{ pricingPlan.name }}</td>
+          <td>{{ pricingPlan.description }}</td>
+          <td><span ng-repeat="price in pricingPlan.prices | filterBy: ['currency']: vm.orgCurrency">{{price.currency}} {{price.price_cents / 100}}</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </mno-widget-body>
+  </mno-widget>
 
-    <div ng-hide="vm.isLoading" class="table-cell" ng-show="!isLoading">
-      <div class="row th-row hidden-xs">
-        <div class="col-xs-10 col-xs-offset-2">
-          <div class="cell col-sm-3">{{ 'mnoe_admin_panel.dashboard.provisioning.order.name' | translate }}</div>
-          <div class="cell col-sm-5">{{ 'mnoe_admin_panel.dashboard.provisioning.order.description' | translate }}</div>
-          <div class="cell col-sm-3">{{ 'mnoe_admin_panel.dashboard.provisioning.order.price' | translate }}</div>
-        </div>
-      </div>
-
-      <div class="row td-row" ng-repeat="pricingPlan in vm.subscription.product.product_pricings">
-        <div class="cell radio-selector col-xs-2">
-          <input type="radio" name="optradio" ng-model="vm.subscription.product_pricing" ng-value="pricingPlan">
-        </div>
-
-        <div class="col-xs-10">
-          <div class="cell col-sm-3">
-            <span class="cell-label visible-xs-inline">
-              {{ 'mnoe_admin_panel.dashboard.provisioning.order.name' | translate }}:
-            </span>
-            {{ pricingPlan.name }}
-          </div>
-
-          <div class="cell col-sm-5">
-            <span class="cell-label visible-xs-inline">
-              {{ 'mnoe_admin_panel.dashboard.provisioning.order.description' | translate }}:
-            </span>
-            {{ pricingPlan.description }}
-          </div>
-
-          <div class="cell col-sm-3">
-            <span class="cell-label visible-xs-inline">
-              {{ 'mnoe_admin_panel.dashboard.provisioning.order.price' | translate }}:
-            </span>
-            <span ng-repeat="price in pricingPlan.prices | filterBy: ['currency']: vm.orgCurrency">{{price.currency}} {{price.price_cents / 100}}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <button class="btn btn-primary top-buffer-1 pull-right" ng-click="vm.next(vm.subscription)" ng-hide="vm.isLoading" ng-disabled="!vm.subscription.product_pricing" translate>
-      mnoe_admin_panel.dashboard.provisioning.order.next
-    </button>
-  </div>
+  <button class="btn btn-primary top-buffer-1 pull-right" ng-click="vm.next(vm.subscription)" ng-hide="vm.isLoading" ng-disabled="!vm.subscription.product_pricing" translate>
+    mnoe_admin_panel.dashboard.provisioning.order.next
+  </button>
 </div>

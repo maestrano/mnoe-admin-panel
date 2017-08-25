@@ -88,7 +88,7 @@
     promise.then(
       (response) ->
         console.log("### DEBUG promise response", response)
-        _self.setSubscription(response.data.subscription)
+        _self.setSubscription(response.data)
         response
     )
 

@@ -162,6 +162,8 @@
           templateUrl: 'app/views/provisioning/order.html'
           controller: 'ProvisioningOrderCtrl'
           controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.provisioning.breadcrumb.order'
       .state 'dashboard.provisioning.additional_details',
         data:
           pageTitle:'Purchase - Additional details'
@@ -170,6 +172,8 @@
           templateUrl: 'app/views/provisioning/details.html'
           controller: 'ProvisioningDetailsCtrl'
           controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.provisioning.breadcrumb.additional_details'
       .state 'dashboard.provisioning.confirm',
         data:
           pageTitle:'Purchase - Confirm'
@@ -178,6 +182,8 @@
           templateUrl: 'app/views/provisioning/confirm.html'
           controller: 'ProvisioningConfirmCtrl'
           controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.provisioning.breadcrumb.confirm'
       .state 'dashboard.provisioning.order_summary',
         data:
           pageTitle:'Purchase - Order summary'
@@ -186,13 +192,8 @@
           templateUrl: 'app/views/provisioning/summary.html'
           controller: 'ProvisioningSummaryCtrl'
           controllerAs: 'vm'
-      .state 'dashboard.subscriptions',
-        data:
-          pageTitle:'Subscriptions summary'
-        url: '/subscriptions'
-        templateUrl: 'app/views/provisioning/subscriptions.html'
-        controller: 'ProvisioningSubscriptionsCtrl'
-        controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.provisioning.breadcrumb.order_summary'
 
   if adminConfig.isProductsEnabled()
     $stateProvider

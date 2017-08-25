@@ -1,43 +1,33 @@
 <div id="provisioning-confirm">
-  <h1 translate>mnoe_admin_panel.dashboard.provisioning.confirm.title</h1>
-  <div class="well clearfix">
-    <div class="table-cell">
-      <div class="row th-row hidden-xs">
-        <div class="cell col-sm-4">{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.name' | translate }}</div>
-        <div class="cell col-sm-4">{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.description' | translate }}</div>
-        <div class="cell col-sm-4">{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.price' | translate }}</div>
-      </div>
+  <mno-widget is-loading="vm.isLoading" icon="fa-sitemap" heading="{{'mnoe_admin_panel.dashboard.provisioning.confirm.title' | translate}}">
+    <mno-widget-header></mno-widget-header>
+    <mno-widget-body class="no-padding">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.name' | translate }}</th>
+          <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.description' | translate }}</th>
+          <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.price' | translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{ vm.subscription.product_pricing.name }}</td>
+          <td>{{ vm.subscription.product_pricing.description }}</td>
+          <td><span ng-repeat="price in vm.subscription.product_pricing.prices | filterBy: ['currency']: vm.orgCurrency">{{price.currency}} {{price.price_cents / 100}}</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </mno-widget-body>
+  </mno-widget>
 
-      <div class="row td-row">
-        <div class="cell col-sm-4">
-          <span class="cell-label visible-xs-inline">
-            {{ 'mnoe_admin_panel.dashboard.provisioning.confirm.name' | translate }}:
-          </span>
-          {{ vm.subscription.product_pricing.name }}
-        </div>
-
-        <div class="cell col-sm-4">
-          <span class="cell-label visible-xs-inline">
-            {{ 'mnoe_admin_panel.dashboard.provisioning.confirm.description' | translate }}:
-          </span>
-          {{ vm.subscription.product_pricing.description }}
-        </div>
-
-        <div class="cell col-sm-4">
-          <span class="cell-label visible-xs-inline">
-            {{ 'mnoe_admin_panel.dashboard.provisioning.confirm.price' | translate }}:
-          </span>
-          <span ng-repeat="price in vm.subscription.product_pricing.prices | filterBy: ['currency']: vm.orgCurrency">{{price.currency}} {{price.price_cents / 100}}</span>
-        </div>
-      </div>
-    </div>
-
-    <span class="pull-right top-buffer-1">
-      <button class="btn btn-primary" ui-sref="dashboard.provisioning.order()" translate>mnoe_admin_panel.dashboard.provisioning.confirm.edit_order</button>
-      <button class="btn btn-warning" ng-click="vm.validate()" ng-disabled="vm.isLoading">
-        <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
-        <span translate>mnoe_admin_panel.dashboard.provisioning.confirm.validate</span>
-      </button>
-    </span>
-  </div>
+  <span class="pull-right top-buffer-1">
+    <button class="btn btn-primary" ui-sref="dashboard.customers.organization({id: vm.subscription.organization_id})" translate>
+      mnoe_admin_panel.dashboard.provisioning.confirm.edit_order
+    </button>
+    <button class="btn btn-warning" ng-click="vm.validate()" ng-disabled="vm.isLoading">
+      <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+      <span translate>mnoe_admin_panel.dashboard.provisioning.confirm.validate</span>
+    </button>
+  </span>
 </div>
