@@ -13,9 +13,10 @@
     vm.organisationKpiLocale = 'mnoe_admin_panel.dashboard.home.kpi.organizations.link_text'
 
   # API calls
-  MnoeUsers.kpi().then(
+  MnoeUsers.metrics().then(
     (response) ->
-      vm.users.kpi = response.data
+      console.log (response.data)
+      vm.users.metrics = response.data.metrics
   )
 
   MnoeOrganizations.count().then(

@@ -1,11 +1,11 @@
 #
-# Mnoe Appkpis List
+# Mnoe AppMetrics List
 #
-@App.directive('mnoeAppkpisList', ($filter, $log, $translate, MnoeAppkpis, MnoeAdminConfig) ->
+@App.directive('mnoeAppMetricsList', ($filter, $log, $translate, MnoeAppMetrics, MnoeAdminConfig) ->
   restrict: 'E'
   scope: {
   }
-  templateUrl: 'app/components/mnoe-appkpis-list/mno-appkpis-list.html'
+  templateUrl: 'app/components/mnoe-app-metrics-list/mno-app-metrics-list.html'
   link: (scope, elem, attrs) ->
 
     # Widget state
@@ -27,10 +27,10 @@
     # Fetch apps
     fetchApps = (limit, offset, sort = 'name') ->
       scope.apps.loading = true
-      return MnoeAppkpis.list(limit, offset, sort).then(
+      return MnoeAppMetrics.list(limit, offset, sort).then(
         (response) ->
           scope.apps.totalItems = response.headers('x-total-count')
-          scope.apps.list = response.data[0]['apps_kpi']
+          scope.apps.list = response.data[0]['apps_metric']
       ).finally(-> scope.apps.loading = false)
 
     scope.switchState = () ->
@@ -76,7 +76,7 @@
       delete scope.apps.switchLinkTitle
       search = scope.apps.search.toLowerCase()
       terms = {'name.like': "#{search}%" }
-      MnoeAppkpis.search(terms).then(
+      MnoeAppMetrics.search(terms).then(
         (response) ->
           scope.apps.totalItems = response.headers('x-total-count')
           scope.apps.list = $filter('orderBy')(response.data, 'name')

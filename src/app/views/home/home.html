@@ -1,20 +1,20 @@
 <div id="home" class="row">
   <div class="col-lg-3 col-md-6 col-xs-12">
     <mno-kpi class="kpi-color-1" description="{{'mnoe_admin_panel.dashboard.home.kpi.users' | translate}}" icon="fa-users"
-             value="{{vm.users.kpi.total_count}}"
-             loading="!vm.users.kpi" mno-ui-sref="dashboard.customers" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.users.link_text' | translate:{'quantity': vm.users.kpi.new_month_count} }}"></mno-kpi>
+             value="{{vm.users.metrics.total_count}}"
+             loading="!vm.users.metrics" mno-ui-sref="dashboard.customers" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.users.link_text' | translate:{'quantity': vm.users.metrics.new_month_count} }}"></mno-kpi>
   </div>
 
   <div class="col-lg-3 col-md-6 col-xs-12">
     <mno-kpi class="kpi-color-1" description="{{'mnoe_admin_panel.dashboard.home.kpi.active_users' | translate}}" icon="fa-users"
-             value="{{vm.users.kpi.active_users_count}}"
-             loading="!vm.users.kpi" mno-ui-sref="dashboard.customers" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.active_users.link_text' | translate }}"></mno-kpi>
+             value="{{vm.users.metrics.active_users_count}}"
+             loading="!vm.users.metrics" mno-ui-sref="dashboard.customers" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.active_users.link_text' | translate }}"></mno-kpi>
   </div>
 
   <div class="col-lg-3 col-md-6 col-xs-12">
     <mno-kpi class="kpi-color-1" description="{{'mnoe_admin_panel.dashboard.home.kpi.user_churn' | translate}}" icon="fa-users"
-             value="{{(vm.users.kpi.monthly_churn_rate*100) | number:0}}% "
-             loading="!vm.users.kpi" mno-ui-sref="dashboard.customers" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.user_churn.link_text' | translate }}"></mno-kpi>
+             value="{{(vm.users.metrics.monthly_churn_rate*100) | number:0}}% "
+             loading="!vm.users.metrics" mno-ui-sref="dashboard.customers" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.user_churn.link_text' | translate }}"></mno-kpi>
   </div>
 
   <div class="col-lg-3 col-md-6 col-xs-12">
@@ -43,7 +43,7 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <mnoe-appkpis-list view="last"></mnoe-appkpis-list>
+    <mnoe-app-metrics-list view="last"></mnoe-app-metrics-list>
   </div>
 </div>
 <div class="row">
