@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
+        <div ng-class="main.adminConfig.isProvisioningEnabled() ? 'col-md-6' : 'col-md-12'">
           <mno-widget is-loading="!vm.organization.invoices" icon="fa-sitemap" heading="{{vm.organization.name}}">
             <mno-widget-header></mno-widget-header>
             <mno-widget-body class="large">
@@ -45,12 +45,12 @@
                 </div>
               </div>
               <div class="bs-row row">
-                <div class="col-xs-6">
+                <div class="col-sm-6">
                   <div class="label-cell">{{'mnoe_admin_panel.dashboard.organization.active_apps' | translate}}
                     <a ng-if="vm.organization.active_apps.length > 0 && vm.hasDisconnectedApps" ui-sref="dashboard.customers.connect-app({orgId: vm.organization.id})" translate>mnoe_admin_panel.dashboard.organization.connect_apps</a>
                   </div>
                 </div>
-                <div class="col-xs-12">
+                <div ng-class="main.adminConfig.isProvisioningEnabled() ? 'col-sm-12' : 'col-sm-6'">
                   <div class="bs-row row apps-box">
                     <div class="app-wrapper col-xs-6 col-sm-4 col-md-3" ng-repeat="app in vm.organization.active_apps">
                       <div class="small-app-card ellipsis">
@@ -72,7 +72,7 @@
             </mno-widget-body>
           </mno-widget>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" ng-if="::main.adminConfig.isProvisioningEnabled()">
           <mnoe-subscriptions-list organization="vm.organization"></mnoe-subscriptions-list>
         </div>
       </div>
