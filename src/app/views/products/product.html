@@ -1,81 +1,197 @@
-<h1 translate>mnoe_admin_panel.dashboard.product.product_info</h1>
-<a ui-sref="dashboard.products" class="text-muted">
-  <i class="fa fa-chevron-left"></i><span translate>mnoe_admin_panel.dashboard.product.back</span>
-</a>
-<div class="row">
-  <div class="col-xs-12">
-    <mno-widget is-loading="" icon="fa-shopping-basket" heading="{{vm.product.product}}">
-      <mno-widget-header></mno-widget-header>
-      <mno-widget-body>
-        <div class="bs-row row">
-          <div class="col-xs-3">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.product.name</div>
+<div id="product">
+  <h1 translate>mnoe_admin_panel.dashboard.product.product</h1>
+  <a ui-sref="dashboard.products" class="text-muted">
+    <i class="fa fa-chevron-left"></i><span translate>mnoe_admin_panel.dashboard.product.back</span>
+  </a>
+  <!-- description section -->
+  <mno-widget icon="fa-tag" heading="{{'mnoe_admin_panel.dashboard.product.product_description' | translate}}">
+    <mno-widget-header></mno-widget-header>
+    <mno-widget-body>
+      <form name="vm.form.product.description">  
+        <div class="form-group">
+          <label class="control-label top-buffer-1" translate>mnoe_admin_panel.dashboard.product.name</label>
+          <input type="text" ng-model="vm.product.name" class="form-control" required></input>
+        </div>
+        <div class="form-group">
+          <label class="control-label top-buffer-1" translate>mnoe_admin_panel.dashboard.product.supplier</label>
+          <input type="text" ng-model="vm.product.supplier" class="form-control"></input>
+        </div>
+        <div class="form-group">
+          <label class="control-label top-buffer-1" translate>mnoe_admin_panel.dashboard.product.tiny_description</label>
+          <input type="text" ng-model="vm.product.tinyDescription" class="form-control"></input>
+        </div>
+        <div class="form-group">
+          <label class="control-label top-buffer-1" translate>mnoe_admin_panel.dashboard.product.key_benefits</label>
+          <input type="text" ng-model="vm.product.keyBenefits" class="form-control"></input>
+        </div>
+        <div class="form-group">
+          <label class="control-label top-buffer-1" translate>mnoe_admin_panel.dashboard.product.getting_started</label>
+          <input type="text" ng-model="vm.product.gettingStarted" class="form-control"></input>
+        </div>
+        <button class="btn btn-primary top-buffer-1"
+                ng-click="vm.updateProduct()" translate>mnoe_admin_panel.dashboard.product.submit
+        </button>
+      </form>
+    </mno-widget-body>
+  </mno-widget>
+  <!-- Status section -->
+  <mno-widget icon="fa-tag" heading="{{'mnoe_admin_panel.dashboard.product.status' | translate}}">
+    <mno-widget-header></mno-widget-header>
+    <mno-widget-body>
+      <div class="form-group">
+        <div ng-if="!vm.product.active">
+          <div class="col-xs-2">
+            <span class="status-text-draft" translate>mnoe_admin_panel.dashboard.product.draft</span>
           </div>
-          <div class="col-xs-6">
-            {{vm.product.name}}
+          <div class="col-xs-2">
+            <label class="switch pull-right" ng-click="vm.updateStatus()">
+              <input type="checkbox">
+              <span class="slider round"></span>
+            </label>
           </div>
         </div>
-        <div class="bs-row row">
-          <div class="col-xs-3">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.product.logo</div>
+        <div ng-if="vm.product.active">
+          <div class="col-xs-2">
+            <span class="status-text-published" translate>mnoe_admin_panel.dashboard.product.published</span>
           </div>
-          <div class="col-xs-6">
-            {{vm.product.logo}}
-          </div>
-        </div>
-        <div class="bs-row row">
-          <div class="col-xs-3">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.product.nid</div>
-          </div>
-          <div class="col-xs-6">
-            {{vm.product.nid}}
+          <div class="col-xs-2">
+            <label class="switch pull-right" ng-click="vm.updateStatus()">
+              <input type="checkbox" checked="checked">
+              <span class="slider round"></span>
+            </label>
           </div>
         </div>
-        <div class="bs-row row">
-          <div class="col-xs-3">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.product.external_id</div>
-          </div>
-          <div class="col-xs-6">
-            {{vm.product.external_id}}
-          </div>
-        </div>
-        <div class="bs-row row">
-          <div class="col-xs-3">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.product.status</div>
-          </div>
-          <div class="col-xs-6">
-            <option ng-if="!vm.product.active" translate>mnoe_admin_panel.dashboard.edit_product.draft</option>
-            <option ng-if="vm.product.active" translate="">mnoe_admin_panel.dashboard.edit_product.published</option>
+      </div>
+    </mno-widget-body>
+  </mno-widget>
+  <!-- Pricing section -->
+  <mno-widget icon="fa-tag" heading="{{'mnoe_admin_panel.dashboard.product.product_pricing' | translate}}">
+    <mno-widget-header></mno-widget-header>
+    <mno-widget-body>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-3">
+            <label class="control-label top-buffer-1" translate>mnoe_admin_panel.dashboard.product.free_trial</label>
           </div>
         </div>
-        <div class="text-center">
-          <h3 translate>mnoe_admin_panel.dashboard.product.product_pricing</h3>
-        </div>
-        <div class="bs-row row">
-          <div class="col-xs-3">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.product.recurring_product</div>
-          </div>
-          <div class="col-xs-6">
-            {{vm.product.recurring_product}}
-          </div>
-        </div>
-        <div class="bs-row row">
-          <div class="col-xs-3">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.product.free_trial</div>
-          </div>
-          <div class="col-xs-6">
-            {{vm.product.free_trial}}
-          </div>
-        </div>
-        <div class="bs-row row">
-          <div class="col-xs-3">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.product.pricing_plan</div>
-          </div>
-          <div class="col-xs-6">
-            {{vm.product.pricing_plan}}
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="input-group input-group-sm">
+              <span class="input-group-addon">
+                <input type="checkbox" ng-model="vm.product.product_pricings.free_trial_enabled">
+              </span>
+              <input type="number" ng-model="vm.product.product_pricings.free_trial_duration" min="0" class="form-control" placeholder="{{'mnoe_admin_panel.dashboard.product.free_trial_duration' | translate}}" ng-disabled="!vm.product.product_pricings.free_trial_enabled">
+              <span class="input-group-addon">
+                <select ng-model="vm.product.product_pricings.free_trial_unit" ng-disabled="!vm.product.product_pricings.free_trial_enabled">
+                  <option value="days">day</option>
+                  <option value="weeks">week</option>
+                  <option value="months">month</option>
+                  <option value="years">year</option>
+                </select>
+              </span>
+            </div>
           </div>
         </div>
-      </mno-widget-body>
-    </mno-widget>
-  </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-3">
+            <label class="control-label top-buffer-1" translate>mnoe_admin_panel.dashboard.product.pricing_plans</label>
+          </div>
+        </div>
+        <div class="row top-buffer-1">
+          <button class="btn btn-link" ng-click="vm.addPricingPlan()">
+            <i class="fa fa-plus"></i> {{'mnoe_admin_panel.dashboard.product.add_pricing_plan' | translate}}
+          </button>
+          <ul class="list-group" ng-model="vm.product.product_pricings">
+            <li class="list-group-item" ng-repeat="pricingPlan in vm.product.product_pricings">
+              <div class="pricing-plan" ng-if="!vm.isCurrentPricingPlan(pricingPlan)">
+                <span>
+                  <h4>{{pricingPlan.name}}</h4>
+                  <p>{{pricingPlan.description}}</p>
+                  <p>
+                    <span class="badge">
+                      <span ng-repeat="price in pricingPlan.prices" class="price">
+                        {{price.currency}} {{price.price_cents / 100}}
+                      </span>
+                    </span>
+                    <strong>&nbsp;/&nbsp;{{pricingPlan.per_unit}}&nbsp;/&nbsp;{{pricingPlan.per_duration}}</strong>
+                  </p>
+                </span>
+                <div>
+                  <i class="fa fa-edit" ng-click="vm.editPricingPlan(pricingPlan)"></i>
+                  <i class="fa fa-times" ng-click="vm.deletePricingPlan(pricingPlan)"></i>
+                </div>
+              </div>
+              <div class="pricing-plan-edition" ng-if="vm.isCurrentPricingPlan(pricingPlan)">
+                <form name="vm.pricingPlanForm" class="form" novalidate>
+                  <div class="form-group">
+                    <label class="control-label top-buffer-1">Name</label>
+                    <input type="text" name="name" ng-model="pricingPlan.name" class="form-control" placeholder="name" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label top-buffer-1">Description</label>
+                    <input type="text" name="description" ng-model="pricingPlan.description" class="form-control" placeholder="description">
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                      <label class="control-label top-buffer-1">Per unit</label>
+                      <select class="form-control" ng-model="pricingPlan.per_unit" required>
+                        <option value="" disabled selected hidden>Per unit</option>
+                        <option value="organization">Organization</option>
+                        <option value="user">User</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label class="control-label top-buffer-1">Per duration</label>
+                      <select class="form-control" ng-model="pricingPlan.per_duration" required>
+                        <option value="" disabled selected hidden>Per duration</option>
+                        <option value="hour">Hour</option>
+                        <option value="day">Day</option>
+                        <option value="week">Week</option>
+                        <option value="month">Month</option>
+                        <option value="years">Year</option>
+                      </select>
+                    </div>
+                  </div>
+                </form>
+                <div class="form-group top-buffer-1">
+                  <button class="btn btn-primary" type="button" ng-click="vm.updateProduct()" ng-disabled="vm.isLoading || vm.pricing_plan_form.$invalid">
+                    save
+                  </button>
+                  <button class="btn btn-default" ng-click="vm.cancelPricingPlan(pricingPlan)" ng-disabled="">
+                    cancel
+                  </button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </mno-widget-body>
+  </mno-widget>
+  <!-- File upload section -->
+  <mno-widget icon="fa-tag" heading="{{'mnoe_admin_panel.dashboard.product.file_upload' | translate}}">
+    <mno-widget-header></mno-widget-header>
+    <mno-widget-body>
+      <div class="form-group">
+        <label class="control-label top-buffer-1" translate>mnoe_admin_panel.dashboard.product.upload_logo</label>
+
+        <mno-section description="">    
+          <form name="vm.form.product.logo">
+            <mno-image-selector ng-model="vm.product.logo"
+                                default-preview="{{vm.product.logo.url}}"
+                                max-size="'5MB'">
+                <a href ng-click="vm.deleteLogo()" class="close" ng-show="vm.product.logo">
+                  <i class="fa fa-times"></i>
+                </a>
+            </mno-image-selector>
+            <button class="btn btn-primary top-buffer-1"
+                    ng-click="vm.uploadLogo(vm.product.logo, vm.form.product.logo)" translate>mnoe_admin_panel.dashboard.product.submit
+            </button>
+          </form>
+        </mno-section>
+      </div>  
+    </mno-widget-body>
+  </mno-widget>
 </div>

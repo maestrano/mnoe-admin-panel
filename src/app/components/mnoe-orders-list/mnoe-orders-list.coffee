@@ -13,7 +13,6 @@
 
     # Manage sorting, search and pagination
     vm.callServer = (tableState) ->
-
     vm.orders =
       editmode: []
       search: {}
