@@ -15,7 +15,6 @@
   # API calls
   MnoeUsers.metrics().then(
     (response) ->
-      console.log (response.data)
       vm.users.metrics = response.data.metrics
   )
 

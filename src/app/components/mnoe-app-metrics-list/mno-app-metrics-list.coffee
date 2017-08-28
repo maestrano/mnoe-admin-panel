@@ -30,7 +30,7 @@
       return MnoeAppMetrics.list(limit, offset, sort).then(
         (response) ->
           scope.apps.totalItems = response.headers('x-total-count')
-          scope.apps.list = response.data[0]['apps_metric']
+          scope.apps.list = response.data[0]['app_metrics']
       ).finally(-> scope.apps.loading = false)
 
     scope.switchState = () ->
