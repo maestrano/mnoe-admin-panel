@@ -17,6 +17,7 @@
   "mnoe_admin_panel.dashboard.layout.sidebar.staff": "Staff",
   "mnoe_admin_panel.dashboard.layout.sidebar.reviews": "Reviews",
   "mnoe_admin_panel.dashboard.layout.sidebar.questions": "Questions",
+  "mnoe_admin_panel.dashboard.layout.sidebar.invoices": "Invoices",
   "mnoe_admin_panel.dashboard.layout.sidebar.audit_log": "Audit Log",
   "mnoe_admin_panel.dashboard.layout.sidebar.settings": "Settings",
   "mnoe_admin_panel.dashboard.layout.sidebar.domain": "Domain and SSL",
