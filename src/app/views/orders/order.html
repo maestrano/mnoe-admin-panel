@@ -1,0 +1,141 @@
+<h1 translate>mnoe_admin_panel.dashboard.order.order_info</h1>
+<a ui-sref="dashboard.orders" class="text-muted">
+  <i class="fa fa-chevron-left"></i><span translate>mnoe_admin_panel.dashboard.order.back</span>
+</a>
+<div class="row">
+  <div class="col-xs-6">
+    <mno-widget is-loading="" icon="fa-shopping-basket" heading="{{vm.order.product}}">
+      <mno-widget-header></mno-widget-header>
+      <mno-widget-body>
+        <div class="bs-row row">
+          <div class="col-xs-6">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.reference</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.order.reference}}
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-6">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.date</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.order.date | date: 'dd/MM/yyyy'}}
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-6">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.end_date</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.order.end_date | date: 'dd/MM/yyyy'}}
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-6">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.product</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.order.product}}
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-6">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.pricing_plan</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.order.pricing_plan}}
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-6">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.payment_status</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.order.payment_status}}
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-6">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.fullfilment</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.order.fullfilment}}
+          </div>
+          <select class="selectpicker">
+            <option translate>mnoe_admin_panel.dashboard.order.fullfilment_yes</option>
+            <option translate>mnoe_admin_panel.dashboard.order.fullfilment_no</option>
+          </select>
+          <button role="button" ng-click="" class="btn btn-primary btn-xs" translate>
+            mnoe_admin_panel.dashboard.order.save
+          </button>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-6">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.amount</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.order.amount}}
+          </div>
+        </div>
+      </mno-widget-body>
+    </mno-widget>
+  </div>
+  <div class="col-xs-6">
+    <mno-widget is-loading="" icon="fa-user-o" heading="{{vm.order.customer.email}}">
+      <mno-widget-header></mno-widget-header>
+      <mno-widget-body>
+        <div class="bs-row row">
+          <div class="col-xs-4">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.name</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.order.customer.name}} {{vm.order.customer.surname}}
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-4">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.email</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.order.customer.email}}
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-4">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.organization</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.order.customer.organization}}
+          </div>
+        </div>
+        <h4 translate>mnoe_admin_panel.dashboard.order.additional_info</h4>
+        <div class="bs-row row">
+          <div class="col-xs-4">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.billing_address</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.order.customer.billing_address}}
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-4">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.shipping_address</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.order.customer.shipping_address}}
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-xs-4">
+            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.additional_notes</div>
+          </div>
+          <div class="col-xs-6">
+            {{vm.order.customer.additional_notes}}
+          </div>
+        </div>
+      </mno-widget-body>
+    </mno-widget>
+  </div>
+</div>
+
