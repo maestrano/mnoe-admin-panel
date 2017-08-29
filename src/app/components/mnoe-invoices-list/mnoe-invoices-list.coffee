@@ -4,7 +4,7 @@
   bindings: {
     view: '@',
   }
-  controller: () ->
+  controller: (MnoeInvoices) ->
     ctrl = this
 
     ctrl.invoices =
@@ -25,7 +25,11 @@
     # Fetch invoices
     fetchInvoices = (limit, offset) ->
       ctrl.invoices.loading = true
-      ctrl.invoices.loading = false
+      return MnoeInvoices.list(limit, offset).then(
+        (response) ->
+          ctrl.invoices.totalItems = response.headers('x-total-count')
+          ctrl.invoices.list = response.data
+      ).finally(-> ctrl.invoices.loading = false)
 
     return
 

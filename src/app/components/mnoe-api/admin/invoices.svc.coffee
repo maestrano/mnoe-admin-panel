@@ -2,6 +2,12 @@
 @App.service 'MnoeInvoices', (MnoeAdminApiSvc) ->
   _self = @
 
+  @list = (limit, offset) ->
+    promise = MnoeAdminApiSvc.all('invoices').getList({limit: limit, offset: offset}).then(
+      (response) ->
+        response
+    )
+
   @currentBillingAmount = () ->
     MnoeAdminApiSvc.all('invoices').customGET('current_billing_amount')
 
