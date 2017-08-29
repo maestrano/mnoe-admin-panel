@@ -138,6 +138,17 @@
       resolve:
         skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
 
+  if adminConfig.isInvoicesEnabled()
+    $stateProvider.state 'dashboard.invoices',
+      data:
+        pageTitle:'Invoices'
+      url: '/invoices/'
+      templateUrl: 'app/views/invoices/invoices.html'
+      controller: 'InvoicesController'
+      controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.invoices.title'
+
   if adminConfig.isOrganizationManagementEnabled()
     $stateProvider.state 'dashboard.customers.create-step-1',
       url: '^/customers/create-customer'

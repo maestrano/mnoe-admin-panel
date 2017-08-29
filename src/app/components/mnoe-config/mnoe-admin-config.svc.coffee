@@ -69,6 +69,12 @@
     else
       true
 
+  @isInvoicesEnabled = () ->
+    if ADMIN_PANEL_CONFIG.invoices?.enabled?
+      ADMIN_PANEL_CONFIG.invoices.enabled
+    else
+      true
+
   @areSettingsEnabled = () ->
     if ADMIN_PANEL_CONFIG.settings?.enabled?
       ADMIN_PANEL_CONFIG.settings.enabled

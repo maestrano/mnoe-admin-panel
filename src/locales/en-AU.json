@@ -319,6 +319,7 @@
   "mnoe_admin_panel.dashboard.finance.table.yes": "Yes",
   "mnoe_admin_panel.dashboard.finance.table.no": "No",
   "mnoe_admin_panel.dashboard.staff.title": "Staff",
+  "mnoe_admin_panel.dashboard.invoices.title": "Invoices",
   "mnoe_admin_panel.dashboard.staff.add_staff": "Add staff",
   "mnoe_admin_panel.dashboard.staff.add_staff.modal.title": "Add a new staff",
   "mnoe_admin_panel.dashboard.staff.add_staff.modal.cancel": "Cancel",

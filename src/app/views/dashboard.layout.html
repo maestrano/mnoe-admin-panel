@@ -53,7 +53,7 @@
     <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="main.areQuestionsEnabled" ui-sref-active="active">
       <a ui-sref="dashboard.questions">{{'mnoe_admin_panel.dashboard.layout.sidebar.questions' | translate}}<span class="menu-icon fa fa-question-circle"></span></a>
     </li>
-    <li class="sidebar-list" ui-sref-active="active">
+    <li class="sidebar-list" ui-sref-active="active" ng-if="::main.adminConfig.isInvoicesEnabled()" >
       <a ui-sref="dashboard.invoices">{{'mnoe_admin_panel.dashboard.layout.sidebar.invoices' | translate}}<span class="menu-icon fa fa-files-o"></span></a>
     </li>
     <li class="sidebar-list" ng-if="::main.adminConfig.isAuditLogEnabled()" ui-sref-active="active">
