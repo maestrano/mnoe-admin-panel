@@ -39,8 +39,11 @@
     # Check the number of apps not connected (number of status equals to false)
     vm.hasDisconnectedApps = false of _.countBy(vm.status)
 
+  vm.openCreateProductModal = () ->
+    vm.openAddAppModal(true)
+
   # Add app modal
-  vm.openAddAppModal = ->
+  vm.openAddAppModal = (productMode = false) ->
     modalInstance = $uibModal.open(
       templateUrl: 'app/views/organization/add-app-modal/add-app-modal.html'
       controller: 'AddAppModalCtrl'

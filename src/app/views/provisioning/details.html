@@ -1,0 +1,12 @@
+<div id="provisioning-details">
+  <mno-widget is-loading="vm.isLoading" icon="fa-sitemap" heading="{{'mnoe_admin_panel.dashboard.provisioning.details.title' | translate}}">
+    <mno-widget-header></mno-widget-header>
+    <mno-widget-body>
+      <form name="vm.detailsForm" ng-submit="vm.submit(vm.detailsForm)" sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.subscription.custom_data"></form>
+    </mno-widget-body>
+  </mno-widget>
+
+  <button ng-click="vm.submit(vm.detailsForm)" ng-disabled="(vm.detailsForm.$pristine && !vm.isEditMode) || vm.detailsForm.$invalid" class="btn btn-primary pull-right top-buffer-1 bottom-buffer-1" translate>
+    mnoe_admin_panel.dashboard.provisioning.details.next
+  </button>
+</div>

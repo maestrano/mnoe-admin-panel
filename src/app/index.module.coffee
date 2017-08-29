@@ -22,5 +22,6 @@
   'pascalprecht.translate',
   'ngSanitize',
   'schemaForm',
+  'angular.filter',
   'ngFileUpload'
 ]

@@ -42,6 +42,12 @@
     else
       true
 
+  @isProvisioningEnabled = () ->
+    if ADMIN_PANEL_CONFIG.provisioning?.enabled?
+      ADMIN_PANEL_CONFIG.provisioning.enabled
+    else
+      true
+
   # Do not display CC info if Billing or Payment is disabled in the frontend
   @isPaymentEnabled = () ->
     payment_disabled = (DASHBOARD_CONFIG.payment? && not DASHBOARD_CONFIG.payment.enabled)
@@ -84,5 +90,12 @@
       ADMIN_PANEL_CONFIG.customer_management.user.enabled
     else
       true
+
+  @marketplaceCurrency = () ->
+    if DASHBOARD_CONFIG.marketplace?.pricing?.currency?
+      DASHBOARD_CONFIG.marketplace.pricing.currency
+    else
+      $log.debug("DASHBOARD_CONFIG.marketplace.pricing.currency missing")
+      'AUD'
 
   return @
