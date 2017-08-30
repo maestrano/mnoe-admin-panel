@@ -18,21 +18,33 @@
           ctrl.tasks.offset = (page  - 1) * nbItems
           fetchTasks(limit: nbItems, offset: ctrl.tasks.offset)
       }
-      ctrl.menus = [
-        { label: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.menus.inbox'), name: 'inbox', selected: true }
-        { label: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.menus.sent'), name: 'sent', query: { 'where[status.ne][]': 'draft', outbox: true } }
-        { label: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.menus.draft'), name: 'draft', query: { 'where[status][]': 'draft', outbox: true } }
-      ]
-      ctrl.tasksFilters = [
-        { name: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks_filters.all_tasks_and_msgs') }
-        { name: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks_filters.all_tasks'), query: { 'where[due_date.ne]': '' } }
-        { name: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks_filters.all_messages'), query: { 'where[due_date.eq]': '' } }
-        { name: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks_filters.due_tasks'), query: { 'where[due_date.lt]': moment.utc().toISOString(), 'where[status.ne]': 'done' } }
-        { name: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks_filters.completed_tasks'), query: { 'where[completed_at.ne]': '' } }
-      ]
-      ctrl.selectedTasksFilter = ctrl.tasksFilters[0]
-      ctrl.selectedMenu = _.find(ctrl.menus, (m)-> m.selected)
-      fetchTasks()
+      # Retrieve translations for initialising menu & filter models
+      $translate([
+        'mnoe_admin_panel.dashboard.mnoe-tasks.menus.inbox',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.menus.sent',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.menus.draft',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks_filters.all_tasks_and_msgs',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks_filters.all_tasks',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks_filters.all_messages',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks_filters.due_tasks',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks_filters.completed_tasks'
+      ]).then((tls)->
+        ctrl.menus = [
+          { label: tls['mnoe_admin_panel.dashboard.mnoe-tasks.menus.inbox'], name: 'inbox', selected: true }
+          { label: tls['mnoe_admin_panel.dashboard.mnoe-tasks.menus.sent'], name: 'sent', query: { 'where[status.ne][]': 'draft', outbox: true } }
+          { label: tls['mnoe_admin_panel.dashboard.mnoe-tasks.menus.draft'], name: 'draft', query: { 'where[status][]': 'draft', outbox: true } }
+        ]
+        ctrl.tasksFilters = [
+          { name: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks_filters.all_tasks_and_msgs'] }
+          { name: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks_filters.all_tasks'], query: { 'where[due_date.ne]': '' } }
+          { name: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks_filters.all_messages'], query: { 'where[due_date.eq]': '' } }
+          { name: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks_filters.due_tasks'], query: { 'where[due_date.lt]': moment.utc().toISOString(), 'where[status.ne]': 'done' } }
+          { name: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks_filters.completed_tasks'], query: { 'where[completed_at.ne]': '' } }
+        ]
+        ctrl.selectedTasksFilter = ctrl.tasksFilters[0]
+        ctrl.selectedMenu = _.find(ctrl.menus, (m)-> m.selected)
+        fetchTasks()
+      )
 
     ctrl.onSelectFilter = ({filter})->
       return if filter == ctrl.selectedTasksFilter
@@ -127,7 +139,7 @@
 
     fetchTasks = (params = {})->
       ctrl.tasks.loading = true
-      ctrl.mnoSortableTableFields = buildMnoSortableTable()
+      buildMnoSortableTable()
       baseParams = { limit: ctrl.tasks.nbItems, offset: ctrl.tasks.offset, order_by: ctrl.tasks.sort }
       params = angular.merge({}, baseParams, params, ctrl.selectedMenu.query, ctrl.selectedTasksFilter.query)
       MnoeTasks.get(params).then(
@@ -183,29 +195,45 @@
 
     # Creates mnoSortableTable cmp config API, building the tasks table columns
     buildMnoSortableTable = ->
-      toOrganizationColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.organization'), attr: 'task_recipients[0].organization.name' }
-      toUserNameColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.name'), attr: 'task_recipients[0].user.name'}
-      toUserSurnameColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.surname'), attr: 'task_recipients[0].user.surname'}
-      toUserEmailColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.email'), attr: 'task_recipients[0].user.email'}
-      fromOrganizationColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.organization'), attr: 'owner.organization.name' }
-      fromUserNameColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.name'), attr: 'owner.user.name'}
-      fromUserSurnameColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.surname'), attr: 'owner.user.surname'}
-      fromUserEmailColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.email'), attr: 'owner.user.email'}
-      titleColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.title'), attr: 'title', class: 'ellipsis' }
-      messageColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.message'), attr: 'message', class: 'ellipsis' }
-      receivedAtColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.received'), attr: 'send_at', filter: expandingDateFormat }
-      sentAtColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.sent'), attr: 'send_at', filter: expandingDateFormat }
-      readAtColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.read'), attr: 'task_recipients[0].read_at', filter: expandingDateFormat }
-      updatedAtColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.updated_at'), attr: 'updated_at', filter: expandingDateFormat }
-      dueDateAtColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.due_date'), attr: 'due_date', filter: simpleDateFormat }
-      doneColumn = { header: $translate.instant('mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.done'), attr: 'status', render: taskDoneCustomField, stopPropagation: true }
-      switch ctrl.selectedMenu.name
-        when 'inbox'
-          [fromOrganizationColumn, fromUserNameColumn, fromUserSurnameColumn, fromUserEmailColumn, titleColumn, messageColumn, receivedAtColumn, dueDateAtColumn, doneColumn]
-        when 'sent'
-          [toOrganizationColumn, toUserNameColumn, toUserSurnameColumn, toUserEmailColumn, titleColumn, messageColumn, sentAtColumn, readAtColumn, dueDateAtColumn, doneColumn]
-        when 'draft'
-          [toOrganizationColumn, toUserNameColumn, toUserSurnameColumn, toUserEmailColumn, titleColumn, messageColumn, updatedAtColumn, dueDateAtColumn]
+      $translate([
+        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.organization',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.name',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.surname',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.email',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.title',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.message',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.received',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.sent',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.read',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.updated_at',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.due_date',
+        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.done'
+      ]).then((tls)->
+        toOrganizationColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.organization'], attr: 'task_recipients[0].organization.name' }
+        toUserNameColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.name'], attr: 'task_recipients[0].user.name'}
+        toUserSurnameColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.surname'], attr: 'task_recipients[0].user.surname'}
+        toUserEmailColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.email'], attr: 'task_recipients[0].user.email'}
+        fromOrganizationColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.organization'], attr: 'owner.organization.name' }
+        fromUserNameColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.name'], attr: 'owner.user.name'}
+        fromUserSurnameColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.surname'], attr: 'owner.user.surname'}
+        fromUserEmailColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.email'], attr: 'owner.user.email'}
+        titleColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.title'], attr: 'title', class: 'ellipsis' }
+        messageColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.message'], attr: 'message', class: 'ellipsis' }
+        receivedAtColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.received'], attr: 'send_at', filter: expandingDateFormat }
+        sentAtColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.sent'], attr: 'send_at', filter: expandingDateFormat }
+        readAtColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.read'], attr: 'task_recipients[0].read_at', filter: expandingDateFormat }
+        updatedAtColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.updated_at'], attr: 'updated_at', filter: expandingDateFormat }
+        dueDateAtColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.due_date'], attr: 'due_date', filter: simpleDateFormat }
+        doneColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.done'], attr: 'status', render: taskDoneCustomField, stopPropagation: true }
+
+        ctrl.mnoSortableTableFields = switch ctrl.selectedMenu.name
+          when 'inbox'
+            [fromOrganizationColumn, fromUserNameColumn, fromUserSurnameColumn, fromUserEmailColumn, titleColumn, messageColumn, receivedAtColumn, dueDateAtColumn, doneColumn]
+          when 'sent'
+            [toOrganizationColumn, toUserNameColumn, toUserSurnameColumn, toUserEmailColumn, titleColumn, messageColumn, sentAtColumn, readAtColumn, dueDateAtColumn, doneColumn]
+          when 'draft'
+            [toOrganizationColumn, toUserNameColumn, toUserSurnameColumn, toUserEmailColumn, titleColumn, messageColumn, updatedAtColumn, dueDateAtColumn]
+      )
 
     # Formats dates yesterday & beyond differently from today
     expandingDateFormat = (value)->
