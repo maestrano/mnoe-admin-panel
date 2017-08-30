@@ -199,7 +199,6 @@
         'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.organization',
         'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.name',
         'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.surname',
-        'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.email',
         'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.title',
         'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.message',
         'mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.received',
@@ -212,11 +211,9 @@
         toOrganizationColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.organization'], attr: 'task_recipients[0].organization.name' }
         toUserNameColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.name'], attr: 'task_recipients[0].user.name'}
         toUserSurnameColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.surname'], attr: 'task_recipients[0].user.surname'}
-        toUserEmailColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.email'], attr: 'task_recipients[0].user.email'}
         fromOrganizationColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.organization'], attr: 'owner.organization.name' }
         fromUserNameColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.name'], attr: 'owner.user.name'}
         fromUserSurnameColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.surname'], attr: 'owner.user.surname'}
-        fromUserEmailColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.email'], attr: 'owner.user.email'}
         titleColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.title'], attr: 'title', class: 'ellipsis' }
         messageColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.message'], attr: 'message', class: 'ellipsis' }
         receivedAtColumn = { header: tls['mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.received'], attr: 'send_at', filter: expandingDateFormat }
@@ -228,11 +225,11 @@
 
         ctrl.mnoSortableTableFields = switch ctrl.selectedMenu.name
           when 'inbox'
-            [fromOrganizationColumn, fromUserNameColumn, fromUserSurnameColumn, fromUserEmailColumn, titleColumn, messageColumn, receivedAtColumn, dueDateAtColumn, doneColumn]
+            [fromOrganizationColumn, fromUserNameColumn, fromUserSurnameColumn, titleColumn, messageColumn, receivedAtColumn, dueDateAtColumn, doneColumn]
           when 'sent'
-            [toOrganizationColumn, toUserNameColumn, toUserSurnameColumn, toUserEmailColumn, titleColumn, messageColumn, sentAtColumn, readAtColumn, dueDateAtColumn, doneColumn]
+            [toOrganizationColumn, toUserNameColumn, toUserSurnameColumn, titleColumn, messageColumn, sentAtColumn, readAtColumn, dueDateAtColumn, doneColumn]
           when 'draft'
-            [toOrganizationColumn, toUserNameColumn, toUserSurnameColumn, toUserEmailColumn, titleColumn, messageColumn, updatedAtColumn, dueDateAtColumn]
+            [toOrganizationColumn, toUserNameColumn, toUserSurnameColumn, titleColumn, messageColumn, updatedAtColumn, dueDateAtColumn]
       )
 
     # Formats dates yesterday & beyond differently from today
