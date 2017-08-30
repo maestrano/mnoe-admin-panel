@@ -67,7 +67,7 @@
       $uibModal.open({
         component: 'mnoCreateTaskModal'
         resolve:
-          recipientFormater: () -> recipientFormater
+          recipientFormatter: () -> nameFormatter
           draftTask: ->
             angular.copy(task) if task
           recipients: MnoeTasks.getRecipients()
@@ -86,8 +86,9 @@
       $uibModal.open({
         component: 'mnoShowTaskModal'
         resolve:
-          recipientFormater: () -> recipientFormater
           task: -> angular.copy(task)
+          isInbox: -> ctrl.selectedMenu.name == 'inbox'
+          nameFormatter: -> nameFormatter
           dueDateFormat: -> 'MMMM d'
           # $uibModal resolve internally unwraps the promise, applying the result to currentUser.
           currentUser: MnoeCurrentUser.getUser()
@@ -122,9 +123,8 @@
 
     # Private
 
-    recipientFormater = (orgaRel) ->
-      orgaRel.user.name + " " + orgaRel.user.surname + " ("+ orgaRel.user.email +  ") from " + orgaRel.organization.name
-
+    nameFormatter = (orgaRel) ->
+      "#{orgaRel.user.name} #{orgaRel.user.surname} (#{orgaRel.user.email}) from #{orgaRel.organization.name}"
 
     # Update angular-smart-table sorting parameters
     updateTableSort = (sortState = {}) ->
