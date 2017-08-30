@@ -283,6 +283,7 @@
   "mnoe_admin_panel.dashboard.provisioning.subscriptions.cancel_error": "An error occurred while canceling this subscription. Please contact your administrator.",
   "mnoe_admin_panel.dashboard.provisioning.subscriptions.empty_list": "You don't have any subscriptions",
   "mnoe_admin_panel.dashboard.subscriptions.widget.list.title": "Orders",
+  "mnoe_admin_panel.dashboard.subscriptions.widget.list.table.organization": "Organization",
   "mnoe_admin_panel.dashboard.subscriptions.widget.list.table.product": "Product",
   "mnoe_admin_panel.dashboard.subscriptions.widget.list.table.subscription": "Subscription",
   "mnoe_admin_panel.dashboard.subscriptions.widget.list.table.start_date": "Start date",

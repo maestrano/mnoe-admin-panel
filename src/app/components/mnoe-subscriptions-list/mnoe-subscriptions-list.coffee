@@ -4,6 +4,7 @@
 @App.component('mnoeSubscriptionsList', {
   templateUrl: 'app/components/mnoe-subscriptions-list/mnoe-subscriptions-list.html',
   bindings: {
+    all: '<'
     organization: '<'
   }
   controller: ($filter, $log, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning) ->
@@ -11,7 +12,7 @@
 
     ctrl.subscriptions =
       list: []
-      sort: "created_at"
+      sort: "start_date"
       nbItems: 10
       offset: 0
       page: 1
@@ -41,14 +42,14 @@
 
         MnoConfirm.showModal(modalOptions)
 
-    ctrl.$onChanges = ->
-      console.log("### DEBUG ctrl.organization", ctrl.organization)
-      fetchSubscriptions(ctrl.subscriptions.nbItems, 0) if angular.isDefined(ctrl.organization)
-
     # Manage sorting and server call
     ctrl.callServer = (tableState) ->
+      # Do not call if not ready
+      return unless (ctrl.all == true || angular.isDefined(ctrl.organization))
+      # Update the sort parameter
       sort = updateSort(tableState.sort)
-      fetchSubscriptions(ctrl.subscriptions.nbItems, ctrl.subscriptions.offset, sort) if angular.isDefined(ctrl.organization)
+      # Call the server
+      fetchSubscriptions(ctrl.subscriptions.nbItems, ctrl.subscriptions.offset, sort)
 
     # Update sorting parameters
     updateSort = (sortState = {}) ->
@@ -68,7 +69,7 @@
     fetchSubscriptions = (limit, offset, sort = ctrl.subscriptions.sort) ->
       ctrl.subscriptions.loading = true
       console.log("### DEBUG organization", ctrl.organization)
-      return MnoeProvisioning.getSubscriptions(limit, offset, sort, ctrl.organization.id).then(
+      return MnoeProvisioning.getSubscriptions(limit, offset, sort, ctrl.organization?.id).then(
         (response) ->
           console.log("### DEBUG response", response)
           ctrl.subscriptions.totalItems = response.headers('x-total-count')
@@ -77,5 +78,4 @@
       ).finally(-> ctrl.subscriptions.loading = false)
 
     return
-
 })
