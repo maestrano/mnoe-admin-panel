@@ -7,10 +7,11 @@
       <table st-pipe="$ctrl.callServer" st-table="$ctrl.subscriptions.list" class="table table-striped table-responsive" >
         <thead>
           <tr>
+            <!--TODO: sub-object attributes sort (eg. st-sort="organization.name")-->
             <th st-sort="start_date" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.start_date</th>
-            <th st-sort="organization.name" ng-if="$ctrl.all" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.organization</th>
-            <th st-sort="product.name" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.product</th>
-            <th st-sort="product_pricing.description" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.subscription</th>
+            <th ng-if="$ctrl.all" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.organization</th>
+            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.product</th>
+            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.subscription</th>
             <th st-sort="status" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.status</th>
             <th class="col-lg-2"></th>
         	</tr>

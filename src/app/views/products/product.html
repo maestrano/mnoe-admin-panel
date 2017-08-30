@@ -1,39 +1,42 @@
 <div id="product">
   <h1 translate>mnoe_admin_panel.dashboard.product.product</h1>
   <a ui-sref="dashboard.products" class="text-muted">
-    <i class="fa fa-chevron-left"></i><span translate>mnoe_admin_panel.dashboard.product.back</span>
+    <i class="fa fa-chevron-left"></i>&nbsp;<span translate>mnoe_admin_panel.dashboard.product.back</span>
   </a>
   <!-- description section -->
   <mno-widget icon="fa-tag" heading="{{'mnoe_admin_panel.dashboard.product.product_description' | translate}}">
     <mno-widget-header></mno-widget-header>
     <mno-widget-body>
-      <form name="vm.form.product.description">  
-        <div class="form-group">
-          <label class="control-label top-buffer-1" translate>mnoe_admin_panel.dashboard.product.name</label>
-          <input type="text" ng-model="vm.product.name" class="form-control" required></input>
-        </div>
-        <div class="form-group">
-          <label class="control-label top-buffer-1" translate>mnoe_admin_panel.dashboard.product.supplier</label>
-          <input type="text" ng-model="vm.product.supplier" class="form-control"></input>
-        </div>
-        <div class="form-group">
-          <label class="control-label top-buffer-1" translate>mnoe_admin_panel.dashboard.product.tiny_description</label>
-          <input type="text" ng-model="vm.product.tinyDescription" class="form-control"></input>
-        </div>
-        <div class="form-group">
-          <label class="control-label top-buffer-1" translate>mnoe_admin_panel.dashboard.product.key_benefits</label>
-          <input type="text" ng-model="vm.product.keyBenefits" class="form-control"></input>
-        </div>
-        <div class="form-group">
-          <label class="control-label top-buffer-1" translate>mnoe_admin_panel.dashboard.product.getting_started</label>
-          <input type="text" ng-model="vm.product.gettingStarted" class="form-control"></input>
-        </div>
-        <button class="btn btn-primary top-buffer-1"
-                ng-click="vm.updateProduct()" translate>mnoe_admin_panel.dashboard.product.submit
-        </button>
+      <form name="vm.form.product.description">
+        <mno-section heading="{{'mnoe_admin_panel.dashboard.product.name' | translate}}">
+          <input ng-model="vm.product.name" class="form-control" required>
+        </mno-section>
+
+        <mno-section heading="{{'mnoe_admin_panel.dashboard.product.supplier' | translate}}">
+          <input ng-model="vm.product.supplier" class="form-control">
+        </mno-section>
+
+        <mno-section heading="{{'mnoe_admin_panel.dashboard.product.tiny_description' | translate}}">
+          <input ng-model="vm.product.tinyDescription" class="form-control">
+        </mno-section>
+
+        <mno-section heading="{{'mnoe_admin_panel.dashboard.product.key_benefits' | translate}}">
+          <input ng-model="vm.product.keyBenefits" class="form-control">
+        </mno-section>
+
+        <mno-section heading="{{'mnoe_admin_panel.dashboard.product.getting_started' | translate}}">
+          <input ng-model="vm.product.gettingStarted" class="form-control">
+        </mno-section>
+
+        <mno-section class="btn-box">
+          <button class="btn btn-primary top-buffer-1"
+                  ng-click="vm.updateProduct()" translate>mnoe_admin_panel.dashboard.product.submit
+          </button>
+        </mno-section>
       </form>
     </mno-widget-body>
   </mno-widget>
+
   <!-- Status section -->
   <mno-widget icon="fa-tag" heading="{{'mnoe_admin_panel.dashboard.product.status' | translate}}">
     <mno-widget-header></mno-widget-header>
@@ -64,6 +67,7 @@
       </div>
     </mno-widget-body>
   </mno-widget>
+
   <!-- Pricing section -->
   <mno-widget icon="fa-tag" heading="{{'mnoe_admin_panel.dashboard.product.product_pricing' | translate}}">
     <mno-widget-header></mno-widget-header>
@@ -127,11 +131,11 @@
                 <form name="vm.pricingPlanForm" class="form" novalidate>
                   <div class="form-group">
                     <label class="control-label top-buffer-1">Name</label>
-                    <input type="text" name="name" ng-model="pricingPlan.name" class="form-control" placeholder="name" required>
+                    <input name="name" ng-model="pricingPlan.name" class="form-control" placeholder="name" required>
                   </div>
                   <div class="form-group">
                     <label class="control-label top-buffer-1">Description</label>
-                    <input type="text" name="description" ng-model="pricingPlan.description" class="form-control" placeholder="description">
+                    <input name="description" ng-model="pricingPlan.description" class="form-control" placeholder="description">
                   </div>
                   <div class="row">
                     <div class="form-group col-md-6">
@@ -177,7 +181,7 @@
       <div class="form-group">
         <label class="control-label top-buffer-1" translate>mnoe_admin_panel.dashboard.product.upload_logo</label>
 
-        <mno-section description="">    
+        <mno-section description="">
           <form name="vm.form.product.logo">
             <mno-image-selector ng-model="vm.product.logo"
                                 default-preview="{{vm.product.logo.url}}"
@@ -191,7 +195,7 @@
             </button>
           </form>
         </mno-section>
-      </div>  
+      </div>
     </mno-widget-body>
   </mno-widget>
 </div>

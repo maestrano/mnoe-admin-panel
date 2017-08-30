@@ -14,6 +14,11 @@
   @products = (limit, offset, sort, params = {}) ->
     return _getProducts(limit, offset, sort, params)
 
+  # Fetch only the local products
+  @localProducts = (limit, offset, sort, params = {}) ->
+    params['where[local]'] = 'true'
+    return _getProducts(limit, offset, sort, params)
+
   _getProducts = (limit, offset, sort, params = {}) ->
     params["order_by"] = sort
     params["limit"] = limit
