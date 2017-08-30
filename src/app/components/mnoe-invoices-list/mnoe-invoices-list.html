@@ -1,24 +1,26 @@
-<mno-widget  icon="fa-files-o" heading="{{ 'mnoe_admin_panel.dashboard.invoices.widget.list.title' | translate}}" is-loading="$ctrl.invoices.loading">
+<mno-widget  icon="fa-files-o" heading="{{'mnoe_admin_panel.dashboard.invoices.widget.list.title' | translate}}" is-loading="$ctrl.invoices.loading">
   <mno-widget-header> 
   </mno-widget-header>
   <mno-widget-body class="large no-padding">
     <table st-pipe="$ctrl.callServer" st-table="$ctrl.invoices.list" class="table table-striped table-responsive">
       <thead>
         <tr>
-          <th  class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.creation</th>
-          <th  class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.paid</th>
-          <th  class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.price</th>
-          <th  class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.total_due</th>
-          <th  class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.total_due_remaining</th>
+          <th  class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.reference</th>
+          <th  class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.customer</th>
+          <th  class="col-lg-3" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.period</th>
+          <th  class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.expected_payment_date</th>
+          <th  class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.amount</th>
+          <th  class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.status</th>
         </tr>
       </thead>
       <tbody ng-show="!$ctrl.invoices.loading">
         <tr ng-repeat="invoice in $ctrl.invoices.list">
-          <td>{{ invoice.created_at | amCalendar }}</td>
-          <td>{{ invoice.paid_at | amCalendar }}</td>
-          <td>{{ invoice.price.fractional }} {{ invoice.price.currency.symbol }}</td>
-          <td>{{ invoice.total_due.fractional }} {{ invoice.total_due.currency.symbol }}</td>
-          <td>{{ invoice.total_due_remaining.fractional }} {{ invoice.total_due_remaining.currency.symbol }}</td>
+          <td>{{invoice.slug}}</td>
+          <td>{{invoice.organization.attributes.name}}</td>
+          <td>{{invoice.started_at | amCalendar}} - {{invoice.ended_at | amCalendar}}</td>
+          <td></td>
+          <td>{{invoice.total_due.currency.symbol}}{{invoice.total_due.fractional}}</td>
+          <td></td>
         </tr>
       </tbody>
     </table>
