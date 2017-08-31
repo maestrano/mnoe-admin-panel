@@ -9,6 +9,7 @@
     ctrl.invoices =
       list: []
       nbItems: 10
+      search: {}
       offset: 0
       page: 1
       pageChangedCb: (nbItems, page) ->
@@ -19,16 +20,28 @@
 
     # Server call
     ctrl.callServer = (tableState) ->
+      search = updateSearch (tableState.search)
+
       fetchInvoices(ctrl.invoices.nbItems, ctrl.invoices.offset)
+
+    # Update searching parameters
+    updateSearch = (searchingState = {}) ->
+      search = {}
+      if searchingState.predicateObject
+        for attr, value of searchingState.predicateObject
+          search[ 'where[' + attr + '.like]' ] = value + '%'
+
+      ctrl.invoices.search = search
+      return search
 
     # go to single invoice view
     ctrl.goToInvoice = (invoiceId) ->
       $state.go('dashboard.invoice', {invoiceId: invoiceId})
 
     # Fetch invoices
-    fetchInvoices = (limit, offset) ->
+    fetchInvoices = (limit, offset, search = ctrl.invoices.search) ->
       ctrl.invoices.loading = true
-      return MnoeInvoices.list(limit, offset).then(
+      return MnoeInvoices.list(limit, offset, search).then(
         (response) ->
           ctrl.invoices.totalItems = response.headers('x-total-count')
           ctrl.invoices.list = response.data

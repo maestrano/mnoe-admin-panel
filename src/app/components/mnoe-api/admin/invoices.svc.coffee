@@ -2,8 +2,10 @@
 @App.service 'MnoeInvoices', (MnoeAdminApiSvc) ->
   _self = @
 
-  @list = (limit, offset) ->
-    promise = MnoeAdminApiSvc.all('invoices').getList({limit: limit, offset: offset}).then(
+  @list = (limit, offset, params = {}) ->
+    params["limit"] = limit
+    params["offset"] = offset
+    promise = MnoeAdminApiSvc.all('invoices').getList(params).then(
       (response) ->
         response
     )
