@@ -1,16 +1,16 @@
-<mno-widget  icon="fa-files-o" heading="{{'mnoe_admin_panel.dashboard.invoices.widget.list.title' | translate}}" is-loading="$ctrl.invoices.loading">
+<mno-widget icon="fa-file-text-o" heading="{{'mnoe_admin_panel.dashboard.invoices.widget.list.title' | translate}}" is-loading="$ctrl.invoices.loading">
   <mno-widget-header> 
   </mno-widget-header>
   <mno-widget-body class="large no-padding">
     <table st-pipe="$ctrl.callServer" st-table="$ctrl.invoices.list" class="table table-striped table-responsive">
       <thead>
         <tr>
-          <th  class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.reference</th>
-          <th  class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.customer</th>
-          <th  class="col-lg-3" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.period</th>
-          <th  class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.expected_payment_date</th>
-          <th  class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.amount</th>
-          <th  class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.status</th>
+          <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.reference</th>
+          <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.customer</th>
+          <th class="col-lg-3" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.period</th>
+          <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.expected_payment_date</th>
+          <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.amount</th>
+          <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.status</th>
         </tr>
       </thead>
       <tbody ng-show="!$ctrl.invoices.loading">
