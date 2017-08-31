@@ -340,7 +340,6 @@
   "mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.organization": "Organization",
   "mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.name": "Name",
   "mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.surname": "Surname",
-  "mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.user.email": "Email",
   "mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.title": "Title",
   "mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.message": "Message",
   "mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.received": "Received",
