@@ -1,10 +1,9 @@
-
 @App.component('mnoeInvoicesList', {
   templateUrl: 'app/components/mnoe-invoices-list/mnoe-invoices-list.html',
   bindings: {
     view: '@',
   }
-  controller: (MnoeInvoices) ->
+  controller: ($state, MnoeInvoices) ->
     ctrl = this
 
     ctrl.invoices =
@@ -21,6 +20,10 @@
     # Server call
     ctrl.callServer = (tableState) ->
       fetchInvoices(ctrl.invoices.nbItems, ctrl.invoices.offset)
+
+    # go to single invoice view
+    ctrl.goToInvoice = (invoiceId) ->
+      $state.go('dashboard.invoice', {invoiceId: invoiceId})
 
     # Fetch invoices
     fetchInvoices = (limit, offset) ->

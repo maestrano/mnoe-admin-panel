@@ -128,12 +128,21 @@
     $stateProvider.state 'dashboard.invoices',
       data:
         pageTitle:'Invoices'
-      url: '/invoices/'
+      url: '/invoices'
       templateUrl: 'app/views/invoices/invoices.html'
       controller: 'InvoicesController'
       controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.invoices.title'
+    $stateProvider.state 'dashboard.invoice',
+      data:
+        pageTitle:'Invoice'
+      url: '^/invoice/:invoiceId'
+      templateUrl: 'app/views/invoices/invoice.html'
+      controller: 'InvoiceController'
+      controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.invoice.title'
 
   if adminConfig.isStaffEnabled()
     $stateProvider.state 'dashboard.staff',

@@ -9,17 +9,22 @@
           <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.customer</th>
           <th class="col-lg-3" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.period</th>
           <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.expected_payment_date</th>
-          <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.amount</th>
-          <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.status</th>
+          <th class="col-lg-1" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.amount</th>
+          <th class="col-lg-3" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.status</th>
+          <th></th>
         </tr>
       </thead>
       <tbody ng-show="!$ctrl.invoices.loading">
-        <tr ng-repeat="invoice in $ctrl.invoices.list">
+        <tr ng-repeat="invoice in $ctrl.invoices.list" ng-click="$ctrl.goToInvoice(invoice.id)">
           <td>{{invoice.slug}}</td>
           <td>{{invoice.organization.attributes.name}}</td>
           <td>{{invoice.started_at | amCalendar}} - {{invoice.ended_at | amCalendar}}</td>
           <td></td>
           <td>{{invoice.total_due.currency.symbol}}{{invoice.total_due.fractional}}</td>
+          <td>
+            <span ng-show="invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.paid</span>
+            <span ng-show="!invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.awaiting</span>
+          </td>
           <td></td>
         </tr>
       </tbody>
