@@ -10,8 +10,8 @@
           <th class="col-lg-3" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.period</th>
           <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.expected_payment_date</th>
           <th class="col-lg-1" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.amount</th>
-          <th class="col-lg-3" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.status</th>
-          <th></th>
+          <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.status</th>
+          <th class="col-lg-1"></th>
         </tr>
         <tr>
           <th>
@@ -30,7 +30,9 @@
             <span ng-show="invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.paid</span>
             <span ng-show="!invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.awaiting</span>
           </td>
-          <td></td>
+          <td>
+            <a ng-href="/mnoe/admin/invoices/{{invoice.slug}}" target="_blank"><i class="fa fa-cloud-download"></i></a>
+          </td>
         </tr>
       </tbody>
     </table>
