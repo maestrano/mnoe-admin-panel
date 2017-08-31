@@ -1,8 +1,12 @@
-<div id="product">
-  <h1 translate>mnoe_admin_panel.dashboard.product.product</h1>
-  <a ui-sref="dashboard.products" class="text-muted">
-    <i class="fa fa-chevron-left"></i>&nbsp;<span translate>mnoe_admin_panel.dashboard.product.back</span>
-  </a>
+<div id="product" class="top-buffer-1">
+  <div class="clearfix bottom-buffer-1">
+    <a ui-sref="dashboard.products" class="text-muted">
+      <i class="fa fa-chevron-left"></i>&nbsp;<span translate>mnoe_admin_panel.dashboard.product.back</span>
+    </a>
+
+    <toggle ng-model="vm.product.active" ng-change="vm.updateStatus()" on="Published" off="Draft" class="pull-right"></toggle>
+  </div>
+
   <!-- description section -->
   <mno-widget icon="fa-tag" heading="{{'mnoe_admin_panel.dashboard.product.product_description' | translate}}">
     <mno-widget-header></mno-widget-header>
@@ -34,37 +38,6 @@
           </button>
         </mno-section>
       </form>
-    </mno-widget-body>
-  </mno-widget>
-
-  <!-- Status section -->
-  <mno-widget icon="fa-tag" heading="{{'mnoe_admin_panel.dashboard.product.status' | translate}}">
-    <mno-widget-header></mno-widget-header>
-    <mno-widget-body>
-      <div class="form-group">
-        <div ng-if="!vm.product.active">
-          <div class="col-xs-2">
-            <span class="status-text-draft" translate>mnoe_admin_panel.dashboard.product.draft</span>
-          </div>
-          <div class="col-xs-2">
-            <label class="switch pull-right" ng-click="vm.updateStatus()">
-              <input type="checkbox">
-              <span class="slider round"></span>
-            </label>
-          </div>
-        </div>
-        <div ng-if="vm.product.active">
-          <div class="col-xs-2">
-            <span class="status-text-published" translate>mnoe_admin_panel.dashboard.product.published</span>
-          </div>
-          <div class="col-xs-2">
-            <label class="switch pull-right" ng-click="vm.updateStatus()">
-              <input type="checkbox" checked="checked">
-              <span class="slider round"></span>
-            </label>
-          </div>
-        </div>
-      </div>
     </mno-widget-body>
   </mno-widget>
 

@@ -3,7 +3,7 @@
   _self = @
 
   @list = (limit, offset, sort) ->
-    promise = MnoeAdminApiSvc.all("products").getList({order_by: sort, limit: limit, offset: offset}).then(
+    promise = MnoeAdminApiSvc.all('products').getList({order_by: sort, limit: limit, offset: offset}).then(
       (response) ->
         response
       (error) ->
@@ -20,10 +20,10 @@
     return _getProducts(limit, offset, sort, params)
 
   _getProducts = (limit, offset, sort, params = {}) ->
-    params["order_by"] = sort
-    params["limit"] = limit
-    params["offset"] = offset
-    return MnoeAdminApiSvc.all("products").getList(params)
+    params['order_by'] = sort
+    params['limit'] = limit
+    params['offset'] = offset
+    return MnoeAdminApiSvc.all('products').getList(params)
 
   @get = (id) ->
     MnoeAdminApiSvc.one('products', id).get()

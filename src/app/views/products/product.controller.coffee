@@ -1,6 +1,6 @@
 @App.controller 'ProductController', ($stateParams, $state, $timeout, $document, Upload, MnoeProducts, toastr, MnoErrorsHandler, CURRENCIES) ->
   'ngInject'
-  
+
   vm = this
 
   vm.product = {}
@@ -11,9 +11,9 @@
   # Get the product
   MnoeProducts.get(vm.productId).then(
     (response) ->
-      vm.product = response.data.plain()
+      vm.product = response.data
   )
-  
+
   # Add a new pricing plan to edit to the list
   vm.addPricingPlan = ->
     vm.pricingPlan = {
@@ -52,8 +52,14 @@
     !pricingPlan.id || pricingPlan.id == vm.currentPricingPlanId
 
   vm.updateStatus = () ->
-    vm.product.active = !vm.product.active
-    vm.updateProduct()
+    vm.product.patch(_.pick(vm.product, 'active')).then(
+      (response) ->
+        angular.copy(vm.product, response.data.plain().product)
+        toastr.success('mnoe_admin_panel.dashboard.product.status.success', {extraData: {product: vm.product.name, status: vm.product.active.toString()}})
+      (error) ->
+        MnoErrorsHandler.processServerError(error)
+        toastr.error('mnoe_admin_panel.dashboard.product.status.error', {extraData: {organization_name: vm.organization.name}})
+    )
 
   vm.deleteLogo = () ->
     vm.product.logo = null
