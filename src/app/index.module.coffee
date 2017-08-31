@@ -24,5 +24,6 @@
   'schemaForm',
   'angular.filter',
   'ngFileUpload',
-  'ui.toggle'
+  'ui.toggle',
+  'textAngular'
 ]

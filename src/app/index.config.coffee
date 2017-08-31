@@ -8,6 +8,7 @@
     toastrConfig.preventDuplicates = true
     toastrConfig.progressBar = true
   )
+
   .config(($httpProvider) ->
     $httpProvider.interceptors.push(($q, $window, $injector, $log) ->
       return {
@@ -26,6 +27,21 @@
 
           $q.reject rejection
       }
+    )
+  )
+
+  # Configure textAngular
+  .config(($provide) ->
+    $provide.decorator('taOptions',
+      ['$delegate', (taOptions) ->
+        # $delegate is the taOptions we are decorating
+        # Here we override the default toolbars and classes specified in taOptions.
+        taOptions.toolbar = [
+          ['h1', 'h2', 'h3', 'p', 'quote'], ['bold', 'italics', 'underline', 'ul', 'ol'], ['html']
+          ['insertVideo', 'insertImage', 'insertLink'], ['undo', 'redo', 'clear'], ['wordcount', 'charcount']
+        ]
+        return taOptions
+      ]
     )
   )
 
