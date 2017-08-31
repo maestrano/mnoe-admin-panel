@@ -5,14 +5,45 @@
 
   vm.product = {}
   vm.product.pricing_plans = []
-  vm.productId = $stateParams.productId
   vm.currencies = _.clone(CURRENCIES.values)
 
   # Get the product
-  MnoeProducts.get(vm.productId).then(
+  MnoeProducts.get($stateParams.productId).then(
     (response) ->
       vm.product = response.data
+      vm.product.values_display = []
+      _.each(vm.product.values_attributes, (v) -> vm.product.values_display[v.name] = v.data)
   )
+
+  #------------------------------------------------
+  # Product management
+  #------------------------------------------------
+
+  vm.updateStatus = ->
+    vm.product.patch(_.pick(vm.product, 'active')).then(
+      (response) ->
+        angular.copy(vm.product, response.data.plain().product)
+        toastr.success('mnoe_admin_panel.dashboard.product.status.success', {extraData: {product: vm.product.name, status: vm.product.active.toString()}})
+      (error) ->
+        MnoErrorsHandler.processServerError(error)
+        toastr.error('mnoe_admin_panel.dashboard.product.status.error', {extraData: {organization_name: vm.organization.name}})
+    )
+
+  vm.updateProduct = ->
+    vm.product.values_attributes = _.map(_.keys(vm.product.values_display), (k) -> {name: k, data: vm.product.values_display[k]})
+    vm.isLoading = true
+    vm.product.patch(_.pick(vm.product, ['name', 'values_attributes'])).then(
+      (response) ->
+        toastr.success('mnoe_admin_panel.dashboard.product.success', {extraData: {product: vm.product.name}})
+        angular.copy(vm.product, response.data.plain().product)
+      (error) ->
+        toastr.error('mnoe_admin_panel.dashboard.edit_product.error', {extraData: {organization_name: vm.organization.name}})
+        MnoErrorsHandler.processServerError(error, vm.form)
+    ).finally(-> vm.isLoading = false)
+
+  #------------------------------------------------
+  # Pricing plans management
+  #------------------------------------------------
 
   # Add a new pricing plan to edit to the list
   vm.addPricingPlan = ->
@@ -51,25 +82,16 @@
   vm.isCurrentPricingPlan = (pricingPlan) ->
     !pricingPlan.id || pricingPlan.id == vm.currentPricingPlanId
 
-  vm.updateStatus = () ->
-    vm.product.patch(_.pick(vm.product, 'active')).then(
-      (response) ->
-        angular.copy(vm.product, response.data.plain().product)
-        toastr.success('mnoe_admin_panel.dashboard.product.status.success', {extraData: {product: vm.product.name, status: vm.product.active.toString()}})
-      (error) ->
-        MnoErrorsHandler.processServerError(error)
-        toastr.error('mnoe_admin_panel.dashboard.product.status.error', {extraData: {organization_name: vm.organization.name}})
-    )
-
-  vm.deleteLogo = () ->
-    vm.product.logo = null
+  #------------------------------------------------
+  # Logo management
+  #------------------------------------------------
 
   vm.uploadLogo = (file, form) ->
     file.upload = Upload.upload(
       headers: {'Accept': 'application/json'}
-      url: "/mnoe/jpi/v1/admin/products/#{vm.productId}/upload_logo"
+      url: "/mnoe/jpi/v1/admin/products/#{vm.product.id}/upload_logo"
       data:
-        id: vm.productId
+        id: vm.product.id
         image: file
     )
 
@@ -93,16 +115,7 @@
         file.progress = parseInt(100.0 * evt.loaded / evt.total)
     )
 
-  vm.updateProduct = () ->
-    vm.isLoading = true
-    MnoeProducts.update(vm.product).then(
-      (response) ->
-        toastr.success('mnoe_admin_panel.dashboard.product.success', {extraData: {product: vm.product.name}})
-        response = response.data.plain()
-        vm.product = response.product
-      (error) ->
-        toastr.error('mnoe_admin_panel.dashboard.edit_product.error', {extraData: {organization_name: vm.organization.name}})
-        MnoErrorsHandler.processServerError(error, vm.form)
-    ).finally(-> vm.isLoading = false)
+  vm.deleteLogo = () ->
+    vm.product.logo = null
 
   return vm

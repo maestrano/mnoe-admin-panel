@@ -17,19 +17,19 @@
         </mno-section>
 
         <mno-section heading="{{'mnoe_admin_panel.dashboard.product.supplier' | translate}}">
-          <input ng-model="vm.product.supplier" class="form-control">
+          <input ng-model="vm.product.values_display['Supplier']" class="form-control">
         </mno-section>
 
         <mno-section heading="{{'mnoe_admin_panel.dashboard.product.tiny_description' | translate}}">
-          <input ng-model="vm.product.tinyDescription" class="form-control">
+          <input ng-model="vm.product.values_display['Tiny description']" class="form-control">
         </mno-section>
 
         <mno-section heading="{{'mnoe_admin_panel.dashboard.product.key_benefits' | translate}}">
-          <text-angular ng-model="vm.product.keyBenefits"></text-angular>
+          <mno-multiple-string-field ng-model="vm.product.values_display['Key benefits']"></mno-multiple-string-field>
         </mno-section>
 
         <mno-section heading="{{'mnoe_admin_panel.dashboard.product.getting_started' | translate}}">
-          <text-angular ng-model="vm.product.gettingStarted"></text-angular>
+          <text-angular ng-model="vm.product.values_display['Getting started']"></text-angular>
         </mno-section>
 
         <mno-section class="btn-box">
