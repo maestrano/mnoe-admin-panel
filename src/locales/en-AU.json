@@ -324,7 +324,7 @@
   "mnoe_admin_panel.dashboard.invoices.paid": "Paid",
   "mnoe_admin_panel.dashboard.invoice.invoice_info": "Invoice info",
   "mnoe_admin_panel.dashboard.invoices.title": "Invoices",
-  "mnoe_admin_panel.dashboard.invoices.search_reference": "Search ref.",
+  "mnoe_admin_panel.dashboard.invoices.search_reference": "Search reference",
   "mnoe_admin_panel.dashboard.invoices.widget.list.title": "All invoices",
   "mnoe_admin_panel.dashboard.invoices.widget.list.table.reference": "Reference",
   "mnoe_admin_panel.dashboard.invoices.widget.list.table.customer": "Customer",

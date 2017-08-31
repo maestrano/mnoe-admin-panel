@@ -3,9 +3,10 @@
   bindings: {
     view: '@',
   }
-  controller: ($state, MnoeInvoices) ->
+  controller: ($state, MnoeAdminConfig, MnoeInvoices) ->
     ctrl = this
 
+    ctrl.isPaymentEnabled = MnoeAdminConfig.isPaymentEnabled()
     ctrl.invoices =
       list: []
       nbItems: 10
