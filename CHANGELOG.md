@@ -1,5 +1,18 @@
 # Change Log
 
+## [v1.0.4](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.4) (2017-08-18)
+[Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.3...v1.0.4)
+
+**Notes:**
+
+The demo mode on the dahsboard template designer requires impac-angular 1.6.0
+
+**Implemented enhancements:**
+
+- Use demo\_mode on dashboard templates designer [\#53](https://github.com/maestrano/mnoe-admin-panel/pull/53) ([cesar-tonnoir](https://github.com/cesar-tonnoir))
+- \[MNOE-67\] Remove 'Power User' role from all platforms [\#52](https://github.com/maestrano/mnoe-admin-panel/pull/52) ([alexnoox](https://github.com/alexnoox))
+- \[PF-174\] Improve visibility of invite button [\#51](https://github.com/maestrano/mnoe-admin-panel/pull/51) ([enizor](https://github.com/enizor))
+
 ## [v1.0.3](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.3) (2017-08-08)
 [Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.2...v1.0.3)
 

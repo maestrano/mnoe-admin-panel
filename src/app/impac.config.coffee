@@ -13,7 +13,6 @@ angular.module 'frontendAdmin'
       index: "#{mnoHub}/admin/impac/dashboard_templates"
       show: "#{mnoHub}/admin/impac/dashboard_templates/:id"
     widgets:
-      show: "#{IMPAC_CONFIG.protocol}://#{IMPAC_CONFIG.host}/ping"
       update: "#{mnoHub}/admin/impac/widgets/:id"
       del: "#{mnoHub}/admin/impac/widgets/:id"
     kpis:
