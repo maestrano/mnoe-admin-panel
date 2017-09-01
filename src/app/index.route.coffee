@@ -80,22 +80,33 @@
 
   if adminConfig.areSettingsEnabled()
     $stateProvider
-      .state 'dashboard.settings',
+      .state 'dashboard.settings-general',
         data:
           pageTitle: 'Frontend Settings'
-        url: '/settings'
-        templateUrl: 'app/views/settings/settings.html'
-        controller: 'SettingsController'
+        url: '/settings/general'
+        templateUrl: 'app/views/settings/general/general.html'
+        controller: 'SettingsGeneralController'
         controllerAs: 'vm'
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.settings.title'
         resolve:
           skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
-      .state 'dashboard.domain',
+      .state 'dashboard.settings-plugins',
+        data:
+          pageTitle: 'Plugins Settings'
+        url: '/settings/plugins'
+        templateUrl: 'app/views/settings/plugins/plugins.html'
+        controller: 'SettingsPluginsController'
+        controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.settings.plugins.title'
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
+      .state 'dashboard.settings-domain',
         data:
           pageTitle: 'Domain & SSL'
         url: '/settings/domain'
-        templateUrl: 'app/views/settings/domain.html'
+        templateUrl: 'app/views/settings/domain/domain.html'
         controller: 'SettingsDomainController'
         controllerAs: 'vm'
         ncyBreadcrumb:
