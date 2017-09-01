@@ -1,8 +1,6 @@
 @App.component('mnoeInvoicesList', {
-  templateUrl: 'app/components/mnoe-invoices-list/mnoe-invoices-list.html',
-  bindings: {
-    view: '@',
-  }
+  templateUrl: 'app/components/mnoe-invoices-list/mnoe-invoices-list.html'
+
   controller: ($state, MnoeAdminConfig, MnoeInvoices) ->
     ctrl = this
 
@@ -22,7 +20,6 @@
     # Server call
     ctrl.callServer = (tableState) ->
       search = updateSearch (tableState.search)
-
       fetchInvoices(ctrl.invoices.nbItems, ctrl.invoices.offset)
 
     # Update searching parameters

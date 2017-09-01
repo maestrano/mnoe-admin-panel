@@ -41,6 +41,9 @@
     <li class="sidebar-list" ng-if="main.isFinanceEnabled" ui-sref-active="active">
       <a ui-sref="dashboard.finance">{{'mnoe_admin_panel.dashboard.layout.sidebar.finance' | translate}}<span class="menu-icon fa fa-money"></span></a>
     </li>
+    <li class="sidebar-list" ui-sref-active="active" ng-if="main.isFinanceEnabled">
+      <a ui-sref="dashboard.invoices">{{'mnoe_admin_panel.dashboard.layout.sidebar.invoices' | translate}}<span class="menu-icon fa fa-usd"></span></a>
+    </li>
     <li class="sidebar-list" ui-sref-active="active">
       <a ui-sref="dashboard.customers">{{'mnoe_admin_panel.dashboard.layout.sidebar.customers' | translate}}<span class="menu-icon fa fa-users"></span></a>
     </li>
@@ -52,9 +55,6 @@
     </li>
     <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="main.areQuestionsEnabled" ui-sref-active="active">
       <a ui-sref="dashboard.questions">{{'mnoe_admin_panel.dashboard.layout.sidebar.questions' | translate}}<span class="menu-icon fa fa-question-circle"></span></a>
-    </li>
-    <li class="sidebar-list" ui-sref-active="active" ng-if="main.isFinanceEnabled">
-      <a ui-sref="dashboard.invoices">{{'mnoe_admin_panel.dashboard.layout.sidebar.invoices' | translate}}<span class="menu-icon fa fa-usd"></span></a>
     </li>
     <li class="sidebar-list" ng-if="::main.adminConfig.isAuditLogEnabled()" ui-sref-active="active">
       <a ui-sref="dashboard.audit-log">{{'mnoe_admin_panel.dashboard.layout.sidebar.audit_log' | translate}}<span class="menu-icon fa fa-book"></span></a>
