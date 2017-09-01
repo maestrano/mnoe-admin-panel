@@ -139,6 +139,8 @@
         pageTitle:'Invoice'
       url: '^/invoice/:invoiceId'
       templateUrl: 'app/views/invoices/invoice.html'
+      controller: 'InvoiceController'
+      controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.invoice.title'
 

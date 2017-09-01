@@ -3,7 +3,6 @@
   vm = this
 
   vm.isPaymentEnabled = MnoeAdminConfig.isPaymentEnabled()
-  vm.invoice = {}
   MnoeInvoices.get($stateParams.invoiceId).then(
     (response) ->
       vm.invoice = response.data.plain().invoice

@@ -321,7 +321,7 @@
   "mnoe_admin_panel.dashboard.invoice.title": "Invoice",
   "mnoe_admin_panel.dashboard.invoice.back": "Back",
   "mnoe_admin_panel.dashboard.invoice.reference": "Reference",
-  "mnoe_admin_panel.dashboard.invoice.reference": "Customer",
+  "mnoe_admin_panel.dashboard.invoice.customer": "Customer",
   "mnoe_admin_panel.dashboard.invoice.period": "Period",
   "mnoe_admin_panel.dashboard.invoice.period": "Period",
   "mnoe_admin_panel.dashboard.invoice.expected_payment_date":"Expected payment date",
