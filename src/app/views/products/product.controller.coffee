@@ -115,7 +115,7 @@
         file.progress = parseInt(100.0 * evt.loaded / evt.total)
     )
 
-  vm.deleteLogo = () ->
-    vm.product.logo = null
+  vm.deleteLogo = (asset) ->
+    MnoeProducts.deleteAsset(asset)
 
-  return vm
+  return

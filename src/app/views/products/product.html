@@ -45,20 +45,13 @@
   <mno-widget icon="fa-tag" heading="{{'mnoe_admin_panel.dashboard.product.product_pricing' | translate}}">
     <mno-widget-header></mno-widget-header>
     <mno-widget-body>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-sm-3">
-            <label class="control-label top-buffer-1" translate>mnoe_admin_panel.dashboard.product.free_trial</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-3">
-            <div class="input-group input-group-sm">
+      <mno-section heading="{{'mnoe_admin_panel.dashboard.product.free_trial' | translate}}">
+        <div class="input-group input-group-sm">
               <span class="input-group-addon">
                 <input type="checkbox" ng-model="vm.product.product_pricings.free_trial_enabled">
               </span>
-              <input type="number" ng-model="vm.product.product_pricings.free_trial_duration" min="0" class="form-control" placeholder="{{'mnoe_admin_panel.dashboard.product.free_trial_duration' | translate}}" ng-disabled="!vm.product.product_pricings.free_trial_enabled">
-              <span class="input-group-addon">
+          <input type="number" ng-model="vm.product.product_pricings.free_trial_duration" min="0" class="form-control" placeholder="{{'mnoe_admin_panel.dashboard.product.free_trial_duration' | translate}}" ng-disabled="!vm.product.product_pricings.free_trial_enabled">
+          <span class="input-group-addon">
                 <select ng-model="vm.product.product_pricings.free_trial_unit" ng-disabled="!vm.product.product_pricings.free_trial_enabled">
                   <option value="days">day</option>
                   <option value="weeks">week</option>
@@ -66,23 +59,16 @@
                   <option value="years">year</option>
                 </select>
               </span>
-            </div>
-          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-sm-3">
-            <label class="control-label top-buffer-1" translate>mnoe_admin_panel.dashboard.product.pricing_plans</label>
-          </div>
-        </div>
-        <div class="row top-buffer-1">
-          <button class="btn btn-link" ng-click="vm.addPricingPlan()">
-            <i class="fa fa-plus"></i> {{'mnoe_admin_panel.dashboard.product.add_pricing_plan' | translate}}
-          </button>
-          <ul class="list-group" ng-model="vm.product.product_pricings">
-            <li class="list-group-item" ng-repeat="pricingPlan in vm.product.product_pricings">
-              <div class="pricing-plan" ng-if="!vm.isCurrentPricingPlan(pricingPlan)">
+      </mno-section>
+
+      <mno-section heading="{{'mnoe_admin_panel.dashboard.product.pricing_plans' | translate}}">
+        <button class="btn btn-link bottom-buffer-1" ng-click="vm.addPricingPlan()">
+          <i class="fa fa-plus"></i> {{'mnoe_admin_panel.dashboard.product.add_pricing_plan' | translate}}
+        </button>
+        <ul class="list-group" ng-model="vm.product.product_pricings">
+          <li class="list-group-item" ng-repeat="pricingPlan in vm.product.product_pricings">
+            <div class="pricing-plan" ng-if="!vm.isCurrentPricingPlan(pricingPlan)">
                 <span>
                   <h4>{{pricingPlan.name}}</h4>
                   <p>{{pricingPlan.description}}</p>
@@ -95,80 +81,86 @@
                     <strong>&nbsp;/&nbsp;{{pricingPlan.per_unit}}&nbsp;/&nbsp;{{pricingPlan.per_duration}}</strong>
                   </p>
                 </span>
-                <div>
-                  <i class="fa fa-edit" ng-click="vm.editPricingPlan(pricingPlan)"></i>
-                  <i class="fa fa-times" ng-click="vm.deletePricingPlan(pricingPlan)"></i>
-                </div>
+              <div>
+                <i class="fa fa-edit" ng-click="vm.editPricingPlan(pricingPlan)"></i>
+                <i class="fa fa-times" ng-click="vm.deletePricingPlan(pricingPlan)"></i>
               </div>
-              <div class="pricing-plan-edition" ng-if="vm.isCurrentPricingPlan(pricingPlan)">
-                <form name="vm.pricingPlanForm" class="form" novalidate>
-                  <div class="form-group">
-                    <label class="control-label top-buffer-1">Name</label>
-                    <input name="name" ng-model="pricingPlan.name" class="form-control" placeholder="name" required>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label top-buffer-1">Description</label>
-                    <input name="description" ng-model="pricingPlan.description" class="form-control" placeholder="description">
-                  </div>
-                  <div class="row">
-                    <div class="form-group col-md-6">
-                      <label class="control-label top-buffer-1">Per unit</label>
-                      <select class="form-control" ng-model="pricingPlan.per_unit" required>
-                        <option value="" disabled selected hidden>Per unit</option>
-                        <option value="organization">Organization</option>
-                        <option value="user">User</option>
-                      </select>
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label class="control-label top-buffer-1">Per duration</label>
-                      <select class="form-control" ng-model="pricingPlan.per_duration" required>
-                        <option value="" disabled selected hidden>Per duration</option>
-                        <option value="hour">Hour</option>
-                        <option value="day">Day</option>
-                        <option value="week">Week</option>
-                        <option value="month">Month</option>
-                        <option value="years">Year</option>
-                      </select>
-                    </div>
-                  </div>
-                </form>
-                <div class="form-group top-buffer-1">
-                  <button class="btn btn-primary" type="button" ng-click="vm.updateProduct()" ng-disabled="vm.isLoading || vm.pricing_plan_form.$invalid">
-                    save
-                  </button>
-                  <button class="btn btn-default" ng-click="vm.cancelPricingPlan(pricingPlan)" ng-disabled="">
-                    cancel
-                  </button>
+            </div>
+            <div class="pricing-plan-edition" ng-if="vm.isCurrentPricingPlan(pricingPlan)">
+              <form name="vm.pricingPlanForm" class="form" novalidate>
+                <div class="form-group">
+                  <label class="control-label top-buffer-1">Name</label>
+                  <input name="name" ng-model="pricingPlan.name" class="form-control" placeholder="name" required>
                 </div>
+                <div class="form-group">
+                  <label class="control-label top-buffer-1">Description</label>
+                  <input name="description" ng-model="pricingPlan.description" class="form-control" placeholder="description">
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label class="control-label top-buffer-1">Per unit</label>
+                    <select class="form-control" ng-model="pricingPlan.per_unit" required>
+                      <option value="" disabled selected hidden>Per unit</option>
+                      <option value="organization">Organization</option>
+                      <option value="user">User</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="control-label top-buffer-1">Per duration</label>
+                    <select class="form-control" ng-model="pricingPlan.per_duration" required>
+                      <option value="" disabled selected hidden>Per duration</option>
+                      <option value="hour">Hour</option>
+                      <option value="day">Day</option>
+                      <option value="week">Week</option>
+                      <option value="month">Month</option>
+                      <option value="years">Year</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+              <div class="form-group top-buffer-1">
+                <button class="btn btn-primary" type="button" ng-click="vm.updateProduct()" ng-disabled="vm.isLoading || vm.pricing_plan_form.$invalid">
+                  save
+                </button>
+                <button class="btn btn-default" ng-click="vm.cancelPricingPlan(pricingPlan)" ng-disabled="">
+                  cancel
+                </button>
               </div>
-            </li>
-          </ul>
-        </div>
-      </div>
+            </div>
+          </li>
+        </ul>
+      </mno-section>
     </mno-widget-body>
   </mno-widget>
+
   <!-- File upload section -->
   <mno-widget icon="fa-tag" heading="{{'mnoe_admin_panel.dashboard.product.file_upload' | translate}}">
     <mno-widget-header></mno-widget-header>
     <mno-widget-body>
-      <div class="form-group">
-        <label class="control-label top-buffer-1" translate>mnoe_admin_panel.dashboard.product.upload_logo</label>
+      <!-- Logo upload -->
+      <mno-section heading="{{'mnoe_admin_panel.dashboard.product.logo_upload' | translate}}">
+        <form name="vm.form.product.logo">
+          <mno-image-selector ng-model="vm.product.logo"
+                              default-preview="{{vm.product.logo.url}}"
+                              max-size="'5MB'">
+            <a href ng-click="vm.deleteLogo()" class="close" ng-show="vm.product.logo">
+              <i class="fa fa-times"></i>
+            </a>
+          </mno-image-selector>
+          <button class="btn btn-primary top-buffer-1"
+                  ng-click="vm.uploadLogo(vm.product.logo, vm.form.product.logo)" translate>mnoe_admin_panel.dashboard.product.submit
+          </button>
+        </form>
+      </mno-section>
 
-        <mno-section description="">
-          <form name="vm.form.product.logo">
-            <mno-image-selector ng-model="vm.product.logo"
-                                default-preview="{{vm.product.logo.url}}"
-                                max-size="'5MB'">
-                <a href ng-click="vm.deleteLogo()" class="close" ng-show="vm.product.logo">
-                  <i class="fa fa-times"></i>
-                </a>
-            </mno-image-selector>
-            <button class="btn btn-primary top-buffer-1"
-                    ng-click="vm.uploadLogo(vm.product.logo, vm.form.product.logo)" translate>mnoe_admin_panel.dashboard.product.submit
-            </button>
-          </form>
-        </mno-section>
-      </div>
+      <!-- Screenshots upload -->
+      <mno-section heading="{{'mnoe_admin_panel.dashboard.product.screenshots_upload' | translate}}">
+        <mno-image-manager assets="vm.product.assets_attributes"
+                           field-name="'Screenshots'"
+                           upload-uri="'/mnoe/jpi/v1/admin/products/' + vm.product.id + '/assets'"
+                           delete-cb="vm.deleteLogo">
+        </mno-image-manager>
+      </mno-section>
     </mno-widget-body>
   </mno-widget>
 </div>
