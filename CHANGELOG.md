@@ -5,7 +5,7 @@
 
 **Notes:**
 
-The demo mode on the dahsboard  template designer requires impac-angular 1.6.0
+The demo mode on the dahsboard template designer requires impac-angular 1.6.0
 
 **Implemented enhancements:**
 
