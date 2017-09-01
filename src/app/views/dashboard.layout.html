@@ -68,6 +68,9 @@
     <li class="sidebar-list" ui-sref-active="active">
       <a ui-sref="dashboard.domain">{{'mnoe_admin_panel.dashboard.layout.sidebar.domain' | translate}}<span class="menu-icon fa fa-shield"></span></a>
     </li>
+    <li class="sidebar-list" ng-if="::main.adminConfig.isProvisioningEnabled()" ui-sref-active="active">
+      <a ui-sref="dashboard.product-markups">{{'mnoe_admin_panel.dashboard.layout.sidebar.product_markups' | translate}}<span class="menu-icon fa fa-percent"></span></a>
+    </li>
   </mno-admin-nav>
 
   <mno-admin-content>

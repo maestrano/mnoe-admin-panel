@@ -1,0 +1,19 @@
+<div id="product-markups">
+  <div class="row">
+    <div class="col-xs-6">
+      <h1><span translate>mnoe_admin_panel.dashboard.product_markups.title</span>
+      <a href="" ng-click="vm.markup.displayInfo()"><i class="fa fa-info-circle"></i></h1></a>
+    </div>
+
+    <div class="col-xs-6 top-buffer-1">
+      <button role="button" ng-click="vm.markup.createModal()" class="btn btn-primary pull-right" translate>
+        mnoe_admin_panel.dashboard.product_markups.add_product_markup
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 ">
+      <mnoe-product-markups-list view="all"></mnoe-product-markups-list>
+    </div>
+  </div>
+</div>

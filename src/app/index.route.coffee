@@ -236,5 +236,18 @@
           controllerAs: 'vm'
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.product.title'
+  if adminConfig.isProvisioningEnabled()
+    $stateProvider
+      .state 'dashboard.product-markups',
+      data:
+        pageTitle: 'Price List'
+      url: '/product-markups'
+      templateUrl: 'app/views/product-markups/product-markups.html'
+      controller: 'ProductMarkupsController'
+      controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.product_markups.title'
+      resolve:
+        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
 
   $urlRouterProvider.otherwise '/home'

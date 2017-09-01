@@ -97,5 +97,10 @@
     else
       $log.debug("DASHBOARD_CONFIG.marketplace.pricing.currency missing")
       'AUD'
+  @isProvisioningEnabled = () ->
+    if DASHBOARD_CONFIG.provisioning?.enabled?
+      DASHBOARD_CONFIG.provisioning.enabled
+    else
+      true
 
   return @
