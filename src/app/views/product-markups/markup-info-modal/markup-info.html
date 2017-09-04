@@ -3,12 +3,35 @@
     <h3 class="modal-title" translate>mnoe_admin_panel.dashboard.product_markups.markup_info.modal.title</h3>
   </div>
   <div class="modal-body">
-    <span>RTFM</span>
+    <p>Prices are managed through markups: A markup is a monetary amount added to the existing price of a product to calculate what price is shown to a customer.</p>
+    <p>
+      A markup can be added through the following scenarios:
+      - The entire application marketplace - All products and customers
+      - An individual customer - Any product for a single customer
+      - An individual product: A single product for all customers</p>
+    <p>- A combination of product and customers: A specific customer purchasing a specific product
+
+      A markup is never placed atop another markup, to avoid complex pricing.
+
+      Markups are applied as follows: </p>
+    <p>
+      <b>1. A markup applied to specific products and customers take first priority:</b>
+      When a markup is applied to a specific product and customer, activated during purchase, all other markups impacting the specified product will be ignored. (Case 2, 3 &amp; 4)</p>
+    <p>
+      <b>2. Markups applied to a specific customer are second in priority</b>
+      When no markup is specified for a customer + product (As in Case 1), but a markup is specified for a particular customer, it will be applied to all purchases by this customer. Any other markups impacting the customer or product will be ignored (Case 3 &amp; 4).</p>
+    <p>
+      <b>3. Markups applied to a specific product are third in priority</b></p>
+    <p>When a markup is specified for a particular product, it will be applied for any customers purchasing it who don’t already have a customer specific markup (Case 1 &amp; 2). General markups, as shown in case 4, will be ignored.</p>
+    <p>
+      <b>4. General markups have the lowest priority</b>
+      When no markups are specified on a customer or product level, any markups attached to the entire marketplace will be applied to customers purchasing any product.
+    </p>
   </div>
   <div class="modal-footer">
     <div class="row actions">
       <div class="col-xs-12">
-        <a href="" ng-click="vm.onCancel()"><i class="fa fa-times"></i>{{ 'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.cancel' | translate}}</a>
+        <a href="" ng-click="vm.onCancel()"><i class="fa fa-times"></i>{{ 'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.close' | translate}}</a>
       </div>
     </div>
   </div>
