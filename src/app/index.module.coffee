@@ -23,5 +23,7 @@
   'ngSanitize',
   'schemaForm',
   'angular.filter',
-  'ngFileUpload'
+  'ngFileUpload',
+  'ui.toggle',
+  'textAngular'
 ]

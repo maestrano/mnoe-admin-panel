@@ -2,7 +2,11 @@
 @App.service 'MnoeProvisioning', ($q, $log, MnoeAdminApiSvc, MnoeOrganizations, MnoErrorsHandler) ->
   _self = @
 
-  subscriptionsApi = (id) -> MnoeAdminApiSvc.one('organizations', id).all('subscriptions')
+  subscriptionsApi = (id) ->
+    if id?
+      MnoeAdminApiSvc.one('organizations', id).all('subscriptions')
+    else
+      MnoeAdminApiSvc.all('subscriptions')
 
   productsApi = MnoeAdminApiSvc.oneUrl('/products')
   productsPromise = null

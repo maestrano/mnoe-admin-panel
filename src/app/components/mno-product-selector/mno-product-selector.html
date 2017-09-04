@@ -1,0 +1,39 @@
+<div id="mno-product-selector">
+  <!-- Modal Header -->
+  <div class="modal-header">
+    <h3 class="modal-title" translate>mnoe_admin_panel.components.mno-product-selector.title</h3>
+    <div class="close" type="button" ng-click="$ctrl.dismissModal()">×</div>
+  </div>
+  <!-- Modal Body -->
+  <div class="modal-body" style="max-height:{{$ctrl.modalHeight}};">
+    <div class="products-search">
+      <input type="search" ng-model="$ctrl.productSearch" placeholder="{{'mnoe_admin_panel.components.mno-product-selector.search' | translate}}"/>
+    </div>
+    <div class="products-container">
+      <div class="product-icon" ng-repeat="product in $ctrl.products | filter:{name: $ctrl.productSearch}">
+        <div class="product-icon-wrapper" ng-click="$ctrl.toggleProduct(product)">
+          <div class="checked" ng-show="product.checked">
+            <i class="fa fa-check fa-5x"></i>
+          </div>
+          <img class="product-logo img-thumbnail" ng-src="{{product.logo}}" alt="{{::product.name}} logo" title="{{::product.tiny_description}}">
+        </div>
+        <div class="product-title">
+          {{::product.name}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Footer -->
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-md-12">
+        <button ng-click="$ctrl.dismissModal()" class="btn btn-default" translate>
+          mnoe_admin_panel.components.mno-product-selector.cancel
+        </button>
+        <button ng-click="$ctrl.closeModal()" ng-disabled="$ctrl.selectedProducts.length === 0" class="btn btn-primary arrow">
+          {{'mnoe_admin_panel.components.mno-product-selector.create_order' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

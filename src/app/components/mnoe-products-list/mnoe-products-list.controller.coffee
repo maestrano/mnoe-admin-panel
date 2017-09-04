@@ -66,11 +66,11 @@
     fetchProducts = (limit, offset, sort = vm.products.sort, search = vm.products.search) ->
       vm.products.loading = true
 
-      return MnoeProducts.products(limit, offset, sort, search).then(
+      return MnoeProducts.localProducts(limit, offset, sort, search).then(
         (response) ->
           vm.products.totalItems = response.headers('x-total-count')
-          vm.listOfProducts = response.data
-      ).then( -> vm.products.loading = false )
+          vm.products.list = response.data
+      ).then(-> vm.products.loading = false)
 
     return
 })

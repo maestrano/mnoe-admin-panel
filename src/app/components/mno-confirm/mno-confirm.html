@@ -4,10 +4,11 @@
 </div>
 <div class="modal-body">
   <p translate translate-values="::modalOptions.bodyTextExtraData">{{modalOptions.bodyText}}</p>
+  <input ng-if="modalOptions.inputTextEnabled" ng-model="modalOptions.inputTextValue" type="text" class="form-control" placeholder="{{modalOptions.inputTextPlaceholder}}">
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" ng-click="modalOptions.close()">{{modalOptions.closeButtonText | translate:modalOptions.closeButtonTextExtraData}}</button>
-  <button type="button" class="btn btn-{{modalOptions.type}}" ng-click="modalOptions.ok()" ng-disabled="modalOptions.isLoading">
+  <button type="button" class="btn btn-{{modalOptions.type}}" ng-click="modalOptions.ok()" ng-disabled="modalOptions.isLoading || (modalOptions.inputTextEnabled && modalOptions.inputTextValue === '')">
     <span ng-show="modalOptions.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
     {{modalOptions.actionButtonText | translate:modalOptions.actionButtonTextExtraData}}
   </button>

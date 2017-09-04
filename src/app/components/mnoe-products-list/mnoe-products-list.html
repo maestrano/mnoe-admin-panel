@@ -1,21 +1,16 @@
-<mno-widget icon="fa-tag" heading="{{$ctrl.products.widgetTitle}}" is-loading="$ctrl.products.loading">
+<mno-widget icon="fa-tag" heading="{{ 'mnoe_admin_panel.dashboard.products.widget.list.title' | translate}}" is-loading="$ctrl.products.loading">
   <mno-widget-header>
-    &nbsp;{{ 'mnoe_admin_panel.dashboard.products.widget.list.title' | translate}}
+    <input st-search="name" placeholder="{{'mnoe_admin_panel.dashboard.product.widget.list.placeholder.search_product' | translate}}" class="form-control input-sm search-bar" />
   </mno-widget-header>
   <mno-widget-body class="large no-padding">
     <div>
-      <table st-pipe="$ctrl.callServer" st-table="$ctrl.listOfProducts" class="table table-striped" >
+      <table st-pipe="$ctrl.callServer" st-table="$ctrl.products.list" class="table table-striped">
         <thead>
           <tr>
             <th st-sort="name" class="col-lg-4" translate>mnoe_admin_panel.dashboard.products.widget.list.table.name</th>
-            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.products.widget.list.table.status</th>
-            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.products.widget.list.table.created</th>
-            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.products.widget.list.table.updated</th>
-            <th>
-              <input st-search="name" placeholder="{{'mnoe_admin_panel.dashboard.product.widget.list.placeholder.search_product' | translate}}"  class="form-control input-sm search-bar" type="text"/>
-            </th>
-          </tr>
-          <tr>
+            <th st-sort="active" class="col-lg-2" translate>mnoe_admin_panel.dashboard.products.widget.list.table.status</th>
+            <th st-sort="created_at" class="col-lg-2" translate>mnoe_admin_panel.dashboard.products.widget.list.table.created</th>
+            <th st-sort="updated_at" class="col-lg-2" translate>mnoe_admin_panel.dashboard.products.widget.list.table.updated</th>
           </tr>
         </thead>
         <tbody>
@@ -23,8 +18,8 @@
             <td colspan="6" class="text-center" ng-show='$ctrl.areProducts()' translate>mnoe_admin_panel.dashboard.products.widget.list.no_products</td>
           </tr>
         </tbody>
-        <tbody ng-show="!$ctrl.products.loading" >
-          <tr ng-repeat="product in $ctrl.listOfProducts">
+        <tbody ng-show="!$ctrl.products.loading">
+          <tr ng-repeat="product in $ctrl.products.list">
             <td>
               <a ui-sref="dashboard.product({productId: product.id})">{{product.name}}
             </td>
@@ -37,12 +32,12 @@
             <td>
               <div class="pull-right">
                 <div class="btn-group">
-                  <a type="button" class="btn btn-primary" ui-sref="dashboard.product({productId: product.id})">
-                    <i class="fa fa-pencil" aria-hidden="true" ></i>
+                  <a type="button" class="btn btn-link btn-link-warning" ui-sref="dashboard.product({productId: product.id})">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
                   </a>
                 </div>
                 <div class="btn-group" ng-click="$ctrl.delete(product)">
-                  <a type="button" class="btn btn-primary" >
+                  <a type="button" class="btn btn-link btn-link-danger">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                   </a>
                 </div>
@@ -53,7 +48,7 @@
       </table>
     </div>
   </mno-widget-body>
-  <mno-widget-footer ng-show="$ctrl.listOfProducts">
+  <mno-widget-footer ng-show="$ctrl.products.list">
     <mno-pagination
       page="$ctrl.products.page"
       nb-items="$ctrl.products.nbItems"

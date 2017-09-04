@@ -1,0 +1,35 @@
+mno-image-manager {
+  ul.assets-list {
+    padding-left: 0;
+    overflow-y: hidden;
+
+    li {
+      display: block;
+
+      &.asset {
+        position: relative;
+        float: left;
+        padding: 10px;
+        width: 150px;
+        height: 150px;
+
+        .asset-close {
+          position: absolute;
+          top: 0;
+          right: 3px;
+        }
+      }
+
+      &.not-sortable {
+        img.img-thumbnail {
+          opacity: @mno-img-manager-img-disabled-opacity;
+          background-color: @mno-img-manager-img-disabled-bg-color;
+        }
+      }
+
+      &:not(.not-sortable) {
+        cursor: move;
+      }
+    }
+  }
+}
