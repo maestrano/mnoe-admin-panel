@@ -19,31 +19,15 @@
   # Product management
   #------------------------------------------------
 
-  vm.updateStatus = ->
-    vm.product.patch(_.pick(vm.product, 'active')).then(
-      (response) ->
-        angular.copy(vm.product, response.data.plain().product)
-        toastr.success('mnoe_admin_panel.dashboard.product.status.success', {extraData: {product: vm.product.name, status: vm.product.active.toString()}})
-      (error) ->
-        MnoErrorsHandler.processServerError(error)
-        toastr.error('mnoe_admin_panel.dashboard.product.status.error', {extraData: {organization_name: vm.organization.name}})
-    )
+  vm.updateStatus = -> update(['active'])
 
-  vm.updateProduct = ->
-    vm.product.values_attributes = _.map(_.keys(vm.product.values_display), (k) -> {name: k, data: vm.product.values_display[k]})
-    vm.isLoading = true
-    vm.product.patch(_.pick(vm.product, ['name', 'values_attributes'])).then(
-      (response) ->
-        toastr.success('mnoe_admin_panel.dashboard.product.success', {extraData: {product: vm.product.name}})
-        angular.copy(vm.product, response.data.plain().product)
-      (error) ->
-        toastr.error('mnoe_admin_panel.dashboard.edit_product.error', {extraData: {organization_name: vm.organization.name}})
-        MnoErrorsHandler.processServerError(error, vm.form)
-    ).finally(-> vm.isLoading = false)
+  vm.updateProduct = -> update(['name', 'values_attributes'])
 
   #------------------------------------------------
   # Pricing plans management
   #------------------------------------------------
+
+  vm.saveFreeTrial = -> update(['product_pricing'])
 
   # Add a new pricing plan to edit to the list
   vm.addPricingPlan = ->
@@ -54,21 +38,10 @@
       free_trial_duration: 0,
       per_duration: '',
       per_unit: '',
-      prices: [{ currency: '', price_cents: '' }]
+      prices: []
     }
     vm.currencies = _.clone(CURRENCIES.values)
     vm.product.product_pricings.push(vm.pricingPlan)
-
-  vm.cancelPricingPlan = (pricingPlan) ->
-    vm.currentPricingPlanId = null
-    _.pull(vm.product.product_pricings, pricingPlan) unless pricingPlan.id?
-    # Reset available currencies
-    vm.currencies = _.clone(CURRENCIES.values)
-
-  vm.deletePricingPlan = (pricingPlan) ->
-    pricingIndex = vm.product.product_pricings.indexOf(pricingPlan)
-    vm.product.product_pricings.splice(pricingIndex,1)
-    vm.updateProduct()
 
   vm.editPricingPlan = (pricingPlan) ->
     # Check that a pricing plan is not already being edited
@@ -78,9 +51,45 @@
     # Remove already used currencies
     vm.currencies = _.difference(CURRENCIES.values, _.map(pricingPlan.prices, 'currency'))
 
+  vm.updateProductPricing = -> update(['product_pricings']).then(
+    (response) ->
+      # Update the pricing plans
+      angular.copy(response.data.product.product_pricings, vm.product.product_pricings)
+      # Stop displaying the pricing plan in edition mode
+      vm.currentPricingPlanId = null
+  )
+
+  vm.cancelPricingPlan = (pricingPlan) ->
+    vm.currentPricingPlanId = null
+    _.pull(vm.product.product_pricings, pricingPlan) unless pricingPlan.id?
+    # Reset available currencies
+    vm.currencies = _.clone(CURRENCIES.values)
+
+  vm.deletePricingPlan = (productPricing) ->
+    pricingIndex = vm.product.product_pricings.indexOf(productPricing)
+    vm.product.product_pricings.splice(pricingIndex, 1)
+    vm.updateProductPricing()
+
   # Same id or no id (new record)
   vm.isCurrentPricingPlan = (pricingPlan) ->
     !pricingPlan.id || pricingPlan.id == vm.currentPricingPlanId
+
+  vm.addPrice = (price, pricingPlan) ->
+    # Create a prices array if undefined
+    pricingPlan.prices = [] unless pricingPlan.prices?
+    # Add price to the list
+    pricingPlan.prices.push(_.clone(price))
+    # Delete currency from list
+    _.remove(vm.currencies, (c) -> c == price.currency)
+    # Empty the price form
+    price.currency = null
+    price.price_cents = null
+
+  vm.removePrice = (price, pricingPlan) ->
+    # Remove the price
+    _.remove(pricingPlan.prices, price)
+    # Add the currency to the list of available currencies
+    vm.currencies.push(price.currency)
 
   #------------------------------------------------
   # Logo management
@@ -117,5 +126,18 @@
 
   vm.deleteLogo = (asset) ->
     MnoeProducts.deleteAsset(asset)
+
+  # Private
+  update = (params) ->
+    vm.product.values_attributes = _.map(_.keys(vm.product.values_display), (k) -> {name: k, data: vm.product.values_display[k]})
+    vm.isLoading = true
+    vm.product.patch(_.pick(vm.product, params)).then(
+      (response) ->
+        toastr.success('mnoe_admin_panel.dashboard.product.success', {extraData: {product: vm.product.name}})
+        response
+      (error) ->
+        toastr.error('mnoe_admin_panel.dashboard.edit_product.error', {extraData: {organization_name: vm.organization.name}})
+        MnoErrorsHandler.processServerError(error, vm.form)
+    ).finally(-> vm.isLoading = false)
 
   return

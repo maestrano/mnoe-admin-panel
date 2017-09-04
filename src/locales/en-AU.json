@@ -416,7 +416,11 @@
   "mnoe_admin_panel.dashboard.orders.widget.list.placeholder.search_product": "search product",
   "mnoe_admin_panel.dashboard.orders.widget.list.placeholder.search_cutomer": "search cutomer",
 
-
+  "mnoe_admin_panel.dashboard.product.create_product_modal.title": "Create a product",
+  "mnoe_admin_panel.dashboard.product.create_product_modal.body": "Enter the name of the product:",
+  "mnoe_admin_panel.dashboard.product.create_product_modal.cancel": "Cancel",
+  "mnoe_admin_panel.dashboard.product.create_product_modal.create": "Create",
+  "mnoe_admin_panel.dashboard.product.create_product_modal.create_error": "An error occurred while creating the product",
 
   "mnoe_admin_panel.dashboard.product.delete.deletion": "Product deletion",
   "mnoe_admin_panel.dashboard.product.delete.success": "The product was succesfully deleted",
@@ -433,7 +437,12 @@
   "mnoe_admin_panel.dashboard.product.submit": "Submit",
   "mnoe_admin_panel.dashboard.product.save_pricing": "Save",
   "mnoe_admin_panel.dashboard.product.free_trial_duration": "Duration",
-  "mnoe_admin_panel.dashboard.product.free": "Free",
+  "mnoe_admin_panel.dashboard.pricing.freetrial.unit_day": "Day",
+  "mnoe_admin_panel.dashboard.pricing.freetrial.unit_week": "Week",
+  "mnoe_admin_panel.dashboard.pricing.freetrial.unit_month": "Month",
+  "mnoe_admin_panel.dashboard.pricing.freetrial.unit_year": "Year",
+  "mnoe_admin_panel.dashboard.pricing.freetrial.save": "Save Free Trial",
+
   "mnoe_admin_panel.dashboard.product.file_upload": "File upload section",
   "mnoe_admin_panel.dashboard.product.logo_upload": "Logo upload",
   "mnoe_admin_panel.dashboard.product.screenshots_upload": "Screenshots upload",
@@ -441,7 +450,7 @@
   "mnoe_admin_panel.dashboard.product.tiny_description": "Tiny description",
   "mnoe_admin_panel.dashboard.product.key_benefits": "Key benefits",
   "mnoe_admin_panel.dashboard.product.getting_started": "Getting started",
-  "mnoe_admin_panel.dashboard.product.success": "Submitted",
+  "mnoe_admin_panel.dashboard.product.success": "This product has been successful saved.",
   "mnoe_admin_panel.dashboard.product.draft": "Draft",
   "mnoe_admin_panel.dashboard.product.published": "Published",
   "mnoe_admin_panel.dashboard.product.status.success": "Product status of product '{product}' is now {status, select, true{published} other{draft}}",
@@ -467,6 +476,11 @@
   "mnoe_admin_panel.dashboard.products.widget.list.table.published": "published",
   "mnoe_admin_panel.dashboard.products.widget.list.table.created": "Created",
   "mnoe_admin_panel.dashboard.products.widget.list.table.updated": "Updated",
+
+  "mnoe_admin_panel.dashboard.pricing.pricing_plans.edition.prices": "Prices",
+  "mnoe_admin_panel.dashboard.pricing.pricing_plans.edition.prices.currency_placeholder": "Currency",
+  "mnoe_admin_panel.dashboard.pricing.pricing_plans.edition.prices.price_placeholder": "Price",
+
   "mnoe_admin_panel.dashboard.staff.title": "Staff",
   "mnoe_admin_panel.dashboard.staff.add_staff": "Add staff",
   "mnoe_admin_panel.dashboard.staff.add_staff.modal.title": "Add a new staff",

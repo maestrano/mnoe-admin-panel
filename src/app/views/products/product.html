@@ -47,44 +47,48 @@
     <mno-widget-body>
       <mno-section heading="{{'mnoe_admin_panel.dashboard.product.free_trial' | translate}}">
         <div class="input-group input-group-sm">
-              <span class="input-group-addon">
-                <input type="checkbox" ng-model="vm.product.product_pricings.free_trial_enabled">
-              </span>
-          <input type="number" ng-model="vm.product.product_pricings.free_trial_duration" min="0" class="form-control" placeholder="{{'mnoe_admin_panel.dashboard.product.free_trial_duration' | translate}}" ng-disabled="!vm.product.product_pricings.free_trial_enabled">
           <span class="input-group-addon">
-                <select ng-model="vm.product.product_pricings.free_trial_unit" ng-disabled="!vm.product.product_pricings.free_trial_enabled">
-                  <option value="days">day</option>
-                  <option value="weeks">week</option>
-                  <option value="months">month</option>
-                  <option value="years">year</option>
-                </select>
-              </span>
+            <input type="checkbox" ng-model="vm.product.product_pricings.free_trial_enabled">
+          </span>
+          <input type="number" ng-model="vm.product.product_pricings.free_trial_duration" min="0" class="form-control" placeholder="{{'mnoe_admin_panel.dashboard.product.free_trial_duration' | translate}}" ng-disabled="!vm.product.product_pricings.free_trial_enabled">
+          <span class="input-group-addon select">
+            <select ng-model="vm.product.product_pricings.free_trial_unit" ng-disabled="!vm.product.product_pricings.free_trial_enabled">
+              <option value="days">{{'mnoe_admin_panel.dashboard.pricing.freetrial.unit_day' | translate}}</option>
+              <option value="weeks">{{'mnoe_admin_panel.dashboard.pricing.freetrial.unit_week' | translate}}</option>
+              <option value="months">{{'mnoe_admin_panel.dashboard.pricing.freetrial.unit_month' | translate}}</option>
+              <option value="years">{{'mnoe_admin_panel.dashboard.pricing.freetrial.unit_year' | translate}}</option>
+            </select>
+          </span>
         </div>
+
+        <button class="btn btn-sm btn-primary top-buffer-1" ng-click="vm.saveFreeTrial()" ng-disabled="vm.isUsingMaster">
+          {{'mnoe_admin_panel.dashboard.pricing.freetrial.save' | translate}}
+        </button>
       </mno-section>
 
-      <mno-section heading="{{'mnoe_admin_panel.dashboard.product.pricing_plans' | translate}}">
+      <mno-section id="plans" heading="{{'mnoe_admin_panel.dashboard.product.pricing_plans' | translate}}">
         <button class="btn btn-link bottom-buffer-1" ng-click="vm.addPricingPlan()">
           <i class="fa fa-plus"></i> {{'mnoe_admin_panel.dashboard.product.add_pricing_plan' | translate}}
         </button>
         <ul class="list-group" ng-model="vm.product.product_pricings">
-          <li class="list-group-item" ng-repeat="pricingPlan in vm.product.product_pricings">
+          <li id="pricing-plans-list" class="list-group-item" ng-repeat="pricingPlan in vm.product.product_pricings">
             <div class="pricing-plan" ng-if="!vm.isCurrentPricingPlan(pricingPlan)">
-                <span>
-                  <h4>{{pricingPlan.name}}</h4>
-                  <p>{{pricingPlan.description}}</p>
-                  <p>
-                    <span class="badge">
-                      <span ng-repeat="price in pricingPlan.prices" class="price">
-                        {{price.currency}} {{price.price_cents / 100}}
-                      </span>
-                    </span>
-                    <strong>&nbsp;/&nbsp;{{pricingPlan.per_unit}}&nbsp;/&nbsp;{{pricingPlan.per_duration}}</strong>
-                  </p>
-                </span>
-              <div>
+              <span class="close">
                 <i class="fa fa-edit" ng-click="vm.editPricingPlan(pricingPlan)"></i>
                 <i class="fa fa-times" ng-click="vm.deletePricingPlan(pricingPlan)"></i>
-              </div>
+              </span>
+              <span>
+                <h4>{{pricingPlan.name}}</h4>
+                <p>{{pricingPlan.description}}</p>
+                <p>
+                  <span class="badge">
+                    <span ng-repeat="price in pricingPlan.prices" class="price">
+                      {{price.currency}} {{price.price_cents / 100}}
+                    </span>
+                  </span>
+                  <strong>&nbsp;/&nbsp;{{pricingPlan.per_unit}}&nbsp;/&nbsp;{{pricingPlan.per_duration}}</strong>
+                </p>
+              </span>
             </div>
             <div class="pricing-plan-edition" ng-if="vm.isCurrentPricingPlan(pricingPlan)">
               <form name="vm.pricingPlanForm" class="form" novalidate>
@@ -118,8 +122,35 @@
                   </div>
                 </div>
               </form>
+
+              <div class="form-group">
+                <label class="control-label">{{'mnoe_admin_panel.dashboard.pricing.pricing_plans.edition.prices' | translate}}</label>
+                <ul id="prices-list" class="list-group">
+                  <!-- Prices list -->
+                  <li class="list-group-item price" ng-repeat="price in pricingPlan.prices | orderBy:'currency' track by $index">
+                    <input type="text" name="price_currency" ng-model="price.currency" class="form-control newprice-price" disabled>
+                    <input type="number" min="0.01" step="0.01" name="price_price_cents" ng-model="price.price_cents" currency-cents-input class="form-control newprice-price" placeholder="{{'mnoe_admin_panel.dashboard.pricing.pricing_plans.edition.prices.price_placeholder' | translate}}">
+                    <button class="btn btn-sm btn-default" type="button" ng-click="vm.removePrice(price, pricingPlan)">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </li>
+                  <!-- Price form -->
+                  <li class="list-group-item">
+                    <ng-form name="vm.priceForm" class="price">
+                      <select class="form-control newprice-currency" name="currency" ng-model="new_price.currency" ng-options="v for v in vm.currencies" required>
+                        <option value="" disabled selected hidden>{{'mnoe_admin_panel.dashboard.pricing.pricing_plans.edition.prices.currency_placeholder' | translate}}</option>
+                      </select>
+                      <input type="number" min="0.01" step="0.01" name="price_cents" ng-model="new_price.price_cents" currency-cents-input class="form-control newprice-price" placeholder="{{'mnoe_admin_panel.dashboard.pricing.pricing_plans.edition.prices.price_placeholder' | translate}}" required>
+                      <button class="btn btn-sm btn-default" type="button" ng-click="vm.addPrice(new_price, pricingPlan)" ng-disabled="vm.priceForm.$invalid">
+                        <i class="fa fa-plus"></i>
+                      </button>
+                    </ng-form>
+                  </li>
+                </ul>
+              </div>
+
               <div class="form-group top-buffer-1">
-                <button class="btn btn-primary" type="button" ng-click="vm.updateProduct()" ng-disabled="vm.isLoading || vm.pricing_plan_form.$invalid">
+                <button class="btn btn-primary" type="button" ng-click="vm.updateProductPricing()" ng-disabled="vm.isLoading || vm.pricing_plan_form.$invalid">
                   save
                 </button>
                 <button class="btn btn-default" ng-click="vm.cancelPricingPlan(pricingPlan)" ng-disabled="">

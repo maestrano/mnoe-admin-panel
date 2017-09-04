@@ -23,5 +23,5 @@
     fallbackLanguage: 'en-AU'
   })
   .constant('CURRENCIES', {
-    values: ["AUD","USD","EUR"]
+    values: ['AUD', 'USD', 'EUR']
   })
