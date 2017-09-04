@@ -35,6 +35,16 @@
   @isOrganizationManagementEnabled = () ->
     if ADMIN_PANEL_CONFIG.customer_management?.organization?.enabled?
       ADMIN_PANEL_CONFIG.customer_management.organization.enabled
+
+  @isProductsEnabled = () ->
+    if ADMIN_PANEL_CONFIG.marketplace?.products?.enabled?
+      ADMIN_PANEL_CONFIG.marketplace.products.enabled
+    else
+      true
+
+  @isProvisioningEnabled = () ->
+    if ADMIN_PANEL_CONFIG.provisioning?.enabled?
+      ADMIN_PANEL_CONFIG.provisioning.enabled
     else
       true
 
@@ -80,5 +90,12 @@
       ADMIN_PANEL_CONFIG.customer_management.user.enabled
     else
       true
+
+  @marketplaceCurrency = () ->
+    if DASHBOARD_CONFIG.marketplace?.pricing?.currency?
+      DASHBOARD_CONFIG.marketplace.pricing.currency
+    else
+      $log.debug("DASHBOARD_CONFIG.marketplace.pricing.currency missing")
+      'AUD'
 
   return @

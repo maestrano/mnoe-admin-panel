@@ -1,0 +1,12 @@
+<div class="modal-header">
+  <div class="close" type="button" ng-click="vm.close()">×</div>
+  <h3 class="modal-title" translate>mnoe_admin_panel.dashboard.product.delete.deletion</h3>
+</div>
+<div class="modal-body">
+  <h4 class="text-center">{{ 'mnoe_admin_panel.dashboard.product.delete.are_you_sure' | translate:{'product': vm.product.name} }}</h4>
+  <div class="top-buffer-2"></div>
+</div>
+<div class="modal-footer">
+  <button type="submit" class="btn btn-primary" ng-click="vm.close()" translate>mnoe_admin_panel.dashboard.product.delete.cancel</button>
+  <button class="btn btn-default" ng-click="vm.delete()" translate>mnoe_admin_panel.dashboard.product.delete.delete</button>
+</div>

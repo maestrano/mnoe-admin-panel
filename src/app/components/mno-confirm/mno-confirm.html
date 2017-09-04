@@ -1,11 +1,15 @@
 <div class="modal-header">
   <button type="button" class="close" aria-label="{{'mnoe_admin_panel.dashboard.mno_confirm.close' | translate}}" ng-click="modalOptions.close()"><span aria-hidden="true">&times;</span></button>
-  <h4 class="modal-title">{{modalOptions.headerText | translate:modalOptions.headerTextExtraData}}</h4>
+  <h4 class="modal-title" translate translate-values="::modalOptions.headerTextExtraData">{{modalOptions.headerText}}</h4>
 </div>
 <div class="modal-body">
-  <p>{{modalOptions.bodyText | translate:modalOptions.bodyTextExtraData}}</p>
+  <p translate translate-values="::modalOptions.bodyTextExtraData">{{modalOptions.bodyText}}</p>
+  <input ng-if="modalOptions.inputTextEnabled" ng-model="modalOptions.inputTextValue" type="text" class="form-control" placeholder="{{modalOptions.inputTextPlaceholder}}">
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" ng-click="modalOptions.close()">{{modalOptions.closeButtonText | translate:modalOptions.closeButtonTextExtraData}}</button>
-  <button type="button" class="btn btn-primary" ng-click="modalOptions.ok();">{{modalOptions.actionButtonText | translate:modalOptions.actionButtonTextExtraData}}</button>
+  <button type="button" class="btn btn-{{modalOptions.type}}" ng-click="modalOptions.ok()" ng-disabled="modalOptions.isLoading || (modalOptions.inputTextEnabled && modalOptions.inputTextValue === '')">
+    <span ng-show="modalOptions.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+    {{modalOptions.actionButtonText | translate:modalOptions.actionButtonTextExtraData}}
+  </button>
 </div>

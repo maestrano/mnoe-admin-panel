@@ -148,4 +148,93 @@
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.customers.create_customer.title'
 
+  if adminConfig.isOrganizationManagementEnabled() && adminConfig.isProvisioningEnabled()
+    $stateProvider
+      .state 'dashboard.provisioning',
+        abstract: true
+        templateUrl: 'app/views/provisioning/layout.html'
+        url: '/provisioning'
+      .state 'dashboard.provisioning.order',
+        data:
+          pageTitle:'Purchase - Order'
+        url: '/order/?nid&id&orgId'
+        views: '@dashboard.provisioning':
+          templateUrl: 'app/views/provisioning/order.html'
+          controller: 'ProvisioningOrderCtrl'
+          controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.provisioning.breadcrumb.order'
+      .state 'dashboard.provisioning.additional_details',
+        data:
+          pageTitle:'Purchase - Additional details'
+        url: '/details/'
+        views: '@dashboard.provisioning':
+          templateUrl: 'app/views/provisioning/details.html'
+          controller: 'ProvisioningDetailsCtrl'
+          controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.provisioning.breadcrumb.additional_details'
+      .state 'dashboard.provisioning.confirm',
+        data:
+          pageTitle:'Purchase - Confirm'
+        url: '/confirm/'
+        views: '@dashboard.provisioning':
+          templateUrl: 'app/views/provisioning/confirm.html'
+          controller: 'ProvisioningConfirmCtrl'
+          controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.provisioning.breadcrumb.confirm'
+      .state 'dashboard.provisioning.order_summary',
+        data:
+          pageTitle:'Purchase - Order summary'
+        url: '/summary/'
+        views: '@dashboard.provisioning':
+          templateUrl: 'app/views/provisioning/summary.html'
+          controller: 'ProvisioningSummaryCtrl'
+          controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.provisioning.breadcrumb.order_summary'
+
+  if adminConfig.isProductsEnabled()
+    $stateProvider
+      .state 'dashboard.orders',
+        data:
+          pageTitle:'Orders'
+        url: '/orders'
+        templateUrl: 'app/views/orders/orders.html'
+        controller: 'OrdersController'
+        controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.orders.title'
+      .state 'dashboard.order',
+        data:
+          pageTitle:'Order'
+        url: '^/orders/:ordId'
+        views: '@dashboard':
+          templateUrl: 'app/views/orders/order.html'
+          controller: 'OrderController'
+          controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.order.title'
+      .state 'dashboard.products',
+        data:
+          pageTitle:'Products'
+        url: '/products'
+        views: '@dashboard':
+          templateUrl: 'app/views/products/products.html'
+          controller: 'ProductsController'
+          controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.products.title'
+      .state 'dashboard.product',
+        data:
+          pageTitle:'Product'
+        url: '^/product/:productId'
+        views: '@dashboard':
+          templateUrl: 'app/views/products/product.html'
+          controller: 'ProductController'
+          controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.product.title'
+
   $urlRouterProvider.otherwise '/home'

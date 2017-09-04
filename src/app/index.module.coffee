@@ -21,5 +21,9 @@
   'mnoUiElements',
   'pascalprecht.translate',
   'ngSanitize',
-  'schemaForm'
+  'schemaForm',
+  'angular.filter',
+  'ngFileUpload',
+  'ui.toggle',
+  'textAngular'
 ]

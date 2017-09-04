@@ -1,0 +1,37 @@
+#product {
+  mno-section#plans {
+    #pricing-plans-list {
+      & > .list-group-item {
+        border: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .pricing-plan {
+        .price:not(:last-child):after {
+          content: ' - ';
+        }
+
+        .controls {
+          position: absolute;
+          top: 15px;
+          right: 15px;
+        }
+      }
+
+      .pricing-plan-edition {
+        position: relative;
+
+        .price {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .newprice-currency, .newprice-price {
+            margin-right: 15px;
+          }
+        }
+      }
+    }
+  }
+}
