@@ -27,7 +27,7 @@
   # Pricing plans management
   #------------------------------------------------
 
-  vm.saveFreeTrial = -> update(['product_pricing'])
+  vm.saveFreeTrial = -> update(['free_trial_enabled', 'free_trial_duration', 'free_trial_unit'])
 
   # Add a new pricing plan to edit to the list
   vm.addPricingPlan = ->
