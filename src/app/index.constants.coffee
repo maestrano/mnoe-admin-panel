@@ -23,5 +23,5 @@
     fallbackLanguage: 'en-AU'
   })
   .constant('CURRENCIES', {
-    values: ['AUD', 'USD', 'EUR']
+    values: ['USD','AUD','CAD','CNY','EUR','GBP','HKD','INR','JPY','NZD', 'SGD', 'PHP', 'AED']
   })
