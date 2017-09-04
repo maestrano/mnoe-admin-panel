@@ -41,10 +41,15 @@
 
         MnoConfirm.showModal(modalOptions)
 
+    ctrl.$onChanges = () ->
+      # Call the server when ready
+      return unless (ctrl.all || angular.isDefined(ctrl.organization))
+      fetchSubscriptions(ctrl.subscriptions.nbItems, ctrl.subscriptions.offset)
+
     # Manage sorting and server call
     ctrl.callServer = (tableState) ->
       # Do not call if not ready
-      return unless (ctrl.all == true || angular.isDefined(ctrl.organization))
+      return unless (ctrl.all || angular.isDefined(ctrl.organization))
       # Update the sort parameter
       sort = updateSort(tableState.sort)
       # Call the server
