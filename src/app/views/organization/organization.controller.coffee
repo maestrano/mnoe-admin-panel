@@ -1,4 +1,4 @@
-@App.controller 'OrganizationController', ($filter, $stateParams, $uibModal, toastr, MnoeOrganizations, MnoeUsers, MnoAppsInstances) ->
+@App.controller 'OrganizationController', ($filter, $state, $stateParams, $uibModal, toastr, MnoeOrganizations, MnoeUsers, MnoAppsInstances, MnoeProducts) ->
   'ngInject'
   vm = this
 
@@ -39,11 +39,22 @@
     # Check the number of apps not connected (number of status equals to false)
     vm.hasDisconnectedApps = false of _.countBy(vm.status)
 
-  vm.openCreateProductModal = () ->
-    vm.openAddAppModal(true)
+  vm.openSelectProductModal = () ->
+    modalInstance = $uibModal.open(
+      component: 'mnoProductSelectorModal'
+      backdrop: 'static'
+      size: 'lg'
+      resolve:
+        products: -> MnoeProducts.list()
+        multiple: -> false
+    )
+    modalInstance.result.then(
+      (product) ->
+        $state.go('dashboard.provisioning.order', {nid: product.nid, orgId: vm.organization.id})
+    )
 
   # Add app modal
-  vm.openAddAppModal = (productMode = false) ->
+  vm.openAddAppModal = () ->
     modalInstance = $uibModal.open(
       templateUrl: 'app/views/organization/add-app-modal/add-app-modal.html'
       controller: 'AddAppModalCtrl'

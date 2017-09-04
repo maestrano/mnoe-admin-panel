@@ -8,7 +8,7 @@
           <button ng-if="::main.adminConfig.isUserManagementEnabled()" ng-click="vm.users.createUserModal()" ng-disabled="!vm.organization" class="btn btn-primary" translate>
             mnoe_admin_panel.dashboard.organization.add_a_user
           </button>
-          <button ng-if="::main.adminConfig.isProvisioningEnabled()" ng-click="vm.openCreateProductModal()" ng-disabled="!vm.organization" class="btn btn-primary" translate>
+          <button ng-if="::main.adminConfig.isProvisioningEnabled()" ng-click="vm.openSelectProductModal()" ng-disabled="!vm.organization" class="btn btn-primary" translate>
             mnoe_admin_panel.dashboard.organization.create_an_order
           </button>
         </div>

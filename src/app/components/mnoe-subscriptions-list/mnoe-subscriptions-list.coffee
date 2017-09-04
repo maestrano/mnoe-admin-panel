@@ -33,7 +33,6 @@
           actionCb: ->
             MnoeProvisioning.cancelSubscription(subscription).then(
               (response) ->
-                console.log("### DEBUG response.data.subscription", response.data)
                 angular.copy(response.data.subscription, subscription)
                 toastr.success('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_success', {extraData: {subscription_name: subscription.name}})
               ->
@@ -68,10 +67,8 @@
     # Fetch subscriptions
     fetchSubscriptions = (limit, offset, sort = ctrl.subscriptions.sort) ->
       ctrl.subscriptions.loading = true
-      console.log("### DEBUG organization", ctrl.organization)
       return MnoeProvisioning.getSubscriptions(limit, offset, sort, ctrl.organization?.id).then(
         (response) ->
-          console.log("### DEBUG response", response)
           ctrl.subscriptions.totalItems = response.headers('x-total-count')
           ctrl.subscriptions.list = response.data
           ctrl.subscriptions.oneAdminLeft = _.filter(response.data, {'admin_role': 'admin'}).length == 1

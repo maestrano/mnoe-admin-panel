@@ -172,6 +172,7 @@
   "mnoe_admin_panel.dashboard.users.widget.local_list.access_requested": "Access Requested",
   "mnoe_admin_panel.dashboard.users.widget.local_list.toastr_success": "{username}'s invitation has been sent.",
   "mnoe_admin_panel.dashboard.users.widget.local_list.toastr_error": "An error occurred: {username}'s invitation has not been sent.",
+
   "mnoe_admin_panel.dashboard.organization.title": "Organisation",
   "mnoe_admin_panel.dashboard.organization.organization_info": "Organisation info",
   "mnoe_admin_panel.dashboard.organization.uid": "UID",
@@ -239,6 +240,12 @@
   "mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.placeholder.search_all": "Search all",
   "mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.name": "name",
   "mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.creation": "Creation",
+
+  "mnoe_admin_panel.components.mno-product-selector.title": "Select a product",
+  "mnoe_admin_panel.components.mno-product-selector.search": "Search",
+  "mnoe_admin_panel.components.mno-product-selector.create_order": "Create an order",
+  "mnoe_admin_panel.components.mno-product-selector.cancel": "Cancel",
+
   "mnoe_admin_panel.dashboard.provisioning.breadcrumb.order": "Order",
   "mnoe_admin_panel.dashboard.provisioning.breadcrumb.additional_details": "Additional details",
   "mnoe_admin_panel.dashboard.provisioning.breadcrumb.confirm": "Confirm",
