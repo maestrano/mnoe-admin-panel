@@ -28,8 +28,15 @@
             <td ng-if="vm.isPaymentEnabled">{{vm.calculatePaymentDate(vm.invoice.ended_at) | amCalendar }}</td>
             <td>{{vm.invoice.price.currency.symbol}}{{vm.invoice.price.fractional}}</td>
             <td>
-              <span ng-show="vm.invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.paid</span>
-              <span ng-show="!vm.invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.awaiting</span>
+              <span ng-if="vm.invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.paid</span>
+              <div class="btn-group" ng-if="!vm.invoice.paid_at" uib-dropdown dropdown-append-to-body>
+                <button id="btn-append-to-body" type="button" class="btn btn-primary" uib-dropdown-toggle translate>
+                  mnoe_admin_panel.dashboard.invoices.awaiting <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
+                  <li role="menuitem"><a ng-click="vm.changeInvoiceStatus()" translate>mnoe_admin_panel.dashboard.invoices.paid</a></li>
+                </ul>
+              </div>
             </td>
             <td>
               <a ng-href="/mnoe/admin/invoices/{{vm.invoice.slug}}" target="_blank"><i class="fa fa-cloud-download"></i></a>
