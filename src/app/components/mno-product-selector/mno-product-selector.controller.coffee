@@ -20,6 +20,8 @@
       $ctrl.multiple = $ctrl.resolve.multiple
       $ctrl.modalHeight = ($window.innerHeight - 200) + "px"
       $ctrl.selectedProducts = []
+      $ctrl.headerText = $ctrl.resolve.headerText || 'mnoe_admin_panel.components.mno-product-selector.title'
+      $ctrl.actionButtonText = $ctrl.resolve.actionButtonText || 'mnoe_admin_panel.components.mno-product-selector.create_order'
 
     # Select or deselect a product
     $ctrl.toggleProduct = (product) ->
