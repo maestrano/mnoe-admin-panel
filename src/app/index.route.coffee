@@ -206,7 +206,7 @@
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.provisioning.breadcrumb.order_summary'
 
-  if adminConfig.isProductsEnabled()
+  if adminConfig.isProvisioningEnabled()
     $stateProvider
       .state 'dashboard.orders',
         data:
@@ -227,6 +227,9 @@
           controllerAs: 'vm'
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.order.title'
+
+  if adminConfig.areLocalProductsEnabled()
+    $stateProvider
       .state 'dashboard.products',
         data:
           pageTitle:'Products'

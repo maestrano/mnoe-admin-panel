@@ -36,17 +36,19 @@
     if ADMIN_PANEL_CONFIG.customer_management?.organization?.enabled?
       ADMIN_PANEL_CONFIG.customer_management.organization.enabled
 
-  @isProductsEnabled = () ->
-    if ADMIN_PANEL_CONFIG.marketplace?.products?.enabled?
-      ADMIN_PANEL_CONFIG.marketplace.products.enabled
+  @areLocalProductsEnabled = () ->
+    if DASHBOARD_CONFIG.marketplace?.local_products?
+      DASHBOARD_CONFIG.marketplace.local_products
     else
-      true
+      $log.debug("DASHBOARD_CONFIG.marketplace.local_products")
+      false
 
   @isProvisioningEnabled = () ->
-    if ADMIN_PANEL_CONFIG.provisioning?.enabled?
-      ADMIN_PANEL_CONFIG.provisioning.enabled
+    if DASHBOARD_CONFIG.marketplace?.provisioning?
+      DASHBOARD_CONFIG.marketplace.provisioning
     else
-      true
+      $log.debug("DASHBOARD_CONFIG.marketplace.provisioning")
+      false
 
   # Do not display CC info if Billing or Payment is disabled in the frontend
   @isPaymentEnabled = () ->
