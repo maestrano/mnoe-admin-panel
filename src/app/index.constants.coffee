@@ -14,7 +14,7 @@
     userChanged: 'userListChanged',
     staffChanged: 'staffListChanged',
     staffAdded: 'staffAdded'
-    })
+  })
   .constant('LOCALES', {
     locales: [
       { id: 'en-AU', name: 'English (Australia)' }
@@ -23,5 +23,5 @@
     fallbackLanguage: 'en-AU'
   })
   .constant('CURRENCIES', {
-    values: ["AUD","USD","EUR"]
+    values: ['USD','AUD','CAD','CNY','EUR','GBP','HKD','INR','JPY','NZD', 'SGD', 'PHP', 'AED']
   })

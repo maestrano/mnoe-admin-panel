@@ -63,10 +63,13 @@
       <a ui-sref="dashboard.audit-log">{{'mnoe_admin_panel.dashboard.layout.sidebar.audit_log' | translate}}<span class="menu-icon fa fa-book"></span></a>
     </li>
     <li class="sidebar-list" ui-sref-active="active">
-      <a ui-sref="dashboard.settings">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings' | translate}}<span class="menu-icon fa fa-cogs"></span></a>
+      <a ui-sref="dashboard.settings-general">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings' | translate}}<span class="menu-icon fa fa-cogs"></span></a>
     </li>
     <li class="sidebar-list" ui-sref-active="active">
-      <a ui-sref="dashboard.domain">{{'mnoe_admin_panel.dashboard.layout.sidebar.domain' | translate}}<span class="menu-icon fa fa-shield"></span></a>
+      <a ui-sref="dashboard.settings-plugins">{{'mnoe_admin_panel.dashboard.layout.sidebar.plugins-settings' | translate}}<span class="menu-icon fa fa-th-large"></span></a>
+    </li>
+    <li class="sidebar-list" ui-sref-active="active">
+      <a ui-sref="dashboard.settings-domain">{{'mnoe_admin_panel.dashboard.layout.sidebar.domain' | translate}}<span class="menu-icon fa fa-shield"></span></a>
     </li>
     <li class="sidebar-list" ng-if="::main.adminConfig.isProvisioningEnabled()" ui-sref-active="active">
       <a ui-sref="dashboard.product-markups">{{'mnoe_admin_panel.dashboard.layout.sidebar.product_markups' | translate}}<span class="menu-icon fa fa-percent"></span></a>

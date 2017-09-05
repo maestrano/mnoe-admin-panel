@@ -10,6 +10,9 @@
     headerTextExtraData: {}
     bodyText: 'mnoe_admin_panel.dashboard.mno_confirm.perform'
     bodyTextExtraData: {}
+    inputTextEnabled: false
+    inputTextValue: ''
+    inputTextPlaceholder: ''
     actionCb: $q.resolve
     type: 'primary'
 
@@ -44,7 +47,7 @@
 
         $scope.modalOptions.ok = () ->
           $scope.modalOptions.isLoading = true
-          $scope.modalOptions.actionCb().then(
+          $scope.modalOptions.actionCb($scope.modalOptions.inputTextValue).then(
             (response) ->
               $uibModalInstance.close(response)
           ).finally(-> $scope.modalOptions.isLoading = false)

@@ -1,0 +1,19 @@
+<div id="settings-plugins" class="row">
+  <div class="col-lg-10 col-lg-offset-1 col-md-12 top-buffer-1">
+
+    <form name="pluginsForm"
+          sf-schema="vm.schema"
+          sf-form="vm.form"
+          sf-model="vm.model">
+    </form>
+
+    <div class="btn-group bottom-buffer-1">
+      <button ng-repeat-end="" class="btn btn-danger" type="button" ng-disabled="vm.isLoading" ng-click="vm.cancel(settingsForm)">
+        Cancel
+      </button>
+      <button type="button" class="btn btn-primary" ng-click="vm.saveSettings()" ng-disabled="vm.isLoading">
+        <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span> Save
+      </button>
+    </div>
+  </div>
+</div>
