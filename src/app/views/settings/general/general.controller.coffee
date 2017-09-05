@@ -20,24 +20,6 @@
         {
           title: "Admin Panel"
           items: ["admin_panel"]
-        },
-        {
-          title: 'Test'
-          items: [
-            'system.intercom.enabled',
-            {
-              'type': 'conditional',
-              'condition': 'vm.settingsModel.system.intercom.enabled',
-              'items': [
-                {
-                  'key': 'system.intercom.app_id'
-                  'destroyStrategy': 'retain'
-                }
-                {'key': 'system.intercom.api_secret'}
-                {'key': 'system.intercom.token'}
-              ]
-            }
-          ]
         }
       ]
     }
