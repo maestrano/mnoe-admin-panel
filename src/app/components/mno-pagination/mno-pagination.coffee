@@ -1,7 +1,7 @@
 #
 # Pagination Directive
 #
-@App.constant('ITEMS_PER_PAGE', [10, 20, 50, 100])
+@App.constant('ITEMS_PER_PAGE', [10, 20, 50])
 
 @App.directive('mnoPagination', (ITEMS_PER_PAGE) ->
   restrict: 'AE'
