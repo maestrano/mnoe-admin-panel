@@ -26,7 +26,7 @@
             <td>{{vm.invoice.organization.attributes.name}}</td>
             <td>{{vm.invoice.invoice.started_at | amCalendar}} - {{vm.invoice.invoice.ended_at | amCalendar}}</td>
             <td ng-if="vm.isPaymentEnabled">{{vm.expectedPaymentDate(vm.invoice.invoice.ended_at) | amCalendar }}</td>
-            <td>{{vm.invoice.invoice.price.currency.symbol}}{{vm.invoice.invoice.price.fractional}}</td>
+            <td>{{vm.invoice.invoice.price.currency.iso_code}}{{vm.invoice.invoice.price.fractional}}</td>
             <td>
               <span ng-if="vm.invoice.invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.paid</span>
               <div class="btn-group" ng-if="!vm.invoice.invoice.paid_at" uib-dropdown dropdown-append-to-body>
@@ -64,11 +64,11 @@
         </tr>
       </thead>
       <tbody ng-show="!vm.isLoading">
-        <tr ng-repeat="bill in vm.invoice.billing_summary">
-          <td>{{bill.name}}</td>
-          <td>{{bill.label}}</td>
-          <td>{{bill.usage}}</td>
-          <td>{{bill.price_tag}}</td>
+        <tr ng-repeat="bill in vm.invoice.bills">
+          <td>{{bill.billable_name}}</td>
+          <td>{{bill.billable_type}}</td>
+          <td>{{bill.billing_type}}</td>
+          <td>{{bill.currency}}{{bill.price_cents}}</td>
         </tr>
       </tbody>
     </table>
