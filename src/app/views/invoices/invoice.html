@@ -22,7 +22,7 @@
       <tbody>
         <tr>
           <td>{{vm.invoice.slug}}</td>
-          <td>{{vm.organization.attributes.name}}</td>
+          <td>{{vm.organization.name}}</td>
           <td>{{vm.invoice.started_at | amCalendar}} - {{vm.invoice.ended_at | amCalendar}}</td>
           <td ng-if="vm.isPaymentEnabled">{{vm.expectedPaymentDate(vm.invoice.ended_at) | amCalendar }}</td>
           <td>{{vm.invoice.price.currency.symbol}}{{vm.invoice.price.fractional}}</td>
