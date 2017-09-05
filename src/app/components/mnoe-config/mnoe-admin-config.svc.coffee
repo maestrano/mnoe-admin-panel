@@ -35,8 +35,20 @@
   @isOrganizationManagementEnabled = () ->
     if ADMIN_PANEL_CONFIG.customer_management?.organization?.enabled?
       ADMIN_PANEL_CONFIG.customer_management.organization.enabled
+
+  @areLocalProductsEnabled = () ->
+    if DASHBOARD_CONFIG.marketplace?.local_products?
+      DASHBOARD_CONFIG.marketplace.local_products
     else
-      true
+      $log.debug("DASHBOARD_CONFIG.marketplace.local_products")
+      false
+
+  @isProvisioningEnabled = () ->
+    if DASHBOARD_CONFIG.marketplace?.provisioning?
+      DASHBOARD_CONFIG.marketplace.provisioning
+    else
+      $log.debug("DASHBOARD_CONFIG.marketplace.provisioning")
+      false
 
   # Do not display CC info if Billing or Payment is disabled in the frontend
   @isPaymentEnabled = () ->
@@ -80,5 +92,12 @@
       ADMIN_PANEL_CONFIG.customer_management.user.enabled
     else
       true
+
+  @marketplaceCurrency = () ->
+    if DASHBOARD_CONFIG.marketplace?.pricing?.currency?
+      DASHBOARD_CONFIG.marketplace.pricing.currency
+    else
+      $log.debug("DASHBOARD_CONFIG.marketplace.pricing.currency missing")
+      'AUD'
 
   return @

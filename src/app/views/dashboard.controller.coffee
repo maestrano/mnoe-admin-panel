@@ -7,6 +7,8 @@
   main.isReviewingEnabled = MnoeAdminConfig.isReviewingEnabled()
   main.areQuestionsEnabled = MnoeAdminConfig.areQuestionsEnabled()
   main.isFinanceEnabled = MnoeAdminConfig.isFinanceEnabled()
+  main.areLocalProductsEnabled = MnoeAdminConfig.areLocalProductsEnabled()
+  main.isProvisioningEnabled = MnoeAdminConfig.isProvisioningEnabled()
   main.adminConfig = MnoeAdminConfig
 
   main.trustSrc = (src) ->

@@ -14,11 +14,14 @@
     userChanged: 'userListChanged',
     staffChanged: 'staffListChanged',
     staffAdded: 'staffAdded'
-    })
+  })
   .constant('LOCALES', {
     locales: [
       { id: 'en-AU', name: 'English (Australia)' }
     ],
     preferredLanguage: 'en-AU',
     fallbackLanguage: 'en-AU'
+  })
+  .constant('CURRENCIES', {
+    values: ['USD','AUD','CAD','CNY','EUR','GBP','HKD','INR','JPY','NZD', 'SGD', 'PHP', 'AED']
   })
