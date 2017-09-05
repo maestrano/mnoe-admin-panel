@@ -1,0 +1,63 @@
+<mno-widget icon="fa-percent" heading="{{$ctrl.markups.widgetTitle | translate}}" is-loading="markups.loading">
+  <mno-widget-header>
+    <!--{{ 'mnoe_admin_panel.dashboard.product_markups.widget.list.title' | translate}}-->
+  </mno-widget-header>
+  <mno-widget-body class="large no-padding">
+    <div>
+      <table class="table" st-pipe="$ctrl.callServer" st-table="$ctrl.displayed">
+        <table st-pipe="$ctrl.callServer" st-table="$ctrl.markups.list" class="table table-striped" >
+          <thead>
+          <tr>
+            <th st-sort="product.name" class="col-sm-4" translate>mnoe_admin_panel.dashboard.product_markups.widget.list.table.product</th>
+            <th st-sort="organization.name" class="col-sm-4" translate>mnoe_admin_panel.dashboard.product_markups.widget.list.table.customer</th>
+            <th st-sort="percentage" class="col-sm-2 text-center" translate>mnoe_admin_panel.dashboard.product_markups.widget.list.table.percentage</th>
+            <th class="col-sm-1"></th>
+            <th class="col-sm-1"></th>
+          </tr>
+          <tr>
+            <th>
+              <input st-search="product.name" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.widget.list.placeholder.search_product' | translate}}" class="form-control input-sm search-bar col-sm-4" type="text"/>
+            </th>
+            <th>
+              <input st-search="organization.name" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.widget.list.placeholder.search_customer' | translate}}" class="form-control input-sm search-bar col-sm-4" type="text"/>
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody ng-show="$ctrl.markups.loading">
+          <tr>
+            <td colspan="3" class="text-center" translate>mnoe_admin_panel.dashboard.product_markups.widget.list.loading_product_markups</td>
+          </tr>
+          </tbody>
+          <tbody ng-show="!$ctrl.markups.loading" >
+          <tr ng-repeat="pmElem in $ctrl.markups.list">
+            <td>{{pmElem.product.name}}</td>
+            <td>{{pmElem.organization.name}}</td>
+            <td class="text-center">
+              <span ng-show="!$ctrl.editmode[pmElem.id]">{{pmElem.percentage*100 | number:2}}%</span>
+              <input ng-show="$ctrl.editmode[pmElem.id]" type="text" class="form-control input-sm" percentage-input ng-model="pmElem.percentage" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" required>
+            </td>
+            <td>
+              <a href="" ng-hide="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.editmode[pmElem.id] = true"><i class="fa fa-pencil"></i></a>
+            </td>
+            <td>
+              <a href="" ng-hide="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.remove(pmElem)"><i class="fa fa-times"></i></a>
+              <a href="" ng-show="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.update(pmElem)"><i class="fa fa-check"></i></a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+    </div>
+  </mno-widget-body>
+  <mno-widget-footer ng-show="$ctrl.markups.list ">
+    <mno-pagination
+      page="$ctrl.markups.page"
+      nb-items="$ctrl.markups.nbItems"
+      total-items="$ctrl.markups.totalItems"
+      on-change-cb="$ctrl.markups.pageChangedCb(nbItems, page)"
+      is-loading="$ctrl.markups.loading">
+    </mno-pagination>
+  </mno-widget-footer>
+</mno-widget>

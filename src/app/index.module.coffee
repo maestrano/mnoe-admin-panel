@@ -24,6 +24,7 @@
   'schemaForm',
   'angular.filter',
   'ngFileUpload',
+  'angucomplete-alt',
   'ui.toggle',
   'textAngular'
 ]

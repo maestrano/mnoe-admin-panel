@@ -37,6 +37,7 @@
     "angular-schema-form-bootstrap": "^0.2.0",
     "angular-filter": "^0.5.16",
     "ng-file-upload": "^12.2.13",
+    "angucomplete-alt": "^1.3.1",
     "angular-bootstrap-toggle": "^0.1.2",
     "textAngular": "^1.5.16"
   },

@@ -1,0 +1,64 @@
+/* Create markup page style */
+#create-markup {
+  .filter-box {
+    margin-bottom: 15px;
+
+    .dropdown {
+      width: 100%;
+
+      button {
+        width:100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .carret {
+          position: absolute;
+          right: 7px;
+          line-height: 30px;
+        }
+      }
+
+      &.open {
+        button {
+          border-radius: 4px 4px 0 0;
+        }
+
+        .dropdown-menu {
+          width: 100%;
+          border-radius: 0 0 3px 3px;
+          margin: 0;
+
+          .search-box {
+            margin: 0 5px;
+            width: ~'calc(100% - 10px)';
+            border-radius: 4px;
+            padding: 0 5px;
+            height: 30px;
+            line-height: 30px;
+          }
+
+          ul {
+            margin: 5px 0;
+            padding: 0;
+            max-height: 120px;
+            overflow: auto;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+            li {
+              display: flex;
+              padding: 5px 10px;
+              height: 30px;
+              line-height: 30px;
+              &:hover {
+                background: @dropdown-bg;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

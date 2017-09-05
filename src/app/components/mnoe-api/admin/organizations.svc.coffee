@@ -20,6 +20,12 @@
     _.forEach observerCallbacks, (callback) ->
       callback(listPromise)
 
+  @organizations = (limit, offset, sort, params = {}) ->
+    params["order_by"] = sort
+    params["limit"] = limit
+    params["offset"] = offset
+    return MnoeAdminApiSvc.all("organizations").getList(params)
+
   @search = (terms) ->
     MnoeAdminApiSvc.all("organizations").getList({terms: terms})
 

@@ -1,0 +1,53 @@
+<div id="create-markup">
+  <div class="modal-header">
+    <h3 class="modal-title" translate>mnoe_admin_panel.dashboard.product_markups.add_markup.modal.title</h3>
+  </div>
+
+  <form name="vm.form.markup" novalidate>
+    <div class="modal-body">
+      <div class="row">
+        <angucomplete-alt id="product-selector"
+                          placeholder="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.search_product' | translate}}"
+                          pause="100"
+                          selected-object="vm.toggleProductFilter"
+                          local-data="vm.products"
+                          input-changed="vm.lazyFetchProducts"
+                          search-fields="name"
+                          title-field="name"
+                          minlength="0"
+                          input-class="form-control form-control-small"
+                          class="col-sm-4"/>
+
+        <angucomplete-alt id="company-selector"
+                          placeholder="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.search_company' | translate}}"
+                          pause="100"
+                          selected-object="vm.toggleCompanyFilter"
+                          local-data="vm.companies"
+                          input-changed="vm.lazyFetchCompanies"
+                          search-fields="name"
+                          title-field="name"
+                          minlength="0"
+                          input-class="form-control form-control-small"
+                          class="col-sm-4"/>
+        <div class="col-sm-2">
+          <label class="control-label">{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.label.percentage'|translate}}</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control input-sm" percentage-input ng-model="vm.markup.percentage" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" required>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="modal-footer">
+    <div class="row actions">
+      <div class="col-xs-12">
+        <button type="button" ng-click="vm.onSubmit()" ng-disabled="vm.isLoading || vm.form.markup.$invalid" class="btn btn-primary">
+          <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+          {{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.save' | translate}}
+        </button>
+        <a href="" ng-click="vm.onCancel()"><i class="fa fa-times"></i>{{ 'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.cancel' | translate}}</a>
+      </div>
+    </div>
+  </div>
+</div>
