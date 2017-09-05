@@ -7,8 +7,9 @@
   main.isReviewingEnabled = MnoeAdminConfig.isReviewingEnabled()
   main.areQuestionsEnabled = MnoeAdminConfig.areQuestionsEnabled()
   main.isFinanceEnabled = MnoeAdminConfig.isFinanceEnabled()
+  main.areLocalProductsEnabled = MnoeAdminConfig.areLocalProductsEnabled()
+  main.isProvisioningEnabled = MnoeAdminConfig.isProvisioningEnabled()
   main.adminConfig = MnoeAdminConfig
-  main.isProductEnabled = MnoeAdminConfig.isProductsEnabled()
 
   main.trustSrc = (src) ->
     $sce.trustAsResourceUrl(src)
