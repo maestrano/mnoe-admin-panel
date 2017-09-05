@@ -5,11 +5,11 @@
 # => GET /mnoe/jpi/v1/marketplace
 # Return the list off apps and categories
 #   {categories: [], apps: []}
-@App.service 'MnoeMarketplace', ($log, MnoeApiSvc) ->
+@App.service 'MnoeMarketplace', (MnoeApiSvc) ->
   _self = @
 
   # Using this syntax will not trigger the data extraction in MnoeApiSvc
-  # as the /marketplace payload isn't encapsulated in "{ marketpalce: categories {...}, apps {...} }"
+  # as the /marketplace payload isn't encapsulated in "{ marketplace: categories {...}, apps {...} }"
   marketplaceApi = MnoeApiSvc.oneUrl('/marketplace')
 
   marketplacePromise = null
