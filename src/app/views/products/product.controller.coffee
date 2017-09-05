@@ -8,12 +8,13 @@
   vm.currencies = _.clone(CURRENCIES.values)
 
   # Get the product
+  vm.isLoading = true
   MnoeProducts.get($stateParams.productId).then(
     (response) ->
       vm.product = response.data
       vm.product.values_display = []
       _.each(vm.product.values_attributes, (v) -> vm.product.values_display[v.name] = v.data)
-  )
+  ).finally(-> vm.isLoading = false)
 
   #------------------------------------------------
   # Product management
@@ -130,7 +131,6 @@
   # Private
   update = (params) ->
     vm.product.values_attributes = _.map(_.keys(vm.product.values_display), (k) -> {name: k, data: vm.product.values_display[k]})
-    vm.isLoading = true
     vm.product.patch(_.pick(vm.product, params)).then(
       (response) ->
         toastr.success('mnoe_admin_panel.dashboard.product.success', {extraData: {product: vm.product.name}})
@@ -138,6 +138,6 @@
       (error) ->
         toastr.error('mnoe_admin_panel.dashboard.edit_product.error', {extraData: {organization_name: vm.organization.name}})
         MnoErrorsHandler.processServerError(error, vm.form)
-    ).finally(-> vm.isLoading = false)
+    )
 
   return
