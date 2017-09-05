@@ -10,7 +10,10 @@
     )
 
   @markups = (limit, offset, sort, params = {}) ->
-    return _getProductMarkups(limit, offset, sort, params)
+    params["order_by"] = sort
+    params["limit"] = limit
+    params["offset"] = offset
+    return MnoeAdminApiSvc.all("product_markups").getList(params)
 
   @search = (terms) ->
     MnoeAdminApiSvc.all('product_markups').getList({terms: terms})
@@ -40,11 +43,5 @@
         MnoeObservables.notifyObservers(OBS_KEYS.markupChanged, promise)
         response
     )
-
-  _getProductMarkups = (limit, offset, sort, params = {}) ->
-    params["order_by"] = sort
-    params["limit"] = limit
-    params["offset"] = offset
-    return MnoeAdminApiSvc.all("product_markups").getList(params)
 
   return @

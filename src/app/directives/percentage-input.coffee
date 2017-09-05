@@ -3,7 +3,7 @@ angular.module('frontendAdmin').directive 'percentageInput', ->
   return {
     require: 'ngModel'
     link: (scope, element, attrs, ngModel) ->
-    # Parse the input display (0.152) to the ngModel value (15.2)
+      # Parse the input display (0.152) to the ngModel value (15.2)
       ngModel.$parsers.push((value) ->
         return value / 100
       )

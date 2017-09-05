@@ -3,7 +3,7 @@
   vm = this
 
   vm.markup =
-  # Display markupcreation modal
+    # Display markup creation modal
     createModal: ->
       modalInstance = $uibModal.open(
         templateUrl: 'app/views/product-markups/create-markup-modal/create-markup.html'

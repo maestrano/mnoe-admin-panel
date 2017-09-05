@@ -9,7 +9,20 @@
   controller: ($filter, $log, MnoeProductMarkups, MnoeCurrentUser, MnoConfirm, MnoeObservables, ADMIN_ROLES, OBS_KEYS, toastr) ->
     vm = this
 
-    vm.listOfProductMarkups = []
+    vm.markups =
+      editmode: []
+      search: {}
+      sort: "product.name"
+      nbItems: 10
+      offset: 0
+      page: 1
+      list: []
+      widgetTitle: 'mnoe_admin_panel.dashboard.product_markups.widget.list.title'
+      pageChangedCb: (nbItems, page) ->
+        vm.markups.nbItems = nbItems
+        vm.markups.page = page
+        offset = (page  - 1) * nbItems
+        fetchProductMarkups(nbItems, offset)
 
     # Manage sorting, search and pagination
     vm.callServer = (tableState) ->
@@ -44,28 +57,10 @@
           else
             search[ 'where[' + attr + '.like]' ] = value + '%'
 
-
       # Update markups sort
       vm.markups.search = search
       vm.markups.pageChangedCb(vm.markups.nbItems, 1)
       return search
-
-    # Widget state
-    vm.state = vm.view
-
-    vm.markups =
-      editmode: []
-      search: {}
-      sort: "product.name"
-      nbItems: 10
-      offset: 0
-      page: 1
-      widgetTitle: 'mnoe_admin_panel.dashboard.product_markups.widget.list.title'
-      pageChangedCb: (nbItems, page) ->
-        vm.markups.nbItems = nbItems
-        vm.markups.page = page
-        offset = (page  - 1) * nbItems
-        fetchProductMarkups(nbItems, offset)
 
     # Fetch markups
     fetchProductMarkups = (limit, offset, sort = vm.markups.sort, search = vm.markups.search) ->
@@ -73,7 +68,7 @@
       return MnoeProductMarkups.markups(limit, offset, sort, search).then(
         (response) ->
           vm.markups.totalItems = response.headers('x-total-count')
-          vm.listOfProductMarkups = response.data
+          vm.markups.list = response.data
       ).finally(-> vm.markups.loading = false)
 
     # Initial call and start the listeners
@@ -95,7 +90,6 @@
           updateSearch()
           # Remove the edit mode for this user
           delete vm.editmode[pm.id]
-  #        MnoeCurrentUser.refreshUser()
         (error) ->
           # Display an error
           $log.error('Error while saving product markup', error)

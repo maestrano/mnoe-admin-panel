@@ -5,7 +5,7 @@
   <mno-widget-body class="large no-padding">
     <div>
       <table class="table" st-pipe="$ctrl.callServer" st-table="$ctrl.displayed">
-        <table st-pipe="$ctrl.callServer" st-table="$ctrl.listOfProductMarkups" class="table table-striped" >
+        <table st-pipe="$ctrl.callServer" st-table="$ctrl.markups.list" class="table table-striped" >
           <thead>
           <tr>
             <th st-sort="product.name" class="col-sm-4" translate>mnoe_admin_panel.dashboard.product_markups.widget.list.table.product</th>
@@ -32,10 +32,10 @@
           </tr>
           </tbody>
           <tbody ng-show="!$ctrl.markups.loading" >
-          <tr ng-repeat="pmElem in $ctrl.listOfProductMarkups">
-            <td class="col-sm-4">{{pmElem.product.name}}</td>
-            <td class="col-sm-4">{{pmElem.organization.name}}</td>
-            <td class="col-sm-3 text-center"">
+          <tr ng-repeat="pmElem in $ctrl.markups.list">
+            <td>{{pmElem.product.name}}</td>
+            <td>{{pmElem.organization.name}}</td>
+            <td class="text-center">
               <span ng-show="!$ctrl.editmode[pmElem.id]">{{pmElem.percentage*100 | number:2}}%</span>
               <input ng-show="$ctrl.editmode[pmElem.id]" type="text" class="form-control input-sm" percentage-input ng-model="pmElem.percentage" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" required>
             </td>
@@ -51,7 +51,7 @@
         </table>
     </div>
   </mno-widget-body>
-  <mno-widget-footer ng-show="$ctrl.listOfProductMarkups ">
+  <mno-widget-footer ng-show="$ctrl.markups.list ">
     <mno-pagination
       page="$ctrl.markups.page"
       nb-items="$ctrl.markups.nbItems"
