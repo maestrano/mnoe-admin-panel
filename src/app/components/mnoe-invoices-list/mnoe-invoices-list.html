@@ -24,7 +24,7 @@
           <td>{{invoice.slug}}</td>
           <td>{{invoice.organization.attributes.name}}</td>
           <td>{{invoice.started_at | amCalendar}} - {{invoice.ended_at | amCalendar}}</td>
-          <td ng-if="$ctrl.isPaymentEnabled">{{$ctrl.calculatePaymentDate(invoice.ended_at) | amCalendar }}</td>
+          <td ng-if="$ctrl.isPaymentEnabled">{{$ctrl.expectedPaymentDate(invoice.ended_at) | amCalendar }}</td>
           <td>{{invoice.total_due.currency.symbol}}{{invoice.total_due.fractional}}</td>
           <td>
             <span ng-show="invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.paid</span>

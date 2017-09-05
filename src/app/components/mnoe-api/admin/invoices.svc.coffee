@@ -5,10 +5,7 @@
   @list = (limit, offset, params = {}) ->
     params["limit"] = limit
     params["offset"] = offset
-    promise = MnoeAdminApiSvc.all('invoices').getList(params).then(
-      (response) ->
-        response
-    )
+    MnoeAdminApiSvc.all('invoices').getList(params)
 
   @get = (id) ->
     MnoeAdminApiSvc.one('/invoices', id).get()

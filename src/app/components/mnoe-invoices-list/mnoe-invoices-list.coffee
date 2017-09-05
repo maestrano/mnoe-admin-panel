@@ -1,7 +1,7 @@
 @App.component('mnoeInvoicesList', {
   templateUrl: 'app/components/mnoe-invoices-list/mnoe-invoices-list.html'
 
-  controller: ($state, MnoeAdminConfig, MnoeInvoices) ->
+  controller: ($state, MnoeAdminConfig, MnoeInvoices, DatesHelper) ->
     ctrl = this
 
     ctrl.isPaymentEnabled = MnoeAdminConfig.isPaymentEnabled()
@@ -20,7 +20,6 @@
     # Server call
     ctrl.callServer = (tableState) ->
       search = updateSearch (tableState.search)
-
       fetchInvoices(ctrl.invoices.nbItems, ctrl.invoices.offset)
 
     # Update searching parameters
@@ -34,18 +33,8 @@
       return search
 
     # The expected date is the 2nd of the month following the invoice period
-    ctrl.calculatePaymentDate = (endOfInvoiceDate) ->
-      # calculate day of end of invoiced period
-      endOfInvoicePeriod = moment(endOfInvoiceDate, 'YYYY-M-D')
-      # calculate 2nd of the last month invoiced
-      secondOftheEndOfInvoicePeriod = moment(endOfInvoicePeriod, 'YYYY-M-D').startOf('month').add(1, 'day')
-      # if the 2nd of the month invoiced is > period invoiced, return second of the same month
-      if endOfInvoicePeriod < secondOftheEndOfInvoicePeriod
-        secondOftheEndOfInvoicePeriod
-      else
-      # if the 2nd of the month invoiced < of period invoiced, return second of the following month
-        secondOfNextMonth = moment(endOfInvoicePeriod, 'YYYY-M-D').startOf('month').add(1, 'month').add(1, 'day')
-        secondOfNextMonth
+    ctrl.expectedPaymentDate = (endOfInvoiceDate) ->
+      DatesHelper.expectedPaymentDate(endOfInvoiceDate)
 
     # go to single invoice view
     ctrl.goToInvoice = (invoiceId) ->
