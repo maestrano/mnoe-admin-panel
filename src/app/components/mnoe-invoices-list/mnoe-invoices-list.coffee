@@ -28,7 +28,6 @@
       if searchingState.predicateObject
         for attr, value of searchingState.predicateObject
           search[ 'where[' + attr + '.like]' ] = value + '%'
-
       ctrl.invoices.search = search
       return search
 

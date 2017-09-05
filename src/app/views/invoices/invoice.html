@@ -22,14 +22,14 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{vm.invoice.slug}}</td>
-            <td>{{vm.organization.attributes.name}}</td>
-            <td>{{vm.invoice.started_at | amCalendar}} - {{vm.invoice.ended_at | amCalendar}}</td>
-            <td ng-if="vm.isPaymentEnabled">{{vm.calculatePaymentDate(vm.invoice.ended_at) | amCalendar }}</td>
-            <td>{{vm.invoice.price.currency.symbol}}{{vm.invoice.price.fractional}}</td>
+            <td>{{vm.invoice.invoice.slug}}</td>
+            <td>{{vm.invoice.organization.attributes.name}}</td>
+            <td>{{vm.invoice.invoice.started_at | amCalendar}} - {{vm.invoice.invoice.ended_at | amCalendar}}</td>
+            <td ng-if="vm.isPaymentEnabled">{{vm.calculatePaymentDate(vm.invoice.invoice.ended_at) | amCalendar }}</td>
+            <td>{{vm.invoice.invoice.price.currency.symbol}}{{vm.invoice.invoice.price.fractional}}</td>
             <td>
-              <span ng-if="vm.invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.paid</span>
-              <div class="btn-group" ng-if="!vm.invoice.paid_at" uib-dropdown dropdown-append-to-body>
+              <span ng-if="vm.invoice.invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.paid</span>
+              <div class="btn-group" ng-if="!vm.invoice.invoice.paid_at" uib-dropdown dropdown-append-to-body>
                 <button id="btn-append-to-body" type="button" class="btn btn-primary" uib-dropdown-toggle translate>
                   mnoe_admin_panel.dashboard.invoices.awaiting <span class="caret"></span>
                 </button>
@@ -39,7 +39,7 @@
               </div>
             </td>
             <td>
-              <a ng-href="/mnoe/admin/invoices/{{vm.invoice.slug}}" target="_blank"><i class="fa fa-cloud-download"></i></a>
+              <a ng-href="/mnoe/admin/invoices/{{vm.invoice.invoice.slug}}" target="_blank"><i class="fa fa-cloud-download"></i></a>
             </td>
           </tr>
         </tbody>
@@ -64,7 +64,7 @@
         </tr>
       </thead>
       <tbody ng-show="!vm.isLoading">
-        <tr ng-repeat="bill in vm.billing_summary">
+        <tr ng-repeat="bill in vm.invoice.billing_summary">
           <td>{{bill.name}}</td>
           <td>{{bill.label}}</td>
           <td>{{bill.usage}}</td>
@@ -76,3 +76,59 @@
   <mno-widget-footer>
   </mno-widget-footer>
 </mno-widget>
+<!-- adjustments -->
+<div id="single-invoice-adjustments">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="pull-right top-buffer-1">
+        <button role="button" ng-click="vm.openAddAdjustmentModal()" class="btn btn-primary" translate>
+          mnoe_admin_panel.dashboard.invoice.add_adjustment
+        </button>
+      </div>
+    </div>
+  </div>
+  <mno-widget is-loading="vm.isLoading" heading="{{'mnoe_admin_panel.dashboard.invoice.adjustments.adjustments' | translate}}">
+    <mno-widget-header> 
+    </mno-widget-header>
+    <mno-widget-body class="large no-padding">
+      <span class="text-center" ng-show="!vm.invoice.adjustments">
+        <h4 translate>mnoe_admin_panel.dashboard.invoice.adjustments.no_adjustments</h4>
+      </span>
+      <table ng-show="vm.invoice.adjustments" class="table table-striped table-responsive">
+        <thead>
+          <tr>
+            <th class="col-lg-8" translate>mnoe_admin_panel.dashboard.invoice.adjustments.adjustment_name</th>
+            <th class="col-lg-3" translate>mnoe_admin_panel.dashboard.invoice.adjustments.adjustment_amount</th>
+            <th class="col-lg-1"></th>
+          </tr>
+        </thead>
+        <tbody ng-show="!vm.isLoading">
+          <tr ng-repeat="adjustment in vm.invoice.adjustments">
+            <td>{{adjustment.name}}</td>
+            <td>{{adjustment.amount}}</td>
+            <td>
+              <button role="button" ng-click="vm.openEditAdjustmentModal(adjustment)" class="btn btn-primary">
+                <i class="fa fa-pencil"></i>
+              </button>
+              <button role="button" ng-click="vm.openDeleteAdjustmentModal(adjustment.id)" class="btn btn-primary">
+                <i class="fa fa-trash-o"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mno-widget-body>
+    <mno-widget-footer>
+    </mno-widget-footer>
+  </mno-widget>
+  <div class="row button-footer">
+    <div class="col-xs-12">
+      <div class="pull-right top-buffer-1">
+        <button role="button" ng-click="" class="btn btn-primary" translate>
+          mnoe_admin_panel.dashboard.invoice.adjustments.send_to_customer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
