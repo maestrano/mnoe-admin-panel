@@ -1,0 +1,31 @@
+<div>
+  <div class="row">
+    <div class="col-xs-12">
+      <!--<h1 translate>mnoe_admin_panel.dashboard.organization.organization_info</h1>-->
+
+      <mno-widget icon="fa-th-large" heading="{{'mnoe_admin_panel.dashboard.settings.apps.available_apps' | translate}}">
+        <mno-widget-header></mno-widget-header>
+        <mno-widget-body>
+          <div class="bs-row row">
+            <div class="col-sm-12">
+              <div class="bs-row row apps-box">
+                <div class="app-wrapper col-xs-3 col-sm-2 col-md-2" ng-repeat="app in vm.enabledApps">
+                  <div class="small-app-card ellipsis">
+                    <i class="fa fa-trash app-remove" ng-click="vm.openRemoveAppModal(app, $index)" uib-tooltip="{{'mnoe_admin_panel.dashboard.organization.remove_app' | translate:{'app_name': app.name} }}" tooltip-append-to-body="true"></i>
+                    <img ng-src="{{::app.logo}}" width="60">
+                    <span>{{::app.name}}</span>
+                  </div>
+                </div>
+                <div class="app-wrapper col-xs-3 col-sm-2 col-md-2">
+                  <div class="small-app-card ellipsis add-app" ng-click="vm.openAddAppModal()">
+                    <span>{{'mnoe_admin_panel.dashboard.organization.add_an_app' | translate}}<i class="fa fa-plus"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mno-widget-body>
+      </mno-widget>
+    </div>
+  </div>
+</div>
