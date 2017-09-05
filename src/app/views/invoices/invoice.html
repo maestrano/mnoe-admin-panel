@@ -14,7 +14,7 @@
             <th class="col-lg-1" translate>mnoe_admin_panel.dashboard.invoice.reference</th>
             <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoice.customer</th>
             <th class="col-lg-3" translate>mnoe_admin_panel.dashboard.invoice.period</th>
-            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoice.expected_payment_date</th>
+            <th class="col-lg-2" ng-if="vm.isPaymentEnabled" translate>mnoe_admin_panel.dashboard.invoice.expected_payment_date</th>
             <th class="col-lg-1" translate>mnoe_admin_panel.dashboard.invoice.amount</th>
             <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoice.status</th>
             <th class="col-lg-1" translate></th>
@@ -25,7 +25,7 @@
             <td>{{vm.invoice.invoice.slug}}</td>
             <td>{{vm.invoice.organization.attributes.name}}</td>
             <td>{{vm.invoice.invoice.started_at | amCalendar}} - {{vm.invoice.invoice.ended_at | amCalendar}}</td>
-            <td ng-if="vm.isPaymentEnabled">{{vm.calculatePaymentDate(vm.invoice.invoice.ended_at) | amCalendar }}</td>
+            <td ng-if="vm.isPaymentEnabled">{{vm.expectedPaymentDate(vm.invoice.invoice.ended_at) | amCalendar }}</td>
             <td>{{vm.invoice.invoice.price.currency.symbol}}{{vm.invoice.invoice.price.fractional}}</td>
             <td>
               <span ng-if="vm.invoice.invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.paid</span>

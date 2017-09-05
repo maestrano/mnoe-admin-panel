@@ -14,7 +14,6 @@
   vm.displayed = []
 
   vm.callServer = (tableState) ->
-    console.log (tableState)
     vm.isLoading = false
 
   return
