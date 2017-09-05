@@ -13,8 +13,8 @@ describe('Service: MnoeProductMarkups', ->
     $httpBackend.when('GET', '/mnoe/jpi/v1/admin/product_markups').respond(200,
       {
         "product_markups": [
-          { "id": 9, "percentage": "0.11", "product_name": "App 1", "organization_name": "Cool Org", "created_at": "2015-11-01T03:26:16.000Z" },
-          { "id": 10, "percentage": "0.32", "product_name": "App 2", "organization_name": "Coolest Org", "created_at": "2015-11-01T03:27:16.000Z" }
+          { "id": 9, "percentage": "0.11", "product": {"id": "prod-1", "name": "App 1"}, "organization": {"id": "org-1", "name": "Cool Org"}, "created_at": "2015-11-01T03:26:16.000Z" },
+          { "id": 10, "percentage": "0.32", "product": {"id": "prod-2", "name": "App 2"}, "organization": {"id": "org-2", "name": "Cool Org"}, "created_at": "2015-11-01T03:27:16.000Z" }
         ]
       })
 
@@ -22,7 +22,7 @@ describe('Service: MnoeProductMarkups', ->
     $httpBackend.when('GET', '/mnoe/jpi/v1/admin/product_markups/10').respond(200,
       {
         "product_markups": [
-          { "id": 10, "percentage": "0.32", "product_name": "App 2", "organization_name": "Coolest Org", "created_at": "2015-11-01T03:27:16.000Z" }
+          { "id": 10, "percentage": "0.32", "product": {"id": "prod-2", "name": "App 2"}, "organization": {"id": "org-2", "name": "Cool Org"}, "created_at": "2015-11-01T03:27:16.000Z" }
         ]
       })
 

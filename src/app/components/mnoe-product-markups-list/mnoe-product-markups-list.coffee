@@ -20,7 +20,7 @@
 
     # Update sorting parameters
     updateSort = (sortState = {}) ->
-      sort = "product_name"
+      sort = "product.name"
       if sortState.predicate
         sort = sortState.predicate
         if sortState.reverse
@@ -37,7 +37,13 @@
       search = {}
       if searchingState.predicateObject
         for attr, value of searchingState.predicateObject
-          search[ 'where[' + attr + '.like]' ] = value + '%'
+          if _.isObject(value)
+            # Workaround to allow 'relation.field' type of search
+            # 'product.name' search for 'a' is interpreted by Smart Table as {product: {name: 'a'}
+            search[ 'where[' + attr + '.' + _.keys(value)[0] + '.like]' ] = _.values(value)[0] + '%'
+          else
+            search[ 'where[' + attr + '.like]' ] = value + '%'
+
 
       # Update markups sort
       vm.markups.search = search
@@ -50,7 +56,7 @@
     vm.markups =
       editmode: []
       search: {}
-      sort: "product_name"
+      sort: "product.name"
       nbItems: 10
       offset: 0
       page: 1
