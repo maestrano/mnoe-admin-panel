@@ -6,7 +6,6 @@
   for id in staff.client_ids
     vm.selectedOrganizations[id] = true
 
-
   vm.organizations =
     search: ''
     nbItems: 10
@@ -27,7 +26,6 @@
         vm.organizations.list = response.data
     ).then(-> vm.organizations.loading = false)
 
-
   displayCurrentState = () ->
     setAllOrganizationsList()
     fetchOrganizations(vm.organizations.nbItems, 0)
@@ -37,11 +35,11 @@
     vm.organizations.widgetTitle = 'All organisations'
 
   vm.searchChange = () ->
-# Only search if the string is >= than 3 characters
+    # Only search if the string is >= than 3 characters
     if vm.organizations.search.length >= 3
       vm.searchMode = true
       setSearchOrganizationsList(vm.organizations.search)
-# No search string, so display current state
+    # No search string, so display current state
     else if vm.searchMode
       vm.searchMode = false
       displayCurrentState()
@@ -60,7 +58,6 @@
 
   # Initial call
   displayCurrentState()
-
 
   vm.onSubmit = () ->
     vm.isLoading = true

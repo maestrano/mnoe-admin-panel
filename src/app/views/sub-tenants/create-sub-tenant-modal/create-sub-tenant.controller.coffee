@@ -16,5 +16,4 @@
   vm.onCancel = () ->
     $uibModalInstance.dismiss('cancel')
 
-
   return

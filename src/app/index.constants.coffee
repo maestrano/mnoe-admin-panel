@@ -17,7 +17,7 @@
     staffAdded: 'staffAdded',
     subTenantAdded: 'subTenantAdded',
     subTenantChanged: 'subTenantListChanged',
-    })
+  })
   .constant('LOCALES', {
     locales: [
       { id: 'en-AU', name: 'English (Australia)' }

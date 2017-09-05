@@ -30,9 +30,6 @@
       vm.subTenant.sort = sort
       return sort
 
-    # Widget state
-    vm.state = vm.view
-
     vm.subTenant =
       editmode: []
       search: {}
@@ -61,7 +58,7 @@
           closeButtonText: 'mnoe_admin_panel.dashboard.sub_tenants.remove_sub_tenant.cancel'
           actionButtonText: 'mnoe_admin_panel.dashboard.sub_tenants.remove_sub_tenant.delete'
           headerText: 'mnoe_admin_panel.dashboard.sub_tenants.remove_sub_tenant.proceed'
-          headerTextExtraData: { sub_tenant_name: subTenant.name}
+          headerTextExtraData: {sub_tenant_name: subTenant.name}
           bodyText: 'mnoe_admin_panel.dashboard.sub_tenants.modal.remove_sub_tenant.perform'
 
         MnoConfirm.showModal(modalOptions).then(->
@@ -82,14 +79,15 @@
           vm.listOfSubTenant = response.data
       ).finally(-> vm.subTenant.loading = false)
 
+    # Notify me if a subTenant is added
     MnoeObservables.registerCb(OBS_KEYS.subTenantAdded, ->
       fetchSubTenants(vm.subTenant.nbItems, vm.subTenant.offset)
     )
+    
     # Notify me if the list changes
     MnoeObservables.registerCb(OBS_KEYS.subTenantChanged, ->
       fetchSubTenants(vm.subTenant.nbItems, vm.subTenant.offset)
     )
 
     return
-
 })

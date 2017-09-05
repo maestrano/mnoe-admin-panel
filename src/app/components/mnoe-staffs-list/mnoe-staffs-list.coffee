@@ -86,8 +86,7 @@
           bodyText: 'mnoe_admin_panel.dashboard.staffs.modal.remove_staff.perform'
 
         MnoConfirm.showModal(modalOptions).then( ->
-          MnoeUsers.removeStaff(staff.id).then(
-            ->
+          MnoeUsers.removeStaff(staff.id).then( ->
             toastr.success('mnoe_admin_panel.dashboard.staffs.widget.list.toastr_success', {extraData: {staff_name: "#{staff.name} #{staff.surname}"}})
           )
           (error) ->
@@ -107,7 +106,7 @@
           vm.staff.oneAdminLeft = _.filter(response.data, {'admin_role': 'admin'}).length == 1
       ).finally(-> vm.staff.loading = false)
 
-    # Start the listeners
+    # Notify me if a staff is added
     MnoeObservables.registerCb(OBS_KEYS.staffAdded, ->
       fetchStaffs(vm.staff.nbItems, vm.staff.offset)
     )

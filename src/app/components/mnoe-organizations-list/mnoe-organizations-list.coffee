@@ -32,9 +32,8 @@
           (response) ->
             scope.organizations.totalItems = response.headers('x-total-count')
             scope.organizations.list = response.data
-        ).then(-> scope.organizations.loading = false)
+        ).finally(-> scope.organizations.loading = false)
       )
-
 
     scope.switchState = () ->
       scope.state = attrs.view = if attrs.view == 'all' then 'last' else 'all'

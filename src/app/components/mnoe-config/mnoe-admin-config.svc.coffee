@@ -51,7 +51,6 @@
     else
       false
 
-
   # Do not display CC info if Billing or Payment is disabled in the frontend
   @isPaymentEnabled = () ->
     payment_disabled = (PAYMENT_CONFIG? && PAYMENT_CONFIG.disabled)

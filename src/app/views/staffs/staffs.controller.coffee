@@ -11,9 +11,4 @@
         controllerAs: 'vm'
       )
 
-  vm.displayed = []
-
-  vm.callServer = ->
-    vm.isLoading = false
-
   return vm
