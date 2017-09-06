@@ -6,9 +6,7 @@
 
   @list = ->
     return appsPromise if appsPromise?
-    appsPromise = MnoeAdminApiSvc.all('apps').getList().then(
-      (response) ->
-        response
+    appsPromise = MnoeAdminApiSvc.all('apps').getList().catch(
       (error) ->
         # Something went wrong
         toastr.error('mnoe_admin_panel.dashboard.settings.apps.retrieve.error')

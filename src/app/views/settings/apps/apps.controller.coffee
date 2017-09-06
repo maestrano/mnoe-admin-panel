@@ -46,7 +46,6 @@
         )
     )
 
-
   # Load config from the Tenant
   init = ->
     MnoeMarketplace.getApps().then(

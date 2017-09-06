@@ -2,9 +2,7 @@
 @App.service 'MnoeProducts', ($q, toastr, MnoeAdminApiSvc, MnoErrorsHandler) ->
 
   @list = (limit, offset, sort) ->
-    MnoeAdminApiSvc.all('products').getList({order_by: sort, limit: limit, offset: offset}).then(
-      (response) ->
-        response
+    MnoeAdminApiSvc.all('products').getList({order_by: sort, limit: limit, offset: offset}).catch(
       (error) ->
         # Something went wrong
         toastr.error('mnoe_admin_panel.dashboard.product.retrieve.error')
