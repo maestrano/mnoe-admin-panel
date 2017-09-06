@@ -1,7 +1,10 @@
-@App.controller 'InvoiceController', ($stateParams, $uibModal, MnoeAdminConfig, MnoeInvoices, toastr, DatesHelper) ->
+@App.controller 'InvoiceController', ($stateParams, $uibModal, $window, MnoeAdminConfig, MnoeInvoices, toastr, DatesHelper) ->
   'ngInject'
   vm = this
 
+  # -----------------------------------------------------------------
+  # Initialize
+  # -----------------------------------------------------------------
   vm.isPaymentEnabled = MnoeAdminConfig.isPaymentEnabled()
   vm.isLoading = true
   vm.invoice = {}
@@ -9,6 +12,16 @@
     (response) ->
       vm.invoice = response.data.plain()
   ).finally(-> vm.isLoading = false)
+
+  # -----------------------------------------------------------------
+  # Invoice Management
+  # -----------------------------------------------------------------
+  vm.downloadInvoice = (slug) ->
+    $window.location.href = '/mnoe/admin/invoices/' + slug
+
+  # The expected date is the 2nd of the month following the invoice period
+  vm.expectedPaymentDate = (endOfInvoiceDate) ->
+    DatesHelper.expectedPaymentDate(endOfInvoiceDate)
 
   # -----------------------------------------------------------------
   #  Invoice status
@@ -46,9 +59,5 @@
       controller: 'DeleteAdjustmentController'
       controllerAs: 'vm'
     )
-  
-  # The expected date is the 2nd of the month following the invoice period
-  vm.expectedPaymentDate = (endOfInvoiceDate) ->
-    DatesHelper.expectedPaymentDate(endOfInvoiceDate)
 
   return

@@ -15,6 +15,7 @@
             <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoice.customer</th>
             <th class="col-lg-3" translate>mnoe_admin_panel.dashboard.invoice.period</th>
             <th class="col-lg-2" ng-if="vm.isPaymentEnabled" translate>mnoe_admin_panel.dashboard.invoice.expected_payment_date</th>
+            <th class="col-lg-2" ng-if="!vm.isPaymentEnabled"></th>
             <th class="col-lg-1" translate>mnoe_admin_panel.dashboard.invoice.amount</th>
             <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoice.status</th>
             <th class="col-lg-1" translate></th>
@@ -26,6 +27,7 @@
             <td>{{vm.invoice.organization.attributes.name}}</td>
             <td>{{vm.invoice.invoice.started_at | amCalendar}} - {{vm.invoice.invoice.ended_at | amCalendar}}</td>
             <td ng-if="vm.isPaymentEnabled">{{vm.expectedPaymentDate(vm.invoice.invoice.ended_at) | amCalendar }}</td>
+            <td ng-if="!vm.isPaymentEnabled"></td>
             <td>{{vm.invoice.invoice.price.currency.iso_code}}{{vm.invoice.invoice.price.fractional}}</td>
             <td>
               <span ng-if="vm.invoice.invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.paid</span>
@@ -39,7 +41,9 @@
               </div>
             </td>
             <td>
-              <a ng-href="/mnoe/admin/invoices/{{vm.invoice.invoice.slug}}" target="_blank"><i class="fa fa-cloud-download"></i></a>
+              <span class="pull-right center-cloud">
+                <a ng-click="vm.downloadInvoice(vm.invoice.invoice.slug)" target="_blank"><i class="fa fa-cloud-download"></i></a>
+              </span>
             </td>
           </tr>
         </tbody>
