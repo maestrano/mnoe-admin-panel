@@ -1,7 +1,7 @@
 <div id="mno-product-selector">
   <!-- Modal Header -->
   <div class="modal-header">
-    <h3 class="modal-title" translate>mnoe_admin_panel.components.mno-product-selector.title</h3>
+    <h3 class="modal-title">{{$ctrl.headerText | translate}}</h3>
     <div class="close" type="button" ng-click="$ctrl.dismissModal()">×</div>
   </div>
   <!-- Modal Body -->
@@ -31,7 +31,7 @@
           mnoe_admin_panel.components.mno-product-selector.cancel
         </button>
         <button ng-click="$ctrl.closeModal()" ng-disabled="$ctrl.selectedProducts.length === 0" class="btn btn-primary arrow">
-          {{'mnoe_admin_panel.components.mno-product-selector.create_order' | translate}}
+          {{$ctrl.actionButtonText | translate}}
         </button>
       </div>
     </div>

@@ -102,6 +102,17 @@
           label: 'mnoe_admin_panel.dashboard.settings.title'
         resolve:
           skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
+      .state 'dashboard.settings-apps',
+        data:
+          pageTitle: 'Apps Selection'
+        url: '/settings/apps'
+        templateUrl: 'app/views/settings/apps/apps.html'
+        controller: 'SettingsAppsController'
+        controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.settings.apps.title'
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
       .state 'dashboard.settings-plugins',
         data:
           pageTitle: 'Plugins Settings'
