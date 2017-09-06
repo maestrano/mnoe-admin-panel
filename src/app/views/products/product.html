@@ -25,7 +25,7 @@
         </mno-section>
 
         <mno-section heading="{{'mnoe_admin_panel.dashboard.product.key_benefits' | translate}}">
-          <mno-multiple-string-field ng-model="vm.product.values_display['Key benefits']"></mno-multiple-string-field>
+          <mno-multiple-string-field ng-model="vm.product.values_display['Key benefits']" command="vm.componentsCommand"></mno-multiple-string-field>
         </mno-section>
 
         <mno-section heading="{{'mnoe_admin_panel.dashboard.product.getting_started' | translate}}">
@@ -33,8 +33,8 @@
         </mno-section>
 
         <mno-section class="btn-box">
-          <button class="btn btn-primary top-buffer-1"
-                  ng-click="vm.updateProduct()" translate>mnoe_admin_panel.dashboard.product.submit
+          <button class="btn btn-primary top-buffer-1" ng-click="vm.updateProduct()" ng-disabled="vm.isLoadingProduct" translate>
+            mnoe_admin_panel.dashboard.product.submit
           </button>
         </mno-section>
       </form>
@@ -152,7 +152,7 @@
               </div>
 
               <div class="form-group top-buffer-1">
-                <button class="btn btn-primary" type="button" ng-click="vm.updateProductPricing()" ng-disabled="vm.isLoading || vm.pricing_plan_form.$invalid">
+                <button class="btn btn-primary" type="button" ng-click="vm.updateProductPricing(pricingPlan)" ng-disabled="vm.isLoading || vm.pricing_plan_form.$invalid">
                   save
                 </button>
                 <button class="btn btn-default" ng-click="vm.cancelPricingPlan(pricingPlan)" ng-disabled="">

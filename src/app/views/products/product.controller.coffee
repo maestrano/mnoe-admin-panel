@@ -22,7 +22,18 @@
 
   vm.updateStatus = -> update(['active'])
 
-  vm.updateProduct = -> update(['name', 'values_attributes'])
+  vm.updateProduct = ->
+    # Send submit command to children components
+    vm.componentsCommand = 'submit'
+    vm.isLoadingProduct = true
+    # Wait for next digest cicle
+    $timeout (->
+      update(['name', 'values_attributes']).finally(
+        ->
+          vm.componentsCommand = ''
+          vm.isLoadingProduct = false
+      )
+    )
 
   #------------------------------------------------
   # Pricing plans management
@@ -52,13 +63,22 @@
     # Remove already used currencies
     vm.currencies = _.difference(CURRENCIES.values, _.map(pricingPlan.prices, 'currency'))
 
-  vm.updateProductPricing = -> update(['product_pricings']).then(
-    (response) ->
-      # Update the pricing plans
-      angular.copy(response.data.product.product_pricings, vm.product.product_pricings)
-      # Stop displaying the pricing plan in edition mode
-      vm.currentPricingPlanId = null
-  )
+  vm.updateProductPricing = (pricingPlan) ->
+    # Add any unsaved prices
+    unless vm.priceForm.$invalid
+      new_price = {
+        currency: vm.priceForm.currency.$modelValue
+        price_cents: vm.priceForm.price_cents.$modelValue
+      }
+      vm.addPrice(new_price, pricingPlan)
+
+    update(['product_pricings']).then(
+      (response) ->
+        # Update the pricing plans
+        angular.copy(response.data.product.product_pricings, vm.product.product_pricings)
+        # Stop displaying the pricing plan in edition mode
+        vm.currentPricingPlanId = null
+    )
 
   vm.cancelPricingPlan = (pricingPlan) ->
     vm.currentPricingPlanId = null
