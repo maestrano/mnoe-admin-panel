@@ -84,7 +84,7 @@
 <div id="single-invoice-adjustments">
   <div class="row">
     <div class="col-xs-12">
-      <div class="pull-right top-buffer-1">
+      <div class="pull-right top-buffer-1" ng-if="!vm.invoice.invoice.paid_at">
         <button role="button" ng-click="vm.openAddAdjustmentModal()" class="btn btn-primary" translate>
           mnoe_admin_panel.dashboard.invoice.add_adjustment
         </button>
@@ -111,12 +111,14 @@
             <td>{{adjustment.name}}</td>
             <td>{{adjustment.amount}}</td>
             <td>
-              <button role="button" ng-click="vm.openEditAdjustmentModal(adjustment)" class="btn btn-primary">
-                <i class="fa fa-pencil"></i>
-              </button>
-              <button role="button" ng-click="vm.openDeleteAdjustmentModal(adjustment)" class="btn btn-primary">
-                <i class="fa fa-trash-o"></i>
-              </button>
+              <div ng-if="!vm.invoice.invoice.paid_at">
+                <button role="button" ng-click="vm.openEditAdjustmentModal(adjustment)" class="btn btn-primary">
+                  <i class="fa fa-pencil"></i>
+                </button>
+                <button role="button" ng-click="vm.openDeleteAdjustmentModal(adjustment)" class="btn btn-primary">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -128,9 +130,13 @@
   <div class="row button-footer">
     <div class="col-xs-12">
       <div class='btn-group pull-right'>
-        <div class="top-buffer-1">
+        <div class="top-buffer-1" ng-if="!vm.invoice.invoice.paid_at">
           <button role="button" ui-sref="dashboard.invoices" class="btn btn-primary" translate>Cancel</button>
           <button role="button" ng-click="vm.update()" class="btn btn-primary" translate>Update</button>
+          <button role="button" ng-click="" class="btn btn-primary" translate>mnoe_admin_panel.dashboard.invoice.adjustments.send_to_customer</button>
+        </div>
+        <div class="top-buffer-1" ng-if="vm.invoice.invoice.paid_at">
+          <button role="button" ui-sref="dashboard.invoices" class="btn btn-primary" translate>back</button>
           <button role="button" ng-click="" class="btn btn-primary" translate>mnoe_admin_panel.dashboard.invoice.adjustments.send_to_customer</button>
         </div>
       </div>
