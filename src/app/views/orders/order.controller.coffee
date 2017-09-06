@@ -1,4 +1,4 @@
-@App.controller 'OrderController', ($filter, $state, $stateParams, toastr, MnoeProvisioning, MnoeOrganizations, MnoeUsers) ->
+@App.controller 'OrderController', ($filter, $state, $stateParams, toastr, MnoeProvisioning, MnoeOrganizations, MnoeUsers, MnoConfirm) ->
   'ngInject'
   vm = this
 
@@ -15,11 +15,6 @@
   MnoeProvisioning.fetchSubscription(vm.orderId, vm.orgId).then(
     (response) ->
       vm.order = response.data.plain()
-      if vm.order.status == "fulfilled"
-        vm.fulfillment = "Y"
-      else
-        vm.fulfillment = "N"
-
       console.log(vm.order)
       vm.getInfo()
   )
@@ -34,5 +29,82 @@
         (response) ->
           vm.user = response.data.plain()
       )
+
+  # Display approval if status is 'requested' or if product is not externally provisioned
+  vm.displayApproval = ->
+    return ( vm.order.status == 'requested' || vm.order.externally_provisioned )
+
+  # Display fulfill otherwise
+  vm.displayFulfillApproval = ->
+    return !vm.displayApproval()
+
+  # Make sure Approval is disabled for any other status than 'requested'
+  vm.disableApproval = ->
+    return ( vm.order.status != 'requested')
+
+  # Fulfill disabled if not shown or if shown but status is cancelled
+  vm.disableFulfillApproval = ->
+    return !vm.displayFulfillApproval() || (vm.order.status == 'cancelled')  || (vm.order.status == 'fulfilled')
+
+  # Only disabled cancel if status is already cancelled
+  vm.disableCancel = ->
+    return (vm.order.status != 'requested')
+
+  vm.approveOrder = ->
+    modalOptions =
+      closeButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.close'
+      actionButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.cancel'
+      headerText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.proceed'
+      bodyText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.perform'
+      bodyTextExtraData: {subscription_name: vm.order.product.name}
+      type: 'danger'
+      actionCb: ->
+        MnoeProvisioning.approveSubscription({organization_id: vm.orgId, id: vm.orderId }).then(
+          (response) ->
+            angular.copy(response.data.subscription, vm.order)
+            toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_success', {extraData: {subscription_name: vm.order.name}})
+          ->
+            toastr.error('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_error', {extraData: {subscription_name: vm.order.name}})
+        )
+
+    MnoConfirm.showModal(modalOptions)
+
+  vm.fulfillOrder = ->
+    modalOptions =
+      closeButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.close'
+      actionButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.cancel'
+      headerText: 'mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.proceed'
+      bodyText: 'mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.perform'
+      bodyTextExtraData: {subscription_name: vm.order.product.name}
+      type: 'danger'
+      actionCb: ->
+        MnoeProvisioning.fulfillSubscription({organization_id: vm.orgId, id: vm.orderId }).then(
+          (response) ->
+            angular.copy(response.data.subscription, vm.order)
+            toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.toastr_success', {extraData: {subscription_name: vm.order.name}})
+          ->
+            toastr.error('mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.toastr_error', {extraData: {subscription_name: vm.order.name}})
+        )
+
+    MnoConfirm.showModal(modalOptions)
+
+  vm.cancelOrder = ->
+    modalOptions =
+      closeButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.close'
+      actionButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.cancel'
+      headerText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.proceed'
+      bodyText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.perform'
+      bodyTextExtraData: {subscription_name: vm.order.product.name}
+      type: 'danger'
+      actionCb: ->
+        MnoeProvisioning.cancelSubscription({organization_id: vm.orgId, id: vm.orderId }).then(
+          (response) ->
+            angular.copy(response.data.subscription, vm.order)
+            toastr.success('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_success', {extraData: {subscription_name: vm.order.name}})
+          ->
+            toastr.error('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_error', {extraData: {subscription_name: vm.order.name}})
+        )
+
+    MnoConfirm.showModal(modalOptions)
 
   return vm
