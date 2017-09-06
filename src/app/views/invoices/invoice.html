@@ -130,12 +130,12 @@
   <div class="row button-footer">
     <div class="col-xs-12">
       <div class='btn-group pull-right'>
-        <div class="top-buffer-1" ng-if="!vm.invoice.invoice.paid_at">
+        <div class="top-buffer-1" ng-if="!vm.isInvoiceEditedPaid">
           <button role="button" ui-sref="dashboard.invoices" class="btn btn-primary" translate>Cancel</button>
           <button role="button" ng-click="vm.update()" class="btn btn-primary" translate>Update</button>
           <button role="button" ng-click="" class="btn btn-primary" translate>mnoe_admin_panel.dashboard.invoice.adjustments.send_to_customer</button>
         </div>
-        <div class="top-buffer-1" ng-if="vm.invoice.invoice.paid_at">
+        <div class="top-buffer-1" ng-if="vm.isInvoiceEditedPaid">
           <button role="button" ui-sref="dashboard.invoices" class="btn btn-primary" translate>back</button>
           <button role="button" ng-click="" class="btn btn-primary" translate>mnoe_admin_panel.dashboard.invoice.adjustments.send_to_customer</button>
         </div>

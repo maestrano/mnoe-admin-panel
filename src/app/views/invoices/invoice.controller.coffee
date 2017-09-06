@@ -1,4 +1,4 @@
-@App.controller 'InvoiceController', ($stateParams, $uibModal, $window, MnoeAdminConfig, MnoeInvoices, toastr, DatesHelper) ->
+@App.controller 'InvoiceController', ($stateParams, $uibModal, $window, $state, MnoeAdminConfig, MnoeInvoices, toastr, DatesHelper) ->
   'ngInject'
   vm = this
 
@@ -12,6 +12,7 @@
   MnoeInvoices.get($stateParams.invoiceId).then(
     (response) ->
       vm.invoice = response.data.plain()
+      vm.isInvoiceEditedPaid = angular.copy(vm.invoice.invoice.paid_at)
   ).finally(-> vm.isLoading = false)
 
   # -----------------------------------------------------------------
@@ -33,6 +34,10 @@
       ->
         toastr.success('mnoe_admin_panel.dashboard.invoice.details.status_change')
     ).finally(-> vm.isLoading = false)
+    MnoeInvoices.addAdjustment(vm.invoice.invoice).then(
+      (response) ->
+    )
+    $state.go('dashboard.invoices')
 
   # -----------------------------------------------------------------
   #  Adjustment Management
