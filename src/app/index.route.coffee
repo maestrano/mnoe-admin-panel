@@ -242,7 +242,7 @@
       .state 'dashboard.order',
         data:
           pageTitle:'Order'
-        url: '^/orders/:ordId'
+        url: '^/orders/?:orderId&:orgId'
         views: '@dashboard':
           templateUrl: 'app/views/orders/order.html'
           controller: 'OrderController'
