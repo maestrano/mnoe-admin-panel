@@ -2,8 +2,11 @@
 @App.service 'MnoeApps', ($q, toastr, MnoeAdminApiSvc) ->
   _self = @
 
-  @list = (limit, offset, sort) ->
-    MnoeAdminApiSvc.all('apps').getList({order_by: sort, limit: limit, offset: offset}).then(
+  appsPromise = null
+
+  @list = ->
+    return appsPromise if appsPromise?
+    appsPromise = MnoeAdminApiSvc.all('apps').getList().then(
       (response) ->
         response
       (error) ->

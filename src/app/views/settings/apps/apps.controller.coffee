@@ -16,13 +16,15 @@
         )
     )
 
-  # TODO: cache full list and only apply filtering when resolving
   vm.availableAppsList = () ->
     MnoeApps.list().then(
       (response) ->
+        # Copy the response, we're are modifying the response in place and
+        # don't want to modify the cached version in MnoeApps
+        resp = angular.copy(response)
         enabledIds = _.map(vm.enabledApps, 'id')
-        _.remove(response.data, (app)-> _.includes(enabledIds, app.id))
-        return response
+        _.remove(resp.data, (app)-> _.includes(enabledIds, app.id))
+        return resp
     )
 
   vm.openAddAppModal = () ->
@@ -49,7 +51,8 @@
   init = ->
     MnoeMarketplace.getApps().then(
       (response) ->
-        # TODO: do we need copy?
+        # TODO: do we need copy? => Yes
+        # TODO: we need to refresh the cached copy in MnoeMarketplace
         # Copy the marketplace as we will work on the cached object
         vm.enabledApps = angular.copy(response.data.apps)
     )
