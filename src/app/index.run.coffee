@@ -37,7 +37,9 @@
       toastr[message.type](message.msg, _.capitalize(message.type), timeout: 10000)
       $location.search('flash', null) # remove the flash from url
   )
-  .run(($timeout, MnoeAdminConfig, Notifications) ->
+  .run((MnoeAdminConfig, Notifications, MnoeNotifications) ->
     if MnoeAdminConfig.isNotificationsEnabled()
-      $timeout ( -> Notifications.init() )
+      MnoeNotifications.get().then((notifications) ->
+        Notifications.init(notifications, MnoeNotifications.notified)
+      )
   )
