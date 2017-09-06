@@ -41,6 +41,8 @@
     <li class="sidebar-list" ng-if="::main.isFinanceEnabled" ui-sref-active="active">
       <a ui-sref="dashboard.finance">{{'mnoe_admin_panel.dashboard.layout.sidebar.finance' | translate}}<span class="menu-icon fa fa-money"></span></a>
     </li>
+    <li class="sidebar-list" ui-sref-active="active" ng-if="main.isFinanceEnabled">
+      <a ui-sref="dashboard.invoices">{{'mnoe_admin_panel.dashboard.layout.sidebar.invoices' | translate}}<span class="menu-icon fa fa-usd"></span></a>
     <li class="sidebar-list" ng-if="::main.isProvisioningEnabled" ui-sref-active="active">
       <a ui-sref="dashboard.orders">{{'mnoe_admin_panel.dashboard.layout.sidebar.orders' | translate}}<span class="menu-icon fa fa-shopping-basket"></span></a>
     </li>

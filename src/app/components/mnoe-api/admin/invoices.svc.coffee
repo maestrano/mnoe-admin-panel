@@ -2,6 +2,14 @@
 @App.service 'MnoeInvoices', (MnoeAdminApiSvc) ->
   _self = @
 
+  @list = (limit, offset, params = {}) ->
+    params["limit"] = limit
+    params["offset"] = offset
+    MnoeAdminApiSvc.all('invoices').getList(params)
+
+  @get = (id) ->
+    MnoeAdminApiSvc.one('/invoices', id).get()
+
   @currentBillingAmount = () ->
     MnoeAdminApiSvc.all('invoices').customGET('current_billing_amount')
 

@@ -148,15 +148,33 @@
         label: 'mnoe_admin_panel.dashboard.audit_log.title'
 
   if adminConfig.isFinanceEnabled()
-    $stateProvider.state 'dashboard.finance',
-      data:
-        pageTitle:'Finance'
-      url: '/finance'
-      templateUrl: 'app/views/finance/finance.html'
-      controller: 'FinanceController'
-      controllerAs: 'vm'
-      ncyBreadcrumb:
-        label: 'mnoe_admin_panel.dashboard.finance.title'
+    $stateProvider
+      .state 'dashboard.finance',
+        data:
+          pageTitle:'Finance'
+        url: '/finance'
+        templateUrl: 'app/views/finance/finance.html'
+        controller: 'FinanceController'
+        controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.finance.title'
+
+      .state 'dashboard.invoices',
+        data:
+          pageTitle:'Invoices'
+        url: '/invoices'
+        templateUrl: 'app/views/invoices/invoices.html'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.invoices.title'
+      .state 'dashboard.invoice',
+        data:
+          pageTitle:'Invoice'
+        url: '^/invoice/:invoiceId'
+        templateUrl: 'app/views/invoices/invoice.html'
+        controller: 'InvoiceController'
+        controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.invoice.title'
 
   if adminConfig.isStaffEnabled()
     $stateProvider.state 'dashboard.staff',
