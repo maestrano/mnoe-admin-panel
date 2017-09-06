@@ -23,15 +23,15 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{vm.invoice.invoice.slug}}</td>
-            <td>{{vm.invoice.organization.attributes.name}}</td>
-            <td>{{vm.invoice.invoice.started_at | amCalendar}} - {{vm.invoice.invoice.ended_at | amCalendar}}</td>
-            <td ng-if="vm.isPaymentEnabled">{{vm.expectedPaymentDate(vm.invoice.invoice.ended_at) | amCalendar }}</td>
+            <td>{{vm.invoice.slug}}</td>
+            <td>{{vm.invoice.organization.name}}</td>
+            <td>{{vm.invoice.started_at | amCalendar}} - {{vm.invoice.ended_at | amCalendar}}</td>
+            <td ng-if="vm.isPaymentEnabled">{{vm.expectedPaymentDate(vm.invoice.ended_at) | amCalendar }}</td>
             <td ng-if="!vm.isPaymentEnabled"></td>
-            <td>{{vm.invoice.invoice.price.currency.iso_code}}{{vm.invoice.invoice.price.fractional}}</td>
+            <td>{{vm.invoice.price.currency.iso_code}}{{vm.invoice.price.fractional}}</td>
             <td>
-              <span ng-if="vm.invoice.invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.paid</span>
-              <div class="btn-group" ng-if="!vm.invoice.invoice.paid_at" uib-dropdown dropdown-append-to-body>
+              <span ng-if="vm.invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.paid</span>
+              <div class="btn-group" ng-if="!vm.invoice.paid_at" uib-dropdown dropdown-append-to-body>
                 <button id="btn-append-to-body" type="button" class="btn btn-primary" uib-dropdown-toggle translate>
                   mnoe_admin_panel.dashboard.invoices.awaiting <span class="caret"></span>
                 </button>
@@ -42,7 +42,7 @@
             </td>
             <td>
               <span class="pull-right center-cloud">
-                <a ng-click="vm.downloadInvoice(vm.invoice.invoice.slug)" target="_blank"><i class="fa fa-cloud-download"></i></a>
+                <a ng-click="vm.downloadInvoice(vm.invoice.slug)" target="_blank"><i class="fa fa-cloud-download"></i></a>
               </span>
             </td>
           </tr>
@@ -69,7 +69,7 @@
       </thead>
       <tbody ng-show="!vm.isLoading">
         <tr ng-repeat="bill in vm.invoice.bills">
-          <td>{{bill.billable_name}}</td>
+          <td>{{bill.billable_name.attributes.name}}</td>
           <td>{{bill.billable_type}}</td>
           <td>{{bill.billing_type}}</td>
           <td>{{bill.currency}}{{bill.price_cents}}</td>
@@ -84,7 +84,7 @@
 <div id="single-invoice-adjustments">
   <div class="row">
     <div class="col-xs-12">
-      <div class="pull-right top-buffer-1" ng-if="!vm.invoice.invoice.paid_at">
+      <div class="pull-right top-buffer-1" ng-if="!vm.invoice.paid_at">
         <button role="button" ng-click="vm.openAddAdjustmentModal()" class="btn btn-primary" translate>
           mnoe_admin_panel.dashboard.invoice.add_adjustment
         </button>
@@ -108,10 +108,10 @@
         </thead>
         <tbody ng-show="!vm.isLoading">
           <tr ng-repeat="adjustment in vm.invoice.adjustments">
-            <td>{{adjustment.name}}</td>
-            <td>{{adjustment.amount}}</td>
+            <td>{{adjustment.billable_description}}</td>
+            <td>{{adjustment.currency}}{{adjustment.price_cents}}</td>
             <td>
-              <div ng-if="!vm.invoice.invoice.paid_at">
+              <div ng-if="!vm.invoice.paid_at">
                 <button role="button" ng-click="vm.openEditAdjustmentModal(adjustment)" class="btn btn-primary">
                   <i class="fa fa-pencil"></i>
                 </button>

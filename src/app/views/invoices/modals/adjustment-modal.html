@@ -5,10 +5,10 @@
   <div class="modal-body">
     <div class="row">
       <div class="col-sm-6">
-        <input type="text" class="form-control input-sm" ng-model="vm.adjustment.name" placeholder="{{'mnoe_admin_panel.dashboard.invoice.create_adjustments.adjustment_name' | translate}}" aria-label="name" required>
+        <input type="text" class="form-control input-sm" ng-model="vm.adjustment.billable_description" placeholder="{{'mnoe_admin_panel.dashboard.invoice.create_adjustments.adjustment_name' | translate}}" aria-label="name" required>
       </div>
       <div class="col-sm-6">
-        <input type="text" class="form-control input-sm" ng-model="vm.adjustment.amount" placeholder="{{'mnoe_admin_panel.dashboard.invoice.create_adjustments.adjustment_amount' | translate}}" aria-label="amount" required>
+        <input type="number" class="form-control input-sm" ng-model="vm.adjustment.price_cents" placeholder="{{'mnoe_admin_panel.dashboard.invoice.create_adjustments.adjustment_amount' | translate}}" aria-label="amount" required>
       </div>
     </div>
   </div>

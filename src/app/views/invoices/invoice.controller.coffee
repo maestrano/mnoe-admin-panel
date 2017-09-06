@@ -11,8 +11,8 @@
   vm.invoice.adjustments = []
   MnoeInvoices.get($stateParams.invoiceId).then(
     (response) ->
-      vm.invoice = response.data.plain()
-      vm.isInvoiceEditedPaid = angular.copy(vm.invoice.invoice.paid_at)
+      vm.invoice = response.data.plain().invoice
+      vm.isInvoiceEditedPaid = angular.copy(vm.invoice.paid_at)
   ).finally(-> vm.isLoading = false)
 
   # -----------------------------------------------------------------
@@ -26,17 +26,14 @@
     DatesHelper.expectedPaymentDate(endOfInvoiceDate)
 
   vm.changeInvoiceStatus = () ->
-    vm.invoice.invoice.paid_at = moment().toISOString()
+    vm.invoice.paid_at = moment().toISOString()
 
   vm.update = () ->
     vm.isLoading = true
-    MnoeInvoices.update(vm.invoice.invoice).then(
+    MnoeInvoices.update(vm.invoice).then(
       ->
         toastr.success('mnoe_admin_panel.dashboard.invoice.details.status_change')
     ).finally(-> vm.isLoading = false)
-    MnoeInvoices.addAdjustment(vm.invoice.invoice).then(
-      (response) ->
-    )
     $state.go('dashboard.invoices')
 
   # -----------------------------------------------------------------
