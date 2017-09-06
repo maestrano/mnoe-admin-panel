@@ -24,13 +24,12 @@
   vm.expectedPaymentDate = (endOfInvoiceDate) ->
     DatesHelper.expectedPaymentDate(endOfInvoiceDate)
 
-  # -----------------------------------------------------------------
-  #  Invoice status
-  # -----------------------------------------------------------------
   vm.changeInvoiceStatus = () ->
+    vm.invoice.invoice.paid_at = moment().toISOString()
+
+  vm.update = () ->
     vm.isLoading = true
-    vm.invoice.paid_at = moment().toISOString()
-    MnoeInvoices.update(vm.invoice).then(
+    MnoeInvoices.update(vm.invoice.invoice).then(
       ->
         toastr.success('mnoe_admin_panel.dashboard.invoice.details.status_change')
     ).finally(-> vm.isLoading = false)
