@@ -318,6 +318,8 @@
   "mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.perform": "Do you really want to fulfill the subscription <b>{subscription_name}</b>?",
   "mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.toastr_success": "The subscription {subscription_name} has successfully been fulfilled",
   "mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.toastr_error": "An error occurred while fulfilling subscription {subscription_name}",
+  "mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_disabled": "Your order status cannot be updated at this stage",
+  "mnoe_admin_panel.dashboard.subscriptions.modal.approve_disabled": "Your order status cannot be updated at this stage",
   "mnoe_admin_panel.dashboard.reviews.title": "Reviews",
   "mnoe_admin_panel.dashboard.reviews_list.title": "All reviews",
   "mnoe_admin_panel.dashboard.reviews_list.author": "Author",

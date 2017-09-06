@@ -50,6 +50,13 @@
   vm.disableCancel = ->
     return (vm.order.status != 'requested')
 
+  vm.orderWorkflowExplanation = ->
+    if vm.displayFulfillApproval() && vm.disableFulfillApproval()
+      return 'mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_disabled'
+    if vm.displayApproval() && vm.disableApproval()
+      return 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_disabled'
+
+
   vm.approveOrder = ->
     modalOptions =
       closeButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.close'

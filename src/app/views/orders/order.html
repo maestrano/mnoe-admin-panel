@@ -3,10 +3,10 @@
 </a>
 <div class="row">
   <div class="col-xs-6">
-    <mno-widget is-loading="" icon="fa-shopping-basket" heading="{{'mnoe_admin_panel.dashboard.order.order_info' | translate}}">
+    <mno-widget icon="fa-shopping-basket" heading="{{'mnoe_admin_panel.dashboard.order.order_info' | translate}}">
       <mno-widget-header></mno-widget-header>
       <mno-widget-body>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-xs-6">
             <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.reference</div>
           </div>
@@ -14,7 +14,7 @@
             {{vm.order.external_id}}
           </div>
         </div>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-xs-6">
             <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.date</div>
           </div>
@@ -22,7 +22,7 @@
             {{vm.order.start_date | date: 'dd/MM/yyyy'}}
           </div>
         </div>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-xs-6">
             <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.end_date</div>
           </div>
@@ -30,7 +30,7 @@
             {{vm.order.end_date | date: 'dd/MM/yyyy'}}
           </div>
         </div>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-xs-6">
             <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.product</div>
           </div>
@@ -38,7 +38,7 @@
             {{vm.order.product.name}}
           </div>
         </div>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-xs-6">
             <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.pricing_plan</div>
           </div>
@@ -46,7 +46,7 @@
             {{vm.order.product_pricing.name}}
           </div>
         </div>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-xs-6">
             <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.status</div>
           </div>
@@ -54,7 +54,7 @@
             {{vm.order.status}}
           </div>
         </div>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-xs-6">
             <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.approval</div>
           </div>
@@ -74,14 +74,21 @@
             </button>
           </div>
         </div>
+        <div class="row">
+          <div class="col-xs-6">
+          </div>
+          <div class="col-xs-6">
+            {{vm.orderWorkflowExplanation() | translate}}
+          </div>
+        </div>
       </mno-widget-body>
     </mno-widget>
   </div>
   <div class="col-xs-6">
-    <mno-widget is-loading="" icon="fa-user-o" heading="{{'mnoe_admin_panel.dashboard.order.customer' | translate}}">
+    <mno-widget icon="fa-user-o" heading="{{'mnoe_admin_panel.dashboard.order.customer' | translate}}">
       <mno-widget-header></mno-widget-header>
       <mno-widget-body>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-xs-4">
             <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.name</div>
           </div>
@@ -89,7 +96,7 @@
             {{vm.user.name}} {{vm.user.surname}}
           </div>
         </div>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-xs-4">
             <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.email</div>
           </div>
@@ -97,7 +104,7 @@
             {{vm.user.email}}
           </div>
         </div>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-xs-4">
             <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.organization</div>
           </div>
@@ -106,7 +113,7 @@
           </div>
         </div>
         <h4 translate>mnoe_admin_panel.dashboard.order.additional_info</h4>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-xs-12">
             {{vm.order.custom_data}}
           </div>
