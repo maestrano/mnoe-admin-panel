@@ -5,6 +5,9 @@
   vm.adjustment = adjustment
   
   vm.closeModal = () ->
-    $uibModalInstance.dismiss('cancel')
+    $uibModalInstance.close()
+
+  vm.createAdjustment = () ->
+    $uibModalInstance.close(vm.adjustment)
 
   return

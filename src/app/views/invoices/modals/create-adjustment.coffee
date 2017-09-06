@@ -2,10 +2,11 @@
   'ngInject'
   vm = this
 
+  vm.adjustment = {}
   vm.closeModal = () ->
     $uibModalInstance.dismiss('cancel')
 
   vm.createAdjustment = () ->
-    vm.isLoading = true
+    $uibModalInstance.close(vm.adjustment)
 
   return

@@ -6,6 +6,6 @@
     $uibModalInstance.dismiss('cancel')
 
   vm.deleteAdjustment = () ->
-    vm.isLoading = true
+    $uibModalInstance.close(true)
 
   return

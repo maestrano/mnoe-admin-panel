@@ -8,6 +8,7 @@
   vm.isPaymentEnabled = MnoeAdminConfig.isPaymentEnabled()
   vm.isLoading = true
   vm.invoice = {}
+  vm.invoice.adjustments = []
   MnoeInvoices.get($stateParams.invoiceId).then(
     (response) ->
       vm.invoice = response.data.plain()
@@ -35,7 +36,7 @@
     ).finally(-> vm.isLoading = false)
 
   # -----------------------------------------------------------------
-  #  Adjustments
+  #  Adjustment Management
   # -----------------------------------------------------------------
   vm.openAddAdjustmentModal = () ->
     modalInstance = $uibModal.open(
@@ -43,21 +44,42 @@
       controller: 'CreateAdjustmentController'
       controllerAs: 'vm'
     )
+    modalInstance.result.then(
+      (adjustment) ->
+        # Add the adjustment adjustment
+        vm.invoice.adjustments.push(adjustment)
+    )
 
   vm.openEditAdjustmentModal = (adjustment) ->
+    vm.oldAdjustment = angular.copy(adjustment)
     modalInstance = $uibModal.open(
       templateUrl: 'app/views/invoices/modals/adjustment-modal.html'
       controller: 'EditAdjustmentController'
       controllerAs: 'vm'
       resolve:
-        adjustment: adjustment
+        adjustment: vm.oldAdjustment
+    )
+    modalInstance.result.then(
+      (adjustmentEdited) ->
+        # If the adjustment is modified
+        if adjustmentEdited
+          indexOfAdjustment = vm.invoice.adjustments.indexOf(adjustment)
+          vm.invoice.adjustments.splice(indexOfAdjustment, 1)
+          vm.invoice.adjustments.push(adjustmentEdited)
     )
   
-  vm.openDeleteAdjustmentModal = (adjustmentId) ->
+  vm.openDeleteAdjustmentModal = (adjustment) ->
     modalInstance = $uibModal.open(
       templateUrl: 'app/views/invoices/modals/delete-adjustment.html'
       controller: 'DeleteAdjustmentController'
       controllerAs: 'vm'
+    )
+    modalInstance.result.then(
+      (deletion) ->
+        # If user delete the adjustment
+        if deletion
+          indexOfAdjustment = vm.invoice.adjustments.indexOf(adjustment)
+          vm.invoice.adjustments.splice(indexOfAdjustment, 1)
     )
 
   return
