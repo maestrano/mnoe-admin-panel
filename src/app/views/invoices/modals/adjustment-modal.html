@@ -16,13 +16,13 @@
 <div class="modal-footer">
   <div class="row actions">
     <div class="col-xs-12">
+      <button type="button" ng-click="vm.closeModal()" class="btn btn-default">
+        {{ 'mnoe_admin_panel.dashboard.invoice.create_adjustments.cancel' | translate }}
+      </button>
       <button type="button" ng-click="vm.createAdjustment()" ng-disabled="vm.isLoading || vm.form.adjustment.$invalid" class="btn btn-primary">
         <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span translate>
         {{ 'mnoe_admin_panel.dashboard.invoice.create_adjustments.save' | translate }}
       </button>
-      <a href="" ng-click="vm.closeModal()"><i class="fa fa-times"></i translate>
-        {{ 'mnoe_admin_panel.dashboard.invoice.create_adjustments.cancel' | translate }}
-      </a>
     </div>
   </div>
 </div>

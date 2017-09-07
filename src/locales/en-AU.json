@@ -452,6 +452,8 @@
   "mnoe_admin_panel.dashboard.invoice.adjustments.adjustment_name": "Adjustment name",
   "mnoe_admin_panel.dashboard.invoice.adjustments.adjustment_amount": "Amount",
   "mnoe_admin_panel.dashboard.invoice.adjustments.no_adjustments": "There are no adjustments on this invoice",
+  "mnoe_admin_panel.dashboard.invoice.adjustments.cancel": "Cancel",
+  "mnoe_admin_panel.dashboard.invoice.adjustments.update": "Update",
   "mnoe_admin_panel.dashboard.invoice.adjustments.send_to_customer": "Send to customer",
   "mnoe_admin_panel.dashboard.invoice.create_adjustments.save": "Save",
   "mnoe_admin_panel.dashboard.invoice.create_adjustments.create_adjustment": "Create adjustment",
