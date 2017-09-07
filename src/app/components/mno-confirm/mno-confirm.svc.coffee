@@ -1,4 +1,4 @@
-@App.service 'MnoConfirm', ($uibModal) ->
+@App.service 'MnoConfirm', ($uibModal, $q) ->
   _self = this
 
   modalOptions =
@@ -10,6 +10,8 @@
     headerTextExtraData: {}
     bodyText: 'mnoe_admin_panel.dashboard.mno_confirm.perform'
     bodyTextExtraData: {}
+    actionCb: $q.resolve
+    type: 'primary'
 
   modalDefaults =
     backdrop: true
@@ -39,9 +41,15 @@
         'ngInject'
 
         $scope.modalOptions = tempModalOptions
-        $scope.modalOptions.ok = (result) ->
-          $uibModalInstance.close(result)
-        $scope.modalOptions.close = (result) ->
+
+        $scope.modalOptions.ok = () ->
+          $scope.modalOptions.isLoading = true
+          $scope.modalOptions.actionCb().then(
+            (response) ->
+              $uibModalInstance.close(response)
+          ).finally(-> $scope.modalOptions.isLoading = false)
+
+        $scope.modalOptions.close = () ->
           $uibModalInstance.dismiss('cancel')
 
     $uibModal.open(tempModalDefaults).result

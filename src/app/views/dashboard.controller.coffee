@@ -10,6 +10,7 @@
     main.areQuestionsEnabled = QUESTIONS_CONFIG && QUESTIONS_CONFIG.enabled
     main.isFinanceEnabled = MnoeAdminConfig.isFinanceEnabled()
     main.isSubTenantEnabled = MnoeAdminConfig.isSubTenantEnabled()
+    main.isDashboardTemplatesEnabled = MnoeAdminConfig.isDashboardTemplatesEnabled()
     main.adminConfig = MnoeAdminConfig
 
     main.trustSrc = (src) ->
