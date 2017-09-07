@@ -33,7 +33,7 @@
           ctrl.invoices.totalItems = response.headers('x-total-count')
           ctrl.invoices.list = response.data
       ).finally(-> ctrl.invoices.loading = false)
-  
+
     # -----------------------------------------------------------------
     # Invoice Management
     # -----------------------------------------------------------------
@@ -55,7 +55,7 @@
       $state.go('dashboard.invoice', {invoiceId: invoiceId})
 
     ctrl.downloadInvoice = (slug, event) ->
-      $window.location.href = '/mnoe/admin/invoices/' + slug
+      $window.open('/mnoe/admin/invoices/' + slug, '_blank')
       # avoid change to single invoice view when click in this cell
       event.stopPropagation()
 
