@@ -1,0 +1,97 @@
+<mno-widget icon="fa-question-circle" heading="All questions">
+  <mno-widget-header></mno-widget-header>
+  <mno-widget-body class="large no-padding widget-comments">
+    <div id="admin-question-list">
+      <table class="table" >
+        <thead>
+          <tr>
+            <th translate>mnoe_admin_panel.dashboard.questions_list.author</th>
+            <th translate>mnoe_admin_panel.dashboard.questions_list.company</th>
+            <th translate>mnoe_admin_panel.dashboard.questions_list.app</th>
+            <th translate>mnoe_admin_panel.dashboard.questions_list.type</th>
+            <th translate>mnoe_admin_panel.dashboard.questions_list.message</th>
+            <th translate>mnoe_admin_panel.dashboard.questions_list.date</th>
+            <th translate>mnoe_admin_panel.dashboard.questions_list.answers</th>
+            <th translate>mnoe_admin_panel.dashboard.questions_list.status</th>
+          </tr>
+        </thead>
+        <tbody ng-repeat="question in listOfQuestions">
+          <tr class="question">
+            <td>
+              {{question.user_name}}
+            </td>
+            <td>
+              {{question.organization_name}}
+            </td>
+            <td>
+              {{question.app_name}}
+            </td>
+            <td>
+              {{'mnoe_admin_panel.dashboard.questions_list.question' | translate}}
+            </td>
+            <td>
+              <p>{{question.description}}</p>
+              <div class="text-right">
+                <button type="button" name="button" ng-click="openQuestionReplyModal(question)" translate>mnoe_admin_panel.dashboard.questions_list.button.reply</button>
+                <button type="button" name="button" ng-click="openEditModal(question)" translate>mnoe_admin_panel.dashboard.questions_list.button.edit</button>
+              </div>
+            </td>
+            <td>
+              {{question.created_at | date: 'dd/MM/yyyy' }}
+            </td>
+            <td>
+              <a href="" ng-hide="question.showAnswers || question.answers.length == 0" ng-click="question.showAnswers = true">{{'mnoe_admin_panel.dashboard.questions_list.answers.show' | translate}}&nbsp;({{question.answers.length}})</a>
+              <a href="" ng-show="question.showAnswers" ng-click="question.showAnswers = false">{{'mnoe_admin_panel.dashboard.questions_list.answers.hide' | translate}}</a>
+            </td>
+            <td>
+              <span ng-show="!editmode[question.id]">{{question.status}}</span>
+              <select ng-model="question.status" ng-show="editmode[question.id]" >
+                <option ng-repeat="status in statuses" value="{{status.value}}" translate>{{status.label}}</option>
+              </select>
+              <div class="pull-right">
+                <a href="" ng-hide="editmode[question.id]" ng-click="editmode[question.id] = true"><i class="fa fa-pencil"></i></a>
+                <a href="" ng-show="editmode[question.id]" ng-click="update(question)"><i class="fa fa-check"></i></a>
+              </div>
+            </td>
+          </tr>
+          <tr class="answer" ng-show="question.showAnswers" ng-repeat="answer in question.answers">
+            <td>
+              {{answer.user_name}}
+            </td>
+            <td>
+              {{answer.organization_name}}
+            </td>
+            <td>
+              {{answer.app_name}}
+            </td>
+            <td>
+              {{'mnoe_admin_panel.dashboard.questions_list.answer' | translate}}
+            </td>
+            <td>
+              <p>{{answer.description}}</p>
+              <div class="text-right">
+                <button type="button" name="button" ng-click="openEditAnswerModal(answer)" translate>mnoe_admin_panel.dashboard.questions_list.button.edit</button>
+              </div>
+            </td>
+            <td>
+              {{answer.created_at | date: 'dd/MM/yyyy' }}
+            </td>
+            <td>
+              {{'mnoe_admin_panel.dashboard.questions_list.not_applicable' | translate}}
+            </td>
+            <td>
+              <span ng-show="!editmode[answer.id]">{{answer.status}}</span>
+              <select ng-model="answer.status" ng-show="editmode[answer.id]" >
+                <option ng-repeat="status in statuses" value="{{status.value}}" translate>{{status.label}}</option>
+              </select>
+              <div class="pull-right">
+                <a href="" ng-hide="editmode[answer.id]" ng-click="editmode[answer.id] = true"><i class="fa fa-pencil"></i></a>
+                <a href="" ng-show="editmode[answer.id]" ng-click="update(answer)"><i class="fa fa-check"></i></a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mno-widget-body>
+</mno-widget>

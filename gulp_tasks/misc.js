@@ -2,24 +2,35 @@ const path = require('path');
 
 const gulp = require('gulp');
 const del = require('del');
+const mainBowerFiles = require('gulp-main-bower-files');
 const filter = require('gulp-filter');
+const flatten = require('gulp-flatten');
 
 const conf = require('../conf/gulp.conf');
 
 gulp.task('clean', clean);
 gulp.task('fonts', fonts);
+gulp.task('images', images);
 gulp.task('other', other);
 
 function clean() {
   return del([conf.paths.dist, conf.paths.tmp]);
 }
 
-function fonts(){
+function fonts() {
   return gulp.src([
     'bower_components/font-awesome/fonts/*',
     'bower_components/bootstrap/fonts/*'
   ])
-    .pipe(gulp.dest(path.join(conf.path.dist(), '/fonts/')));
+    .pipe(gulp.dest(conf.path.dist('/fonts/')));
+}
+
+function images() {
+  return gulp.src('./bower.json')
+    .pipe(mainBowerFiles())
+    .pipe(filter('**/*.{png,jpg,jpeg,gif}'))
+    .pipe(flatten())
+    .pipe(gulp.dest(conf.path.dist('/images/')));
 }
 
 function other() {
