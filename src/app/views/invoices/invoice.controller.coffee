@@ -32,7 +32,7 @@
     vm.isLoading = true
     MnoeInvoices.update(vm.invoice).then(
       ->
-        toastr.success('mnoe_admin_panel.dashboard.invoice.details.status_change')
+        toastr.success('mnoe_admin_panel.dashboard.invoice.details.updated')
     ).finally(-> vm.isLoading = false)
     $state.go('dashboard.invoices')
 
