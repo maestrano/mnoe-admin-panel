@@ -1,28 +1,31 @@
-@App.controller 'DashboardController', ($scope, $cookies, $sce, MnoeMarketplace, MnoErrorsHandler, MnoeCurrentUser, MnoeAdminConfig, STAFF_PAGE_AUTH, REVIEWS_CONFIG, QUESTIONS_CONFIG) ->
-  'ngInject'
-  main = this
+@App.controller 'DashboardController',
+  ($scope, $cookies, $sce, MnoeMarketplace, MnoErrorsHandler, MnoeCurrentUser, MnoeAdminConfig,
+    STAFF_PAGE_AUTH, REVIEWS_CONFIG, QUESTIONS_CONFIG) ->
+    'ngInject'
+    main = this
 
-  main.errorHandler = MnoErrorsHandler
-  main.staffPageAuthorized = STAFF_PAGE_AUTH
-  main.isReviewingEnabled = REVIEWS_CONFIG && REVIEWS_CONFIG.enabled
-  main.areQuestionsEnabled = QUESTIONS_CONFIG && QUESTIONS_CONFIG.enabled
-  main.isFinanceEnabled = MnoeAdminConfig.isFinanceEnabled()
-  main.adminConfig = MnoeAdminConfig
-  main.isDashboardTemplatesEnabled = MnoeAdminConfig.isDashboardTemplatesEnabled()
+    main.errorHandler = MnoErrorsHandler
+    main.staffPageAuthorized = STAFF_PAGE_AUTH
+    main.isReviewingEnabled = REVIEWS_CONFIG && REVIEWS_CONFIG.enabled
+    main.areQuestionsEnabled = QUESTIONS_CONFIG && QUESTIONS_CONFIG.enabled
+    main.isFinanceEnabled = MnoeAdminConfig.isFinanceEnabled()
+    main.isSubTenantEnabled = MnoeAdminConfig.isSubTenantEnabled()
+    main.isDashboardTemplatesEnabled = MnoeAdminConfig.isDashboardTemplatesEnabled()
+    main.adminConfig = MnoeAdminConfig
 
-  main.trustSrc = (src) ->
-    $sce.trustAsResourceUrl(src)
+    main.trustSrc = (src) ->
+      $sce.trustAsResourceUrl(src)
 
-  # Preload data to be reused in the app
-  # Marketplace is cached
-  # MnoeMarketplace.getApps()
+    # Preload data to be reused in the app
+    # Marketplace is cached
+    # MnoeMarketplace.getApps()
 
-  MnoeCurrentUser.getUser().then(
-    # Display the layout
-    main.user = MnoeCurrentUser.user
-  )
+    MnoeCurrentUser.getUser().then(
+      # Display the layout
+      main.user = MnoeCurrentUser.user
+    )
 
-  main.exit = ->
-    MnoeCurrentUser.logout()
+    main.exit = ->
+      MnoeCurrentUser.logout()
 
-  return
+    return

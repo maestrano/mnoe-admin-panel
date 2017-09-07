@@ -1,0 +1,51 @@
+<mno-widget icon="fa-wrench" heading="{{$ctrl.subTenant.widgetTitle}}" is-loading="subTenant.loading">
+  <mno-widget-header translate>
+    &nbsp;mnoe_admin_panel.dashboard.sub_tenants.widget.list.title
+  </mno-widget-header>
+  <mno-widget-body classes="large no-padding">
+    <div>
+      <table st-pipe="$ctrl.callServer" st-table="$ctrl.listOfSubTenant" class="table table-striped">
+        <thead>
+        <tr>
+          <th st-sort="name" class="col-lg-2" translate>mnoe_admin_panel.dashboard.sub_tenants.widget.list.table.name</th>
+          <th st-sort="created_at" class="col-lg-2" translate>mnoe_admin_panel.dashboard.sub_tenants.widget.list.table.created_at</th>
+          <th st-sort="update_at" class="col-lg-2" translate>mnoe_admin_panel.dashboard.sub_tenants.widget.list.table.updated_at</th>
+        </tr>
+        </thead>
+        <tbody ng-show="$ctrl.subTenant.loading">
+        <tr>
+          <td colspan="6" class="text-center" translate>mnoe_admin_panel.dashboard.sub_tenants.widget.list.loading</td>
+        </tr>
+        </tbody>
+        <tbody ng-show="!$ctrl.subTenant.loading">
+        <tr ng-repeat="subTenantElem in $ctrl.listOfSubTenant">
+          <td><a ng-show="!$ctrl.subTenant.editmode[subTenantElem.id]"
+                 ui-sref="dashboard.sub-tenant({subTenantId: subTenantElem.id})">{{subTenantElem.name}}</a></span>
+            <input ng-show="$ctrl.subTenant.editmode[subTenantElem.id]" name="name" type="text" ng-model="subTenantElem.name" class="form-control" required>
+          </td>
+
+          <td>{{subTenantElem.created_at | date: 'dd/MM/yyyy'}}</td>
+          <td>{{subTenantElem.updated_at | date: 'dd/MM/yyyy'}}</td>
+          <td>
+            <a href="" ng-hide="$ctrl.subTenant.editmode[subTenantElem.id]" ng-click="$ctrl.subTenant.editmode[subTenantElem.id] = true"><i
+              class="fa fa-pencil"></i></a></td>
+          <td>
+          <td>
+            <a href="" ng-hide="$ctrl.subTenant.editmode[subTenantElem.id]" ng-click="$ctrl.subTenant.remove(subTenantElem)"><i class="fa fa-times"></i></a>
+            <a href="" ng-show="$ctrl.subTenant.editmode[subTenantElem.id]" ng-click="$ctrl.subTenant.update(subTenantElem)"><i class="fa fa-check"></i></a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </mno-widget-body>
+  <mno-widget-footer ng-show="$ctrl.listOfSubTenant">
+    <mno-pagination
+      page="$ctrl.subTenant.page"
+      nb-items="$ctrl.subTenant.nbItems"
+      total-items="$ctrl.subTenant.totalItems"
+      on-change-cb="$ctrl.subTenant.pageChangedCb(nbItems, page)"
+      is-loading="$ctrl.subTenant.loading">
+    </mno-pagination>
+  </mno-widget-footer>
+</mno-widget>

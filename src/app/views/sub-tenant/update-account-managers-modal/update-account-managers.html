@@ -1,0 +1,65 @@
+<div id="sub-tenant-modal">
+  <div class="modal-header">
+    <h3 class="modal-title" translate>mnoe_admin_panel.dashboard.sub_tenant.select_account_managers.modal.title</h3>
+  </div>
+
+  <div class="modal-body">
+    <rd-widget-body classes="large no-padding"> <!-- loading="staff.loading"  -->
+      <div>
+          <table st-pipe="vm.callServer" st-table="vm.listOfStaff" class="table table-striped">
+            <thead>
+            <tr>
+              <th st-sort="name" class="col-lg-2">Name</th>
+              <th st-sort="surname" class="col-lg-3">Surname</th>
+              <th st-sort="created_at" class="col-lg-3">Creation</th>
+              <th st-sort="admin_role" class="col-lg-3">Role</th>
+            </tr>
+            <tr>
+              <th>
+                <input st-search="name" placeholder="Search for name" class="form-control input-sm  search-bar"
+                       type="text"/>
+              </th>
+              <th>
+                <input st-search="surname" placeholder="Search for surname" class="form-control input-sm  search-bar"
+                       type="text"/>
+              </th>
+              <th></th>
+              <th>
+                <select st-search="admin_role" class="form-control input-sm">
+                  <option value="" selected translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.admin_role.all</option>
+                  <option value="{{role.value}}" ng-repeat="role in vm.staff_roles">{{ role.label | translate }}</option>
+                </select>
+              </th>
+            </tr>
+            </thead>
+            <tbody ng-show="vm.staff.loading">
+            <tr>
+              <td colspan="6" class="text-center">Loading ...</td>
+            </tr>
+            </tbody>
+            <tbody ng-show="!vm.staff.loading">
+            <tr ng-repeat="staffElem in vm.listOfStaff">
+              <td>{{staffElem.name}}</td>
+              <td>{{staffElem.surname}}</td>
+              <td>{{staffElem.created_at | date: 'dd/MM/yyyy'}}</td>
+              <td translate>{{vm.getAdminRoleLabel(staffElem.admin_role)}}</td>
+              <td><input type="checkbox" ng-model="vm.selectedUsers[staffElem.id]"></td>
+            </tr>
+            </tbody>
+          </table>
+      </div>
+    </rd-widget-body>
+  </div>
+
+  <div class="modal-footer">
+    <div class="row actions">
+      <div class="col-xs-12">
+        <button type="button" ng-click="vm.onSubmit()" ng-disabled="vm.isLoading" class="btn btn-primary">
+          <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+          Save
+        </button>
+        <a href="" ng-click="vm.onCancel()"><i class="fa fa-times"></i> cancel</a>
+      </div>
+    </div>
+  </div>
+</div>

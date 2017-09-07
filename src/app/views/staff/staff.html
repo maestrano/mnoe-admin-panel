@@ -1,13 +1,73 @@
 <div class="row">
-  <div class="col-xs-8 col-lg-offset-1 top-buffer-1">
-    <button role="button" ng-click="vm.staff.createModal()" class="btn btn-primary" translate>
-      mnoe_admin_panel.dashboard.staff.add_staff
-    </button>
-  </div>
-</div>
+  <div class="col-xs-12">
+    <h1 translate><i class="fa fa-user"></i>mnoe_admin_panel.dashboard.staff.staff_info</h1>
+    <mno-widget is-loading="!vm.staff" icon="fa-users" heading="{{vm.staff.name + ' ' + vm.staff.surname}}">
+      <mno-widget-header></mno-widget-header>
+      <mno-widget-body>
+        <div class="bs-row row">
+          <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.uid</div></div>
+          <div class="col-md-3">{{vm.staff.uid}}</div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.name</div></div>
+          <div class="col-md-3">
+            <input type="text" class="form-control input-sm" ng-model="vm.staff.name" required>
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.surname</div></div>
+          <div class="col-md-3">
+            <input type="text" class="form-control input-sm" ng-model="vm.staff.surname" required>
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.email</div></div>
+          <div class="col-md-3">{{vm.staff.email}}</div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.admin_role</div></div>
+          <div class="col-md-3">
+            <span ng-if="!vm.isAdmin">{{vm.staff.adminRoleName() | translate}}</span>
+            <select ng-model="vm.staff.admin_role" ng-if="vm.isAdmin" class="form-control input-sm">
+              <option value="{{role.value}}" ng-repeat="role in vm.adminRoles">{{ role.label | translate }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.created_at</div></div>
+          <div class="col-sm-3">{{vm.staff.created_at | amCalendar }}</div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.updated_at</div></div>
+          <div class="col-sm-3">{{vm.staff.updated_at | amCalendar }}</div>
+        </div>
+        <div class="bs-row row" ng-if="vm.isSubTenantEnabled">
+          <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.sub_tenant</div></div>
+          <div class="col-sm-3" ng-show="vm.subTenants">
+            <span ng-if="!vm.isAdmin">{{vm.staff.subTenantName()}}</span>
 
-<div class="row">
-  <div class="col-lg-10 col-lg-offset-1 col-md-12">
-    <mnoe-staffs-list view="all"></mnoe-staffs-list>
+            <select ng-if="vm.isAdmin" ng-options="subtenant.id as subtenant.name for subtenant in vm.subTenants"  class="form-control input-sm" ng-model="vm.staff.mnoe_sub_tenant_id">
+              <option value=""></option>
+            </select>
+          </div>
+        </div>
+        <div class="bs-row row">
+          <div class="col-sm-3">
+            <button class="btn btn-primary" ng-show="vm.staff" ng-disabled="vm.isSaving" ng-click="vm.updateStaff()" translate>
+              <span ng-show="vm.isSaving"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+              mnoe_admin_panel.dashboard.staff.update_staff
+            </button>
+          </div>
+        </div>
+      </mno-widget-body>
+    </mno-widget>
+
+    <div class="bs-row" ng-if="vm.staff && vm.staff.admin_role_was=='staff'">
+      <div class="col-sm-12">
+        <h2><i class="fa fa-users"></i> Clients</h2>
+        <button class="btn btn-primary center-block" ng-show="vm.staff"  ng-click="vm.updateClientsModal()" translate>mnoe_admin_panel.dashboard.staff.add_remove_clients</button>
+        <mnoe-organizations-local-list list="vm.staff.clients" view="all"></mnoe-organizations-local-list>
+      </div>
+    </div>
   </div>
 </div>

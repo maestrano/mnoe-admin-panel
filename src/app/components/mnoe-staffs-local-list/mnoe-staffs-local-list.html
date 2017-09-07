@@ -1,0 +1,27 @@
+<mno-widget icon="fa-wrench" heading="{{$ctrl.staff.widgetTitle}}" is-loading="staff.loading">
+  <mno-widget-header>
+    &nbsp;{{ 'mnoe_admin_panel.dashboard.staffs.widget.list.title' | translate}}
+  </mno-widget-header>
+  <mno-widget-body class="large no-padding">
+    <div>
+      <table class="table table-striped" >
+        <thead>
+          <tr>
+            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.first_name</th>
+            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.last_name</th>
+            <th class="col-lg-3" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.email</th>
+            <th class="col-lg-3" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.role</th>
+        	</tr>
+      	</thead>
+      	<tbody >
+          <tr ng-repeat="staffElem in list">
+            <td><a ui-sref="dashboard.staff({staffId: staffElem.id})">{{staffElem.name}}</a></td>
+            <td>{{staffElem.surname}}</td>
+            <td>{{staffElem.email}}</td>
+            <td><span translate>{{ getAdminRoleLabel(staffElem) }}</span></td>
+          </tr>
+      	</tbody>
+      </table>
+    </div>
+  </mno-widget-body>
+</mno-widget>
