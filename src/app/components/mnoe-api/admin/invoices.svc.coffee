@@ -10,6 +10,9 @@
   @get = (id) ->
     MnoeAdminApiSvc.one('/invoices', id).get()
 
+  @update = (invoice) ->
+    MnoeAdminApiSvc.one('/invoices', invoice.id).patch({invoice: invoice})
+
   @currentBillingAmount = () ->
     MnoeAdminApiSvc.all('invoices').customGET('current_billing_amount')
 

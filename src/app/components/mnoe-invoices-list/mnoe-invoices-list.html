@@ -1,49 +1,61 @@
-<mno-widget icon="fa-file-text-o" heading="{{'mnoe_admin_panel.dashboard.invoices.widget.list.title' | translate}}" is-loading="$ctrl.invoices.loading">
-  <mno-widget-header> 
-  </mno-widget-header>
-  <mno-widget-body class="large no-padding">
-    <table st-pipe="$ctrl.callServer" st-table="$ctrl.invoices.list" class="table table-striped table-responsive">
-      <thead>
-        <tr>
-          <th class="col-lg-1" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.reference</th>
-          <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.customer</th>
-          <th class="col-lg-3" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.period</th>
-          <th class="col-lg-2" ng-if="$ctrl.isPaymentEnabled" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.expected_payment_date</th>
-          <th class="col-lg-1" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.amount</th>
-          <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.status</th>
-          <th class="col-lg-1"></th>
-        </tr>
-        <tr>
-          <th>
-            <input st-search="slug" placeholder="{{'mnoe_admin_panel.dashboard.invoices.search_reference' | translate}}" class="form-control input-sm search-bar" type="text"/>
-          </th>
-        </tr>
-      </thead>
-      <tbody ng-show="!$ctrl.invoices.loading">
-        <tr ng-repeat="invoice in $ctrl.invoices.list" ng-click="$ctrl.goToInvoice(invoice.id)">
-          <td>{{invoice.slug}}</td>
-          <td>{{invoice.organization.name}}</td>
-          <td>{{invoice.started_at | amCalendar}} - {{invoice.ended_at | amCalendar}}</td>
-          <td ng-if="$ctrl.isPaymentEnabled">{{$ctrl.expectedPaymentDate(invoice.ended_at) | amCalendar }}</td>
-          <td>{{invoice.total_due.currency.symbol}}{{invoice.total_due.fractional}}</td>
-          <td>
-            <span ng-show="invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.paid</span>
-            <span ng-show="!invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.awaiting</span>
-          </td>
-          <td>
-            <a ng-href="/mnoe/admin/invoices/{{invoice.slug}}" target="_blank"><i class="fa fa-cloud-download"></i></a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </mno-widget-body>
-  <mno-widget-footer>
-    <mno-pagination
-      page="$ctrl.invoices.page"
-      nb-items="$ctrl.invoices.nbItems"
-      total-items="$ctrl.invoices.totalItems"
-      on-change-cb="$ctrl.invoices.pageChangedCb(nbItems, page)"
-      is-loading="$ctrl.invoices.loading">
-    </mno-pagination>
-  </mno-widget-footer>
-</mno-widget>
+<div id="invoices-list">
+  <mno-widget icon="fa-file-text-o" heading="{{'mnoe_admin_panel.dashboard.invoices.widget.list.title' | translate}}" is-loading="$ctrl.invoices.loading">
+    <mno-widget-header> 
+    </mno-widget-header>
+    <mno-widget-body class="large no-padding">
+      <table st-pipe="$ctrl.callServer" st-table="$ctrl.invoices.list" class="table table-striped table-responsive">
+        <thead>
+          <tr>
+            <th class="col-lg-1" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.reference</th>
+            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.customer</th>
+            <th class="col-lg-3" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.period</th>
+            <th class="col-lg-2" ng-if="$ctrl.isPaymentEnabled" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.expected_payment_date</th>
+            <th class="col-lg-2" ng-if="!$ctrl.isPaymentEnabled"></th>
+            <th class="col-lg-1" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.amount</th>
+            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.invoices.widget.list.table.status</th>
+            <th class="col-lg-1"></th>
+          </tr>
+          <tr>
+            <th>
+              <input ng-show="!$ctrl.invoices.loading" st-search="slug" placeholder="{{'mnoe_admin_panel.dashboard.invoices.search_reference' | translate}}" class="form-control input-sm search-bar" type="text"/>
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody ng-show="!$ctrl.invoices.loading">
+          <tr ng-repeat="invoice in $ctrl.invoices.list" ng-click="$ctrl.goToInvoice(invoice.id)">
+            <td>{{invoice.slug}}</td>
+            <td>{{invoice.organization.name}}</td>
+            <td>{{invoice.started_at | amCalendar}} - {{invoice.ended_at | amCalendar}}</td>
+            <td ng-if="$ctrl.isPaymentEnabled">{{$ctrl.expectedPaymentDate(invoice.ended_at) | amCalendar }}</td>
+            <td ng-if="!$ctrl.isPaymentEnabled"></td>
+            <td>{{invoice.total_due.currency.symbol}}{{invoice.total_due.fractional}}</td>
+            <td>
+              <span ng-show="invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.paid</span>
+              <span ng-show="!invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.awaiting</span>
+            </td>
+            <td>
+              <span class="pull-right center-cloud">
+                <a ng-click="$ctrl.downloadInvoice(invoice.slug, $event)" target="_blank"><i class="fa fa-cloud-download"></i></a>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mno-widget-body>
+    <mno-widget-footer>
+      <mno-pagination
+        page="$ctrl.invoices.page"
+        nb-items="$ctrl.invoices.nbItems"
+        total-items="$ctrl.invoices.totalItems"
+        on-change-cb="$ctrl.invoices.pageChangedCb(nbItems, page)"
+        is-loading="$ctrl.invoices.loading">
+      </mno-pagination>
+    </mno-widget-footer>
+  </mno-widget>
+</div>
