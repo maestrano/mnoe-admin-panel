@@ -58,7 +58,7 @@
     <li class="sidebar-list" ng-show="main.user.admin_role == 'admin'" ng-if="::main.isSubTenantEnabled">
       <a ui-sref="dashboard.sub-tenants">{{'mnoe_admin_panel.dashboard.layout.sidebar.sub_tenants' | translate}}<span class="menu-icon fa fa-institution"></span></a>
     </li>
-    <li class="sidebar-list" ui-sref-active="active">
+    <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ui-sref-active="active">
       <a ui-sref="dashboard.product-markups">{{'mnoe_admin_panel.dashboard.layout.sidebar.product_markups' | translate}}<span class="menu-icon fa fa-percent"></span></a>
     </li>
     <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="main.isReviewingEnabled" ui-sref-active="active">
@@ -73,6 +73,7 @@
     <li class="sidebar-list" ng-if="::main.isDashboardTemplatesEnabled" ui-sref-active="active">
       <a ui-sref="dashboard.dashboard-templates">{{'mnoe_admin_panel.dashboard.layout.sidebar.dashboard_templates' | translate}}<span class="menu-icon fa fa-bar-chart"></span></a>
     </li>
+    <div ng-if="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1">
     <li class="sidebar-title"><span>{{'mnoe_admin_panel.dashboard.layout.sidebar.settings' | translate}}</span></li>
     <li class="sidebar-list" ui-sref-active="active">
       <a ui-sref="dashboard.settings-general">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings-general' | translate}}<span class="menu-icon fa fa-cogs"></span></a>
@@ -86,6 +87,7 @@
     <li class="sidebar-list" ui-sref-active="active">
       <a ui-sref="dashboard.settings-domain">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings-domain' | translate}}<span class="menu-icon fa fa-shield"></span></a>
     </li>
+    </div>
   </mno-admin-nav>
 
   <mno-admin-content>
