@@ -2,8 +2,11 @@
 @App.service 'MnoeUsers', ($q, $log, MnoeAdminApiSvc, MnoeObservables, OBS_KEYS) ->
   _self = @
 
-  @list = (limit, offset, sort) ->
-    promise = MnoeAdminApiSvc.all('users').getList({order_by: sort, limit: limit, offset: offset}).then(
+  @list = (limit, offset, sort, params = {}) ->
+    params["order_by"] = sort
+    params["limit"] = limit
+    params["offset"] = offset
+    MnoeAdminApiSvc.all('users').getList(params).then(
       (response) ->
         MnoeObservables.notifyObservers(OBS_KEYS.userChanged, response)
         response
@@ -52,10 +55,7 @@
     promise = MnoeAdminApiSvc.one('users', id).patch({admin_role: null}).then(
       (response) ->
         MnoeObservables.notifyObservers(OBS_KEYS.staffChanged, promise)
-      (error) ->
-        # Display an error
-        $log.error('Error while deleting user', error)
-        toastr.error('mnoe_admin_panel.dashboard.staff.modal.remove_staff.toastr_error')
+        response
     )
 
   # Invite a user to join an organization

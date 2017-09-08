@@ -26,5 +26,6 @@
   'ngFileUpload',
   'angucomplete-alt',
   'ui.toggle',
-  'textAngular'
+  'textAngular',
+  'maestrano.impac'
 ]

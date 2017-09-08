@@ -8,7 +8,7 @@
       <thead>
         <tr>
           <th translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.username</th>
-          <th style="width: 100px;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.creation</th>
+          <th style="width: 100px;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.created_at</th>
           <th style="width: 140px;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.status</th>
           <th style="width: 140px;" ng-if="isImpersonationEnabled"></th>
         </tr>
@@ -24,7 +24,7 @@
           </td>
           <td>{{user.created_at | date: 'dd/MM/yyyy'}}</td>
           <td>
-            <button ng-show="user.status === 'pending'" ng-click="sendInvitation(user)" class="btn btn-xs btn-default" ng-disabled="user.isSendingInvite">
+            <button ng-show="user.status === 'pending'" ng-click="sendInvitation(user)" class="btn btn-xs btn-warning" ng-disabled="user.isSendingInvite">
               <span ng-show="user.isSendingInvite"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
               {{'mnoe_admin_panel.dashboard.users.widget.local_list.invite' | translate}}
             </button>

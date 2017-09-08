@@ -1,0 +1,51 @@
+<mno-widget icon="fa-bar-chart" is-loading="$ctrl.dashboardTemplates.loading">
+  <mno-widget-header>
+    &nbsp;{{ 'mnoe_admin_panel.dashboard.dashboard_templates.widget.list.title' | translate}}
+  </mno-widget-header>
+  <mno-widget-body class="no-padding">
+    <div>
+      <table st-pipe="$ctrl.callServer" class="table table-striped" st-table="$ctrl.dasboardTemplates.list">
+        <thead>
+          <tr>
+            <th st-sort="name" class="col-lg-4" translate>mnoe_admin_panel.dashboard.dashboard_templates.widget.list.template_name</th>
+            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.dashboard_templates.widget.list.status</th>
+            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.dashboard_templates.widget.list.created</th>
+            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.dashboard_templates.widget.list.updated</th>
+            <th class="col-lg-2"></th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr ng-repeat="dashboardTemplate in $ctrl.dashboardTemplates.list">
+            <td title="{{ dashboardTemplate.full_name }}">{{ dashboardTemplate.name }}</td>
+            <td><toggle size="btn-sm" ng-model="dashboardTemplate.published" ng-change="$ctrl.toggleTemplatePublished(dashboardTemplate.id)" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.published_state_tooltip' | translate }}"></toggle></td>
+            <td>{{ dashboardTemplate.created_at | amCalendar }}</td>
+            <td>{{ dashboardTemplate.updated_at | amCalendar }}</td>
+            <td>
+              <div class="pull-right">
+                <div class="btn-group">
+                  <a type="button" class="btn btn-primary" ui-sref="dashboard.dashboard-templates-edit({ dashboardId: dashboardTemplate.id })">
+                    <i class="fa fa-pencil" aria-hidden="true" ></i>
+                  </a>
+                </div>
+                <div class="btn-group" ng-click="$ctrl.openDeleteModal(dashboardTemplate.id)">
+                  <a type="button" class="btn btn-primary" >
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mno-widget-body>
+  <mno-widget-footer ng-show="$ctrl.dashboardTemplates.list">
+    <mno-pagination
+      page="$ctrl.dashboardTemplates.page"
+      nb-items="$ctrl.dashboardTemplates.nbItems"
+      total-items="$ctrl.dashboardTemplates.totalItems"
+      on-change-cb="$ctrl.dashboardTemplates.pageChangedCb(nbItems, page)"
+      is-loading="$ctrl.dashboardTemplates.loading">
+    </mno-pagination>
+  </mno-widget-footer>
+</mno-widget>
