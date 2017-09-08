@@ -23,7 +23,30 @@
           "style": {
             "remove": "btn-danger"
           },
-          "startEmpty": true
+          "startEmpty": true,
+          "items": [
+            "payment_gateways[].name",
+            "payment_gateways[].provider.adapter",
+            {
+              'type': 'conditional',
+              'condition': 'vm.model.payment_gateways[arrayIndex].provider.adapter == "braintree"',
+              'items': [
+                {key: 'payment_gateways[].provider.config.merchant_id', "required": true},
+                {key: 'payment_gateways[].provider.config.public_key', "required": true},
+                {key: 'payment_gateways[].provider.config.private_key', "required": true}
+              ]
+            },
+            {
+              'type': 'conditional',
+              'condition': 'vm.model.payment_gateways[arrayIndex].provider.adapter == "eway"',
+              'items': [
+                {key: 'payment_gateways[].provider.config.login', "required": true},
+                {key: 'payment_gateways[].provider.config.username', "required": true},
+                {key: 'payment_gateways[].provider.config.password', "required": true}
+              ]
+            },
+            'payment_gateways[].accounts'
+          ]
         }
       ]
     }
