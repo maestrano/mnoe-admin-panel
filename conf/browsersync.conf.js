@@ -12,7 +12,8 @@ module.exports = function () {
         conf.paths.src
       ],
       routes: {
-        '/bower_components': 'bower_components'
+        '/bower_components': 'bower_components',
+        '/locales/impac': 'bower_components/impac-angular/dist/locales'
       }
     },
     open: false

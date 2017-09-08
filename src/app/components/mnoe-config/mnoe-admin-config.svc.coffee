@@ -14,6 +14,12 @@
     else
       true
 
+  @isDashboardTemplatesEnabled = ->
+    if ADMIN_PANEL_CONFIG.dashboard_templates?.enabled?
+      ADMIN_PANEL_CONFIG.dashboard_templates.enabled
+    else
+      false
+
   @isFinanceEnabled = () ->
     if ADMIN_PANEL_CONFIG.finance?.enabled?
       ADMIN_PANEL_CONFIG.finance.enabled
@@ -86,6 +92,12 @@
       ADMIN_PANEL_CONFIG.settings.enabled
     else
       true
+
+  @isSubTenantEnabled = () ->
+    if ADMIN_PANEL_CONFIG.sub_tenant?.enabled?
+      ADMIN_PANEL_CONFIG.sub_tenant.enabled
+    else
+      false
 
   @isUserManagementEnabled = () ->
     if ADMIN_PANEL_CONFIG.customer_management?.user?.enabled?

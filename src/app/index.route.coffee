@@ -89,6 +89,34 @@
   # Routes depending on Feature Flags
   adminConfig = MnoeAdminConfigProvider.$get()
 
+  if adminConfig.isDashboardTemplatesEnabled()
+    $stateProvider
+      .state 'dashboard.dashboard-templates',
+        url: '/dashboard-templates'
+        templateUrl: 'app/views/dashboard-templates/dashboard-templates.html'
+        controller: 'DashboardTemplatesController'
+        controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.dashboard_templates.title'
+      .state 'dashboard.dashboard-templates-create',
+        url: '/dashboard-templates/create'
+        templateUrl: 'app/views/impac/impac.html'
+        controller: 'ImpacController'
+        controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.impac.title'
+        resolve:
+          action: -> { value: 'create' }
+      .state 'dashboard.dashboard-templates-edit',
+        url: '/dashboard-templates/:dashboardId/edit'
+        templateUrl: 'app/views/impac/impac.html'
+        controller: 'ImpacController'
+        controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.impac.title'
+        resolve:
+          action: -> { value: 'edit' }
+
   if adminConfig.areSettingsEnabled()
     $stateProvider
       .state 'dashboard.settings-general',
@@ -177,17 +205,50 @@
           label: 'mnoe_admin_panel.dashboard.invoice.title'
 
   if adminConfig.isStaffEnabled()
-    $stateProvider.state 'dashboard.staff',
+    $stateProvider.state 'dashboard.staffs',
       data:
-        pageTitle:'Staff'
-      url: '/staff' #:staffId
-      templateUrl: 'app/views/staff/staff.html'
-      controller: 'StaffController'
+        pageTitle:'Staffs'
+      url: '/staffs'
+      templateUrl: 'app/views/staffs/staffs.html'
+      controller: 'StaffsController'
       controllerAs: 'vm'
       ncyBreadcrumb:
-        label: 'mnoe_admin_panel.dashboard.staff.title'
+        label: 'mnoe_admin_panel.dashboard.staffs.title'
       resolve:
-        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
+        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdminRole(['admin', 'sub_tenant_admin'])
+    .state 'dashboard.staff',
+      data:
+        pageTitle:'Division'
+      url: '^/staff/:staffId'
+      views: '@dashboard':
+        templateUrl: 'app/views/staff/staff.html'
+        controller: 'StaffController'
+        controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.staffs.title'
+      resolve:
+        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdminRole(['admin', 'sub_tenant_admin'])
+    .state 'dashboard.sub-tenants',
+      data:
+        pageTitle:'Divisions'
+      url: '/sub-tenants'
+      templateUrl: 'app/views/sub-tenants/sub-tenants.html'
+      controller: 'SubTenantsController'
+      controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.sub_tenants.title'
+      resolve:
+        skip: (MnoeCurrentUser, MnoeAdminConfig) -> MnoeCurrentUser.skipIfNotAdminRole(['admin']) || !MnoeAdminConfig.isSubTenantEnabled()
+    .state 'dashboard.sub-tenant',
+      data:
+        pageTitle:'Division'
+      url: '^/sub-tenant/:subTenantId'
+      views: '@dashboard':
+        templateUrl: 'app/views/sub-tenant/sub-tenant.html'
+        controller: 'SubTenantController'
+        controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.sub_tenant.title'
 
   if adminConfig.isOrganizationManagementEnabled()
     $stateProvider.state 'dashboard.customers.create-step-1',

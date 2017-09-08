@@ -1,0 +1,10 @@
+<div id="impac">
+  <div class="top-navigation">
+    <a class="back" ui-sref="dashboard.dashboard-templates">
+      &lt;&lt; {{ 'mnoe_admin_panel.dashboard.dashboard_templates.back_link' | translate }}
+    </a>
+    <toggle class="pull-right" ng-show="vm.showImpac && vm.currentDashboard" ng-model="vm.currentDashboard.published" ng-change="vm.toggleTemplatePublished(vm.currentDashboard.id)" on="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.published' | translate }}" off="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.draft' | translate }}" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.published_state_tooltip' | translate }}"></toggle>
+  </div>
+
+  <impac-dashboard ng-show="vm.showImpac"></impac-dashboard>
+</div>

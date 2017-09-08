@@ -9,6 +9,8 @@
   main.isFinanceEnabled = MnoeAdminConfig.isFinanceEnabled()
   main.areLocalProductsEnabled = MnoeAdminConfig.areLocalProductsEnabled()
   main.isProvisioningEnabled = MnoeAdminConfig.isProvisioningEnabled()
+  main.isSubTenantEnabled = MnoeAdminConfig.isSubTenantEnabled()
+  main.isDashboardTemplatesEnabled = MnoeAdminConfig.isDashboardTemplatesEnabled()
   main.adminConfig = MnoeAdminConfig
 
   main.trustSrc = (src) ->
