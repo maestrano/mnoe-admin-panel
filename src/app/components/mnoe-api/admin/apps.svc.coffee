@@ -22,10 +22,10 @@
     MnoeAdminApiSvc.one('apps', id).customPATCH(null, 'enable')
 
   @enableMultiple = (ids) ->
-    return $q.reject('no apps specified') unless ids.length > 1
+    return $q.reject('no apps specified') unless ids.length >= 1
 
     if ids.length == 1
-      enable(ids[0])
+      _self.enable(ids[0])
     else
       MnoeAdminApiSvc.all('apps').customPATCH(ids: ids, 'enable')
 
