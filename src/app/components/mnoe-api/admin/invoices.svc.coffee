@@ -10,6 +10,22 @@
   @get = (id) ->
     MnoeAdminApiSvc.one('/invoices', id).get()
 
+  @update = (invoice) ->
+    MnoeAdminApiSvc.one('/invoices', invoice.id).patch({invoice: invoice})
+
+  @addAdjustment = (invoice_id, adjustment) ->
+    MnoeAdminApiSvc.one('/invoices', invoice_id).all('/adjustments').post({adjustment: adjustment})
+
+  @sendInvoiceToCustomer = (invoice_id) ->
+    MnoeAdminApiSvc.one('/invoices', invoice_id).post('send_to_customer').catch(
+      (error) ->
+        MnoErrorsHandler.processServerError(error)
+        $q.reject(error)
+    )
+
+  @deleteAdjustment = (invoice_id, adjustment_id) ->
+    MnoeAdminApiSvc.one('/invoices', invoice_id).one('/adjustments', adjustment_id).remove()
+
   @currentBillingAmount = () ->
     MnoeAdminApiSvc.all('invoices').customGET('current_billing_amount')
 

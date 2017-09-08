@@ -1,0 +1,33 @@
+<div class="adjustment-modal">
+  <div class="modal-header">
+    <h3 class="modal-title" translate>mnoe_admin_panel.dashboard.invoice.create_adjustments.create_adjustment</h3>
+  </div>
+  <form name="vm.form.adjustment" novalidate>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-6">
+          <input type="text" class="form-control input-sm" ng-model="vm.adjustment.description" placeholder="{{'mnoe_admin_panel.dashboard.invoice.create_adjustments.adjustment_name' | translate}}" aria-label="name" required>
+        </div>
+        <div class="col-sm-5">
+          <input type="number" currency-cents-input class="form-control input-sm" ng-model="vm.adjustment.price_cents" placeholder="{{'mnoe_admin_panel.dashboard.invoice.create_adjustments.adjustment_amount' | translate}}" aria-label="amount" required>
+        </div>
+        <div class="col-sm-1 nopadding text-left ">{{vm.adjustment.currency}}</div>
+      </div>
+    </div>
+  </form>
+  <div class="modal-footer">
+    <div class="row actions">
+      <div class="col-xs-12">
+        <button type="button" ng-click="vm.closeModal()" class="btn btn-default">
+          {{ 'mnoe_admin_panel.dashboard.invoice.create_adjustments.cancel' | translate }}
+        </button>
+        <button type="button" ng-click="vm.addAdjustment()" ng-disabled="vm.isLoading || vm.form.adjustment.$invalid" class="btn btn-primary">
+          <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span translate>
+          {{ 'mnoe_admin_panel.dashboard.invoice.create_adjustments.save' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

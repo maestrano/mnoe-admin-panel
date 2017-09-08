@@ -1,9 +1,12 @@
 @App.component('mnoeInvoicesList', {
   templateUrl: 'app/components/mnoe-invoices-list/mnoe-invoices-list.html'
 
-  controller: ($state, MnoeAdminConfig, MnoeInvoices, DatesHelper) ->
+  controller: ($state, $window, MnoeAdminConfig, MnoeInvoices, DatesHelper) ->
     ctrl = this
 
+    # -----------------------------------------------------------------
+    # Initialize
+    # -----------------------------------------------------------------
     ctrl.isPaymentEnabled = MnoeAdminConfig.isPaymentEnabled()
     ctrl.invoices =
       list: []
@@ -22,13 +25,24 @@
       search = updateSearch (tableState.search)
       fetchInvoices(ctrl.invoices.nbItems, ctrl.invoices.offset)
 
+    # Fetch invoices
+    fetchInvoices = (limit, offset, search = ctrl.invoices.search) ->
+      ctrl.invoices.loading = true
+      return MnoeInvoices.list(limit, offset, search).then(
+        (response) ->
+          ctrl.invoices.totalItems = response.headers('x-total-count')
+          ctrl.invoices.list = response.data
+      ).finally(-> ctrl.invoices.loading = false)
+
+    # -----------------------------------------------------------------
+    # Invoice Management
+    # -----------------------------------------------------------------
     # Update searching parameters
     updateSearch = (searchingState = {}) ->
       search = {}
       if searchingState.predicateObject
         for attr, value of searchingState.predicateObject
           search[ 'where[' + attr + '.like]' ] = value + '%'
-
       ctrl.invoices.search = search
       return search
 
@@ -40,14 +54,10 @@
     ctrl.goToInvoice = (invoiceId) ->
       $state.go('dashboard.invoice', {invoiceId: invoiceId})
 
-    # Fetch invoices
-    fetchInvoices = (limit, offset, search = ctrl.invoices.search) ->
-      ctrl.invoices.loading = true
-      return MnoeInvoices.list(limit, offset, search).then(
-        (response) ->
-          ctrl.invoices.totalItems = response.headers('x-total-count')
-          ctrl.invoices.list = response.data
-      ).finally(-> ctrl.invoices.loading = false)
+    ctrl.downloadInvoice = (slug, event) ->
+      $window.open('/mnoe/admin/invoices/' + slug, '_blank')
+      # avoid change to single invoice view when click in this cell
+      event.stopPropagation()
 
     return
 
