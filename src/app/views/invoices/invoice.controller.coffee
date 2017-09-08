@@ -1,4 +1,4 @@
-@App.controller 'InvoiceController', ($stateParams, $uibModal, $window, $state, toastr, MnoeAdminConfig, MnoeInvoices, DatesHelper, MnoConfirm) ->
+@App.controller 'InvoiceController', ($stateParams, $uibModal, $window, $state, $log, toastr, MnoeAdminConfig, MnoeInvoices, DatesHelper, MnoConfirm) ->
   'ngInject'
   vm = this
 
@@ -47,29 +47,14 @@
       templateUrl: 'app/views/invoices/modals/adjustment-modal.html'
       controller: 'CreateAdjustmentController'
       controllerAs: 'vm'
-    )
-    modalInstance.result.then(
-      (adjustment) ->
-        # Add the adjustment adjustment
-        vm.invoice.adjustments.push(adjustment)
-    )
-
-  vm.openEditAdjustmentModal = (adjustment) ->
-    vm.oldAdjustment = angular.copy(adjustment)
-    modalInstance = $uibModal.open(
-      templateUrl: 'app/views/invoices/modals/adjustment-modal.html'
-      controller: 'EditAdjustmentController'
-      controllerAs: 'vm'
       resolve:
-        adjustment: vm.oldAdjustment
+        invoice: vm.invoice
     )
     modalInstance.result.then(
-      (adjustmentEdited) ->
-        # If the adjustment is modified
-        if adjustmentEdited
-          indexOfAdjustment = vm.invoice.adjustments.indexOf(adjustment)
-          vm.invoice.adjustments.splice(indexOfAdjustment, 1)
-          vm.invoice.adjustments.push(adjustmentEdited)
+      (result) ->
+        vm.invoice.adjustments.push(result.adjustment)
+        vm.invoice.price = result.invoice.price
+
     )
 
   vm.openDeleteAdjustmentModal = (adjustment) ->
@@ -80,11 +65,28 @@
       actionButtonText: 'mnoe_admin_panel.dashboard.invoice.delete_adjustments.delete'
       type: 'danger'
 
-    MnoConfirm.showModal(modalOptions).then(
-      ->
-        # If user delete the adjustment
-        indexOfAdjustment = vm.invoice.adjustments.indexOf(adjustment)
-        vm.invoice.adjustments.splice(indexOfAdjustment, 1)
+    MnoConfirm.showModal(modalOptions).then( ->
+      MnoeInvoices.deleteAdjustment(vm.invoice.id, adjustment.id).then(
+        (response) ->
+          indexOfAdjustment = vm.invoice.adjustments.indexOf(adjustment)
+          vm.invoice.adjustments.splice(indexOfAdjustment, 1)
+          toastr.success('mnoe_admin_panel.dashboard.invoice.delete_adjustments.toastr_success')
+          vm.invoice.price = response.data.invoice.price
+        (error) ->
+          # Display an error
+          $log.error('Error while deleting adjustment', error)
+          toastr.error('mnoe_admin_panel.dashboard.invoice.delete_adjustments.toastr_error')
+      )
+    )
+
+  vm.sendInvoiceToCustomer = () ->
+    MnoeInvoices.sendInvoiceToCustomer(vm.invoice.id).then( ->
+      (success) ->
+        toastr.success('mnoe_admin_panel.dashboard.invoice.send_invoice.toastr_success')
+      (error) ->
+        # Display an error
+        $log.error('Error while sending email', error)
+        toastr.error('mnoe_admin_panel.dashboard.invoice.send_invoice.toastr_error')
     )
 
   return

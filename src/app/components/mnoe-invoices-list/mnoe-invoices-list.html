@@ -28,10 +28,10 @@
         <tbody ng-show="!$ctrl.invoices.loading">
           <tr ng-repeat="invoice in $ctrl.invoices.list" ng-click="$ctrl.goToInvoice(invoice.id)">
             <td>{{invoice.slug}}</td>
-            <td>{{invoice.organization.name}}</td>
+            <td><a href="">{{invoice.organization.name}}</a></td>
             <td>{{invoice.started_at | amCalendar}} - {{invoice.ended_at | amCalendar}}</td>
             <td ng-if="$ctrl.isPaymentEnabled">{{$ctrl.expectedPaymentDate(invoice.ended_at) | amCalendar }}</td>
-            <td>{{invoice.total_due.currency.iso_code}} {{invoice.total_due.fractional}}</td>
+            <td>{{invoice.total_due.currency.iso_code}} {{invoice.total_due.fractional/100}}</td>
             <td>
               <span ng-show="invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.paid</span>
               <span ng-show="!invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.awaiting</span>
