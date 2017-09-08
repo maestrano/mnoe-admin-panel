@@ -17,7 +17,7 @@
     MnoeAdminApiSvc.one('/invoices', invoice_id).all('/adjustments').post({adjustment: adjustment})
 
   @sendInvoiceToCustomer = (invoice_id) ->
-    MnoeAdminApiSvc.one('/invoices', invoice_id).post('send_to_customers').catch(
+    MnoeAdminApiSvc.one('/invoices', invoice_id).post('send_to_customer').catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)
