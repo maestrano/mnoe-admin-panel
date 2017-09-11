@@ -1,9 +1,9 @@
-@App.controller 'SettingsGeneralController', (toastr, CONFIG_JSON_SCHEMA, MnoeTenant) ->
+@App.controller 'SettingsGeneralController', ($q, toastr, MnoeTenant, MnoeMarketplace) ->
   'ngInject'
   vm = this
 
   vm.settingsModel = {}
-  vm.settingsSchema = CONFIG_JSON_SCHEMA
+  vm.settingsSchema = {}
 
   vm.settingsForm = [
     {
@@ -25,12 +25,22 @@
     }
   ]
 
+  # Remove apps which are no longer enabled
+  validateAppList = (appNidList) ->
+    if vm.settingsModel?.dashboard?.public_pages?
+      publicPagesConf = vm.settingsModel.dashboard.public_pages
+      publicPagesConf.applications = _.intersection(publicPagesConf.applications, appNidList)
+      publicPagesConf.highlighted_applications = _.intersection(publicPagesConf.highlighted_applications, appNidList)
+
   # Load config from the Tenant
   loadConfig = ->
-    MnoeTenant.get().then(
+    vm.isLoading = true
+    $q.all(tenant: MnoeTenant.get(), marketplace: MnoeMarketplace.getApps()).then(
       (response) ->
-        vm.settingsModel = response.data.frontend_config
-    )
+        vm.settingsModel = response.tenant.data.frontend_config
+        vm.settingsSchema = response.tenant.data.config_schema
+        validateAppList(_.map(response.marketplace.data.apps, 'nid'))
+    ).finally(-> vm.isLoading = false)
 
   loadConfig()
 

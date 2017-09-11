@@ -1,8 +1,8 @@
-@App.controller 'StaffController', ($log, $stateParams, $window, $uibModal, toastr, MnoConfirm, MnoeAdminConfig, MnoeCurrentUser, MnoeUsers, MnoeSubTenants, ADMIN_ROLES) ->
+@App.controller 'StaffController', ($log, $stateParams, $window, $uibModal, toastr, MnoConfirm, MnoeAdminConfig, MnoeCurrentUser, MnoeUsers, MnoeSubTenants) ->
   'ngInject'
   vm = this
   vm.isSaving = false
-  vm.adminRoles = ADMIN_ROLES
+  vm.adminRoles = MnoeAdminConfig.adminRoles()
 
   MnoeCurrentUser.getUser().then( ->
     vm.isAdmin = MnoeCurrentUser.user.admin_role == 'admin'

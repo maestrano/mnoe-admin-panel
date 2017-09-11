@@ -103,8 +103,11 @@
         $q.reject(error)
     )
 
-  @getSubscriptions = (limit, offset, sort, orgId = null) ->
-    subscriptionsApi(orgId).getList({limit: limit, offset: offset, order_by: sort}).catch(
+  @getSubscriptions = (limit, offset, sort, orgId = null, params = {}) ->
+    params["order_by"] = sort
+    params["limit"] = limit
+    params["offset"] = offset
+    subscriptionsApi(orgId).getList(params).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)
