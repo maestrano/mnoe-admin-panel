@@ -33,8 +33,8 @@
           </tbody>
           <tbody ng-show="!$ctrl.markups.loading" >
           <tr ng-repeat="pmElem in $ctrl.markups.list">
-            <td>{{pmElem.product.name}}</td>
-            <td>{{pmElem.organization.name}}</td>
+            <td>{{ pmElem.product.name || ('mnoe_admin_panel.dashboard.product_markups.add_markup.modal.all_products' | translate) }}</td>
+            <td>{{ pmElem.organization.name || ('mnoe_admin_panel.dashboard.product_markups.add_markup.modal.all_companies' | translate) }}</td>
             <td class="text-center">
               <span ng-show="!$ctrl.editmode[pmElem.id]">{{pmElem.percentage*100 | number:2}}%</span>
               <input ng-show="$ctrl.editmode[pmElem.id]" type="text" class="form-control input-sm" percentage-input ng-model="pmElem.percentage" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" required>

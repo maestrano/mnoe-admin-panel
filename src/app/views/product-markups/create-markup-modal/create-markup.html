@@ -3,32 +3,32 @@
     <h3 class="modal-title" translate>mnoe_admin_panel.dashboard.product_markups.add_markup.modal.title</h3>
   </div>
 
-  <form name="vm.form.markup" novalidate>
+  <form name="vm.form.markup">
     <div class="modal-body">
       <div class="row">
         <angucomplete-alt id="product-selector"
                           placeholder="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.search_product' | translate}}"
-                          pause="100"
+                          pause="200"
+                          text-searching="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.search_loading' | translate}}"
                           selected-object="vm.toggleProductFilter"
-                          local-data="vm.products"
-                          input-changed="vm.lazyFetchProducts"
+                          remote-api-handler="vm.searchProducts"
                           search-fields="name"
                           title-field="name"
                           minlength="0"
                           input-class="form-control form-control-small"
-                          class="col-sm-4"></angucomplete-alt>
+                          class="col-sm-4" field-required="!vm.markup.organization_id"></angucomplete-alt>
 
         <angucomplete-alt id="company-selector"
                           placeholder="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.search_company' | translate}}"
-                          pause="100"
+                          pause="200"
+                          text-searching="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.search_loading' | translate}}"
                           selected-object="vm.toggleCompanyFilter"
-                          local-data="vm.companies"
-                          input-changed="vm.lazyFetchCompanies"
+                          remote-api-handler="vm.searchCompanies"
                           search-fields="name"
                           title-field="name"
                           minlength="0"
                           input-class="form-control form-control-small"
-                          class="col-sm-4"></angucomplete-alt>
+                          class="col-sm-4" field-required="!vm.markup.product_id"></angucomplete-alt>
         <div class="col-sm-2">
           <label class="control-label">{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.label.percentage'|translate}}</label>
         </div>
@@ -42,11 +42,11 @@
   <div class="modal-footer">
     <div class="row actions">
       <div class="col-xs-12">
-        <button type="button" ng-click="vm.onSubmit()" ng-disabled="vm.isLoading || vm.form.markup.$invalid" class="btn btn-primary">
+        <button type="button" class="btn btn-default" ng-click="vm.onCancel()">{{ 'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.cancel' | translate}}</button>
+        <button type="button" class="btn btn-primary" ng-click="vm.onSubmit()" ng-disabled="vm.isLoading || vm.form.markup.$invalid" class="btn btn-primary">
           <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           {{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.save' | translate}}
         </button>
-        <a href="" ng-click="vm.onCancel()"><i class="fa fa-times"></i>{{ 'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.cancel' | translate}}</a>
       </div>
     </div>
   </div>

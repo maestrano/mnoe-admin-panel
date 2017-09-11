@@ -1,6 +1,13 @@
 # This service is a wrapper around the config we fetch from the backend
-@App.factory 'MnoeAdminConfig', ($log, ADMIN_PANEL_CONFIG, DASHBOARD_CONFIG) ->
+@App.factory 'MnoeAdminConfig', ($log, ADMIN_ROLES, ADMIN_PANEL_CONFIG, DASHBOARD_CONFIG) ->
   _self = @
+
+  # Only expose subtenant_admin when subtenants are enabled
+  @adminRoles = () ->
+    if _self.isSubTenantEnabled()
+      ADMIN_ROLES
+    else
+      _.reject(ADMIN_ROLES, (role) -> role.value == 'sub_tenant_admin')
 
   @isAppManagementEnabled = () ->
     if ADMIN_PANEL_CONFIG.apps_management?.enabled?

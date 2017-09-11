@@ -1,4 +1,4 @@
-@App.controller 'CreateMarkupController', ($filter, $stateParams, $log, $uibModalInstance, toastr, MnoeProductMarkups, MnoeProducts, MnoeOrganizations, MnoErrorsHandler) ->
+@App.controller 'CreateMarkupController', ($scope, $filter, $stateParams, $log, $uibModalInstance, toastr, MnoeProductMarkups, MnoeProducts, MnoeOrganizations, MnoErrorsHandler) ->
   'ngInject'
   vm = this
 
@@ -7,6 +7,8 @@
   vm.markup = {}
   vm.products = []
   vm.companies = []
+  vm.markup.product_id = null
+  vm.markup.organization_id = null
 
   vm.onSubmit = () ->
     vm.isLoading = true
@@ -24,31 +26,16 @@
   vm.onCancel = () ->
     $uibModalInstance.dismiss('cancel')
 
-  vm.fetchProducts = (search) ->
-    return MnoeProducts.products(vm.nbItems, 0, 'name', {'where[name.like]' : search + '%'}).then(
-      (response) ->
-        vm.products = response.data
-        vm.products.unshift({id: 0, name: $filter('translate')("mnoe_admin_panel.dashboard.product_markups.add_markup.modal.all_products")})
-    )
+  vm.searchProducts = (search, timeoutPromise) ->
+    return MnoeProducts.products(vm.nbItems, 0, 'name', {'where[name.like]' : search + '%'})
 
-  vm.fetchCompanies = (search) ->
-    return MnoeOrganizations.organizations(vm.nbItems, 0, 'name', {'where[name.like]' : search + '%'}).then(
-      (response) ->
-        vm.companies = response.data
-        vm.companies.unshift({id: 0, name: $filter('translate')("mnoe_admin_panel.dashboard.product_markups.add_markup.modal.all_companies")})
-    )
-
-  vm.lazyFetchProducts = _.debounce vm.fetchProducts, vm.debounce_time
-  vm.lazyFetchCompanies = _.debounce vm.fetchCompanies, vm.debounce_time
+  vm.searchCompanies = (search, timeoutPromise) ->
+    return MnoeOrganizations.organizations(vm.nbItems, 0, 'name', {'where[name.like]' : search + '%'})
 
   vm.toggleProductFilter = (product) ->
     vm.markup.product_id = product.originalObject.id
 
   vm.toggleCompanyFilter = (company) ->
     vm.markup.organization_id = company.originalObject.id
-
-  # Fetch initial drop down
-  vm.fetchProducts('')
-  vm.fetchCompanies('')
 
   return

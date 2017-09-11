@@ -50,8 +50,6 @@
   init = ->
     MnoeMarketplace.getApps().then(
       (response) ->
-        # TODO: do we need copy? => Yes
-        # TODO: we need to refresh the cached copy in MnoeMarketplace
         # Copy the marketplace as we will work on the cached object
         vm.enabledApps = angular.copy(response.data.apps)
     )

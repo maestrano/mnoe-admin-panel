@@ -1,11 +1,11 @@
-@App.controller 'UpdateAccountManagersController', ($filter, $stateParams, $log, $uibModalInstance, toastr, MnoeSubTenants, MnoeUsers, MnoErrorsHandler, ADMIN_ROLES, subTenant) ->
+@App.controller 'UpdateAccountManagersController', ($filter, $stateParams, $log, $uibModalInstance, toastr, MnoeSubTenants, MnoeUsers, MnoErrorsHandler, MnoeAdminConfig, subTenant) ->
   'ngInject'
   vm = this
   # Variables initialization
   vm.selectedUsers = {}
   _.each(subTenant.account_manager_ids, (id) -> vm.selectedUsers[id] = true)
   vm = this
-  vm.staff_roles = ADMIN_ROLES
+  vm.staff_roles = MnoeAdminConfig.adminRoles()
   vm.getAdminRoleLabel = (admin_role) ->
     return _.find(vm.staff_roles, (role) -> role.value == admin_role).label
 
