@@ -4,7 +4,7 @@
 @App.component('mnoeProductsList', {
   templateUrl: 'app/components/mnoe-products-list/mnoe-products-list.html',
   bindings: {}
-  controller: ($state, $uibModal, MnoeProducts) ->
+  controller: ($state, $uibModal, MnoeProducts, MnoeProvisioning, toastr) ->
     vm = this
 
     vm.products =
@@ -48,6 +48,20 @@
       return search
 
     vm.delete = (product) ->
+
+      search = {}
+      search['where[product_instance_id]'] = product.id
+      MnoeProvisioning.getSubscriptions(1, 0, 'id' , null, search).then(
+        (subscriptions) ->
+          if subscriptions.data.length == 0
+            vm.confirmDeletion(product)
+          else
+            toastr.error('mnoe_admin_panel.dashboard.products.delete.subscription_exists')
+        (error) ->
+          toastr.error('mnoe_admin_panel.dashboard.products.subscription.toastr_error')
+      )
+
+    vm.confirmDeletion = (product) ->
       modalInstance = $uibModal.open(
         templateUrl: 'app/views/products/modals/delete-product-modal.html'
         controller: 'DeleteProductController'
