@@ -6,7 +6,7 @@
   bindings: {
     view: '@',
   }
-  controller: ($filter, $log, MnoeProductMarkups, MnoeCurrentUser, MnoConfirm, MnoeObservables, ADMIN_ROLES, OBS_KEYS, toastr) ->
+  controller: ($filter, $log, MnoeProductMarkups, MnoeCurrentUser, MnoConfirm, MnoeObservables, OBS_KEYS, toastr) ->
     vm = this
 
     vm.markups =

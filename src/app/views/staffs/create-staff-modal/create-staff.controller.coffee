@@ -1,8 +1,8 @@
-@App.controller 'CreateStaffController', ($filter, $stateParams, $log, $uibModalInstance, toastr, MnoeUsers, MnoErrorsHandler, ADMIN_ROLES) ->
+@App.controller 'CreateStaffController', ($filter, $stateParams, $log, $uibModalInstance, toastr, MnoeUsers, MnoErrorsHandler, MnoeAdminConfig) ->
   'ngInject'
   vm = this
 
-  vm.admin_roles = ADMIN_ROLES
+  vm.admin_roles = MnoeAdminConfig.adminRoles()
 
   vm.onSubmit = () ->
     vm.isLoading = true

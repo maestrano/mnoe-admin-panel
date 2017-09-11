@@ -174,6 +174,8 @@
       controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.audit_log.title'
+      resolve:
+        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
 
   if adminConfig.isFinanceEnabled()
     $stateProvider
