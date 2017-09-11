@@ -118,11 +118,11 @@
                   <input name="description" ng-model="pricingPlan.description" class="form-control" placeholder="description">
                 </div>
                 <div class="form-group">
-                  <label class="control-label top-buffer-1">Pricing type</label>
+                  <label class="control-label top-buffer-1">{{'mnoe_admin_panel.dashboard.pricing.pricing_plans.pricing_type' | translate}}</label>
                   <select class="form-control" ng-model="pricingPlan.pricing_type" required>
-                    <option value="recurring">Recurring</option>
-                    <option value="one_off">One-off</option>
-                    <option value="payg">Usage Based</option>
+                    <option value="recurring">{{'mnoe_admin_panel.dashboard.pricing.pricing_plans.pricing_type.recurring' | translate}}</option>
+                    <option value="one_off">{{'mnoe_admin_panel.dashboard.pricing.pricing_plans.pricing_type.one_off' | translate}}</option>
+                    <option value="payg">{{'mnoe_admin_panel.dashboard.pricing.pricing_plans.pricing_type.payg' | translate}}</option>
                   </select>
                 </div>
                 <div class="row pricing-plan-edition-recurring" ng-show="pricingPlan.pricing_type == 'recurring'">
