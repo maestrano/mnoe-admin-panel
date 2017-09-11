@@ -1,5 +1,5 @@
 # Service for managing the App catalogue.
-@App.service 'MnoeApps', ($q, toastr, MnoeAdminApiSvc) ->
+@App.service 'MnoeApps', ($q, toastr, MnoeAdminApiSvc, MnoeObservables, OBS_KEYS) ->
   _self = @
 
   appsPromise = null
@@ -16,10 +16,14 @@
 
   # Delete the instance of an app
   @disable = (id) ->
-    MnoeAdminApiSvc.one('apps', id).customPATCH(null, 'disable')
+    MnoeAdminApiSvc.one('apps', id).customPATCH(null, 'disable').then(
+      -> MnoeObservables.notifyObservers(OBS_KEYS.marketplaceChanged, null)
+    )
 
   @enable = (id) ->
-    MnoeAdminApiSvc.one('apps', id).customPATCH(null, 'enable')
+    MnoeAdminApiSvc.one('apps', id).customPATCH(null, 'enable').then(
+      -> MnoeObservables.notifyObservers(OBS_KEYS.marketplaceChanged, null)
+    )
 
   @enableMultiple = (ids) ->
     return $q.reject('no apps specified') unless ids.length >= 1
@@ -27,6 +31,8 @@
     if ids.length == 1
       _self.enable(ids[0])
     else
-      MnoeAdminApiSvc.all('apps').customPATCH(ids: ids, 'enable')
+      MnoeAdminApiSvc.all('apps').customPATCH(ids: ids, 'enable').then(
+        -> MnoeObservables.notifyObservers(OBS_KEYS.marketplaceChanged, null)
+      )
 
   return @

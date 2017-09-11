@@ -1,7 +1,7 @@
-@App.controller 'SettingsPluginsController', ($translate, toastr, PLUGINS_CONFIG_SCHEMA, MnoeTenant) ->
+@App.controller 'SettingsPluginsController', ($translate, toastr, MnoeTenant) ->
   vm = this
 
-  vm.schema = PLUGINS_CONFIG_SCHEMA
+  vm.schema = {}
   vm.model = {}
 
   vm.form = [
@@ -57,6 +57,7 @@
     MnoeTenant.get().then(
       (response) ->
         vm.model = response.data.plugins_config
+        vm.schema = response.data.plugins_config_schema
     )
 
   loadConfig()
