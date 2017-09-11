@@ -6,7 +6,7 @@
   bindings: {
     view: '@',
   }
-  controller: ($filter, $log, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeObservables, ADMIN_ROLES, OBS_KEYS, toastr) ->
+  controller: ($filter, $log, MnoeAdminConfig, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeObservables, OBS_KEYS, toastr) ->
     vm = this
 
     vm.listOfStaff = []
@@ -57,7 +57,7 @@
       sort: "surname"
       nbItems: 10
       page: 1
-      roles: ADMIN_ROLES
+      roles: MnoeAdminConfig.adminRoles()
       pageChangedCb: (nbItems, page) ->
         vm.staff.nbItems = nbItems
         vm.staff.page = page
