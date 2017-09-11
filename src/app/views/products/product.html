@@ -82,14 +82,29 @@
               <span>
                 <h4>{{pricingPlan.name}}</h4>
                 <p>{{pricingPlan.description}}</p>
-                <p>
-                  <span class="badge">
-                    <span ng-repeat="price in pricingPlan.prices" class="price">
-                      {{price.currency}} {{price.price_cents / 100}}
+                <div ng-switch on="pricingPlan.pricing_type">
+                  <p ng-switch-when='recurring'">
+                    <span class="badge">
+                      <span ng-repeat="price in pricingPlan.prices" class="price">
+                        {{price.currency}} {{price.price_cents / 100}}
+                      </span>
                     </span>
-                  </span>
-                  <strong>&nbsp;/&nbsp;{{pricingPlan.per_unit}}&nbsp;/&nbsp;{{pricingPlan.per_duration}}</strong>
-                </p>
+                    <strong>&nbsp;/&nbsp;{{pricingPlan.per_unit}}&nbsp;/&nbsp;{{pricingPlan.per_duration}}</strong>
+                  </p>
+                  <p ng-switch-when='one_off'">
+                    <span class="badge">
+                      <span ng-repeat="price in pricingPlan.prices" class="price">
+                        {{price.currency}} {{price.price_cents / 100}}
+                      </span>
+                    </span>
+                    <strong>{{'mnoe_admin_panel.dashboard.pricing.pricing_plans.edition.one_off' | translate}}</strong>
+                  </p>
+                  <p ng-switch-when='payg'">
+                    <span class="badge">
+                      {{'mnoe_admin_panel.dashboard.pricing.pricing_plans.edition.usage_based' | translate}}
+                    </span>
+                  </p>
+                </div>
               </span>
             </div>
             <div class="pricing-plan-edition" ng-if="vm.isCurrentPricingPlan(pricingPlan)">
@@ -102,19 +117,27 @@
                   <label class="control-label top-buffer-1">Description</label>
                   <input name="description" ng-model="pricingPlan.description" class="form-control" placeholder="description">
                 </div>
-                <div class="row">
+                <div class="form-group">
+                  <label class="control-label top-buffer-1">Pricing type</label>
+                  <select class="form-control" ng-model="pricingPlan.pricing_type" required>
+                    <option value="recurring">Recurring</option>
+                    <option value="one_off">One-off</option>
+                    <option value="payg">Usage Based</option>
+                  </select>
+                </div>
+                <div class="row pricing-plan-edition-recurring" ng-show="pricingPlan.pricing_type == 'recurring'">
                   <div class="form-group col-md-6">
-                    <label class="control-label top-buffer-1">Per unit</label>
+                    <label class="control-label top-buffer-1">{{'mnoe_admin_panel.dashboard.pricing.pricing_plans.edition.unit' | translate}}</label>
                     <select class="form-control" ng-model="pricingPlan.per_unit" required>
-                      <option value="" disabled selected hidden>Per unit</option>
+                      <option value="" disabled selected hidden>{{'mnoe_admin_panel.dashboard.pricing.pricing_plans.edition.unit' | translate}}</option>
                       <option value="organization">Organization</option>
                       <option value="user">User</option>
                     </select>
                   </div>
                   <div class="form-group col-md-6">
-                    <label class="control-label top-buffer-1">Per duration</label>
+                    <label class="control-label top-buffer-1">{{'mnoe_admin_panel.dashboard.pricing.pricing_plans.edition.duration' | translate}}</label>
                     <select class="form-control" ng-model="pricingPlan.per_duration" required>
-                      <option value="" disabled selected hidden>Per duration</option>
+                      <option value="" disabled selected hidden>{{'mnoe_admin_panel.dashboard.pricing.pricing_plans.edition.duration' | translate}}</option>
                       <option value="hour">Hour</option>
                       <option value="day">Day</option>
                       <option value="week">Week</option>
@@ -125,7 +148,7 @@
                 </div>
               </form>
 
-              <div class="form-group">
+              <div class="form-group" ng-show="pricingPlan.pricing_type == 'recurring' || pricingPlan.pricing_type == 'one_off'">
                 <label class="control-label">{{'mnoe_admin_panel.dashboard.pricing.pricing_plans.edition.prices' | translate}}</label>
                 <ul id="prices-list" class="list-group">
                   <!-- Prices list -->
