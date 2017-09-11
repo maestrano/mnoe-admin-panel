@@ -48,6 +48,7 @@
       description: '',
       free_trial_enabled: null,
       free_trial_duration: 0,
+      pricing_type: 'recurring',
       per_duration: '',
       per_unit: '',
       prices: []
