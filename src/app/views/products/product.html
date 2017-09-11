@@ -83,7 +83,7 @@
                 <h4>{{pricingPlan.name}}</h4>
                 <p>{{pricingPlan.description}}</p>
                 <div ng-switch on="pricingPlan.pricing_type">
-                  <p ng-switch-when='recurring'">
+                  <p ng-switch-when='recurring'>
                     <span class="badge">
                       <span ng-repeat="price in pricingPlan.prices" class="price">
                         {{price.currency}} {{price.price_cents / 100}}
@@ -91,7 +91,7 @@
                     </span>
                     <strong>&nbsp;/&nbsp;{{pricingPlan.per_unit}}&nbsp;/&nbsp;{{pricingPlan.per_duration}}</strong>
                   </p>
-                  <p ng-switch-when='one_off'">
+                  <p ng-switch-when='one_off'>
                     <span class="badge">
                       <span ng-repeat="price in pricingPlan.prices" class="price">
                         {{price.currency}} {{price.price_cents / 100}}
@@ -99,7 +99,7 @@
                     </span>
                     <strong>{{'mnoe_admin_panel.dashboard.pricing.pricing_plans.edition.one_off' | translate}}</strong>
                   </p>
-                  <p ng-switch-when='payg'">
+                  <p ng-switch-when='payg'>
                     <span class="badge">
                       {{'mnoe_admin_panel.dashboard.pricing.pricing_plans.edition.usage_based' | translate}}
                     </span>
