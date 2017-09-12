@@ -40,12 +40,13 @@
     vm.hasDisconnectedApps = false of _.countBy(vm.status)
 
   vm.openSelectProductModal = () ->
+    vm.isLoadingProducts = true
     modalInstance = $uibModal.open(
       component: 'mnoProductSelectorModal'
       backdrop: 'static'
       size: 'lg'
       resolve:
-        products: -> MnoeProducts.list()
+        products: -> MnoeProducts.list().finally(-> vm.isLoadingProducts = false)
         multiple: -> false
     )
     modalInstance.result.then(
