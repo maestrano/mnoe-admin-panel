@@ -50,7 +50,7 @@
     vm.delete = (product) ->
 
       search = {}
-      search['where[product_instance_id]'] = product.id
+      search['where[product_id]'] = product.id
       MnoeProvisioning.getSubscriptions(1, 0, 'id' , null, search).then(
         (subscriptions) ->
           if subscriptions.data.length == 0
