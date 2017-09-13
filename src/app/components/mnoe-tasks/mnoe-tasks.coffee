@@ -252,7 +252,10 @@
             <span ng-if="!rowItem.due_date">-</span>
           """
         when 'sent'
-          label = if rowItem.markedDone then 'completed' else 'open'
+          label = if rowItem.due_date
+            if rowItem.markedDone then 'completed' else 'open'
+          else
+            '-'
           htmlTemplate = "<span>#{label}</span>"
       {
         scope:
