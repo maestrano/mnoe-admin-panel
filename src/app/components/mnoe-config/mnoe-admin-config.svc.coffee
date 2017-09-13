@@ -119,4 +119,11 @@
       $log.debug("DASHBOARD_CONFIG.marketplace.pricing.currency missing")
       'AUD'
 
+  @availableBillingCurrencies = () ->
+    if ADMIN_PANEL_CONFIG.available_billing_currencies?
+      ADMIN_PANEL_CONFIG.available_billing_currencies
+    else
+      $log.debug("ADMIN_PANEL_CONFIG.billing_currencies missing")
+      ['AED', 'AUD', 'CAD', 'EUR', 'GBP', 'HKD', 'JPY', 'NZD', 'SGD', 'USD']
+
   return @

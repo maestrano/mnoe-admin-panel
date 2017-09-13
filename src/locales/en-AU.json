@@ -247,6 +247,7 @@
   "mnoe_admin_panel.dashboard.organization.account_frozen": "Account Frozen",
   "mnoe_admin_panel.dashboard.organization.account_frozen.yes": "Yes",
   "mnoe_admin_panel.dashboard.organization.account_frozen.no": "No",
+  "mnoe_admin_panel.dashboard.organization.billing_currency": "Billing Currency",
   "mnoe_admin_panel.dashboard.organization.credit_card": "Credit Card",
   "mnoe_admin_panel.dashboard.organization.credit_card.presence.yes": "Yes",
   "mnoe_admin_panel.dashboard.organization.credit_card.presence.no": "No",
@@ -287,6 +288,10 @@
   "mnoe_admin_panel.dashboard.organization.add_app.search": "Search...",
   "mnoe_admin_panel.dashboard.organization.add_app.add": "Add",
   "mnoe_admin_panel.dashboard.organization.add_app.cancel": "Cancel",
+  "mnoe_admin_panel.dashboard.organization.update_organization.toastr_success": "Organization {name} has successfully been updated",
+  "mnoe_admin_panel.dashboard.organization.update_organization.toastr_error": "An error occurred while updating this organization",
+
+
   "mnoe_admin_panel.dashboard.organization.widget.list.all_organizations.title": "All organisations",
   "mnoe_admin_panel.dashboard.organization.widget.list.all_users.switch_link_title": "(last 10)",
   "mnoe_admin_panel.dashboard.organization.widget.list.last_organizations.title": "Last 10 organisations",

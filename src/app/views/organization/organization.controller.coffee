@@ -1,4 +1,4 @@
-@App.controller 'OrganizationController', ($filter, $state, $stateParams, $uibModal, toastr, MnoeOrganizations, MnoeUsers, MnoAppsInstances, MnoeProducts) ->
+@App.controller 'OrganizationController', ($filter, $state, $stateParams, $uibModal, toastr, MnoeAdminConfig, MnoeOrganizations, MnoeUsers, MnoAppsInstances, MnoeProducts) ->
   'ngInject'
   vm = this
 
@@ -6,6 +6,8 @@
   vm.users = {}
   vm.hasDisconnectedApps = false
   vm.status = {}
+
+  vm.availableBillingCurrencies = MnoeAdminConfig.availableBillingCurrencies()
 
   # Display user creation modal
   vm.users.createUserModal = ->
@@ -38,6 +40,22 @@
     )
     # Check the number of apps not connected (number of status equals to false)
     vm.hasDisconnectedApps = false of _.countBy(vm.status)
+
+  vm.updateOrganization = ->
+    vm.editmode = false
+    vm.isSaving = true
+    MnoeOrganizations.update(vm.organization).then(
+      (response) ->
+        toastr.success("mnoe_admin_panel.dashboard.organization.update_organization.toastr_success", {extraData: { name: vm.organization.name}})
+        vm.organization = response.data.organization
+      (error) ->
+        toastr.error("mnoe_admin_panel.dashboard.organization.update_organization.toastr_error")
+        $log.error("An error occurred while updating staff:", error)
+    ).finally(-> vm.isSaving = false)
+
+  vm.resetBillingCurrency = ->
+    vm.organization.billing_currency = null
+    vm.updateOrganization()
 
   vm.openSelectProductModal = () ->
     vm.isLoadingProducts = true

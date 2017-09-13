@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-xs-6">
                   <span ng-if="vm.organization.account_frozen" translate>mnoe_admin_panel.dashboard.organization.account_frozen.yes</span>
-                  <span ng-if="!vm.organization.account_frozen" translate="">mnoe_admin_panel.dashboard.organization.account_frozen.no</span>
+                  <span ng-if="!vm.organization.account_frozen" translate>mnoe_admin_panel.dashboard.organization.account_frozen.no</span>
                 </div>
               </div>
               <div class="bs-row row" ng-if="::main.adminConfig.isPaymentEnabled()">
@@ -42,7 +42,22 @@
                 </div>
                 <div class="col-xs-6">
                   <span ng-if="vm.organization.credit_card.presence" class="text-success" translate>mnoe_admin_panel.dashboard.organization.credit_card.presence.yes</span>
-                  <span ng-if="!vm.organization.credit_card.presence" class="text-danger" translate="">mnoe_admin_panel.dashboard.organization.credit_card.presence.no</span>
+                  <span ng-if="!vm.organization.credit_card.presence" class="text-danger" translate>mnoe_admin_panel.dashboard.organization.credit_card.presence.no</span>
+                </div>
+              </div>
+              <div class="bs-row row">
+                <div class="col-xs-6">
+                  <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.billing_currency</div>
+                </div>
+                <div class="col-xs-5">
+                  <select ng-model="vm.organization.billing_currency" ng-show="vm.editmode">
+                    <option ng-repeat="currency in vm.availableBillingCurrencies" value="{{currency}}">{{currency}}</option>
+                  </select>
+                  <span ng-click="vm.editmode = true" ng-hide="vm.editmode">{{vm.organization.billing_currency}}</span>
+                  <a href="" ng-hide="vm.editmode" ng-click="vm.editmode = true"><i class="fa fa-pencil"></i></a>
+                  <a href="" ng-show="vm.editmode" ng-click="vm.updateOrganization()"><i class="fa fa-check"></i></a>
+                  <a href="" ng-show="vm.editmode" ng-click="vm.resetBillingCurrency()"><i class="fa fa-eraser"></i></a>
+                  <span ng-show="vm.isSaving"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
                 </div>
               </div>
               <div class="bs-row row">
