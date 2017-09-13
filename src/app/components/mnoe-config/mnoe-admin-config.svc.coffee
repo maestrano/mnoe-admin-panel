@@ -126,5 +126,4 @@
       $log.debug("ADMIN_PANEL_CONFIG.billing_currencies missing")
       ['AED', 'AUD', 'CAD', 'EUR', 'GBP', 'HKD', 'JPY', 'NZD', 'SGD', 'USD']
 
-
   return @
