@@ -195,7 +195,7 @@
     <mno-widget-body>
       <!-- Logo upload -->
       <mno-section heading="{{'mnoe_admin_panel.dashboard.product.logo_upload' | translate}}">
-        <form name="vm.form.product.logo">
+        <form name="vm.formLogo">
           <mno-image-selector ng-model="vm.product.logo"
                               default-preview="{{vm.product.logo.url}}"
                               max-size="'5MB'">
@@ -204,7 +204,8 @@
             </a>
           </mno-image-selector>
           <button class="btn btn-primary top-buffer-1"
-                  ng-click="vm.uploadLogo(vm.product.logo, vm.form.product.logo)" translate>mnoe_admin_panel.dashboard.product.submit
+                  ng-click="vm.uploadLogo(vm.product.logo, vm.formLogo)"
+                  ng-show="vm.formLogo.$dirty" translate>mnoe_admin_panel.dashboard.product.submit
           </button>
         </form>
       </mno-section>
