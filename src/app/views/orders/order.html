@@ -115,7 +115,7 @@
         <h4 translate>mnoe_admin_panel.dashboard.order.additional_info</h4>
         <div class="row">
           <div class="col-xs-12">
-            {{vm.order.custom_data}}
+            <pre class="info-order">{{vm.formatJson(vm.order.custom_data)}}</pre>
           </div>
         </div>
       </mno-widget-body>

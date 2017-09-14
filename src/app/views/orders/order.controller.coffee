@@ -15,7 +15,6 @@
   MnoeProvisioning.fetchSubscription(vm.orderId, vm.orgId).then(
     (response) ->
       vm.order = response.data.plain()
-      console.log(vm.order)
       vm.getInfo()
   )
 
@@ -29,6 +28,10 @@
         (response) ->
           vm.user = response.data.plain()
       )
+
+  vm.formatJson = (json) ->
+    JSON.stringify(json, null, 2)
+      .replace(/[",{()},"]/g, '')
 
   # Display approval if status is 'requested' or if product is not externally provisioned
   vm.displayApproval = ->
