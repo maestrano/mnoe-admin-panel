@@ -62,7 +62,6 @@
       # Edit a subscription
       _self.fetchSubscription(subscriptionId, orgId).then(
         (response) ->
-          console.log("### DEBUG response", response.data)
           angular.copy(response.data, subscription)
           deferred.resolve(subscription)
       )
@@ -84,14 +83,12 @@
 
   # Detect if the subscription should be a POST or A PUT and call corresponding method
   @saveSubscription = (subscription) ->
-    console.log("### DEBUG subscription", subscription)
     unless subscription.id
       promise = createSubscription(subscription)
     else
       promise = updateSubscription(subscription)
     promise.then(
       (response) ->
-        console.log("### DEBUG promise response", response)
         _self.setSubscription(response.data)
         response
     )

@@ -2,7 +2,6 @@
   vm = this
 
   vm.isLoading = true
-  vm.orgCurrency = MnoeAdminConfig.marketplaceCurrency()
   vm.product = null
 
   orgPromise = MnoeOrganizations.get($stateParams.orgId)
@@ -11,8 +10,8 @@
 
   $q.all({organization: orgPromise, products: prodsPromise, subscription: initPromise}).then(
     (response) ->
+      vm.orgCurrency = response.organization.data.billing_currency || MnoeAdminConfig.marketplaceCurrency()
       vm.subscription = response.subscription
-      console.log("### DEBUG response.organization", response.organization.data.plain())
       vm.subscription.organization_id = response.organization.data.id
 
       MnoeProvisioning.findProduct({id: vm.subscription.product?.id, nid: $stateParams.nid}).then(
@@ -31,9 +30,9 @@
   vm.next = (subscription) ->
     MnoeProvisioning.setSubscription(subscription)
     if vm.subscription.product.custom_schema?
-      $state.go('dashboard.provisioning.additional_details')
+      $state.go('dashboard.provisioning.additional_details', {orgId: $stateParams.orgId})
     else
-      $state.go('dashboard.provisioning.confirm')
+      $state.go('dashboard.provisioning.confirm', {orgId: $stateParams.orgId})
 
   return
 )

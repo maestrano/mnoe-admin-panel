@@ -1,4 +1,4 @@
-@App.controller('ProvisioningDetailsCtrl', ($state, MnoeProvisioning) ->
+@App.controller('ProvisioningDetailsCtrl', ($state, $stateParams, MnoeProvisioning) ->
   vm = this
 
   vm.form = [ "*" ]
@@ -15,7 +15,7 @@
   vm.submit = (form) ->
     return if form.$invalid
     MnoeProvisioning.setSubscription(vm.subscription)
-    $state.go('dashboard.provisioning.confirm')
+    $state.go('dashboard.provisioning.confirm', {orgId: $stateParams.orgId})
 
   return
 )
