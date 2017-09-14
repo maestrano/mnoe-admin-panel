@@ -34,6 +34,8 @@
                 <div class="col-xs-6">
                   <span ng-if="vm.organization.account_frozen" translate>mnoe_admin_panel.dashboard.organization.account_frozen.yes</span>
                   <span ng-if="!vm.organization.account_frozen" translate>mnoe_admin_panel.dashboard.organization.account_frozen.no</span>
+                  <a href="" ng-hide="vm.organization.account_frozen" ng-click="vm.freezeOrganization()"><i class="fa fa-ban"></i></a>
+                  <a href="" ng-show="vm.organization.account_frozen" ng-click="vm.unfreezeOrganization()"><i class="fa fa-check"></i></a>
                 </div>
               </div>
               <div class="bs-row row" ng-if="::main.adminConfig.isPaymentEnabled()">

@@ -47,4 +47,10 @@
   @update = (organization) ->
     MnoeAdminApiSvc.one('/organizations', organization.id).patch(organization)
 
+  @freeze = (organization) ->
+    MnoeAdminApiSvc.one('organizations', organization.id).customPUT(null, '/freeze')
+
+  @unfreeze = (organization) ->
+    MnoeAdminApiSvc.one('organizations', organization.id).customPUT(null, '/unfreeze')
+
   return @

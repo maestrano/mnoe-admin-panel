@@ -32,6 +32,26 @@
       vm.updateStatus()
   )
 
+  vm.freezeOrganization = ->
+    MnoeOrganizations.freeze(vm.organization).then(
+      (response) ->
+        toastr.success("mnoe_admin_panel.dashboard.organization.update_organization.toastr_success", {extraData: { name: vm.organization.name}})
+        angular.copy(response.data.plain().organization, vm.organization)
+      (error) ->
+        toastr.error("mnoe_admin_panel.dashboard.organization.update_organization.toastr_error")
+        $log.error("An error occurred:", error)
+    )
+
+  vm.unfreezeOrganization = ->
+    MnoeOrganizations.unfreeze(vm.organization).then(
+      (response) ->
+        toastr.success("mnoe_admin_panel.dashboard.organization.update_organization.toastr_success", {extraData: { name: vm.organization.name}})
+        angular.copy(response.data.plain().organization, vm.organization)
+      (error) ->
+        toastr.error("mnoe_admin_panel.dashboard.organization.update_organization.toastr_error")
+        $log.error("An error occurred:", error)
+    )
+
   vm.updateStatus = ->
     vm.status = {}
     _.map(vm.organization.active_apps,
