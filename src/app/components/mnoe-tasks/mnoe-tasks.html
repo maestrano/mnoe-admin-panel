@@ -5,7 +5,7 @@
       <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
     </button>
     <mno-dropdown-filter-selector filters="$ctrl.tasksFilters" selected="$ctrl.selectedTasksFilter" on-select="$ctrl.onSelectFilter($event)"></mno-dropdown-filter-selector>
-    <div class="refresh-tasks" ng-click="$ctrl.onRefreshTasks()" ng-disabled="$ctrl.tasks.loading"  ng-class="{'disabled': $ctrl.tasks.loading}">
+    <div class="refresh-tasks" ng-click="$ctrl.onRefreshTasks()" ng-class="{'disabled': $ctrl.tasks.loading}">
       <i class="fa fa-refresh fa-2x fa-fw" aria-hidden="true" ng-class="{'fa-spin': $ctrl.tasks.loading}"></i>
     </div>
   </div>
