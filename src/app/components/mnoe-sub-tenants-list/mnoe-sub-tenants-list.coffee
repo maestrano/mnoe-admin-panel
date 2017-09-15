@@ -59,7 +59,7 @@
           actionButtonText: 'mnoe_admin_panel.dashboard.sub_tenants.remove_sub_tenant.delete'
           headerText: 'mnoe_admin_panel.dashboard.sub_tenants.remove_sub_tenant.proceed'
           headerTextExtraData: {sub_tenant_name: subTenant.name}
-          bodyText: 'mnoe_admin_panel.dashboard.sub_tenants.modal.remove_sub_tenant.perform'
+          bodyText: 'mnoe_admin_panel.dashboard.sub_tenants.remove_sub_tenant.perform'
 
         MnoConfirm.showModal(modalOptions).then(->
           MnoeSubTenants.delete(subTenant.id).then(->
@@ -83,7 +83,7 @@
     MnoeObservables.registerCb(OBS_KEYS.subTenantAdded, ->
       fetchSubTenants(vm.subTenant.nbItems, vm.subTenant.offset)
     )
-    
+
     # Notify me if the list changes
     MnoeObservables.registerCb(OBS_KEYS.subTenantChanged, ->
       fetchSubTenants(vm.subTenant.nbItems, vm.subTenant.offset)
