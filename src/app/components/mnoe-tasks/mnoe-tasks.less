@@ -17,11 +17,15 @@ mnoe-tasks {
 
       & > .refresh-tasks {
         display: inline-block;
-        padding: 3px;
-        margin: 2px 2px 2px 7px;
+        padding: 2px;
+        margin: 2px 2px 2px 8px;
         color: @link-color;
         &:hover {
           color: darken(@link-color, 15%);
+        }
+        &.disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
         }
       }
     }
