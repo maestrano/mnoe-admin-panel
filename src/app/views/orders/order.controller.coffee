@@ -8,15 +8,22 @@
   vm.order = {}
   vm.organization = {}
   vm.user = {}
+  vm.isLoading = true
   vm.fulfillment_status = [{value: 'Y', text: 'mnoe_admin_panel.dashboard.order.fulfillment_yes'},
     {value: 'N', text: 'mnoe_admin_panel.dashboard.order.fulfillment_no'}]
 
-  # Get the organization
+  # Get the subscription
   MnoeProvisioning.fetchSubscription(vm.orderId, vm.orgId).then(
     (response) ->
       vm.order = response.data.plain()
       vm.getInfo()
-  )
+      if vm.order.custom_data?
+        # Get the product schema
+        MnoeProvisioning.findProduct(id: vm.order.product_id).then(
+          (response) ->
+            vm.schema = JSON.parse(response.custom_schema)
+        )
+  ).finally(-> vm.isLoading = false)
 
   vm.getInfo = ->
     MnoeOrganizations.get(vm.orgId).then(
@@ -30,8 +37,14 @@
       )
 
   vm.formatJson = (json) ->
-    JSON.stringify(json, null, 2)
-      .replace(/[",{()},"]/g, '')
+    # format the json with indentation and line breaks
+    JSON.stringify(json, null, 1)
+      # replace " " + \n for \n to correct the indentation
+      .replace(/\n /, "\n")
+        # replace , {} () by ''
+        .replace(/[",{()},"]/g, '')
+          # remove black lines
+          .replace(/(^[ \t]*\n)/gm, "")
 
   # Display approval if status is 'requested' or if product is not externally provisioned
   vm.displayApproval = ->

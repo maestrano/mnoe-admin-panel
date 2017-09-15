@@ -3,7 +3,7 @@
 </a>
 <div class="row">
   <div class="col-xs-6">
-    <mno-widget icon="fa-shopping-basket" heading="{{'mnoe_admin_panel.dashboard.order.order_info' | translate}}">
+    <mno-widget icon="fa-shopping-basket" heading="{{'mnoe_admin_panel.dashboard.order.order_info' | translate}}" is-loading="vm.isLoading">
       <mno-widget-header></mno-widget-header>
       <mno-widget-body>
         <div class="row">
@@ -85,7 +85,7 @@
     </mno-widget>
   </div>
   <div class="col-xs-6">
-    <mno-widget icon="fa-user-o" heading="{{'mnoe_admin_panel.dashboard.order.customer' | translate}}">
+    <mno-widget icon="fa-user-o" heading="{{'mnoe_admin_panel.dashboard.order.customer' | translate}}" is-loading="vm.isLoading">
       <mno-widget-header></mno-widget-header>
       <mno-widget-body>
         <div class="row">
@@ -113,9 +113,16 @@
           </div>
         </div>
         <h4 translate>mnoe_admin_panel.dashboard.order.additional_info</h4>
-        <div class="row">
+        <div class="row" ng-if="vm.order.provisioning_data">
           <div class="col-xs-12">
-            <pre class="info-order">{{vm.formatJson(vm.order.custom_data)}}</pre>
+            <h4 translate>mnoe_admin_panel.dashboard.order.provisioning_data</h4>
+            <pre class="info-order">{{vm.formatJson(vm.order.provisioning_data)}}</pre>
+          </div>
+        </div>
+        <div class="row" ng-if="vm.order.custom_data">
+          <div class="col-xs-12">
+            <h4 translate>mnoe_admin_panel.dashboard.order.custom_data</h4>
+            <form name="vm.detailsForm" sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.order.custom_data" sf-options="{ formDefaults: { readonly: { true } }}"></form>
           </div>
         </div>
       </mno-widget-body>
