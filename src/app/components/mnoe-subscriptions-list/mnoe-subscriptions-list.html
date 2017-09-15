@@ -18,7 +18,7 @@
       	</thead>
       	<tbody ng-show="!$ctrl.subscriptions.loading" >
           <tr ng-repeat="item in $ctrl.subscriptions.list">
-            <td>{{item.start_date | amUtc | amLocal | amDateFormat:'DD/MM/YYYY'}}</td>
+            <td>{{item.start_date | amDateFormat:'L'}}</td>
             <td ng-if="$ctrl.all"><a ui-sref="dashboard.order({orderId : item.id, orgId: item.organization_id})">{{item.organization.name}}</a></td>
             <td><a ui-sref="dashboard.order({orderId : item.id, orgId: item.organization_id})">{{item.product.name}}</a></td>
             <td>{{item.product_pricing.name}}</td>
