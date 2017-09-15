@@ -37,7 +37,7 @@
             <td>{{ pmElem.organization.name || ('mnoe_admin_panel.dashboard.product_markups.add_markup.modal.all_companies' | translate) }}</td>
             <td class="text-center">
               <span ng-show="!$ctrl.editmode[pmElem.id]">{{pmElem.percentage*100 | number:2}}%</span>
-              <input ng-show="$ctrl.editmode[pmElem.id]" type="text" class="form-control input-sm" percentage-input ng-model="pmElem.percentage" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" required>
+              <input ng-show="$ctrl.editmode[pmElem.id]" type="number" class="form-control input-sm" percentage-input ng-model="pmElem.percentage" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" required>
             </td>
             <td>
               <a href="" ng-hide="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.editmode[pmElem.id] = true"><i class="fa fa-pencil"></i></a>
