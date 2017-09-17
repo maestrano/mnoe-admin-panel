@@ -22,7 +22,7 @@
   </mno-widget>
 
   <span class="pull-right top-buffer-1">
-    <button class="btn btn-primary" ui-sref="dashboard.customers.organization({id: vm.subscription.organization_id})" translate>
+    <button class="btn btn-primary" ui-sref="dashboard.provisioning.order({nid: vm.subscription.product.nid, orgId: vm.subscription.organization_id})" translate>
       mnoe_admin_panel.dashboard.provisioning.confirm.edit_order
     </button>
     <button class="btn btn-warning" ng-click="vm.validate()" ng-disabled="vm.isLoading">
