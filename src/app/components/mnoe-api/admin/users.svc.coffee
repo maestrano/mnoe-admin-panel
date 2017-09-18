@@ -14,9 +14,7 @@
 
   @staffs = (limit, offset, sort, params = {}) ->
     # Require only users with an admin role (gets any role, not necessarly defined in the frontend)
-    if ! params['where[admin_role.in]']
-      params['where[admin_role.not]'] = ''
-
+    params['where[admin_role.not]'] = '' unless params['where[admin_role.in]']
     return _getStaffs(limit, offset, sort, params)
 
   @search = (terms) ->
