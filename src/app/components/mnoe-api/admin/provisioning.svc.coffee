@@ -83,15 +83,18 @@
 
   # Detect if the subscription should be a POST or A PUT and call corresponding method
   @saveSubscription = (subscription) ->
-    unless subscription.id
-      promise = createSubscription(subscription)
+    if subscription.id
+      updateSubscription(subscription).then(
+        (response) ->
+          _self.setSubscription(response.data.subscription)
+          response
+      )
     else
-      promise = updateSubscription(subscription)
-    promise.then(
-      (response) ->
-        _self.setSubscription(response.data)
-        response
-    )
+      createSubscription(subscription).then(
+        (response) ->
+          _self.setSubscription(response.data)
+          response
+      )
 
   @fetchSubscription = (id, orgId) ->
     MnoeAdminApiSvc.one('/organizations', orgId).one('subscriptions', id).get().catch(
