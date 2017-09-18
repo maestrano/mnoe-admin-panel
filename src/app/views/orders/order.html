@@ -1,132 +1,133 @@
-<a ui-sref="dashboard.orders" class="text-muted">
-  <i class="fa fa-chevron-left"></i><span translate>mnoe_admin_panel.dashboard.order.back</span>
-</a>
-<div class="row">
-  <div class="col-xs-6">
-    <mno-widget icon="fa-shopping-basket" heading="{{'mnoe_admin_panel.dashboard.order.order_info' | translate}}" is-loading="vm.isLoading">
-      <mno-widget-header></mno-widget-header>
-      <mno-widget-body>
-        <div class="row">
-          <div class="col-xs-6">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.reference</div>
+<div id="order">
+  <a ui-sref="dashboard.orders" class="text-muted">
+    <i class="fa fa-chevron-left"></i><span translate>mnoe_admin_panel.dashboard.order.back</span>
+  </a>
+  <div class="row">
+    <div class="col-xs-6">
+      <mno-widget icon="fa-shopping-basket" heading="{{'mnoe_admin_panel.dashboard.order.order_info' | translate}}" is-loading="vm.isLoading">
+        <mno-widget-header></mno-widget-header>
+        <mno-widget-body>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.reference</div>
+            </div>
+            <div class="col-xs-6">
+              {{vm.order.external_id}}
+            </div>
           </div>
-          <div class="col-xs-6">
-            {{vm.order.external_id}}
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.date</div>
+            </div>
+            <div class="col-xs-6">
+              {{vm.order.start_date | date: 'dd/MM/yyyy'}}
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.date</div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.end_date</div>
+            </div>
+            <div class="col-xs-6">
+              {{vm.order.end_date | date: 'dd/MM/yyyy'}}
+            </div>
           </div>
-          <div class="col-xs-6">
-            {{vm.order.start_date | date: 'dd/MM/yyyy'}}
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.product</div>
+            </div>
+            <div class="col-xs-6">
+              {{vm.order.product.name}}
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.end_date</div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.pricing_plan</div>
+            </div>
+            <div class="col-xs-6">
+              {{vm.order.product_pricing.name}}
+            </div>
           </div>
-          <div class="col-xs-6">
-            {{vm.order.end_date | date: 'dd/MM/yyyy'}}
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.status</div>
+            </div>
+            <div class="col-xs-6">
+              {{vm.order.status}}
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.product</div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.approval</div>
+            </div>
+            <div class="col-xs-3" ng-hide="!vm.displayApproval()">
+              <button role="button" ng-click="vm.approveOrder()" ng-disabled="vm.disableApproval()" class="btn btn-primary btn-xs" translate>
+                mnoe_admin_panel.dashboard.order.approve
+              </button>
+            </div>
+            <div class="col-xs-3" ng-hide="!vm.displayFulfillApproval()">
+              <button role="button" ng-click="vm.fulfillOrder()" ng-disabled="vm.disableFulfillApproval()" class="btn btn-primary btn-xs" translate>
+                mnoe_admin_panel.dashboard.order.fulfill
+              </button>
+            </div>
+            <div class="col-xs-3">
+              <button role="button" ng-click="vm.cancelOrder()" ng-disabled="vm.disableCancel()" class="btn btn-primary btn-xs" translate>
+                mnoe_admin_panel.dashboard.order.reject
+              </button>
+            </div>
           </div>
-          <div class="col-xs-6">
-            {{vm.order.product.name}}
+          <div class="row">
+            <div class="col-xs-6">
+            </div>
+            <div class="col-xs-6">
+              {{vm.orderWorkflowExplanation() | translate}}
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.pricing_plan</div>
+        </mno-widget-body>
+      </mno-widget>
+    </div>
+    <div class="col-xs-6">
+      <mno-widget icon="fa-user-o" heading="{{'mnoe_admin_panel.dashboard.order.customer' | translate}}" is-loading="vm.isLoading">
+        <mno-widget-header></mno-widget-header>
+        <mno-widget-body>
+          <div class="row">
+            <div class="col-xs-4">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.name</div>
+            </div>
+            <div class="col-xs-6">
+              {{vm.user.name}} {{vm.user.surname}}
+            </div>
           </div>
-          <div class="col-xs-6">
-            {{vm.order.product_pricing.name}}
+          <div class="row">
+            <div class="col-xs-4">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.email</div>
+            </div>
+            <div class="col-xs-6">
+              {{vm.user.email}}
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.status</div>
+          <div class="row">
+            <div class="col-xs-4">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.organization</div>
+            </div>
+            <div class="col-xs-6">
+              {{vm.organization.name}}
+            </div>
           </div>
-          <div class="col-xs-6">
-            {{vm.order.status}}
+          <h4 translate>mnoe_admin_panel.dashboard.order.additional_info</h4>
+          <div class="row" ng-if="vm.order.provisioning_data">
+            <div class="col-xs-12">
+              <h4 translate>mnoe_admin_panel.dashboard.order.provisioning_data</h4>
+              <pre class="info-order">{{vm.formatJson(vm.order.provisioning_data)}}</pre>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.approval</div>
+          <div class="row" ng-if="vm.order.custom_data">
+            <div class="col-xs-12">
+              <h4 translate>mnoe_admin_panel.dashboard.order.custom_data</h4>
+              <form name="vm.detailsForm" sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.order.custom_data" sf-options="{ formDefaults: { readonly: { true } }}"></form>
+            </div>
           </div>
-          <div class="col-xs-3" ng-hide="!vm.displayApproval()">
-            <button role="button" ng-click="vm.approveOrder()" ng-disabled="vm.disableApproval()" class="btn btn-primary btn-xs" translate>
-              mnoe_admin_panel.dashboard.order.approve
-            </button>
-          </div>
-          <div class="col-xs-3" ng-hide="!vm.displayFulfillApproval()">
-            <button role="button" ng-click="vm.fulfillOrder()" ng-disabled="vm.disableFulfillApproval()" class="btn btn-primary btn-xs" translate>
-              mnoe_admin_panel.dashboard.order.fulfill
-            </button>
-          </div>
-          <div class="col-xs-3">
-            <button role="button" ng-click="vm.cancelOrder()" ng-disabled="vm.disableCancel()" class="btn btn-primary btn-xs" translate>
-              mnoe_admin_panel.dashboard.order.reject
-            </button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">
-          </div>
-          <div class="col-xs-6">
-            {{vm.orderWorkflowExplanation() | translate}}
-          </div>
-        </div>
-      </mno-widget-body>
-    </mno-widget>
-  </div>
-  <div class="col-xs-6">
-    <mno-widget icon="fa-user-o" heading="{{'mnoe_admin_panel.dashboard.order.customer' | translate}}" is-loading="vm.isLoading">
-      <mno-widget-header></mno-widget-header>
-      <mno-widget-body>
-        <div class="row">
-          <div class="col-xs-4">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.name</div>
-          </div>
-          <div class="col-xs-6">
-            {{vm.user.name}} {{vm.user.surname}}
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-4">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.email</div>
-          </div>
-          <div class="col-xs-6">
-            {{vm.user.email}}
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-4">
-            <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.organization</div>
-          </div>
-          <div class="col-xs-6">
-            {{vm.organization.name}}
-          </div>
-        </div>
-        <h4 translate>mnoe_admin_panel.dashboard.order.additional_info</h4>
-        <div class="row" ng-if="vm.order.provisioning_data">
-          <div class="col-xs-12">
-            <h4 translate>mnoe_admin_panel.dashboard.order.provisioning_data</h4>
-            <pre class="info-order">{{vm.formatJson(vm.order.provisioning_data)}}</pre>
-          </div>
-        </div>
-        <div class="row" ng-if="vm.order.custom_data">
-          <div class="col-xs-12">
-            <h4 translate>mnoe_admin_panel.dashboard.order.custom_data</h4>
-            <form name="vm.detailsForm" sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.order.custom_data" sf-options="{ formDefaults: { readonly: { true } }}"></form>
-          </div>
-        </div>
-      </mno-widget-body>
-    </mno-widget>
+        </mno-widget-body>
+      </mno-widget>
+    </div>
   </div>
 </div>
-
