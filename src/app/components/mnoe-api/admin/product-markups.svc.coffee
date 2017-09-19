@@ -21,6 +21,9 @@
   @get = (id) ->
     MnoeAdminApiSvc.one('product_markups', id).get()
 
+  @search = (terms) ->
+    MnoeAdminApiSvc.all("product_markups").getList({terms: terms})
+
   # Create a product markup if not already existing
   # POST /mnoe/jpi/v1/admin/product_markups
   @addProductMarkup = (markup) ->
