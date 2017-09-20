@@ -1,10 +1,12 @@
-@App.controller 'CustomersController', ($scope, $uibModal, MnoeUsers, MnoeOrganizations, MnoeObservables, OBS_KEYS) ->
+@App.controller 'CustomersController', ($scope, $uibModal,MnoeAdminConfig, MnoeUsers, MnoeOrganizations, MnoeObservables, OBS_KEYS) ->
   'ngInject'
   vm = this
 
   vm.users = {}
   vm.organizations = {}
   vm.invoices = {}
+  vm.isRegistrationEnabled = MnoeAdminConfig.isRegistrationEnabled()
+  vm.isCustomerBatchImportEnabled = MnoeAdminConfig.isCustomerBatchImportEnabled()
 
   # Display user invitation modal
   vm.inviteUserModal = () ->

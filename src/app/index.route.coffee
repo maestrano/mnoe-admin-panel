@@ -262,6 +262,16 @@
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.customers.create_customer.title'
 
+  if adminConfig.isOrganizationManagementEnabled() && adminConfig.isCustomerBatchImportEnabled()
+    $stateProvider.state 'dashboard.customers.batch-upload',
+      url: '^/customers/batch-upload'
+      views: '@dashboard':
+        templateUrl: 'app/views/customers/batch-upload/batch-upload.html'
+        controller: 'BatchUploadController'
+        controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.customers.batch_upload.title'
+
   if adminConfig.isOrganizationManagementEnabled() && adminConfig.isProvisioningEnabled()
     $stateProvider
       .state 'dashboard.provisioning',
