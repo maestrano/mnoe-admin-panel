@@ -45,6 +45,11 @@
     )
   )
 
+  .config((JSONFormatterConfigProvider) ->
+    # Enable the hover preview feature
+    JSONFormatterConfigProvider.hoverPreviewEnabled = true
+  )
+
   .config(($translateProvider, LOCALES) ->
     # Path to translations files
     $translateProvider.useStaticFilesLoader(

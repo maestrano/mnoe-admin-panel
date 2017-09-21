@@ -27,5 +27,6 @@
   'angucomplete-alt',
   'ui.toggle',
   'textAngular',
-  'maestrano.impac'
+  'maestrano.impac',
+  'jsonFormatter'
 ]
