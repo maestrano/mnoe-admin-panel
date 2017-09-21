@@ -9,8 +9,10 @@
   vm.organization = {}
   vm.user = {}
   vm.isLoading = true
-  vm.fulfillment_status = [{value: 'Y', text: 'mnoe_admin_panel.dashboard.order.fulfillment_yes'},
-    {value: 'N', text: 'mnoe_admin_panel.dashboard.order.fulfillment_no'}]
+  vm.fulfillment_status = [
+    {value: 'Y', text: 'mnoe_admin_panel.dashboard.order.fulfillment_yes'},
+    {value: 'N', text: 'mnoe_admin_panel.dashboard.order.fulfillment_no'}
+  ]
 
   # Get the subscription
   MnoeProvisioning.fetchSubscription(vm.orderId, vm.orgId).then(
@@ -35,16 +37,6 @@
         (response) ->
           vm.user = response.data.plain()
       )
-
-  vm.formatJson = (json) ->
-    # format the json with indentation and line breaks
-    JSON.stringify(json, null, 1)
-      # replace " " + \n for \n to correct the indentation
-      .replace(/\n /, "\n")
-        # replace , {} () by ''
-        .replace(/[",{()},"]/g, '')
-          # remove black lines
-          .replace(/(^[ \t]*\n)/gm, "")
 
   # Display approval if status is 'requested' or if product is not externally provisioned
   vm.displayApproval = ->
@@ -71,7 +63,6 @@
       return 'mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_disabled'
     if vm.displayApproval() && vm.disableApproval()
       return 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_disabled'
-
 
   vm.approveOrder = ->
     modalOptions =
