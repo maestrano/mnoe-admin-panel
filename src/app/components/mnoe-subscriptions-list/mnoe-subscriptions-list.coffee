@@ -5,14 +5,16 @@
   templateUrl: 'app/components/mnoe-subscriptions-list/mnoe-subscriptions-list.html',
   bindings: {
     all: '<'
-    organization: '<'
+    organization: '<',
+    filters: '<'
+    titleKey: '@'
   }
   controller: ($filter, $log, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning) ->
     ctrl = this
 
     ctrl.subscriptions =
       list: []
-      sort: "start_date"
+      sort: "created_at.desc"
       nbItems: 10
       offset: 0
       page: 1
@@ -40,6 +42,9 @@
             )
 
         MnoConfirm.showModal(modalOptions)
+
+    ctrl.$onInit = ->
+      ctrl.titleText = "mnoe_admin_panel.dashboard.subscriptions.widget.list.#{ctrl.titleKey || 'title'}"
 
     ctrl.$onChanges = () ->
       # Call the server when ready
@@ -72,7 +77,11 @@
     # Fetch subscriptions
     fetchSubscriptions = (limit, offset, sort = ctrl.subscriptions.sort) ->
       ctrl.subscriptions.loading = true
-      return MnoeProvisioning.getSubscriptions(limit, offset, sort, ctrl.organization?.id).then(
+
+      # Add extra filtering
+      extra_params = ctrl.filters || {}
+
+      return MnoeProvisioning.getSubscriptions(limit, offset, sort, ctrl.organization?.id, extra_params).then(
         (response) ->
           ctrl.subscriptions.totalItems = response.headers('x-total-count')
           ctrl.subscriptions.list = response.data
