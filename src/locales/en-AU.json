@@ -159,6 +159,7 @@
   "mnoe_admin_panel.dashboard.product_markups.add_markup.modal.search_product": "Search product",
   "mnoe_admin_panel.dashboard.product_markups.add_markup.modal.search_company": "Search company",
   "mnoe_admin_panel.dashboard.product_markups.add_markup.modal.search_loading": "Loading...",
+  "mnoe_admin_panel.dashboard.product_markups.add_markup.modal.already_exists": "A product markup for this combination already exists",
   "mnoe_admin_panel.dashboard.product_markups.modal.remove_product_markup.cancel": "Cancel",
   "mnoe_admin_panel.dashboard.product_markups.modal.remove_product_markup.delete": "Delete",
   "mnoe_admin_panel.dashboard.product_markups.modal.remove_product_markup.proceed": "Delete mark-up",
