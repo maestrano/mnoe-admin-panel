@@ -15,9 +15,15 @@
         modal.open()
 
         # Callbacks to display Impac! (or redirect to templates list) after the modal is closed
+        # Modal is closed (= template created):
+        # - update template status to "draft"
+        # - show impac!
+        # Modal is dismissed (= cancel)
+        # - redirect to templates list
         modal.instance.result.then(
           (closed) ->
-            vm.showImpac = true
+            dhbId = ImpacDashboardsSvc.getCurrentDashboard().id
+            ImpacDashboardsSvc.update(dhbId, { published: false }).then(-> vm.showImpac = true)
           (dismissed) ->
             $state.go('dashboard.dashboard-templates')
         )
