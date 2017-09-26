@@ -67,6 +67,5 @@
           file.progress = parseInt(100.0 * evt.loaded / evt.total)
       ).finally(-> ctrl.isUploading = false)
 
-
     return
 })
