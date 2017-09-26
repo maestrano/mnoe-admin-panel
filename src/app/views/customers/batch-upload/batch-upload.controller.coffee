@@ -16,5 +16,3 @@
     vm.errors = error.data
 
   return
-
-

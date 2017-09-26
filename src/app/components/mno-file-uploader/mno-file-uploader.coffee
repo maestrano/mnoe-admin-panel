@@ -16,7 +16,9 @@
     <form name="$ctrl.form" novalidate>
       <fieldset>
         <input type="file" accept="{{$ctrl.fileTypes}}" ngf-select ng-model="$ctrl.file" name="file" ngf-max-size="{{$ctrl.maxSize}}" required ngf-model-invalid="errorFile">
-        <i ng-show="$ctrl.form.file.$error.maxSize"><span translate>mnoe_admin_panel.components.mno-file-uploader.file_too_large</span> : {{errorFile.size / 1000000|number:1}}MB, max {{$ctrl.maxSize}}</i>
+        <i ng-show="$ctrl.form.file.$error.maxSize">
+          <span translate>mnoe_admin_panel.components.mno-file-uploader.file_too_large</span> : {{errorFile.size / 1000000|number:1}}MB, max {{$ctrl.maxSize}}
+        </i>
         <div class="top-buffer-1">
           <button type="button" class="btn btn-primary" ng-disabled="!$ctrl.form.$valid || $ctrl.isUploading" ng-click="$ctrl.uploadFile()" translate>
             mnoe_admin_panel.components.mno-file-uploader.submit
