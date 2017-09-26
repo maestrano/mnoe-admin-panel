@@ -1,4 +1,4 @@
-@App.controller 'CustomersController', ($scope, $uibModal,MnoeAdminConfig, MnoeUsers, MnoeOrganizations, MnoeObservables, OBS_KEYS) ->
+@App.controller 'CustomersController', ($scope, $uibModal, MnoeAdminConfig, MnoeUsers, MnoeOrganizations, MnoeObservables, OBS_KEYS) ->
   'ngInject'
   vm = this
 

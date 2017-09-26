@@ -1,4 +1,4 @@
-<div id="batch-upload">
+<div id="batch-upload" class="top-buffer-1">
   <div class="row">
     <div class="col-xs-12">
       <h1 translate>mnoe_admin_panel.dashboard.customers.batch_upload.batch_upload</h1>
@@ -9,53 +9,45 @@
       <mno-widget icon="fa-upload" heading="{{'mnoe_admin_panel.dashboard.customers.batch_upload.file_upload' | translate}}">
         <mno-widget-header></mno-widget-header>
         <mno-widget-body>
-          <p translate>mnoe_admin_panel.dashboard.customers.batch_upload.description</p>
-          <form name="vm.form">
-            <fieldset>
-              <input type="file" accept=".csv" ngf-select ng-model="vm.file" name="file" ngf-max-size="20MB" required ngf-model-invalid="errorFile">
-              <i ng-show="vm.form.file.$error.maxSize"><span translate>mnoe_admin_panel.dashboard.customers.batch_upload.file_too_large</span> : {{errorFile.size / 1000000|number:1}}MB, max 20M</i>
-              <div class="top-buffer-1">
-                <button type="button" class="btn btn-secondary" ng-click="vm.downloadExample()" translate>
-                  mnoe_admin_panel.dashboard.customers.batch_upload.download_example
-                </button>
-                <button type="button" class="btn btn-primary" ng-disabled="!vm.form.$valid || vm.isUploading" ng-click="vm.uploadFile()" translate>
-                  mnoe_admin_panel.dashboard.customers.batch_upload.submit
-                </button>
-                <span ng-show="vm.isUploading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
-              </div>
-            </fieldset>
-            <div class="progress top-buffer-1" ng-show="vm.file.progress >= 0">
-              <uib-progressbar value="vm.file.progress" type="{{vm.progressBarType}}">
-                <span ng-show="vm.errors" translate>mnoe_admin_panel.dashboard.customers.batch_upload.upload_failed</span>
-                <span ng-show="vm.file.result" translate>mnoe_admin_panel.dashboard.customers.batch_upload.upload_successful</span>
-                <span ng-show="!vm.file.result && !vm.errors">{{vm.file.progress}}%</span>
-              </uib-progressbar>
-            </div>
-          </form>
-          <div class="bs-row">
+          <div class="row col-sm-12">
+            <p translate>mnoe_admin_panel.dashboard.customers.batch_upload.description</p>
+            <button type="button" class="btn btn-secondary" ng-click="vm.downloadExample()" translate>
+              mnoe_admin_panel.dashboard.customers.batch_upload.download_example
+            </button>
+          </div>
+
+          <div class="row col-sm-12 top-buffer-1">
+            <p translate>mnoe_admin_panel.dashboard.customers.batch_upload.select_file</p>
+            <mno-file-uploader max-size="20MB"
+                               file-types=".csv" upload-uri="/mnoe/jpi/v1/admin/organizations/batch_import"
+                               start-callback="vm.onUploadStart()"
+                               success-callback="vm.onUploadSuccess(value)"
+                               error-callback="vm.onUploadError(value)">
+            </mno-file-uploader>
+          </div>
+          <div class="row">
             <div class="col-sm-6">
-              <div ng-show="vm.addedOrganizations.length > 0">
+              <div ng-show="vm.report.added_organizations.length > 0">
                 <h3 translate>mnoe_admin_panel.dashboard.customers.batch_upload.added_organizations</h3>
-                <mnoe-organizations-local-list list="vm.addedOrganizations" view="all"></mnoe-organizations-local-list>
+                <mnoe-organizations-local-list list="vm.report.added_organizations" view="all"></mnoe-organizations-local-list>
               </div>
-              <div ng-show="vm.updatedOrganizations.length > 0">
+              <div ng-show="vm.report.updated_organizations.length > 0">
                 <h3 translate>mnoe_admin_panel.dashboard.customers.batch_upload.updated_organizations</h3>
-                <mnoe-organizations-local-list list="vm.updatedOrganizations" view="all"></mnoe-organizations-local-list>
+                <mnoe-organizations-local-list list="vm.report.updated_organizations" view="all"></mnoe-organizations-local-list>
               </div>
             </div>
             <div class="col-sm-6">
-              <div ng-show="vm.addedUsers.length > 0">
+              <div ng-show="vm.report.added_users.length > 0">
                 <h3 translate>mnoe_admin_panel.dashboard.customers.batch_upload.added_users</h3>
-                <mnoe-users-local-list list="vm.addedUsers" view="all"></mnoe-users-local-list>
+                <mnoe-users-local-list list="vm.report.added_users" view="all"></mnoe-users-local-list>
               </div>
-              <div ng-show="vm.updatedUsers.length > 0">
+              <div ng-show="vm.report.updated_organizations.length > 0">
                 <h3 translate>mnoe_admin_panel.dashboard.customers.batch_upload.updated_users</h3>
-                <mnoe-users-local-list list="vm.updatedUsers" view="all"></mnoe-users-local-list>
+                <mnoe-users-local-list list="vm.report.updated_organizations" view="all"></mnoe-users-local-list>
               </div>
             </div>
           </div>
-
-          <div ng-show="vm.errors">
+          <div ng-show="vm.errors" class="col-sm-12">
             <h3 translate>mnoe_admin_panel.dashboard.customers.batch_upload.errors</h3>
             <p translate>mnoe_admin_panel.dashboard.customers.batch_upload.errors_description</p>
             <ul ng-repeat="e in vm.errors">
