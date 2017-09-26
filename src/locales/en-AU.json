@@ -76,7 +76,7 @@
   "mnoe_admin_panel.dashboard.customers.connect_app.next": "Next",
   "mnoe_admin_panel.dashboard.customers.connect_app.xero.title": "Connect to {app_name}",
   "mnoe_admin_panel.dashboard.customers.connect_app.xero.close": "Close",
-  "mnoe_admin_panel.dashboard.customers.connect_app.xero.description": "How do mnoe_admin_panel.notifications.due.title want us to connect your Xero account?",
+  "mnoe_admin_panel.dashboard.customers.connect_app.xero.description": "How do you want us to connect your Xero account?",
   "mnoe_admin_panel.dashboard.customers.connect_app.xero.payroll": "Payroll",
   "mnoe_admin_panel.dashboard.customers.connect_app.xero.payroll_description": "Do you want to connect any of the following extra modules?",
   "mnoe_admin_panel.dashboard.customers.connect_app.xero.country": "What is the country associated with your Xero account?",
