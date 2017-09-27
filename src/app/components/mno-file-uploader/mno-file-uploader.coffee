@@ -42,23 +42,21 @@
       ctrl.startCallback()
       ctrl.progressBarType = 'primary'
       ctrl.isUploading = true
-      file = ctrl.file
-      form = ctrl.form
       ctrl.hasErrors = false
-      file.upload = Upload.upload(
+      ctrl.file.upload = Upload.upload(
         headers: {'Accept': 'application/json'},
         url: ctrl.uploadUri
         data:
-          file: file
+          file: ctrl.file
       )
-      file.upload.then(
+      ctrl.file.upload.then(
         (result) ->
           # Display upload successful & reset the form
           $timeout ->
-            file.result = true
-            form.$setPristine()
+            ctrl.file.result = true
+            ctrl.form.$setPristine()
           # Remove the upload bar after 3000ms
-          $timeout((-> file.progress = -1), 3000)
+          $timeout((-> ctrl.file.progress = -1), 3000)
           ctrl.successCallback({value: result})
         (error) ->
           MnoErrorsHandler.processServerError(error)
@@ -66,7 +64,7 @@
           ctrl.errorCallback({value: error})
           ctrl.progressBarType = 'danger'
         (evt) ->
-          file.progress = parseInt(100.0 * evt.loaded / evt.total)
+          ctrl.file.progress = parseInt(100.0 * evt.loaded / evt.total)
       ).finally(-> ctrl.isUploading = false)
 
     return

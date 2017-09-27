@@ -21,7 +21,7 @@
           {{'mnoe_admin_panel.dashboard.customers.main.new_customer' | translate}} &nbsp;<span class="caret"></span>
         </button>
         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
-          <li role="menuitem" ng-if="::vm.isRegistrationEnabled"><a href="" ng-click="::vm.inviteUserModal()" translate>mnoe_admin_panel.dashboard.customers.main.invite_customer</a></li>
+          <li role="menuitem" ng-if="::vm.isRegistrationEnabled"><a href="" ng-click="vm.inviteUserModal()" translate>mnoe_admin_panel.dashboard.customers.main.invite_customer</a></li>
           <li role="menuitem"><a ui-sref="dashboard.customers.create-step-1" translate>mnoe_admin_panel.dashboard.customers.main.create_customer</a></li>
           <li role="menuitem" ng-if="::vm.isCustomerBatchImportEnabled"><a ui-sref="dashboard.customers.batch-upload" translate>mnoe_admin_panel.dashboard.customers.main.batch_upload</a></li>
         </ul>
