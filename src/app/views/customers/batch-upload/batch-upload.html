@@ -1,0 +1,75 @@
+<div id="batch-upload" class="top-buffer-1">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1 translate>mnoe_admin_panel.dashboard.customers.batch_upload.batch_upload</h1>
+      <a ui-sref="dashboard.customers" class="text-muted">
+        <i class="fa fa-chevron-left"></i>&nbsp;<span translate>mnoe_admin_panel.dashboard.customers.batch_upload.back</span>
+      </a>
+      <!-- File upload section -->
+      <mno-widget icon="fa-upload" heading="{{'mnoe_admin_panel.dashboard.customers.batch_upload.file_upload' | translate}}">
+        <mno-widget-header></mno-widget-header>
+        <mno-widget-body>
+          <div class="row">
+            <div class="col-sm-12">
+              <p translate>mnoe_admin_panel.dashboard.customers.batch_upload.description</p>
+              <button type="button" class="btn btn-secondary" ng-click="vm.downloadExample()" translate>
+                mnoe_admin_panel.dashboard.customers.batch_upload.download_example
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 top-buffer-1">
+              <p translate>mnoe_admin_panel.dashboard.customers.batch_upload.rules</p>
+              <ul>
+                <li translate>mnoe_admin_panel.dashboard.customers.batch_upload.rule1</li>
+                <li translate>mnoe_admin_panel.dashboard.customers.batch_upload.rule2</li>
+                <li translate>mnoe_admin_panel.dashboard.customers.batch_upload.rule3</li>
+                <li translate>mnoe_admin_panel.dashboard.customers.batch_upload.rule4</li>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 top-buffer-1">
+              <p translate>mnoe_admin_panel.dashboard.customers.batch_upload.select_file</p>
+              <mno-file-uploader max-size="20MB"
+                                 file-types=".csv" upload-uri="/mnoe/jpi/v1/admin/organizations/batch_import"
+                                 start-callback="vm.onUploadStart()"
+                                 success-callback="vm.onUploadSuccess(value)"
+                                 error-callback="vm.onUploadError(value)">
+              </mno-file-uploader>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div ng-show="vm.report.organizations.added.length > 0">
+                <h3 translate>mnoe_admin_panel.dashboard.customers.batch_upload.added_organizations</h3>
+                <mnoe-organizations-local-list list="vm.report.organizations.added" view="all"></mnoe-organizations-local-list>
+              </div>
+              <div ng-show="vm.report.organizations.updated.length > 0">
+                <h3 translate>mnoe_admin_panel.dashboard.customers.batch_upload.updated_organizations</h3>
+                <mnoe-organizations-local-list list="vm.report.organizations.updated" view="all"></mnoe-organizations-local-list>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div ng-show="vm.report.users.added.length > 0">
+                <h3 translate>mnoe_admin_panel.dashboard.customers.batch_upload.added_users</h3>
+                <mnoe-users-local-list list="vm.report.users.added" view="all"></mnoe-users-local-list>
+              </div>
+              <div ng-show="vm.report.users.updated.length > 0">
+                <h3 translate>mnoe_admin_panel.dashboard.customers.batch_upload.updated_users</h3>
+                <mnoe-users-local-list list="vm.report.users.updated" view="all"></mnoe-users-local-list>
+              </div>
+            </div>
+          </div>
+          <div ng-show="vm.errors" class="col-sm-12">
+            <h3 translate>mnoe_admin_panel.dashboard.customers.batch_upload.errors</h3>
+            <p translate>mnoe_admin_panel.dashboard.customers.batch_upload.errors_description</p>
+            <ul ng-repeat="e in vm.errors">
+              <li>{{e}}</li>
+            </ul>
+          </div>
+        </mno-widget-body>
+      </mno-widget>
+    </div>
+  </div>
+</div>

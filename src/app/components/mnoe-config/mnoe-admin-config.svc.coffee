@@ -126,4 +126,10 @@
       $log.debug("ADMIN_PANEL_CONFIG.billing_currencies missing")
       ['AED', 'AUD', 'CAD', 'EUR', 'GBP', 'HKD', 'JPY', 'NZD', 'SGD', 'USD']
 
+  @isCustomerBatchImportEnabled = () ->
+    if ADMIN_PANEL_CONFIG.customer_batch_import?.enabled?
+      ADMIN_PANEL_CONFIG.customer_batch_import.enabled
+    else
+      false
+
   return @
