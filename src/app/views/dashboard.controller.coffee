@@ -9,6 +9,7 @@
   main.isFinanceEnabled = MnoeAdminConfig.isFinanceEnabled()
   main.adminConfig = MnoeAdminConfig
   main.isDashboardTemplatesEnabled = MnoeAdminConfig.isDashboardTemplatesEnabled()
+  main.isTasksEnabled = MnoeAdminConfig.isTasksEnabled()
 
   main.trustSrc = (src) ->
     $sce.trustAsResourceUrl(src)

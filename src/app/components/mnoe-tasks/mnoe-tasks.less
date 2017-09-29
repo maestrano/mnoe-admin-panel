@@ -1,0 +1,89 @@
+mnoe-tasks {
+
+  & > .topbar {
+    display: flex;
+    flex-direction: column;
+
+    & > .flex-row {
+      display: flex;
+      align-items: center;
+
+      & > .compose {
+        margin: 5px 7px;
+        font-weight: bold;
+        min-width: 130px;
+        max-width: 130px;
+      }
+
+      & > .refresh-tasks {
+        display: inline-block;
+        padding: 2px;
+        margin: 2px 2px 2px 8px;
+        color: @link-color;
+        &:hover {
+          color: darken(@link-color, 15%);
+        }
+        &.disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    mno-tasks-menu .tasks-menu .menu-item {
+      flex-grow: 1;
+    }
+  }
+
+  & > .main {
+    display: flex;
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 0;
+
+      mno-tasks-menu .tasks-menu {
+        flex-direction: column;
+
+        .menu-item {
+          min-width: 130px;
+          max-width: 130px;
+        }
+      }
+    }
+
+    .tasks {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 2;
+      background-color: white;
+      border-radius: 3px;
+      overflow: auto;
+
+      mno-sortable-table {
+        .st-sort-ascent:after,
+        .st-sort-descent:after {
+          color: @link-color;
+        }
+
+        td.ellipsis {
+          max-width: 200px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        // allow room for the sorting arrow css content, due to small size of checkbox.
+        td:last-child {
+          min-width: 70px;
+        }
+      }
+
+      .pagination {
+        padding: 0 10px;
+      }
+    }
+  }
+
+}
