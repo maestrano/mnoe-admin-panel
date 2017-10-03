@@ -11,8 +11,6 @@
 
   @isIntercomEnabled = () ->
     if ADMIN_PANEL_CONFIG.intercom?
-      $log.debug(ADMIN_PANEL_CONFIG.intercom.enabled)
-      $log.debug(INTERCOM_ID)
       ADMIN_PANEL_CONFIG.intercom.enabled && INTERCOM_ID?
     else
       false

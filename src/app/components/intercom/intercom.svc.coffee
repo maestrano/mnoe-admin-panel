@@ -22,7 +22,6 @@
           $window.Intercom('boot', userData)
       )
 
-
   # Will update in every page change so intercom knows we're still active and load new messages
   @update = () ->
     $window.Intercom('update') if $window.Intercom
