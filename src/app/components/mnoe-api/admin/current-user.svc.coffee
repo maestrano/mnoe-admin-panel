@@ -7,7 +7,7 @@
 # fork of the upstream library
 
 
-@App.service 'MnoeCurrentUser', ($window, $state, $q, $timeout, MnoeApiSvc) ->
+@App.service 'MnoeCurrentUser', ($window, $state, $q, $timeout, IntercomSvc, MnoeApiSvc) ->
   _self = @
 
   # Store the current_user promise
@@ -41,6 +41,9 @@
     return deferred
 
   @logout = ->
+    # Shutdown the Intercom session
+    IntercomSvc.logOut()
+
     _self.getUser().then(
       (response) ->
         # Redirect to dashboard if the user has at least one organization
