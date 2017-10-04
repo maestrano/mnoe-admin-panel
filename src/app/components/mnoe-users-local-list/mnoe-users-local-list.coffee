@@ -9,7 +9,7 @@
   },
   templateUrl: 'app/components/mnoe-users-local-list/mnoe-users-local-list.html',
   link: (scope, elem, attrs) ->
-
+    scope.isImpersonationEnabled = MnoeAdminConfig.isImpersonationEnabled()
     # Variables initialization
     scope.users =
       displayList: []
