@@ -17,7 +17,17 @@
           <td><input type="radio" name="optradio" ng-model="vm.subscription.product_pricing" ng-value="pricingPlan"></td>
           <td>{{ pricingPlan.name }}</td>
           <td>{{ pricingPlan.description }}</td>
-          <td><span ng-repeat="price in pricingPlan.prices | filterBy: ['currency']: vm.orgCurrency">{{price.currency}} {{price.price_cents / 100}}</span></td>
+          <td>
+            <span ng-hide="pricingPlan.pricing_type == 'payg'" ng-repeat="price in pricingPlan.prices | filterBy: ['currency']: vm.orgCurrency" class="badge">
+              {{ price.currency }} {{ price.price_cents / 100 }}
+            </span>
+            <span ng-show="pricingPlan.pricing_type == 'recurring'">
+              / {{ pricingPlan.per_unit }} / {{ pricingPlan.per_duration }}
+            </span>
+            <span ng-show="pricingPlan.pricing_type == 'payg'">
+              {{ 'mnoe_admin_panel.dashboard.provisioning.order.pricing_type.payg' | translate }}
+            </span>
+          </td>
         </tr>
         </tbody>
       </table>
