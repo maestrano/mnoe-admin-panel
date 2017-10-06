@@ -351,6 +351,7 @@
   "mnoe_admin_panel.dashboard.provisioning.order.description": "Description",
   "mnoe_admin_panel.dashboard.provisioning.order.price": "Price",
   "mnoe_admin_panel.dashboard.provisioning.order.next": "Next",
+  "mnoe_admin_panel.dashboard.provisioning.order.pricing_type.payg": "Usage Based",
   "mnoe_admin_panel.dashboard.provisioning.details.title": "Enter details",
   "mnoe_admin_panel.dashboard.provisioning.details.next": "Next",
   "mnoe_admin_panel.dashboard.provisioning.confirm.title": "Confirm this subscription",
