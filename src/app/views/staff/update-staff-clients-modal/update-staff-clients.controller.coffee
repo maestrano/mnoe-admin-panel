@@ -2,9 +2,7 @@
   'ngInject'
   vm = this
   # Variables initialization
-  vm.selectedOrganizations = {}
-  for id in staff.client_ids
-    vm.selectedOrganizations[id] = true
+  vm.changes = {add: [], remove: []}
 
   vm.organizations =
     search: ''
@@ -19,11 +17,11 @@
   # Fetch organisations
   fetchOrganizations = (limit, offset, sort = 'name') ->
     vm.organizations.loading = true
-    params = {sub_tenant_id: staff.mnoe_sub_tenant_id}
+    params = {account_manager_id: staff.id}
     return MnoeOrganizations.list(limit, offset, sort, params).then(
       (response) ->
         vm.organizations.totalItems = response.headers('x-total-count')
-        vm.organizations.list = response.data
+        vm.organizations.list = syncOrganizationsWithChanges(response.data)
     ).then(-> vm.organizations.loading = false)
 
   displayCurrentState = () ->
@@ -50,10 +48,11 @@
     vm.organizations.widgetTitle = 'Search result'
     search = vm.organizations.search.toLowerCase()
     terms = {'name.like': "%#{search}%"}
-    MnoeOrganizations.search(terms).then(
+    params = {account_manager_id: staff.id}
+    MnoeOrganizations.search(terms, params).then(
       (response) ->
         vm.organizations.totalItems = response.headers('x-total-count')
-        vm.organizations.list = $filter('orderBy')(response.data, 'name')
+        vm.organizations.list = syncOrganizationsWithChanges($filter('orderBy')(response.data, 'name'))
     ).finally(-> vm.organizations.loading = false)
 
   # Initial call
@@ -61,19 +60,44 @@
 
   vm.onSubmit = () ->
     vm.isLoading = true
-    staff.client_ids = (orgId for orgId, val of vm.selectedOrganizations when val)
-    MnoeUsers.updateStaff(staff).then(
-      (result) ->
-        staff = result.data.user
-        staff.admin_role_was = staff.admin_role
-        $uibModalInstance.close(staff)
+    MnoeUsers.updateStaffClients(staff, vm.changes).then(
+      () ->
+        $uibModalInstance.close()
         toastr.success("mnoe_admin_panel.dashboard.staff.update_staff.toastr_success", {extraData: { staff_name: "#{staff.name} #{staff.surname}"}})
       (error) ->
-        toastr.error('mnoe_admin_panel.dashboard.staff.add_staff.modal.toastr_error', {extraData: { staff_name: "#{staff.name} #{staff.surname}" }})
+        toastr.error('mnoe_admin_panel.dashboard.staff.update_staff.modal.toastr_error', {extraData: { staff_name: "#{staff.name} #{staff.surname}" }})
         $log.error("An error occurred while updating staff:", error)
     ).finally(-> vm.isLoading = false)
 
   vm.onCancel = () ->
     $uibModalInstance.dismiss('cancel')
+
+  vm.isDisable = () ->
+    vm.isLoading || (vm.changes.add.length == 0 && vm.changes.remove.length == 0)
+
+  vm.checkBoxChanged = (organization) ->
+    if organization.belong_to_account_manager
+      index = _.indexOf(vm.changes.remove, organization.id)
+      if index == -1
+        vm.changes.add.push(organization.id)
+      else
+        vm.changes.remove.splice(index, 1)
+    else
+      index = _.indexOf(vm.changes.add, organization.id)
+      if index == -1
+        vm.changes.remove.push(organization.id)
+      else
+        vm.changes.add.splice(index, 1)
+    console.log(JSON.stringify(vm.changes))
+
+  syncOrganizationsWithChanges = (organizations) ->
+    _.map(organizations,
+      (organization) ->
+        if _.contains(vm.changes.add, organization.id)
+          organization.belong_to_account_manager = true
+        else if _.contains(vm.changes.remove, organization.id)
+          organization.belong_to_account_manager = false
+        organization
+    )
 
   return

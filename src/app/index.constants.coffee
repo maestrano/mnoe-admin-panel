@@ -11,6 +11,7 @@
   ])  # Must be lower case
   .constant('STAFF_PAGE_AUTH', ['admin', 'sub_tenant_admin'])
   .constant('OBS_KEYS', {
+    organizationChanged: 'organizationListChanged',
     userChanged: 'userListChanged',
     staffChanged: 'staffListChanged',
     staffAdded: 'staffAdded',

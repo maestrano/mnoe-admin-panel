@@ -1,10 +1,10 @@
 #
 # Mnoe organizations List
 #
-@App.directive('mnoeOrganizationsList', ($filter, $translate, MnoeOrganizations, MnoeAdminConfig, MnoeCurrentUser) ->
-  restrict: 'E'
+@App.directive('mnoeOrganizationsList', ($filter, $log, $translate, MnoeOrganizations, MnoeAdminConfig, MnoeCurrentUser, MnoeObservables, OBS_KEYS) ->
+  restrict: 'E',
   scope: {
-    list: '='
+    filterParams: '='
   },
   templateUrl: 'app/components/mnoe-organizations-list/mnoe-organizations-list.html',
   link: (scope, elem) ->
@@ -86,10 +86,7 @@
     fetchOrganizations = (limit, offset, sort = 'created_at') ->
       scope.organizations.loading = true
       MnoeCurrentUser.getUser().then( ->
-        params = if MnoeAdminConfig.isAccountManagerEnabled()
-          {sub_tenant_id: MnoeCurrentUser.user.mnoe_sub_tenant_id, account_manager_id: MnoeCurrentUser.user.id}
-        else
-          {}
+        params = scope.filterParams || {}
         return MnoeOrganizations.list(limit, offset, sort, params).then(
           (response) ->
             scope.organizations.totalItems = response.headers('x-total-count')
@@ -123,11 +120,22 @@
       delete scope.organizations.switchLinkTitle
       search = scope.organizations.search.toLowerCase()
       terms = {'name.like': "%#{search}%"}
-      MnoeOrganizations.search(terms).then(
+      params = scope.filterParams || {}
+      MnoeOrganizations.search(terms, params).then(
         (response) ->
           scope.organizations.totalItems = response.headers('x-total-count')
           scope.organizations.list = $filter('orderBy')(response.data, 'name')
       ).finally(-> scope.organizations.loading = false)
+
+    onOrganizationChanged = ->
+      displayCurrentState()
+
+    # Notify me if Organization are changed
+    MnoeObservables.registerCb(OBS_KEYS.organizationChanged, onOrganizationChanged)
+
+    this.$onDestroy = ->
+      MnoeObservables.unsubscribe(OBS_KEYS.organizationChanged, onOrganizationChanged)
+
 
     # Initial call
     displayCurrentState()
