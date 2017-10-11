@@ -1,5 +1,5 @@
 # Service for managing the users.
-@App.service 'MnoeSubTenants', ($log, MnoErrorsHandler, MnoeAdminApiSvc, MnoeObservables, OBS_KEYS) ->
+@App.service 'MnoeSubTenants', ($q, $log, MnoErrorsHandler, MnoeAdminApiSvc, MnoeObservables, OBS_KEYS) ->
   @list = (limit, offset, sort) ->
     MnoeAdminApiSvc.all("sub_tenants").getList({order_by: sort, limit: limit, offset: offset})
 
@@ -13,6 +13,7 @@
         response
       (error) ->
         MnoErrorsHandler.processServerError(error)
+        $q.reject(error)
     )
 
   @update = (subTenant) ->
@@ -23,6 +24,29 @@
         response
       (error) ->
         MnoErrorsHandler.processServerError(error)
+        $q.reject(error)
+    )
+
+  @update_clients = (subTenant, changes) ->
+    data = {sub_tenant: changes}
+    promise = MnoeAdminApiSvc.one('sub_tenants', subTenant.id).customPATCH(data, 'update_clients').then(
+      (response) ->
+        MnoeObservables.notifyObservers(OBS_KEYS.organizationChanged, promise)
+        response
+      (error) ->
+        MnoErrorsHandler.processServerError(error)
+        $q.reject(error)
+    )
+
+  @update_account_managers = (subTenant, changes) ->
+    data = {sub_tenant: changes}
+    promise = MnoeAdminApiSvc.one('sub_tenants', subTenant.id).customPATCH(data, 'update_account_managers').then(
+      (response) ->
+        MnoeObservables.notifyObservers(OBS_KEYS.staffChanged, promise)
+        response
+      (error) ->
+        MnoErrorsHandler.processServerError(error)
+        $q.reject(error)
     )
 
   @delete = (id) ->
@@ -31,6 +55,7 @@
         MnoeObservables.notifyObservers(OBS_KEYS.subTenantChanged, promise)
       (error) ->
         MnoErrorsHandler.processServerError(error)
+        $q.reject(error)
     )
 
   return @

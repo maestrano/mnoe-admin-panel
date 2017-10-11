@@ -2,9 +2,7 @@
   'ngInject'
   vm = this
   # Variables initialization
-  vm.selectedUsers = {}
-  _.each(subTenant.account_manager_ids, (id) -> vm.selectedUsers[id] = true)
-  vm = this
+  vm.changes = {add: [], remove: []}
   vm.staff_roles = MnoeAdminConfig.adminRoles()
   vm.getAdminRoleLabel = (admin_role) ->
     return _.find(vm.staff_roles, (role) -> role.value == admin_role).label
@@ -60,15 +58,15 @@
     return MnoeUsers.staffs(limit, offset, sort, search).then(
       (response) ->
         vm.staff.totalItems = response.headers('x-total-count')
-        vm.listOfStaff = response.data
+        _.each(response.data, (u) -> u.belong_to_sub_tenant = (u.sub_tenant_id == subTenant.id))
+        vm.listOfStaff = syncUsersWithChanges(response.data)
     ).finally(-> vm.staff.loading = false)
 
   vm.onSubmit = () ->
     vm.isLoading = true
-    subTenant.account_manager_ids = (orgId for orgId, val of vm.selectedUsers when val)
-    MnoeSubTenants.update(subTenant).then(
-      (result) ->
-        $uibModalInstance.close(result.data.sub_tenant.account_managers)
+    MnoeSubTenants.update_account_managers(subTenant, vm.changes).then(
+      () ->
+        $uibModalInstance.close()
         toastr.success("mnoe_admin_panel.dashboard.sub_tenant.select_account_managers.modal.toastr_success", {extraData: { sub_tenant_name: subTenant.name }})
       (error) ->
         toastr.error("mnoe_admin_panel.dashboard.sub_tenant.select_account_managers.modal.toastr_error", {extraData: { sub_tenant_name: subTenant.name }})
@@ -77,5 +75,32 @@
 
   vm.onCancel = () ->
     $uibModalInstance.dismiss('cancel')
+
+  vm.isDisable = () ->
+    vm.isLoading || (vm.changes.add.length == 0 && vm.changes.remove.length == 0)
+
+  vm.checkBoxChanged = (user) ->
+    if user.belong_to_sub_tenant
+      index = _.indexOf(vm.changes.remove, user.id)
+      if index == -1
+        vm.changes.add.push(user.id)
+      else
+        vm.changes.remove.splice(index, 1)
+    else
+      index = _.indexOf(vm.changes.add, user.id)
+      if index == -1
+        vm.changes.remove.push(user.id)
+      else
+        vm.changes.add.splice(index, 1)
+
+  syncUsersWithChanges = (users) ->
+    _.map(users,
+      (user) ->
+        if _.contains(vm.changes.add, user.id)
+          user.belong_to_sub_tenant = true
+        else if _.contains(vm.changes.remove, user.id)
+          user.belong_to_sub_tenant = false
+        user
+    )
 
   return

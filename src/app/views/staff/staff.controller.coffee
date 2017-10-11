@@ -3,6 +3,7 @@
   vm = this
   vm.isSaving = false
   vm.adminRoles = MnoeAdminConfig.adminRoles()
+  vm.clientsFilterParams = {'where[account_managers.id]': $stateParams.staffId}
 
   MnoeCurrentUser.getUser().then( ->
     vm.isAdmin = MnoeCurrentUser.user.admin_role == 'admin'
@@ -19,10 +20,8 @@
         _.find(vm.subTenants, (subTenant) -> subTenant.id == vm.staff.mnoe_sub_tenant_id).name
       vm.staff.adminRoleName = ->
         _.find(vm.adminRoles, (role) -> role.value == vm.staff.admin_role).label
-
-      if(vm.staff.mnoe_sub_tenant_id)
-        MnoeSubTenants.get(vm.staff.mnoe_sub_tenant_id).then((r) -> vm.staff.subTenants = r.data.sub_tenants)
   )
+  # Temporary solution, does not scale if there is more than 50 subtenants
   MnoeSubTenants.list(null, null, null).then((response) -> vm.subTenants = response.data)
 
   vm.updateStaff = ->
@@ -51,14 +50,11 @@
       updateStaffAction()
 
   vm.updateClientsModal = ->
-    modalInstance = $uibModal.open(
+    $uibModal.open(
       templateUrl: 'app/views/staff/update-staff-clients-modal/update-staff-clients.html'
       controller: 'UpdateStaffClientsController'
       controllerAs: 'vm',
       resolve: {staff: () -> vm.staff}
     )
-    modalInstance.result.then(
-      (staff) ->
-        vm.staff = staff
-    )
+
   return

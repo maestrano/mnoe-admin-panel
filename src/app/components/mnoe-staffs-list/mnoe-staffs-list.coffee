@@ -5,6 +5,7 @@
   templateUrl: 'app/components/mnoe-staffs-list/mnoe-staffs-list.html',
   bindings: {
     view: '@',
+    filterParams: '='
   }
   controller: ($filter, $log, MnoeAdminConfig, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeObservables, OBS_KEYS, toastr) ->
     vm = this
@@ -33,7 +34,7 @@
 
     # Update searching parameters
     updateSearch = (searchingState = {}) ->
-      search = {}
+      search = vm.filterParams || {}
       if searchingState.predicateObject
         for attr, value of searchingState.predicateObject
           if attr == "admin_role"

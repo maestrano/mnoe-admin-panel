@@ -2,9 +2,8 @@
   'ngInject'
   vm = this
   # Variables initialization
-  vm.selectedOrganizations = {}
-  for id in subTenant.client_ids
-    vm.selectedOrganizations[id] = true
+
+  vm.changes = {add: [], remove: []}
 
   vm.organizations =
     search: ''
@@ -19,10 +18,11 @@
   # Fetch organisations
   fetchOrganizations = (limit, offset, sort = 'name') ->
     vm.organizations.loading = true
-    return MnoeOrganizations.list(limit, offset, sort).then(
+    params = {sub_tenant_id: subTenant.id}
+    return MnoeOrganizations.list(limit, offset, sort, params).then(
       (response) ->
         vm.organizations.totalItems = response.headers('x-total-count')
-        vm.organizations.list = response.data
+        vm.organizations.list = syncOrganizationsWithChanges(response.data)
     ).then(-> vm.organizations.loading = false)
 
   displayCurrentState = () ->
@@ -48,11 +48,12 @@
     vm.organizations.loading = true
     vm.organizations.widgetTitle = 'Search result'
     search = vm.organizations.search.toLowerCase()
+    params = {sub_tenant_id: subTenant.id}
     terms = {'name.like': "%#{search}%"}
-    MnoeOrganizations.search(terms).then(
+    MnoeOrganizations.search(terms, params).then(
       (response) ->
         vm.organizations.totalItems = response.headers('x-total-count')
-        vm.organizations.list = $filter('orderBy')(response.data, 'name')
+        vm.organizations.list = syncOrganizationsWithChanges($filter('orderBy')(response.data, 'name'))
     ).finally(-> vm.organizations.loading = false)
 
   # Initial call
@@ -60,11 +61,10 @@
 
   vm.onSubmit = () ->
     vm.isLoading = true
-    subTenant.client_ids = (orgId for orgId, val of vm.selectedOrganizations when val)
-    MnoeSubTenants.update(subTenant).then(
-      (result) ->
+    MnoeSubTenants.update_clients(subTenant, vm.changes).then(
+      () ->
         toastr.success("mnoe_admin_panel.dashboard.sub_tenant.select_clients.modal.toastr_success", {extraData: { sub_tenant_name: subTenant.name }})
-        $uibModalInstance.close(result.data.sub_tenant.clients)
+        $uibModalInstance.close()
       (error) ->
         toastr.error("mnoe_admin_panel.dashboard.sub_tenant.select_clients.modal.toastr_error", {extraData: { sub_tenant_name: subTenant.name }})
         $log.error("An error occurred while updating account managers of #{subTenant.name}.", error)
@@ -72,5 +72,32 @@
 
   vm.onCancel = () ->
     $uibModalInstance.dismiss('cancel')
+
+  vm.isDisable = () ->
+    vm.isLoading || (vm.changes.add.length == 0 && vm.changes.remove.length == 0)
+
+  vm.checkBoxChanged = (organization) ->
+    if organization.belong_to_sub_tenant
+      index = _.indexOf(vm.changes.remove, organization.id)
+      if index == -1
+        vm.changes.add.push(organization.id)
+      else
+        vm.changes.remove.splice(index, 1)
+    else
+      index = _.indexOf(vm.changes.add, organization.id)
+      if index == -1
+        vm.changes.remove.push(organization.id)
+      else
+        vm.changes.add.splice(index, 1)
+
+  syncOrganizationsWithChanges = (organizations) ->
+    _.map(organizations,
+      (organization) ->
+        if _.contains(vm.changes.add, organization.id)
+          organization.belong_to_sub_tenant = true
+        else if _.contains(vm.changes.remove, organization.id)
+          organization.belong_to_sub_tenant = false
+        organization
+    )
 
   return
