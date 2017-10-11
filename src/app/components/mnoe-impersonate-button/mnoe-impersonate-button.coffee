@@ -13,7 +13,9 @@
     vm.isImpersonationEnabled = MnoeAdminConfig.isImpersonationEnabled()
 
     vm.impersonationStatus = ->
-      if MnoeAdminConfig.isImpersonationConsentRequired()
+      if vm.user.admin_role
+        'disabled'
+      else if MnoeAdminConfig.isImpersonationConsentRequired()
         switch vm.user.access_request_status
           when 'approved' then 'approved'
           when 'never_requested', 'expired', 'denied', 'revoked' then 'requestable'

@@ -2,4 +2,7 @@
   <button ng-switch-when="approved" ng-click="vm.impersonateUser()" class="{{vm.btnClassNames}}" translate>mnoe_admin_panel.dashboard.users.widget.local_list.login_as</button>
   <button ng-switch-when="requestable" ng-click="vm.requestAccess()" class="{{vm.btnClassNames}}" translate>mnoe_admin_panel.dashboard.users.widget.local_list.request_access</button>
   <button disabled ng-switch-when="requested" class="{{vm.btnClassNames}}" translate>mnoe_admin_panel.dashboard.users.widget.local_list.access_requested</button>
+  <div ng-switch-when="disabled" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.users.widget.local_list.disabled_tooltip' | translate }}" tooltip-enable="vm.user" style="display:inline-block; cursor: not-allowed;">
+    <button disabled class="{{vm.btnClassNames}}" style="pointer-events: none;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.login_as</button>
+  </div>
 </div>
