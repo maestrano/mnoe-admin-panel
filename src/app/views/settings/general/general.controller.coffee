@@ -1,8 +1,9 @@
-@App.controller 'SettingsGeneralController', ($q, toastr, MnoeTenant, MnoeMarketplace) ->
+@App.controller 'SettingsGeneralController', ($filter, $scope, $window, $q, toastr, MnoConfirm, MnoeTenant, MnoeMarketplace) ->
   'ngInject'
   vm = this
 
   vm.settingsModel = {}
+  vm.originalSettings = {}
   vm.settingsSchema = {}
 
   vm.settingsForm = [
@@ -25,6 +26,27 @@
     }
   ]
 
+  # Handle unsaved changes notifications
+  changedForm = () ->
+    !angular.equals(vm.settingsModel, vm.originalSettings)
+
+  $locationChangeStartUnbind = $scope.$on('$stateChangeStart', (event, next, current) ->
+    if changedForm()
+      answer = confirm($filter('translate')('mnoe_admin_panel.dashboard.settings.modal.confirm.unsaved'))
+      event.preventDefault() if (!answer)
+  )
+
+  $window.onbeforeunload = (e) ->
+    if changedForm()
+      true
+    else
+      undefined
+
+  $scope.$on('$destroy', () ->
+    $window.onbeforeunload = null
+    $locationChangeStartUnbind()
+  )
+
   # Remove apps which are no longer enabled
   validateAppList = (appNidList) ->
     if vm.settingsModel?.dashboard?.public_pages?
@@ -38,6 +60,7 @@
     $q.all(tenant: MnoeTenant.get(), marketplace: MnoeMarketplace.getApps()).then(
       (response) ->
         vm.settingsModel = response.tenant.data.frontend_config
+        vm.originalSettings = angular.copy(vm.settingsModel)
         vm.settingsSchema = response.tenant.data.config_schema
         validateAppList(_.map(response.marketplace.data.apps, 'nid'))
     ).finally(-> vm.isLoading = false)
@@ -50,12 +73,18 @@
     loadConfig()
 
   vm.saveSettings = () ->
-    vm.isLoading = true
-    MnoeTenant.update(vm.settingsModel).then(
-      ->
-        toastr.success('mnoe_admin_panel.dashboard.settings.save.toastr_success')
-      ->
-        toastr.error('mnoe_admin_panel.dashboard.settings.save.toastr_error')
-    ).finally(-> vm.isLoading = false)
-
+    MnoConfirm.showModal(
+      headerText: 'mnoe_admin_panel.dashboard.settings.modal.confirm.proceed'
+      bodyText: 'mnoe_admin_panel.dashboard.settings.modal.confirm.perform'
+      type: 'danger'
+    ).then(->
+      vm.isLoading = true
+      MnoeTenant.update(vm.settingsModel).then(
+        ->
+          vm.originalSettings = angular.copy(vm.settingsModel)
+          toastr.success('mnoe_admin_panel.dashboard.settings.save.toastr_success')
+        ->
+          toastr.error('mnoe_admin_panel.dashboard.settings.save.toastr_error')
+      ).finally(-> vm.isLoading = false)
+    )
   return
