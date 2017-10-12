@@ -1,4 +1,4 @@
-@App.controller 'SettingsGeneralController', ($filter, $scope, $window, $q, toastr, MnoConfirm, MnoeTenant, MnoeMarketplace) ->
+@App.controller 'SettingsGeneralController', ($translate, $scope, $window, $q, toastr, MnoConfirm, MnoeTenant, MnoeMarketplace) ->
   'ngInject'
   vm = this
 
@@ -11,15 +11,15 @@
       type: "tabs"
       tabs: [
         {
-          title: $filter('translate')('mnoe_admin_panel.dashboard.settings.general.tabs.system')
+          title: $translate.instant('mnoe_admin_panel.dashboard.settings.general.tabs.system')
           items: ["system"]
         }
         {
-          title: $filter('translate')('mnoe_admin_panel.dashboard.settings.general.tabs.dashboard')
+          title: $translate.instant('mnoe_admin_panel.dashboard.settings.general.tabs.dashboard')
           items: ["dashboard"]
         }
         {
-          title: $filter('translate')('mnoe_admin_panel.dashboard.settings.general.tabs.admin_panel')
+          title: $translate.instant('mnoe_admin_panel.dashboard.settings.general.tabs.admin_panel')
           items: ["admin_panel"]
         }
       ]
@@ -73,7 +73,7 @@
 
   locationChangeStartUnbind = $scope.$on('$stateChangeStart', (event) ->
     if changedForm()
-      answer = confirm($filter('translate')('mnoe_admin_panel.dashboard.settings.modal.confirm.unsaved'))
+      answer = confirm($translate.instant('mnoe_admin_panel.dashboard.settings.modal.confirm.unsaved'))
       event.preventDefault() if (!answer)
   )
 

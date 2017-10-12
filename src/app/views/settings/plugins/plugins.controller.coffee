@@ -1,4 +1,4 @@
-@App.controller 'SettingsPluginsController', ($filter, $scope, $window, toastr, MnoeTenant) ->
+@App.controller 'SettingsPluginsController', ($translate, $scope, $window, toastr, MnoeTenant) ->
   vm = this
 
   vm.schema = {}
@@ -84,7 +84,7 @@
 
   locationChangeStartUnbind = $scope.$on('$stateChangeStart', (event) ->
     if changedForm()
-      answer = confirm($filter('translate')('mnoe_admin_panel.dashboard.settings.modal.confirm.unsaved'))
+      answer = confirm($translate.instant('mnoe_admin_panel.dashboard.settings.modal.confirm.unsaved'))
       event.preventDefault() if (!answer)
   )
 

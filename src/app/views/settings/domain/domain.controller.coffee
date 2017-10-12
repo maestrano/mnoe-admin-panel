@@ -1,4 +1,4 @@
-@App.controller 'SettingsDomainController', ($filter, $scope, $window, toastr, MnoConfirm, MnoeTenant) ->
+@App.controller 'SettingsDomainController', ($translate, $scope, $window, toastr, MnoConfirm, MnoeTenant) ->
   'ngInject'
   vm = this
   vm.tenant = {}
@@ -50,7 +50,7 @@
 
   locationChangeStartUnbind = $scope.$on('$stateChangeStart', (event) ->
     if changedForm()
-      answer = confirm($filter('translate')('mnoe_admin_panel.dashboard.settings.modal.confirm.unsaved'))
+      answer = confirm($translate.instant('mnoe_admin_panel.dashboard.settings.modal.confirm.unsaved'))
       event.preventDefault() if (!answer)
   )
 
