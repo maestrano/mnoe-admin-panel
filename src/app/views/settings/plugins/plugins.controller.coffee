@@ -1,8 +1,9 @@
-@App.controller 'SettingsPluginsController', ($translate, toastr, MnoeTenant) ->
+@App.controller 'SettingsPluginsController', ($translate, $scope, $window, toastr, MnoeTenant) ->
   vm = this
 
   vm.schema = {}
   vm.model = {}
+  vm.originalModel = {}
 
   vm.form = [
     {
@@ -57,6 +58,7 @@
     MnoeTenant.get().then(
       (response) ->
         vm.model = response.data.plugins_config
+        vm.originalModel = angular.copy(vm.model)
         vm.schema = response.data.plugins_config_schema
     )
 
@@ -75,5 +77,26 @@
       ->
         toastr.error('mnoe_admin_panel.dashboard.settings.save.toastr_error')
     ).finally(-> vm.isLoading = false)
+
+  # Handle unsaved changes notifications
+  changedForm = () ->
+    !angular.equals(vm.model, vm.originalModel)
+
+  locationChangeStartUnbind = $scope.$on('$stateChangeStart', (event) ->
+    if changedForm()
+      answer = confirm($translate.instant('mnoe_admin_panel.dashboard.settings.modal.confirm.unsaved'))
+      event.preventDefault() if (!answer)
+  )
+
+  $window.onbeforeunload = (e) ->
+    if changedForm()
+      true
+    else
+      undefined
+
+  $scope.$on('$destroy', () ->
+    $window.onbeforeunload = undefined
+    locationChangeStartUnbind()
+  )
 
   return
