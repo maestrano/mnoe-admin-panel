@@ -11,15 +11,15 @@
       type: "tabs"
       tabs: [
         {
-          title: "System"
+          title: $filter('translate')('mnoe_admin_panel.dashboard.settings.general.tabs.system')
           items: ["system"]
         }
         {
-          title: "Dashboard"
+          title: $filter('translate')('mnoe_admin_panel.dashboard.settings.general.tabs.dashboard')
           items: ["dashboard"]
         }
         {
-          title: "Admin Panel"
+          title: $filter('translate')('mnoe_admin_panel.dashboard.settings.general.tabs.admin_panel')
           items: ["admin_panel"]
         }
       ]
