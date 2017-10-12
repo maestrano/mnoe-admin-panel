@@ -2,36 +2,15 @@
   'ngInject'
   vm = this
   vm.tenant = {}
-  vm.originalTenant = angular.toJson(vm.tenant)
+  vm.originalTenant = {}
   vm.ssl = {}
-  vm.originalSsl = angular.toJson({})
+  vm.originalSsl = {}
   vm.isLoading = true
-
-  # has any of the form changed?
-  changedForm = () ->
-    (vm.originalTenant != angular.toJson(vm.tenant)) || (vm.originalSsl != angular.toJson(vm.ssl))
-
-  $locationChangeStartUnbind = $scope.$on('$stateChangeStart', (event, next, current) ->
-    if changedForm()
-      answer = confirm($filter('translate')('mnoe_admin_panel.dashboard.settings.modal.confirm.unsaved'))
-      event.preventDefault() if (!answer)
-  )
-
-  $window.onbeforeunload = (e) ->
-    if changedForm()
-      true
-    else
-      undefined
-
-  $scope.$on('$destroy', () ->
-    $window.onbeforeunload = null
-    $locationChangeStartUnbind()
-  )
 
   MnoeTenant.get().then(
     (response) ->
       vm.tenant = response.data
-      vm.originalTenant = angular.toJson(vm.tenant)
+      vm.originalTenant = angular.copy(vm.tenant)
   ).finally(-> vm.isLoading = false)
 
   vm.showConfirmModal = () ->
@@ -46,7 +25,7 @@
       vm.isCertSaving = true
       MnoeTenant.addSSLCerts(vm.ssl).then(
         ->
-          vm.originalSsl = angular.toJson(vm.ssl)
+          vm.originalSsl = angular.copy(vm.ssl)
           toastr.success('mnoe_admin_panel.dashboard.settings.ssl.save.toastr_success')
         ->
           toastr.error('mnoe_admin_panel.dashboard.settings.ssl.save.toastr_error')
@@ -58,11 +37,32 @@
       vm.isDomainSaving = true
       MnoeTenant.updateDomain(_.pick(vm.tenant, 'domain')).then(
         ->
-          vm.originalTenant = angular.toJson(vm.tenant)
+          vm.originalTenant = angular.copy(vm.tenant)
           toastr.success('mnoe_admin_panel.dashboard.settings.domain.save.toastr_success')
         ->
           toastr.error('mnoe_admin_panel.dashboard.settings.domain.save.toastr_error')
       ).finally(-> vm.isDomainSaving = false)
     )
+
+  # Handle unsaved changes notifications
+  changedForm = () ->
+    !(angular.equals(vm.originalTenant, vm.tenant) && angular.equals(vm.originalSsl, vm.ssl))
+
+  locationChangeStartUnbind = $scope.$on('$stateChangeStart', (event) ->
+    if changedForm()
+      answer = confirm($filter('translate')('mnoe_admin_panel.dashboard.settings.modal.confirm.unsaved'))
+      event.preventDefault() if (!answer)
+  )
+
+  $window.onbeforeunload = (e) ->
+    if changedForm()
+      true
+    else
+      undefined
+
+  $scope.$on('$destroy', () ->
+    $window.onbeforeunload = undefined
+    locationChangeStartUnbind()
+  )
 
   return

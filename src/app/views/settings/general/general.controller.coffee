@@ -26,27 +26,6 @@
     }
   ]
 
-  # Handle unsaved changes notifications
-  changedForm = () ->
-    !angular.equals(vm.settingsModel, vm.originalSettings)
-
-  $locationChangeStartUnbind = $scope.$on('$stateChangeStart', (event, next, current) ->
-    if changedForm()
-      answer = confirm($filter('translate')('mnoe_admin_panel.dashboard.settings.modal.confirm.unsaved'))
-      event.preventDefault() if (!answer)
-  )
-
-  $window.onbeforeunload = (e) ->
-    if changedForm()
-      true
-    else
-      undefined
-
-  $scope.$on('$destroy', () ->
-    $window.onbeforeunload = null
-    $locationChangeStartUnbind()
-  )
-
   # Remove apps which are no longer enabled
   validateAppList = (appNidList) ->
     if vm.settingsModel?.dashboard?.public_pages?
@@ -87,4 +66,26 @@
           toastr.error('mnoe_admin_panel.dashboard.settings.save.toastr_error')
       ).finally(-> vm.isLoading = false)
     )
+
+  # Handle unsaved changes notifications
+  changedForm = () ->
+    !angular.equals(vm.settingsModel, vm.originalSettings)
+
+  locationChangeStartUnbind = $scope.$on('$stateChangeStart', (event) ->
+    if changedForm()
+      answer = confirm($filter('translate')('mnoe_admin_panel.dashboard.settings.modal.confirm.unsaved'))
+      event.preventDefault() if (!answer)
+  )
+
+  $window.onbeforeunload = (e) ->
+    if changedForm()
+      true
+    else
+      undefined
+
+  $scope.$on('$destroy', () ->
+    $window.onbeforeunload = undefined
+    locationChangeStartUnbind()
+  )
+
   return

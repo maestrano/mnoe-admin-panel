@@ -53,27 +53,6 @@
     }
   ]
 
-  # Handle unsaved changes notifications
-  changedForm = () ->
-    !angular.equals(vm.model, vm.originalModel)
-
-  $locationChangeStartUnbind = $scope.$on('$stateChangeStart', (event, next, current) ->
-    if changedForm()
-      answer = confirm($filter('translate')('mnoe_admin_panel.dashboard.settings.modal.confirm.unsaved'))
-      event.preventDefault() if (!answer)
-  )
-
-  $window.onbeforeunload = (e) ->
-    if changedForm()
-      true
-    else
-      undefined
-
-  $scope.$on('$destroy', () ->
-    $window.onbeforeunload = null
-    $locationChangeStartUnbind()
-  )
-
   # Load config from the Tenant
   loadConfig = ->
     MnoeTenant.get().then(
@@ -98,5 +77,26 @@
       ->
         toastr.error('mnoe_admin_panel.dashboard.settings.save.toastr_error')
     ).finally(-> vm.isLoading = false)
+
+  # Handle unsaved changes notifications
+  changedForm = () ->
+    !angular.equals(vm.model, vm.originalModel)
+
+  locationChangeStartUnbind = $scope.$on('$stateChangeStart', (event) ->
+    if changedForm()
+      answer = confirm($filter('translate')('mnoe_admin_panel.dashboard.settings.modal.confirm.unsaved'))
+      event.preventDefault() if (!answer)
+  )
+
+  $window.onbeforeunload = (e) ->
+    if changedForm()
+      true
+    else
+      undefined
+
+  $scope.$on('$destroy', () ->
+    $window.onbeforeunload = undefined
+    locationChangeStartUnbind()
+  )
 
   return
