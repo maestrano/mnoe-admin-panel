@@ -1,8 +1,9 @@
-@App.controller 'SettingsPluginsController', ($translate, toastr, MnoeTenant) ->
+@App.controller 'SettingsPluginsController', ($filter, $scope, $window, toastr, MnoeTenant) ->
   vm = this
 
   vm.schema = {}
   vm.model = {}
+  vm.originalModel = {}
 
   vm.form = [
     {
@@ -52,11 +53,33 @@
     }
   ]
 
+  # Handle unsaved changes notifications
+  changedForm = () ->
+    !angular.equals(vm.model, vm.originalModel)
+
+  $locationChangeStartUnbind = $scope.$on('$stateChangeStart', (event, next, current) ->
+    if changedForm()
+      answer = confirm($filter('translate')('mnoe_admin_panel.dashboard.settings.modal.confirm.unsaved'))
+      event.preventDefault() if (!answer)
+  )
+
+  $window.onbeforeunload = (e) ->
+    if changedForm()
+      true
+    else
+      undefined
+
+  $scope.$on('$destroy', () ->
+    $window.onbeforeunload = null
+    $locationChangeStartUnbind()
+  )
+
   # Load config from the Tenant
   loadConfig = ->
     MnoeTenant.get().then(
       (response) ->
         vm.model = response.data.plugins_config
+        vm.originalModel = angular.copy(vm.model)
         vm.schema = response.data.plugins_config_schema
     )
 
