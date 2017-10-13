@@ -6,7 +6,7 @@
     <div class="col-xs-6">
       <mno-widget icon="fa-shopping-basket" heading="{{'mnoe_admin_panel.dashboard.order.order_info' | translate}}" is-loading="vm.isLoading">
         <mno-widget-header></mno-widget-header>
-        <mno-widget-body>
+        <mno-widget-body class="medium">
           <div class="row">
             <div class="col-xs-6">
               <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.reference</div>
@@ -88,7 +88,7 @@
     <div class="col-xs-6">
       <mno-widget icon="fa-user-o" heading="{{'mnoe_admin_panel.dashboard.order.customer' | translate}}" is-loading="vm.isLoading">
         <mno-widget-header></mno-widget-header>
-        <mno-widget-body>
+        <mno-widget-body class="medium">
           <div class="row">
             <div class="col-xs-4">
               <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.name</div>
@@ -113,19 +113,26 @@
               {{vm.organization.name}}
             </div>
           </div>
-          <h4 translate>mnoe_admin_panel.dashboard.order.additional_info</h4>
-          <div class="row" ng-if="vm.order.provisioning_data">
-            <div class="col-xs-12">
-              <h4 translate>mnoe_admin_panel.dashboard.order.provisioning_data</h4>
-              <json-formatter open="2" json="vm.order.provisioning_data"></json-formatter>
-            </div>
-          </div>
-          <div class="row" ng-if="vm.order.custom_data">
-            <div class="col-xs-12">
-              <h4 translate>mnoe_admin_panel.dashboard.order.custom_data</h4>
-              <form name="vm.detailsForm" sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.order.custom_data" sf-options="{ formDefaults: { readonly: { true } }}"></form>
-            </div>
-          </div>
+        </mno-widget-body>
+      </mno-widget>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <mno-widget icon="fa-info-circle" heading="{{'mnoe_admin_panel.dashboard.order.provisioning_data' | translate}}" is-loading="vm.isLoading">
+        <mno-widget-header></mno-widget-header>
+        <mno-widget-body>
+          <span ng-show="!vm.order.provisioning_data" translate>mnoe_admin_panel.dashboard.order.no_provisioning_data</span>
+          <json-formatter ng-show="vm.order.provisioning_data" open="2" json="vm.order.provisioning_data"></json-formatter>
+        </mno-widget-body>
+      </mno-widget>
+    </div>
+    <div class="col-xs-6">
+      <mno-widget icon="fa-info-circle" heading="{{'mnoe_admin_panel.dashboard.order.custom_data' | translate}}" is-loading="vm.isLoading">
+        <mno-widget-header></mno-widget-header>
+        <mno-widget-body>
+          <span ng-show="!vm.order.custom_data" translate>mnoe_admin_panel.dashboard.order.no_custom_data</span>
+          <form ng-show="vm.order.custom_data" name="vm.detailsForm" sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.order.custom_data" sf-options="{ formDefaults: { readonly: { true } }}"></form>
         </mno-widget-body>
       </mno-widget>
     </div>
