@@ -46,7 +46,7 @@
           <div class="col-sm-3" ng-show="vm.subTenants">
             <span ng-if="!vm.isAdmin">{{vm.staff.subTenantName()}}</span>
 
-            <select ng-if="vm.isAdmin" ng-options="subtenant.id as subtenant.name for subtenant in vm.subTenants"  class="form-control input-sm" ng-model="vm.staff.mnoe_sub_tenant_id">
+            <select ng-if="vm.isAdmin" ng-options="subtenant.id as subtenant.name for subtenant in vm.subTenants"  class="form-control input-sm" ng-model="vm.staff.sub_tenant_id">
               <option value=""></option>
             </select>
           </div>
