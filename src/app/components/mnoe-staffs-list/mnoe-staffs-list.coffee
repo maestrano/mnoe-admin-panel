@@ -99,7 +99,7 @@
     fetchStaffs = (limit, offset, sort = vm.staff.sort, search = vm.staff.search) ->
       vm.staff.loading = true
       if MnoeCurrentUser.user.admin_role == 'sub_tenant_admin'
-        search[ 'where[mnoe_sub_tenant_id]' ] = MnoeCurrentUser.user.mnoe_sub_tenant_id
+        search[ 'where[sub_tenant.id]' ] = MnoeCurrentUser.user.sub_tenant_id
       return MnoeUsers.staffs(limit, offset, sort, search).then(
         (response) ->
           vm.staff.totalItems = response.headers('x-total-count')

@@ -17,7 +17,7 @@
       vm.staff = response.data
       vm.staff.admin_role_was = vm.staff.admin_role
       vm.staff.subTenantName = ->
-        _.find(vm.subTenants, (subTenant) -> subTenant.id == vm.staff.mnoe_sub_tenant_id).name
+        _.find(vm.subTenants, (subTenant) -> subTenant.id == vm.staff.sub_tenant_id).name
       vm.staff.adminRoleName = ->
         _.find(vm.adminRoles, (role) -> role.value == vm.staff.admin_role).label
   )
