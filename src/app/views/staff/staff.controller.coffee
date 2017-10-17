@@ -1,4 +1,4 @@
-@App.controller 'StaffController', ($log, $stateParams, $window, $uibModal, toastr, MnoConfirm, MnoeAdminConfig, MnoeCurrentUser, MnoeUsers, MnoeSubTenants) ->
+@App.controller 'StaffController', ($scope, $log, $stateParams, $window, $uibModal, toastr, MnoConfirm, MnoeAdminConfig, MnoeCurrentUser, MnoeUsers, MnoeSubTenants) ->
   'ngInject'
   vm = this
   vm.isSaving = false
@@ -16,14 +16,30 @@
   MnoeUsers.get($stateParams.staffId).then(
     (response) ->
       vm.staff = response.data
+      if vm.staff.sub_tenant_id
+        MnoeSubTenants.get(vm.staff.sub_tenant_id).then(
+          (result) ->
+            vm.staff.subTenantName = result.data.name
+            # Linking initial-value to vm.staff.subTenantName is not working
+            # Setting value on the selector
+            $scope.$broadcast('angucomplete-alt:changeInput', 'sub-tenant-selector', result.data.name)
+        )
       vm.staff.admin_role_was = vm.staff.admin_role
-      vm.staff.subTenantName = ->
-        _.find(vm.subTenants, (subTenant) -> subTenant.id == vm.staff.sub_tenant_id).name
       vm.staff.adminRoleName = ->
         _.find(vm.adminRoles, (role) -> role.value == vm.staff.admin_role).label
   )
-  # Temporary solution, does not scale if there is more than 50 subtenants
-  MnoeSubTenants.list(null, null, null).then((response) -> vm.subTenants = response.data)
+
+  vm.searchSubTenants = (search, _timeoutPromise) ->
+    return MnoeSubTenants.list(vm.nbItems, 0, 'name', {'where[name.like]' : search + '%'})
+
+  vm.subTenantSelected = (subTenant) ->
+    if subTenant
+      vm.staff.sub_tenant_id = subTenant.originalObject.id
+      console.log(vm.staff.sub_tenant_id)
+
+  vm.clearSubTenantInput =() ->
+    $scope.$broadcast('angucomplete-alt:clearInput', 'sub-tenant-selector')
+    vm.staff.sub_tenant_id = null
 
   vm.updateStaff = ->
     vm.isSaving = true

@@ -790,6 +790,8 @@
   "mnoe_admin_panel.dashboard.staff.created_at": "Created At",
   "mnoe_admin_panel.dashboard.staff.updated_at": "Updated at",
   "mnoe_admin_panel.dashboard.staff.sub_tenant": "Division",
+  "mnoe_admin_panel.dashboard.staff.search_sub_tenant": "No Division",
+  "mnoe_admin_panel.dashboard.staff.search_loading": "Loading",
   "mnoe_admin_panel.dashboard.staff.update_staff": "Update staff",
   "mnoe_admin_panel.dashboard.staff.add_remove_clients": "Add/Remove Clients",
   "mnoe_admin_panel.dashboard.staff.update_staff_clients.title": "Select Clients",

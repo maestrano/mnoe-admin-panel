@@ -72,7 +72,7 @@
   vm.onCancel = () ->
     $uibModalInstance.dismiss('cancel')
 
-  vm.isDisable = () ->
+  vm.isDisabled = () ->
     vm.isLoading || (vm.changes.add.length == 0 && vm.changes.remove.length == 0)
 
   vm.checkBoxChanged = (organization) ->
@@ -88,7 +88,6 @@
         vm.changes.remove.push(organization.id)
       else
         vm.changes.add.splice(index, 1)
-    console.log(JSON.stringify(vm.changes))
 
   syncOrganizationsWithChanges = (organizations) ->
     _.map(organizations,
