@@ -15,6 +15,9 @@
   formatDate = (date)->
     moment(date).format('LL')
 
+  isToday = (date)->
+    moment(date).isSame(moment(), 'd')
+
   NotificationFormatter = {}
 
   NotificationFormatter.reminder = (notification) ->
@@ -57,6 +60,7 @@
     deferred = $q.defer()
     $translate([
         'mnoe_admin_panel.notifications.due.title',
+        'mnoe_admin_panel.notifications.due.title_today',
         'mnoe_admin_panel.notifications.due.message.title',
         'mnoe_admin_panel.notifications.due.message.from',
         'mnoe_admin_panel.notifications.due.message.details'
@@ -74,13 +78,16 @@
         tls['mnoe_admin_panel.notifications.due.message.from'],
         tls['mnoe_admin_panel.notifications.due.message.details']
       ].join('</br>')
-
+      title = if isToday(task.due_date)
+        tls['mnoe_admin_panel.notifications.due.title_today']
+      else
+        tls['mnoe_admin_panel.notifications.due.title']
       deferred.resolve({
         object_id: notification.object_id,
         object_type: notification.object_type,
         notification_type: notification.notification_type,
         method: 'warning',
-        title: tls['mnoe_admin_panel.notifications.due.title'],
+        title: title,
         message: message,
       })
     )

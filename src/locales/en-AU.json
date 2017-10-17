@@ -362,6 +362,7 @@
   "mnoe_admin_panel.notifications.reminder.message.due": "Due date: {due_date}",
   "mnoe_admin_panel.notifications.reminder.message.details": "See your due tasks for more details",
   "mnoe_admin_panel.notifications.due.title": "Task due {due_date}",
+  "mnoe_admin_panel.notifications.due.title_today": "Task is due today",
   "mnoe_admin_panel.notifications.due.message.title": "Title: {task_title}",
   "mnoe_admin_panel.notifications.due.message.from": "From: {user_name} {user_surname} - {organization_name}",
   "mnoe_admin_panel.notifications.due.message.details": "See your due tasks for more details",
