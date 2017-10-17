@@ -64,7 +64,7 @@
 
   vm.onSubmit = () ->
     vm.isLoading = true
-    MnoeSubTenants.update_account_managers(subTenant, vm.changes).then(
+    MnoeSubTenants.updateAccountManagers(subTenant, vm.changes).then(
       () ->
         $uibModalInstance.close()
         toastr.success("mnoe_admin_panel.dashboard.sub_tenant.select_account_managers.modal.toastr_success", {extraData: { sub_tenant_name: subTenant.name }})
@@ -76,7 +76,7 @@
   vm.onCancel = () ->
     $uibModalInstance.dismiss('cancel')
 
-  vm.isDisable = () ->
+  vm.isDisabled = () ->
     vm.isLoading || (vm.changes.add.length == 0 && vm.changes.remove.length == 0)
 
   vm.checkBoxChanged = (user) ->

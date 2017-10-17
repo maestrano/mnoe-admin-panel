@@ -27,7 +27,7 @@
         $q.reject(error)
     )
 
-  @update_clients = (subTenant, changes) ->
+  @updateClients = (subTenant, changes) ->
     data = {sub_tenant: changes}
     promise = MnoeAdminApiSvc.one('sub_tenants', subTenant.id).customPATCH(data, 'update_clients').then(
       (response) ->
@@ -38,7 +38,7 @@
         $q.reject(error)
     )
 
-  @update_account_managers = (subTenant, changes) ->
+  @updateAccountManagers = (subTenant, changes) ->
     data = {sub_tenant: changes}
     promise = MnoeAdminApiSvc.one('sub_tenants', subTenant.id).customPATCH(data, 'update_account_managers').then(
       (response) ->
