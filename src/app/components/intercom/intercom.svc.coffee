@@ -1,26 +1,23 @@
-@App.service 'IntercomSvc', ($window, MnoeCurrentUser, INTERCOM_ID) ->
-  @init = () ->
+@App.service 'IntercomSvc', ($window, INTERCOM_ID) ->
+  @init = (user) ->
     if $window.Intercom
-      MnoeCurrentUser.getUser().then(
-        (response) ->
-          userData = {
-            app_id: INTERCOM_ID,
-            user_id: response.id,
-            email: response.email,
-            admin_role: response.admin_role,
-            name: response.name,
-            surname: response.surname,
-            created_at: response.created_at,
-            widget: {
-              activator: "#IntercomDefaultWidget"
-            }
-          }
+      userData = {
+        app_id: INTERCOM_ID,
+        user_id: user.id,
+        email: user.email,
+        admin_role: user.admin_role,
+        name: user.name,
+        surname: user.surname,
+        created_at: user.created_at,
+        widget: {
+          activator: "#IntercomDefaultWidget"
+        }
+      }
 
-          # Add Intercom secure hash
-          userData.user_hash = response.user_hash if response.user_hash
+      # Add Intercom secure hash
+      userData.user_hash = user.user_hash if user.user_hash
 
-          $window.Intercom('boot', userData)
-      )
+      $window.Intercom('boot', userData)
 
   # Will update in every page change so intercom knows we're still active and load new messages
   @update = () ->

@@ -39,9 +39,11 @@
   )
 
   # Intercom
-  .run(($rootScope, $timeout, IntercomSvc) ->
+  .run(($rootScope, $timeout, IntercomSvc, MnoeCurrentUser) ->
     # Init Intercom once app is loaded
-    $timeout(-> IntercomSvc.init())
+    $timeout(->
+      MnoeCurrentUser.getUser().then((user) -> IntercomSvc.init(user))
+    )
 
     # Track page change
     $rootScope.$on("$stateChangeStart", -> IntercomSvc.update())
