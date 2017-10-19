@@ -4,8 +4,8 @@
 
   vm.orderId = $stateParams.orderId
   vm.orgId = $stateParams.orgId
-
   vm.order = {}
+  vm.order.provisioning_data = {"":""}
   vm.organization = {}
   vm.user = {}
   vm.isLoading = true
@@ -13,6 +13,13 @@
     {value: 'Y', text: 'mnoe_admin_panel.dashboard.order.fulfillment_yes'},
     {value: 'N', text: 'mnoe_admin_panel.dashboard.order.fulfillment_no'}
   ]
+
+  # Configure user friendly json tree
+  vm.jsonTreeSettings = {
+    toggleBranchText: 'click to expand',
+    emptyValueText: 'no data',
+    dateFormat: 'yyyy-MM-dd HH:mm:ss'
+  }
 
   # Get the subscription
   MnoeProvisioning.fetchSubscription(vm.orderId, vm.orgId).then(
