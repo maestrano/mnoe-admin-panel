@@ -136,7 +136,6 @@
     this.$onDestroy = ->
       MnoeObservables.unsubscribe(OBS_KEYS.organizationChanged, onOrganizationChanged)
 
-
     # Initial call
     displayCurrentState()
 )
