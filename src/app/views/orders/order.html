@@ -123,7 +123,7 @@
         <mno-widget-header></mno-widget-header>
         <mno-widget-body>
           <span ng-show="!vm.order.provisioning_data" translate>mnoe_admin_panel.dashboard.order.no_provisioning_data</span>
-          <user-friendly-json-tree start-expanded="true" object="vm.order.provisioning_data" options="vm.jsonTreeSettings" root-name="'data'"></user-friendly-json-tree>
+          <user-friendly-json-tree start-expanded="true" object="vm.order.provisioning_data" options="vm.jsonTreeSettings" root-name="vm.rootName"></user-friendly-json-tree>
         </mno-widget-body>
       </mno-widget>
     </div>

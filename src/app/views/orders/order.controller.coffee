@@ -5,6 +5,7 @@
   vm.orderId = $stateParams.orderId
   vm.orgId = $stateParams.orgId
   vm.order = {}
+  vm.rootName = $filter('translate')('mnoe_admin_panel.dashboard.order.root_name')
   vm.order.provisioning_data = {"":""}
   vm.organization = {}
   vm.user = {}
@@ -16,8 +17,8 @@
 
   # Configure user friendly json tree
   vm.jsonTreeSettings = {
-    toggleBranchText: 'click to expand',
-    emptyValueText: 'no data',
+    toggleBranchText: $filter('translate')('mnoe_admin_panel.dashboard.order.click_to_expand'),
+    emptyValueText: $filter('translate')('mnoe_admin_panel.dashboard.order.no_data'),
     dateFormat: 'yyyy-MM-dd HH:mm:ss'
   }
 
