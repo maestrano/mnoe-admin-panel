@@ -34,7 +34,6 @@
   vm.subTenantSelected = (subTenant) ->
     if subTenant
       vm.staff.sub_tenant_id = subTenant.originalObject.id
-      console.log(vm.staff.sub_tenant_id)
 
   vm.clearSubTenantInput =() ->
     $scope.$broadcast('angucomplete-alt:clearInput', 'sub-tenant-selector')
