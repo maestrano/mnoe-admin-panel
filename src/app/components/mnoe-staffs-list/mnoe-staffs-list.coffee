@@ -46,9 +46,6 @@
       vm.staff.search = search
       return search
 
-    # Widget state
-    vm.state = vm.view
-
     vm.getAdminRoleLabel = (admin_role) ->
       return _.find(vm.staff.roles, (role) -> role.value == admin_role).label
 
