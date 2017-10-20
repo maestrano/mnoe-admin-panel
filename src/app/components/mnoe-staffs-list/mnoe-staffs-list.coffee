@@ -3,9 +3,6 @@
 #
 @App.component('mnoeStaffsList', {
   templateUrl: 'app/components/mnoe-staffs-list/mnoe-staffs-list.html',
-  bindings: {
-    view: '@',
-  }
   controller: ($filter, $log, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeObservables, ADMIN_ROLES, OBS_KEYS, toastr) ->
     vm = this
 
