@@ -34,7 +34,12 @@
             </button>
             <span ng-show="user.status === 'active'" translate>mnoe_admin_panel.dashboard.users.widget.local_list.active</span>
           </td>
-          <td ng-if="isImpersonationEnabled"><a href="" ng-click="impersonateUser(user)" translate>mnoe_admin_panel.dashboard.users.widget.local_list.login_as</a></td>
+          <td ng-if="isImpersonationEnabled">
+            <button ng-if="!user.admin_role" class="btn btn-xs btn-primary center-block" ng-click="impersonateUser(user)" translate>mnoe_admin_panel.dashboard.users.widget.local_list.login_as</button>
+            <div ng-if="user.admin_role" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.users.widget.local_list.disabled_tooltip' | translate }}" tooltip-enable="user" style="display:inline-block; cursor: not-allowed;">
+              <button class="btn btn-xs btn-primary center-block" style="pointer-events: none;" disabled translate>mnoe_admin_panel.dashboard.users.widget.local_list.login_as</button>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
