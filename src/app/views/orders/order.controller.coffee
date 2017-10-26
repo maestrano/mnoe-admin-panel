@@ -6,7 +6,6 @@
   vm.orgId = $stateParams.orgId
   vm.order = {}
   vm.rootName = $filter('translate')('mnoe_admin_panel.dashboard.order.root_name')
-  vm.order.provisioning_data = {'':''}
   vm.organization = {}
   vm.user = {}
   vm.isLoading = true

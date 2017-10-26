@@ -122,8 +122,8 @@
       <mno-widget icon="fa-info-circle" heading="{{'mnoe_admin_panel.dashboard.order.provisioning_data' | translate}}" is-loading="vm.isLoading">
         <mno-widget-header></mno-widget-header>
         <mno-widget-body>
-          <span ng-show="!vm.order.provisioning_data" translate>mnoe_admin_panel.dashboard.order.no_provisioning_data</span>
-          <user-friendly-json-tree start-expanded="true" object="vm.order.provisioning_data" options="vm.jsonTreeSettings" root-name="vm.rootName"></user-friendly-json-tree>
+          <span ng-if="!vm.order.provisioning_data" translate>mnoe_admin_panel.dashboard.order.no_provisioning_data</span>
+          <user-friendly-json-tree ng-if="vm.order.provisioning_data" start-expanded="true" object="vm.order.provisioning_data" options="vm.jsonTreeSettings" root-name="vm.rootName"></user-friendly-json-tree>
         </mno-widget-body>
       </mno-widget>
     </div>
