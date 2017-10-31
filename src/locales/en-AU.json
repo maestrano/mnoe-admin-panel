@@ -274,6 +274,7 @@
   "mnoe_admin_panel.dashboard.organization.title": "Organisation",
   "mnoe_admin_panel.dashboard.organization.organization_info": "Organisation info",
   "mnoe_admin_panel.dashboard.organization.uid": "UID",
+  "mnoe_admin_panel.dashboard.organization.external_id": "External ID",
   "mnoe_admin_panel.dashboard.organization.account_frozen_state": "(frozen)",
   "mnoe_admin_panel.dashboard.organization.account_frozen": "Account Frozen",
   "mnoe_admin_panel.dashboard.organization.account_frozen.yes": "Yes",
