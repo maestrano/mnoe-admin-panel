@@ -13,6 +13,9 @@
         </tr>
         </thead>
         <tbody>
+        <tr ng-if="vm.subscription.product.product_pricings.length === 0">
+          <td colspan="4" class="text-center">{{ 'mnoe_admin_panel.dashboard.provisioning.order.no_pricing_found' | translate }}</td>
+        </tr>
         <tr ng-repeat="pricingPlan in vm.subscription.product.product_pricings">
           <td><input type="radio" name="optradio" ng-model="vm.subscription.product_pricing" ng-value="pricingPlan"></td>
           <td>{{ pricingPlan.name }}</td>
