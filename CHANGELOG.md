@@ -1,11 +1,31 @@
 # Change Log
 
+## [v1.0.5](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.5) (2017-11-01)
+[Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.4...v1.0.5)
+
+**Implemented enhancements:**
+
+- \[MNOE-682\] Add Intercom to the Admin Panel [\#120](https://github.com/maestrano/mnoe-admin-panel/pull/120) ([ouranos](https://github.com/ouranos))
+
+**Fixed bugs:**
+
+- \[MNOE-701\] Fix admin can not edit reviews or cancel editions [\#136](https://github.com/maestrano/mnoe-admin-panel/pull/136) ([hedudelgado](https://github.com/hedudelgado))
+- \[MNOE-658\]\[MNOE-699\] Disallow staff impersonation [\#133](https://github.com/maestrano/mnoe-admin-panel/pull/133) ([ouranos](https://github.com/ouranos))
+- \[MNOE-720\] Fix staff pagination [\#132](https://github.com/maestrano/mnoe-admin-panel/pull/132) ([hedudelgado](https://github.com/hedudelgado))
+- \[MNOE-682\] Break circular dependency [\#130](https://github.com/maestrano/mnoe-admin-panel/pull/130) ([ouranos](https://github.com/ouranos))
+- Fixes - Dashboard templates designer [\#98](https://github.com/maestrano/mnoe-admin-panel/pull/98) ([cesar-tonnoir](https://github.com/cesar-tonnoir))
+
+**Merged pull requests:**
+
+- Removed duplicate locale [\#119](https://github.com/maestrano/mnoe-admin-panel/pull/119) ([fgourichon](https://github.com/fgourichon))
+- \[EmeraldSUP-5\] Default template status to "draft" [\#115](https://github.com/maestrano/mnoe-admin-panel/pull/115) ([cesar-tonnoir](https://github.com/cesar-tonnoir))
+
 ## [v1.0.4](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.4) (2017-08-18)
 [Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.3...v1.0.4)
 
 **Notes:**
 
-The demo mode on the dahsboard  template designer requires impac-angular 1.6.0
+The demo mode on the dashboard template designer requires impac-angular 1.6.0
 
 **Implemented enhancements:**
 
