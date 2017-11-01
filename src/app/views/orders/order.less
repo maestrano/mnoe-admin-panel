@@ -16,4 +16,22 @@
   .has-success .form-control {
     border-color: transparent;
   }
+  
+  // Json tree css
+  user-friendly-json-tree .key {
+    color: @mnoe-admin-panel-grey;
+    padding: 5px 10px 5px 0px;
+  }
+
+  user-friendly-json-tree user-friendly-json-node.expandable::before {
+    content: '';
+  }
+
+  user-friendly-json-tree ul {
+    padding-left: 10px;
+  }
+
+  user-friendly-json-tree .branch-preview {
+    overflow: visible;
+  }
 }

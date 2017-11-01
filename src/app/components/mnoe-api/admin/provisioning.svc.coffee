@@ -87,13 +87,13 @@
       updateSubscription(subscription).then(
         (response) ->
           _self.setSubscription(response.data.subscription)
-          response
+          response.data.subscription
       )
     else
       createSubscription(subscription).then(
         (response) ->
           _self.setSubscription(response.data)
-          response
+          response.data
       )
 
   @fetchSubscription = (id, orgId) ->

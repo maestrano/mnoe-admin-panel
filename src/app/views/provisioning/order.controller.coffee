@@ -30,9 +30,9 @@
   vm.next = (subscription) ->
     MnoeProvisioning.setSubscription(subscription)
     if vm.subscription.product.custom_schema?
-      $state.go('dashboard.provisioning.additional_details', {orgId: $stateParams.orgId})
+      $state.go('dashboard.provisioning.additional_details', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid})
     else
-      $state.go('dashboard.provisioning.confirm', {orgId: $stateParams.orgId})
+      $state.go('dashboard.provisioning.confirm', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid})
 
   return
 )

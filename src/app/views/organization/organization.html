@@ -27,6 +27,14 @@
                   {{vm.organization.uid}}
                 </div>
               </div>
+              <div class="bs-row row"  ng-if="vm.organization.external_id">
+                <div class="col-xs-6">
+                  <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.external_id</div>
+                </div>
+                <div class="col-xs-6">
+                  {{vm.organization.external_id}}
+                </div>
+              </div>
               <div class="bs-row row">
                 <div class="col-xs-6">
                   <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.account_frozen</div>
