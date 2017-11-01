@@ -28,5 +28,5 @@
   'ui.toggle',
   'textAngular',
   'maestrano.impac',
-  'jsonFormatter'
+  'user-friendly-angular-json-tree'
 ]
