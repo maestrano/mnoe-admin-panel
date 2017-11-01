@@ -55,7 +55,7 @@
 
   # Make sure Approval is disabled for any other status than 'requested'
   vm.disableApproval = ->
-    return ( vm.order.status != 'requested')
+    return (vm.order.status != 'requested')
 
   # Fulfill disabled if not shown or if shown but status is cancelled
   vm.disableFulfillApproval = ->
@@ -83,9 +83,9 @@
         MnoeProvisioning.approveSubscription({organization_id: vm.orgId, id: vm.orderId }).then(
           (response) ->
             angular.copy(response.data.subscription, vm.order)
-            toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_success', {extraData: {subscription_name: vm.order.name}})
+            toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_success', {extraData: {subscription_name: vm.order.product.name}})
           ->
-            toastr.error('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_error', {extraData: {subscription_name: vm.order.name}})
+            toastr.error('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_error', {extraData: {subscription_name: vm.order.product.name}})
         )
 
     MnoConfirm.showModal(modalOptions)
@@ -102,9 +102,9 @@
         MnoeProvisioning.fulfillSubscription({organization_id: vm.orgId, id: vm.orderId }).then(
           (response) ->
             angular.copy(response.data.subscription, vm.order)
-            toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.toastr_success', {extraData: {subscription_name: vm.order.name}})
+            toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.toastr_success', {extraData: {subscription_name: vm.order.product.name}})
           ->
-            toastr.error('mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.toastr_error', {extraData: {subscription_name: vm.order.name}})
+            toastr.error('mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.toastr_error', {extraData: {subscription_name: vm.order.product.name}})
         )
 
     MnoConfirm.showModal(modalOptions)
@@ -121,9 +121,9 @@
         MnoeProvisioning.cancelSubscription({organization_id: vm.orgId, id: vm.orderId }).then(
           (response) ->
             angular.copy(response.data.subscription, vm.order)
-            toastr.success('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_success', {extraData: {subscription_name: vm.order.name}})
+            toastr.success('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_success', {extraData: {subscription_name: vm.order.product.name}})
           ->
-            toastr.error('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_error', {extraData: {subscription_name: vm.order.name}})
+            toastr.error('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_error', {extraData: {subscription_name: vm.order.product.name}})
         )
 
     MnoConfirm.showModal(modalOptions)

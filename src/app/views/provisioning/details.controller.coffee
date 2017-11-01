@@ -4,6 +4,12 @@
   vm.form = [ "*" ]
 
   vm.subscription = MnoeProvisioning.getSubscription()
+
+  # Happen when the user reload the browser during the provisioning
+  if _.isEmpty(vm.subscription)
+    # Redirect the user to the first provisioning screen
+    $state.go('dashboard.provisioning.order', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid}, {reload: true})
+
   vm.isEditMode = !_.isEmpty(vm.subscription.custom_data)
 
   # The schema is contained in field vm.product.custom_schema
@@ -22,7 +28,7 @@
   vm.submit = (form) ->
     return if form.$invalid
     MnoeProvisioning.setSubscription(vm.subscription)
-    $state.go('dashboard.provisioning.confirm', {orgId: $stateParams.orgId})
+    $state.go('dashboard.provisioning.confirm', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid})
 
   return
 )
