@@ -17,7 +17,7 @@
           <td colspan="4" class="text-center">{{ 'mnoe_admin_panel.dashboard.provisioning.order.no_pricing_found' | translate }}</td>
         </tr>
         <tr ng-repeat="pricingPlan in vm.subscription.product.product_pricings" ng-click="vm.subscription.product_pricing = pricingPlan">
-          <td><input type="radio" name="optradio" ng-model="vm.subscription.product_pricing" ng-value="pricingPlan"></td>
+          <td><input type="radio" name="optradio" ng-model="vm.subscription.product_pricing.id" ng-value="pricingPlan.id"></td>
           <td>{{ pricingPlan.name }}</td>
           <td>{{ pricingPlan.description }}</td>
           <td>
