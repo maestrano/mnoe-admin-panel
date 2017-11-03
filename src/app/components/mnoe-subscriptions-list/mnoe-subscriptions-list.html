@@ -1,50 +1,57 @@
-<mno-widget icon="fa-shopping-basket" heading="{{$ctrl.subscriptions.widgetTitle}}" is-loading="$ctrl.subscriptions.loading">
-  <mno-widget-header>
-    &nbsp;{{ $ctrl.titleText | translate}}
-  </mno-widget-header>
-  <mno-widget-body class="large no-padding">
-    <div>
-      <table st-pipe="$ctrl.callServer" st-table="$ctrl.subscriptions.list" class="table table-striped table-responsive" >
-        <thead>
-          <tr>
-            <!--TODO: sub-object attributes sort (eg. st-sort="organization.name")-->
-            <th st-sort="start_date" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.start_date</th>
-            <th ng-if="$ctrl.all" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.organization</th>
-            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.product</th>
-            <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.subscription</th>
-            <th st-sort="status" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.status</th>
-            <th class="col-lg-2"></th>
-        	</tr>
-      	</thead>
-      	<tbody ng-show="!$ctrl.subscriptions.loading" >
-          <tr ng-repeat="item in $ctrl.subscriptions.list">
-            <td>{{item.start_date | amDateFormat:'L'}}</td>
-            <td ng-if="$ctrl.all"><a ui-sref="dashboard.order({orderId : item.id, orgId: item.organization_id})">{{item.organization.name}}</a></td>
-            <td><a ui-sref="dashboard.order({orderId : item.id, orgId: item.organization_id})">{{item.product.name}}</a></td>
-            <td>{{item.product_pricing.name}}</td>
-            <td>{{item.status}}</td>
-            <td>
-              <span style="display: flex;" ng-if="item.status !== 'cancelled'">
-                <a ui-sref="dashboard.provisioning.order({id: item.id, orgId: item.organization_id})" ng-if="subscription.status !== 'cancelled'" class="btn btn-link btn-link-warning" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.modify_tooltip' | translate }}" tooltip-append-to-body="true">
-                  <i class="fa fa-pencil-square-o"></i>
-                </a>
-                <a ng-click="$ctrl.subscriptions.cancel(item)" class="btn btn-link btn-link-danger" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.cancel_tooltip' | translate }}" tooltip-append-to-body="true">
-                  <i class="fa fa-remove"></i>
-                </a>
-              </span>
-            </td>
-          </tr>
-      	</tbody>
-      </table>
-    </div>
-  </mno-widget-body>
-  <mno-widget-footer ng-show="$ctrl.subscriptions.list">
-    <mno-pagination
-      page="$ctrl.subscriptions.page"
-      nb-items="$ctrl.subscriptions.nbItems"
-      total-items="$ctrl.subscriptions.totalItems"
-      on-change-cb="$ctrl.subscriptions.pageChangedCb(nbItems, page)"
-      is-loading="$ctrl.subscriptions.loading">
-    </mno-pagination>
-  </mno-widget-footer>
-</mno-widget>
+<div id="mnoe-subscriptions-list">
+  <mno-widget icon="fa-shopping-basket" heading="{{$ctrl.subscriptions.widgetTitle}}" is-loading="$ctrl.subscriptions.loading">
+    <mno-widget-header>
+      &nbsp;{{ $ctrl.titleText | translate}}
+    </mno-widget-header>
+    <mno-widget-body class="large no-padding">
+      <div>
+        <table st-pipe="$ctrl.callServer" st-table="$ctrl.subscriptions.list" class="table table-striped table-responsive" >
+          <thead>
+            <tr>
+              <!--TODO: sub-object attributes sort (eg. st-sort="organization.name")-->
+              <th st-sort="start_date" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.start_date</th>
+              <th ng-if="$ctrl.all" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.organization</th>
+              <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.product</th>
+              <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.subscription</th>
+              <th st-sort="status" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.status</th>
+              <th class="col-lg-2"></th>
+            </tr>
+          </thead>
+          <tbody ng-show="!$ctrl.subscriptions.loading" >
+            <tr ng-repeat="item in $ctrl.subscriptions.list">
+              <td>{{item.start_date | amDateFormat:'L'}}</td>
+              <td ng-if="$ctrl.all"><a ui-sref="dashboard.order({orderId : item.id, orgId: item.organization_id})">{{item.organization.name}}</a></td>
+              <td><a ui-sref="dashboard.order({orderId : item.id, orgId: item.organization_id})">{{item.product.name}}</a></td>
+              <td>{{item.product_pricing.name}}</td>
+              <td>
+                <div>
+                  {{item.status}}
+                  <span><a href="" class="tooltip_link" ng-hide="!$ctrl.displayInfoTooltip(item)" ng-click="$ctrl.displayStatusInfo()"><i class="fa fa-info-circle"></i></a></span>
+                </div>
+              </td>
+              <td>
+                <span style="display: flex;" ng-if="item.status !== 'cancelled'">
+                  <a ui-sref="dashboard.provisioning.order({id: item.id, orgId: item.organization_id})" ng-if="subscription.status !== 'cancelled'" class="btn btn-link btn-link-warning" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.modify_tooltip' | translate }}" tooltip-append-to-body="true">
+                    <i class="fa fa-pencil-square-o"></i>
+                  </a>
+                  <a ng-click="$ctrl.subscriptions.cancel(item)" class="btn btn-link btn-link-danger" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.cancel_tooltip' | translate }}" tooltip-append-to-body="true">
+                    <i class="fa fa-remove"></i>
+                  </a>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mno-widget-body>
+    <mno-widget-footer ng-show="$ctrl.subscriptions.list">
+      <mno-pagination
+        page="$ctrl.subscriptions.page"
+        nb-items="$ctrl.subscriptions.nbItems"
+        total-items="$ctrl.subscriptions.totalItems"
+        on-change-cb="$ctrl.subscriptions.pageChangedCb(nbItems, page)"
+        is-loading="$ctrl.subscriptions.loading">
+      </mno-pagination>
+    </mno-widget-footer>
+  </mno-widget>
+</div>

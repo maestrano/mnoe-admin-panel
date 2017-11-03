@@ -362,6 +362,7 @@
   "mnoe_admin_panel.dashboard.provisioning.order.no_pricing_found": "There is no subscription available in your currency",
   "mnoe_admin_panel.dashboard.provisioning.order.next": "Next",
   "mnoe_admin_panel.dashboard.provisioning.order.pricing_type.payg": "Usage Based",
+  "mnoe_admin_panel.dashboard.provisioning.order.status.info.body.aborted": "Something wrong happened when fulfilling your order, to get more information you can check the order Events panel.<p><p>It can be a temporary issue, please check again in 15 minutes.<p>If the issue persists, contact your system administrator",
   "mnoe_admin_panel.dashboard.provisioning.details.title": "Enter details",
   "mnoe_admin_panel.dashboard.provisioning.details.next": "Next",
   "mnoe_admin_panel.dashboard.provisioning.confirm.title": "Confirm this subscription",

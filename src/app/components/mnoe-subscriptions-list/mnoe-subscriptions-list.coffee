@@ -9,7 +9,7 @@
     filters: '<'
     titleKey: '@'
   }
-  controller: ($filter, $log, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning) ->
+  controller: ($filter, $log, $uibModal, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning) ->
     ctrl = this
 
     ctrl.subscriptions =
@@ -87,6 +87,16 @@
           ctrl.subscriptions.list = response.data
           ctrl.subscriptions.oneAdminLeft = _.filter(response.data, {'admin_role': 'admin'}).length == 1
       ).finally(-> ctrl.subscriptions.loading = false)
+
+    ctrl.displayInfoTooltip = (subscription) ->
+      return subscription.status == 'aborted'
+
+    ctrl.displayStatusInfo = ->
+      modalInstance = $uibModal.open(
+        templateUrl: 'app/views/orders/order-status-info-modal/order-status-info.html'
+        controller: 'OrderInfoController'
+        controllerAs: 'vm'
+      )
 
     return
 })

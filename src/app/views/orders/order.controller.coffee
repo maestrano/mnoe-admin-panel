@@ -1,4 +1,4 @@
-@App.controller 'OrderController', ($filter, $state, $stateParams, toastr, MnoeProvisioning, MnoeOrganizations, MnoeUsers, MnoConfirm) ->
+@App.controller 'OrderController', ($filter, $state, $stateParams, $uibModal, toastr, MnoeProvisioning, MnoeOrganizations, MnoeUsers, MnoConfirm) ->
   'ngInject'
   vm = this
 
@@ -52,6 +52,9 @@
   # Display fulfill otherwise
   vm.displayFulfillApproval = ->
     return !vm.displayApproval()
+
+  vm.displayInfoTooltip = ->
+    return vm.order.status == 'aborted'
 
   # Make sure Approval is disabled for any other status than 'requested'
   vm.disableApproval = ->
@@ -127,5 +130,12 @@
         )
 
     MnoConfirm.showModal(modalOptions)
+
+  vm.displayStatusInfo = ->
+    modalInstance = $uibModal.open(
+      templateUrl: 'app/views/orders/order-status-info-modal/order-status-info.html'
+      controller: 'OrderInfoController'
+      controllerAs: 'vm'
+    )
 
   return vm
