@@ -22,6 +22,16 @@
         offset = (page  - 1) * nbItems
         fetchUsers(nbItems, offset)
 
+    # Getter to sort by full name & handle the null cases
+    scope.getters = {
+      fullname: (user) ->
+        # Empty names are considered as highest
+        user.name + user.surname || "~"
+      last_sign_in_at: (user) ->
+        # Never signed in are considered as lowest
+        user.last_sign_in_at || ""
+    }
+
     # Fetch users
     fetchUsers = (limit, offset, sort = 'surname') ->
       scope.users.loading = true
@@ -31,6 +41,7 @@
           (response) ->
             scope.users.totalItems = response.headers('x-total-count')
             scope.users.list = response.data
+            $log.log scope.users.list
         ).finally(-> scope.users.loading = false)
       )
 

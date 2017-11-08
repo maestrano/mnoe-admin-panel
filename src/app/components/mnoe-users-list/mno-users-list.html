@@ -4,16 +4,16 @@
     <input type="text" ng-model="users.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }' placeholder="{{'mnoe_admin_panel.dashboard.users.widget.list.search_users.placeholder.search_all' | translate}}" class="form-control input-sm search-bar" />
   </mno-widget-header>
   <mno-widget-body class="large no-padding">
-    <table class="table table-layout-fixed">
+    <table class="table table-layout-fixed" st-table="displayedUsers" st-safe-src="users.list">
       <thead>
         <tr>
-          <th translate>mnoe_admin_panel.dashboard.users.widget.list.table.username</th>
-          <th width="110" translate>mnoe_admin_panel.dashboard.users.widget.list.table.last_login</th>
-          <th width="100" translate>mnoe_admin_panel.dashboard.users.widget.list.table.created_at</th>
+          <th st-sort="getters.fullname" translate>mnoe_admin_panel.dashboard.users.widget.list.table.username</th>
+          <th st-sort="getters.last_sign_in_at" width="110" translate>mnoe_admin_panel.dashboard.users.widget.list.table.last_login</th>
+          <th st-sort="created_at" st-sort-default="reverse" width="100" translate>mnoe_admin_panel.dashboard.users.widget.list.table.created_at</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="user in users.list">
+        <tr ng-repeat="user in displayedUsers">
           <td>
             <a ui-sref="dashboard.customers.user({userId: user.id})">
               <div ng-show="user.name && user.surname">{{::user.name}} {{::user.surname}}</div>
