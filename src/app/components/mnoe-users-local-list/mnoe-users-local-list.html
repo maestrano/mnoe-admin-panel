@@ -7,10 +7,11 @@
     <table class="table table-layout-fixed">
       <thead>
         <tr>
-          <th translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.username</th>
-          <th style="width: 100px;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.created_at</th>
-          <th style="width: 140px;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.status</th>
-          <th style="width: 140px;" ng-if="isImpersonationEnabled" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.access</th>
+          <th style="width: 35%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.username</th>
+          <th style="width: 20%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.created_at</th>
+          <th style="width: 20%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.status</th>
+          <th style="width: 15%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.role</th>
+          <th style="width: 10%;" ng-if="isImpersonationEnabled" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.access</th>
         </tr>
       </thead>
       <tbody>
@@ -34,6 +35,7 @@
             </button>
             <span ng-show="user.status === 'active'" translate>mnoe_admin_panel.dashboard.users.widget.local_list.active</span>
           </td>
+          <td>{{user.role}}</td>
           <td>
             <mnoe-impersonate-button btn-class-names="btn btn-xs btn-default" user="user"></mnoe-impersonate-button>
           </td>

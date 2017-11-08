@@ -252,6 +252,7 @@
   "mnoe_admin_panel.dashboard.users.widget.local_list.table.username": "Username",
   "mnoe_admin_panel.dashboard.users.widget.local_list.table.created_at": "Created at",
   "mnoe_admin_panel.dashboard.users.widget.local_list.table.status": "Status",
+  "mnoe_admin_panel.dashboard.users.widget.local_list.table.role": "Role",
   "mnoe_admin_panel.dashboard.users.widget.local_list.table.access": "Access",
   "mnoe_admin_panel.dashboard.users.widget.local_list.invite": "Invite",
   "mnoe_admin_panel.dashboard.users.widget.local_list.resend_invite": "Resend Invite",
