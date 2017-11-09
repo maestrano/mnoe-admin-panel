@@ -35,7 +35,7 @@
             </button>
             <span ng-show="user.status === 'active'" translate>mnoe_admin_panel.dashboard.users.widget.local_list.active</span>
           </td>
-          <td>{{user.role}}</td>
+          <td>{{(tlKeyFromUserRole(user.role) | translate) || user.role}}</td>
           <td>
             <mnoe-impersonate-button btn-class-names="btn btn-xs btn-default" user="user"></mnoe-impersonate-button>
           </td>

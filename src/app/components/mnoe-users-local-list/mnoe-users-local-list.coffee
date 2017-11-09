@@ -1,7 +1,7 @@
 #
 # Mnoe Users List
 #
-@App.directive('mnoeUsersLocalList', ($filter, $log, toastr, MnoeAdminConfig, MnoeUsers, MnoErrorsHandler) ->
+@App.directive('mnoeUsersLocalList', ($filter, $log, toastr, MnoeAdminConfig, MnoeUsers, MnoErrorsHandler, $translate) ->
   restrict: 'E'
   scope: {
     list: '='
@@ -77,6 +77,10 @@
           toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.toastr_error', {extraData: {username: "#{user.name} #{user.surname}"}})
           MnoErrorsHandler.processServerError(error)
       ).finally(-> user.isSendingInvite = false)
+
+    scope.tlKeyFromUserRole = (role) ->
+      enTranslationTable = $translate.getTranslationTable('en-AU')
+      _.findKey(enTranslationTable, _.partial(_.isEqual, role))
 
     scope.$watch('list', (newVal) ->
       if newVal
