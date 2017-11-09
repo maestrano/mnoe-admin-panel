@@ -1,5 +1,4 @@
 @App.factory 'Miscellaneous', () ->
-  service = undefined
   service = {}
   service.countryCodes = [
     [
