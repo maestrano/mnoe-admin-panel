@@ -20,8 +20,10 @@
             <a ui-sref="dashboard.customers.user({userId: user.id})">
               <div ng-show="user.name && user.surname">{{::user.name}} {{::user.surname}}</div>
               <div ng-show="!user.name && !user.surname">nc</div>
-              <small>{{::user.email}}</small>
             </a>
+            <small contenteditable=true ng-blur="updateUserMail(user, email)" ng-model="email" ng-show="!user.isUpdatingEmail">{{::user.email}}</small>
+            <span ng-show="!user.isUpdatingEmail"><i class="fa fa-pencil-square-o fa-1"></i></span>
+            <span ng-show="user.isUpdatingEmail"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           </td>
           <td>{{user.created_at | date: 'dd/MM/yyyy'}}</td>
           <td>
@@ -33,9 +35,17 @@
               <span ng-show="user.isSendingInvite"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
               {{'mnoe_admin_panel.dashboard.users.widget.local_list.resend_invite' | translate}}
             </button>
+            <button ng-show="user.status === 'invited' || user.status === 'pending'" class="btn btn-xs btn-warning" ng-disabled="user.isSendingInvite" ng-click="removeMember(user)">
+              <span ng-show="user.isSendingInvite"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+              {{'mnoe_admin_panel.dashboard.users.widget.local_list.cancel_invite' | translate}}
+            </button>
             <span ng-show="user.status === 'active'" translate>mnoe_admin_panel.dashboard.users.widget.local_list.active</span>
           </td>
-          <td>{{(tlKeyFromUserRole(user.role) | translate) || user.role}}</td>
+          <td>
+            <h contenteditable='true' ng-model="role" ng-blur="updateUserRole(user, role)" ng-show="!user.isUpdatingRole">{{(tlKeyFromUserRole(user.role) | translate) || user.role}}</h>
+            <span ng-show="!user.isUpdatingRole"><i class="fa fa-pencil-square-o fa-1"></i></span>
+            <span ng-show="user.isUpdatingRole"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+          </td>
           <td>
             <mnoe-impersonate-button btn-class-names="btn btn-xs btn-default" user="user"></mnoe-impersonate-button>
           </td>

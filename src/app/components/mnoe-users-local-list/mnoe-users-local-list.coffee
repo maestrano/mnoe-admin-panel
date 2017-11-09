@@ -1,7 +1,7 @@
 #
 # Mnoe Users List
 #
-@App.directive('mnoeUsersLocalList', ($filter, $log, toastr, MnoeAdminConfig, MnoeUsers, MnoErrorsHandler, $translate) ->
+@App.directive('mnoeUsersLocalList', ($filter, $log, toastr, MnoeAdminConfig, MnoeUsers, MnoErrorsHandler, $translate, MnoConfirm) ->
   restrict: 'E'
   scope: {
     list: '='
@@ -82,8 +82,84 @@
       enTranslationTable = $translate.getTranslationTable('en-AU')
       _.findKey(enTranslationTable, _.partial(_.isEqual, role))
 
+    scope.updateUserMail = (user, email) ->
+      oldMail = user.email
+      return unless email && oldMail != email
+      user.isUpdatingEmail = true
+      user.email = email
+      MnoeUsers.updateStaff(user).then(
+        (response) ->
+          toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.email_update_sent', {extraData: {email: email}})
+        (error) ->
+          user.email = oldMail
+          toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.email_update_error')
+          MnoErrorsHandler.processServerError(error)
+      ).finally(-> user.isUpdatingEmail = false)
+
+    scope.updateUserRole = (user, role) ->
+      oldRole = user.role
+      return unless role && oldRole != role
+      user.isUpdatingRole = true
+      user.role = role
+      MnoeUsers.updateMember(scope.organization, user).then(
+        (response) ->
+          toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_success', {extraData: {user: "#{user.name} #{user.surname}", role: role}})
+        (error) ->
+          user.role = oldRole
+          $translate([
+            "mnoe_admin_panel.constants.user_roles.member",
+            "mnoe_admin_panel.constants.user_roles.admin",
+            "mnoe_admin_panel.constants.user_roles.super_admin",
+          ]).then((tls) ->
+            toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_error', {extraData: {roles: _.values(tls).join(', ')}})
+          )
+          MnoErrorsHandler.processServerError(error)
+      ).finally(-> user.isUpdatingRole = false)
+
     scope.$watch('list', (newVal) ->
       if newVal
         displayNormalState()
     , true)
+
+    scope.removeMember = (member) ->
+      modalOptions =
+        closeButtonText: 'mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.cancel'
+        actionButtonText: 'mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.delete'
+        headerText: 'mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.proceed'
+        bodyText: 'mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.perform'
+        bodyTextExtraData: {email: member.email}
+        type: 'danger'
+
+      MnoConfirm.showModal(modalOptions).then( ->
+        MnoeUsers.deleteMember(scope.organization, member).then(
+          (response) ->
+            _.remove(scope.users.displayList, member)
+            toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.success', {extraData: {email: member.email}})
+          (error) ->
+            toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.error', {extraData: {email: member.email}})
+            MnoErrorsHandler.processServerError(error)
+        )
+      )
+
 )
+.directive 'contenteditable', ->
+  {
+    require: 'ngModel'
+    restrict: 'A'
+    link: (scope, elm, attr, ngModel) ->
+      updateViewValue = ->
+        ngModel.$setViewValue @innerHTML
+        return
+
+      elm.on 'keyup', updateViewValue
+
+      elm.on 'keydown', (e) ->
+        if e.keyCode == 13
+          elm[0].blur()
+          e.preventDefault()
+
+      ngModel.$render = ->
+        elm.html ngModel.$viewValue
+
+      return
+  }

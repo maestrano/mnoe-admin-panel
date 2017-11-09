@@ -1,5 +1,5 @@
 # Service for managing the users.
-@App.service 'MnoeUsers', ($q, $log, MnoeAdminApiSvc, MnoeObservables, OBS_KEYS) ->
+@App.service 'MnoeUsers', ($q, $log, MnoeAdminApiSvc, MnoeApiSvc, MnoeObservables, OBS_KEYS) ->
   _self = @
 
   @list = (limit, offset, sort, params = {}) ->
@@ -68,6 +68,13 @@
   # POST /mnoe/jpi/v1/admin/users/signup_email
   @sendSignupEmail = (email) ->
     MnoeAdminApiSvc.all('/users').doPOST({user: {email: email}}, 'signup_email')
+
+  @updateMember = (organization, member) ->
+    MnoeApiSvc.one('/organizations', organization.id).customPUT({member: member}, '/update_member')
+
+  @deleteMember = (organization, member) ->
+    data = { member: _.pick(member, "email") }
+    MnoeApiSvc.one('organizations', organization.id).doPUT(data, '/remove_member')
 
   _getStaffs = (limit, offset, sort, params = {}) ->
     params["order_by"] = sort
