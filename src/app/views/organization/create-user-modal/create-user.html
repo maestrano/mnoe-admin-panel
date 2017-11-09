@@ -16,7 +16,12 @@
 
       <div class="row top-buffer-1">
         <div class="col-sm-6">
-          <input type="phone" class="form-control input-sm" id="user-phone" ng-model="vm.user.phone" placeholder="{{'mnoe_admin_panel.dashboard.organization.create_user.form.phone' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.organization.create_user.form.phone' | translate}}" required>
+          <div class="input-group-addon select">  
+            <select ng-options="phone[0] as phone[1] for phone in vm.countryCodes" ng-model='vm.user.phone_country_code' class="form-control input-sm" required>
+              <option value="" disabled selected aria-label="{{'mnoe_admin_panel.dashboard.organization.create_user.form.code' | translate}}">{{ 'mnoe_admin_panel.dashboard.organization.create_user.form.code' | translate }}</option>
+            </select>
+          </div>
+          <input type="phone" class="form-control input-sm input-group-phones" id="user-phone" ng-model="vm.user.phone" placeholder="{{'mnoe_admin_panel.dashboard.organization.create_user.form.phone' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.organization.create_user.form.phone' | translate}}" required>
         </div>
 
         <div class="col-sm-6">
