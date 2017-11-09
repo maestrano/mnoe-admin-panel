@@ -151,7 +151,7 @@
   "mnoe_admin_panel.dashboard.organization.invoices.table.no": "No",
   "mnoe_admin_panel.dashboard.organization.create_user.form.first_name": "First Name",
   "mnoe_admin_panel.dashboard.organization.create_user.form.last_name": "Last Name",
-  "mnoe_admin_panel.dashboard.organization.create_user.form.prefix": "Prefix",
+  "mnoe_admin_panel.dashboard.organization.create_user.form.code": "Code",
   "mnoe_admin_panel.dashboard.organization.create_user.form.phone": "Phone",
   "mnoe_admin_panel.dashboard.organization.create_user.form.email": "Email",
   "mnoe_admin_panel.dashboard.organization.create_user.form.role": "Role",
