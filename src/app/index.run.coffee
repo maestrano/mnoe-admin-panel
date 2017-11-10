@@ -38,6 +38,13 @@
       $location.search('flash', null) # remove the flash from url
   )
 
+  .run((MnoeAdminConfig, Notifications, MnoeNotifications) ->
+    if MnoeAdminConfig.isNotificationsEnabled()
+      MnoeNotifications.get().then((notifications) ->
+        Notifications.init(notifications, MnoeNotifications.notified)
+      )
+  )
+
   # Intercom
   .run(($rootScope, $timeout, IntercomSvc, MnoeCurrentUser) ->
     # Init Intercom once app is loaded
