@@ -267,7 +267,7 @@
   "mnoe_admin_panel.dashboard.users.widget.local_list.email_update_sent": "A link to validate the email address has been sent to {email}",
   "mnoe_admin_panel.dashboard.users.widget.local_list.email_update_error": "Could not update email",
   "mnoe_admin_panel.dashboard.users.widget.local_list.role_update_success": "Role for {user} has been updated to {role}",
-  "mnoe_admin_panel.dashboard.users.widget.local_list.role_update_error": "Could not update role. Role must be one of {roles}",
+  "mnoe_admin_panel.dashboard.users.widget.local_list.role_update_error": "Could not update role.",
   "mnoe_admin_panel.dashboard.users.widget.local_list.toastr_success": "{username}'s invitation has been sent.",
   "mnoe_admin_panel.dashboard.users.widget.local_list.toastr_error": "An error occurred: {username}'s invitation has not been sent.",
   "mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.cancel": "Cancel",

@@ -78,48 +78,45 @@
           MnoErrorsHandler.processServerError(error)
       ).finally(-> user.isSendingInvite = false)
 
+    scope.availableRoles = () ->
+      [
+        "mnoe_admin_panel.constants.user_roles.member",
+        "mnoe_admin_panel.constants.user_roles.admin",
+        "mnoe_admin_panel.constants.user_roles.super_admin"
+      ]
+
+    scope.indexOfRoleInTable = (role) ->
+      scope.availableRoles().indexOf(scope.tlKeyFromUserRole(role))
+
+    # role here should always be in English (as returned by MnoHub)
     scope.tlKeyFromUserRole = (role) ->
       enTranslationTable = $translate.getTranslationTable('en-AU')
       _.findKey(enTranslationTable, _.partial(_.isEqual, role))
 
-    scope.updateUserMail = (user, email) ->
-      oldMail = user.email
-      return unless email && oldMail != email
+    scope.updateUserMail = (user) ->
       user.isUpdatingEmail = true
-      user.email = email
       MnoeUsers.updateStaff(user).then(
         (response) ->
-          toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.email_update_sent', {extraData: {email: email}})
+          toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.email_update_sent', {extraData: {email: user.email}})
         (error) ->
-          user.email = oldMail
           toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.email_update_error')
           MnoErrorsHandler.processServerError(error)
       ).finally(-> user.isUpdatingEmail = false)
 
-    scope.updateUserRole = (user, role) ->
-      oldRole = user.role
-      return unless role && oldRole != role
+    scope.updateUserRole = (user) ->
       user.isUpdatingRole = true
-      user.role = role
-      MnoeUsers.updateMember(scope.organization, user).then(
-        (response) ->
-          toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_success', {extraData: {user: "#{user.name} #{user.surname}", role: role}})
-        (error) ->
-          user.role = oldRole
-          $translate([
-            "mnoe_admin_panel.constants.user_roles.member",
-            "mnoe_admin_panel.constants.user_roles.admin",
-            "mnoe_admin_panel.constants.user_roles.super_admin",
-          ]).then((tls) ->
-            toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_error', {extraData: {roles: _.values(tls).join(', ')}})
-          )
-          MnoErrorsHandler.processServerError(error)
-      ).finally(-> user.isUpdatingRole = false)
-
-    scope.$watch('list', (newVal) ->
-      if newVal
-        displayNormalState()
-    , true)
+      # We need to send to MnoHub the role value in English
+      $translate(user.role).then((tls) ->
+        user.role = tls
+        MnoeUsers.updateMember(scope.organization, user).then(
+          (response) ->
+            toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_success', {extraData: {user: "#{user.name} #{user.surname}", role: user.role}})
+            user.role = scope.tlKeyFromUserRole(user.role)
+          (error) ->
+            toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_error')
+            MnoErrorsHandler.processServerError(error)
+        ).finally(-> user.isUpdatingRole = false)
+      )
 
     scope.removeMember = (member) ->
       modalOptions =
@@ -141,25 +138,8 @@
         )
       )
 
+    scope.$watch('list', (newVal) ->
+      if newVal
+        displayNormalState()
+    , true)
 )
-.directive 'contenteditable', ->
-  {
-    require: 'ngModel'
-    restrict: 'A'
-    link: (scope, elm, attr, ngModel) ->
-      updateViewValue = ->
-        ngModel.$setViewValue @innerHTML
-        return
-
-      elm.on 'keyup', updateViewValue
-
-      elm.on 'keydown', (e) ->
-        if e.keyCode == 13
-          elm[0].blur()
-          e.preventDefault()
-
-      ngModel.$render = ->
-        elm.html ngModel.$viewValue
-
-      return
-  }
