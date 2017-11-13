@@ -1,7 +1,7 @@
 #
 # Mnoe Users List
 #
-@App.directive('mnoeUsersLocalList', ($filter, $log, toastr, MnoeAdminConfig, MnoeUsers, MnoErrorsHandler, $translate, MnoConfirm) ->
+@App.directive('mnoeUsersLocalList', ($filter, $log, $translate, toastr, MnoeAdminConfig, MnoeUsers, MnoErrorsHandler, MnoConfirm, USER_ROLES) ->
   restrict: 'E'
   scope: {
     list: '='
@@ -15,6 +15,7 @@
       displayList: []
       widgetTitle: 'mnoe_admin_panel.dashboard.users.widget.local_list.loading_users.title'
       search: ''
+    scope.availableRoles = _.map(USER_ROLES, 'label')
 
     # Display all the users
     setAllUsersList = () ->
@@ -78,17 +79,9 @@
           MnoErrorsHandler.processServerError(error)
       ).finally(-> user.isSendingInvite = false)
 
-    scope.availableRoles = () ->
-      [
-        "mnoe_admin_panel.constants.user_roles.member",
-        "mnoe_admin_panel.constants.user_roles.admin",
-        "mnoe_admin_panel.constants.user_roles.super_admin"
-      ]
-
-    scope.indexOfRoleInTable = (role) ->
-      scope.availableRoles().indexOf(scope.tlKeyFromUserRole(role))
-
     # role here should always be in English (as returned by MnoHub)
+    # This method returns the translation key associated to this role,
+    # for internationalization
     scope.tlKeyFromUserRole = (role) ->
       enTranslationTable = $translate.getTranslationTable('en-AU')
       _.findKey(enTranslationTable, _.partial(_.isEqual, role))
@@ -96,7 +89,7 @@
     scope.updateUserMail = (user) ->
       user.isUpdatingEmail = true
       MnoeUsers.updateStaff(user).then(
-        (response) ->
+        (success) ->
           toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.email_update_sent', {extraData: {email: user.email}})
         (error) ->
           toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.email_update_error')
@@ -105,35 +98,37 @@
 
     scope.updateUserRole = (user) ->
       user.isUpdatingRole = true
+      # At this point user.role contains the translation key for the role,
+      # because scope.availableRoles contains the translation keys.
       # We need to send to MnoHub the role value in English
-      $translate(user.role).then((tls) ->
-        user.role = tls
-        MnoeUsers.updateMember(scope.organization, user).then(
-          (response) ->
-            toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_success', {extraData: {user: "#{user.name} #{user.surname}", role: user.role}})
-            user.role = scope.tlKeyFromUserRole(user.role)
-          (error) ->
-            toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_error')
-            MnoErrorsHandler.processServerError(error)
-        ).finally(-> user.isUpdatingRole = false)
-      )
+      user.role = $translate.getTranslationTable('en-AU')[user.role]
+      MnoeUsers.updateUserRole(scope.organization, user).then(
+        (success) ->
+          user.role = scope.tlKeyFromUserRole(user.role)
+          $translate(user.role).then((tls) ->
+            toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_success', {extraData: {user: "#{user.email}", role: tls}})
+          )
+        (error) ->
+          toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_error')
+          MnoErrorsHandler.processServerError(error)
+      ).finally(-> user.isUpdatingRole = false)
 
-    scope.removeMember = (member) ->
+    scope.removeUserFromOrganization = (user) ->
       modalOptions =
         closeButtonText: 'mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.cancel'
         actionButtonText: 'mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.delete'
         headerText: 'mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.proceed'
         bodyText: 'mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.perform'
-        bodyTextExtraData: {email: member.email}
+        bodyTextExtraData: {email: user.email}
         type: 'danger'
 
       MnoConfirm.showModal(modalOptions).then( ->
-        MnoeUsers.deleteMember(scope.organization, member).then(
-          (response) ->
-            _.remove(scope.users.displayList, member)
-            toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.success', {extraData: {email: member.email}})
+        MnoeUsers.removeUserFromOrganization(scope.organization, user.email).then(
+          (success) ->
+            _.remove(scope.users.displayList, user)
+            toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.success', {extraData: {email: user.email}})
           (error) ->
-            toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.error', {extraData: {email: member.email}})
+            toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.error', {extraData: {email: user.email}})
             MnoErrorsHandler.processServerError(error)
         )
       )

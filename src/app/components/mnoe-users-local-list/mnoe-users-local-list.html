@@ -35,13 +35,13 @@
               <span ng-show="user.isSendingInvite"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
               {{'mnoe_admin_panel.dashboard.users.widget.local_list.resend_invite' | translate}}
             </button>
-            <button ng-show="user.status === 'invited' || user.status === 'pending'" class="btn btn-xs btn-warning" ng-disabled="user.isSendingInvite" ng-click="removeMember(user)">
+            <button ng-show="user.status !== 'active'" class="btn btn-xs btn-warning" ng-disabled="user.isSendingInvite" ng-click="removeUserFromOrganization(user)">
               {{'mnoe_admin_panel.dashboard.users.widget.local_list.cancel_invite' | translate}}
             </button>
             <span ng-show="user.status === 'active'" translate>mnoe_admin_panel.dashboard.users.widget.local_list.active</span>
           </td>
           <td>
-            <select ng-init="user.role=availableRoles()[indexOfRoleInTable(user.role)]" ng-model="user.role" ng-options="role | translate for role in availableRoles()" ng-change="updateUserRole(user)"></select>
+            <select ng-init="user.role=tlKeyFromUserRole(user.role)" ng-model="user.role" ng-options="role | translate for role in availableRoles" ng-change="updateUserRole(user)"></select>
             <span ng-show="user.isUpdatingRole"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           </td>
           <td>
