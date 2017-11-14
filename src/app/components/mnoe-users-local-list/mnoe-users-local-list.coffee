@@ -79,6 +79,9 @@
           MnoErrorsHandler.processServerError(error)
       ).finally(-> user.isSendingInvite = false)
 
+    scope.isUserActive = (userStatus) ->
+      userStatus == 'active'
+
     # role here should always be in English (as returned by MnoHub)
     # This method returns the translation key associated to this role,
     # for internationalization
@@ -98,17 +101,19 @@
 
     scope.updateUserRole = (user) ->
       user.isUpdatingRole = true
-      # At this point user.role contains the translation key for the role,
+      oldRole = user.role
+      # At this point user.roleTlKey contains the translation key for the role,
       # because scope.availableRoles contains the translation keys.
       # We need to send to MnoHub the role value in English
-      user.role = $translate.getTranslationTable('en-AU')[user.role]
+      user.role = $translate.getTranslationTable('en-AU')[user.roleTlKey]
       MnoeUsers.updateUserRole(scope.organization, user).then(
         (success) ->
-          user.role = scope.tlKeyFromUserRole(user.role)
-          $translate(user.role).then((tls) ->
+          $translate(user.roleTlKey).then((tls) ->
             toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_success', {extraData: {user: "#{user.email}", role: tls}})
           )
         (error) ->
+          user.role = oldRole
+          user.roleTlKey = scope.tlKeyFromUserRole(user.role)
           toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_error')
           MnoErrorsHandler.processServerError(error)
       ).finally(-> user.isUpdatingRole = false)
