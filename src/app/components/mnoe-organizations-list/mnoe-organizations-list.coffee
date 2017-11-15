@@ -70,31 +70,14 @@
         ).finally(-> scope.organizations.loading = false)
       )
 
-    scope.switchState = () ->
-      scope.state = attrs.view = if attrs.view == 'all' then 'last' else 'all'
-      displayCurrentState()
-
-    # if view="all" is set on the directive, all the users are displayed
-    # if view="last" is set on the directive, the last 10 users are displayed
     displayCurrentState = () ->
-      if attrs.view == 'all'
-        setAllOrganizationsList()
-        fetchOrganizations(scope.organizations.nbItems, 0)
-      else if attrs.view == 'last'
-        setLastOrganizationsList()
-        fetchOrganizations(scope.organizations.nbItems, 0, 'created_at.desc')
-      else
-        $log.error('Value of attribute view can only be "all" or "last"')
+      setAllOrganizationsList()
+      fetchOrganizations(scope.organizations.nbItems, 0)
 
     # Display all the organisations
     setAllOrganizationsList = () ->
       scope.organizations.widgetTitle = 'mnoe_admin_panel.dashboard.organization.widget.list.all_organizations.title'
       scope.organizations.switchLinkTitle = 'mnoe_admin_panel.dashboard.organization.widget.list.all_users.switch_link_title'
-
-    # Display only the last 10 organisations
-    setLastOrganizationsList = () ->
-      scope.organizations.widgetTitle = 'mnoe_admin_panel.dashboard.organization.widget.list.last_organizations.title'
-      scope.organizations.switchLinkTitle = 'mnoe_admin_panel.dashboard.organization.widget.list.last_organizations.switch_link_title'
 
     scope.searchChange = () ->
       # Only search if the string is >= than 3 characters
