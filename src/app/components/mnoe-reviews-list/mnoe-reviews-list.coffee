@@ -21,6 +21,7 @@
       )
 
     scope.openEditModal = (review) ->
+      reviewNoEdited = review
       $uibModal.open(
         templateUrl: 'app/components/mnoe-modals/comment-edit-modal.html'
         controller: 'CommentEditModal'
@@ -31,8 +32,6 @@
           MnoeReviews.updateDescription(review).then(
             (success) ->
               reviewEdited = success.data.app_review
-              # find the no edited review
-              reviewNoEdited = _.find(scope.listOfReviews, {id: reviewEdited.id})
               # update description in dom
               reviewNoEdited.description = reviewEdited.description
             )
