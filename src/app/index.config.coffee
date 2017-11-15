@@ -29,6 +29,22 @@
     )
   )
 
+  .factory('PasswordExpiredInterceptor', ($log, $q, $location, $window) ->
+    return {
+      'responseError': (response) ->
+        if response.status == 403 && response.data.error && response.data.error == "Your password is expired. Please renew your password."
+          $log.info('[PasswordExpiredInterceptor] Password Expired!')
+          $window.location.href = "/mnoe/auth/users/password_expired"
+          # return an empty promise to skip all chaining promises
+          return $q.defer().promise
+        else
+          return $q.reject(response)
+    }
+  )
+
+  .config ($httpProvider) ->
+    $httpProvider.interceptors.push('PasswordExpiredInterceptor')
+
   .config(($translateProvider, LOCALES) ->
     # Path to translations files
     $translateProvider.useStaticFilesLoader(
