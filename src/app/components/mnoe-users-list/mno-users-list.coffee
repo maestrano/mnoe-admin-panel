@@ -22,15 +22,43 @@
         offset = (page  - 1) * nbItems
         fetchUsers(nbItems, offset)
 
-    # Getter to sort by full name & handle the null cases
-    scope.getters = {
-      fullname: (user) ->
-        # Empty names are considered as highest
-        user.name + user.surname || "~"
-      last_sign_in_at: (user) ->
-        # Never signed in are considered as lowest
-        user.last_sign_in_at || ""
-    }
+    $translate(["mnoe_admin_panel.dashboard.users.widget.list.table.created_at",
+      'mnoe_admin_panel.dashboard.users.widget.list.table.username',
+      'mnoe_admin_panel.dashboard.users.widget.list.table.never',
+      'mnoe_admin_panel.dashboard.users.widget.list.table.last_login']).then((locale) ->
+        scope.users.fields = [
+          { header: locale['mnoe_admin_panel.dashboard.users.widget.list.table.username']
+          attr: "surname"
+          render: (user) ->
+            template: """
+            <a ui-sref="dashboard.customers.user({userId: user.id})">
+              <div ng-show="user.name && user.surname">{{::user.name}} {{::user.surname}}</div>
+              <div ng-show="!user.name && !user.surname">zzz</div>
+              <small>{{::user.email}}</small>
+            </a>
+            """,
+            scope: { user: user }
+          skip_natural: true}
+          { header: locale['mnoe_admin_panel.dashboard.users.widget.list.table.last_login']
+          attr: "last_sign_in_at"
+          style: {width: "130px"}
+          render: (user) ->
+            template: """
+            <span data-toggle="tooltip" title="{{::user.last_sign_in_at | date: 'H:m - dd/MM/yyyy'}}">
+              {{(user.last_sign_in_at | amTimeAgo) || ('mnoe_admin_panel.dashboard.users.widget.list.never' | translate)}}
+            </span>
+            """,
+            scope: {user: user}
+          skip_natural: true}
+          { header: locale["mnoe_admin_panel.dashboard.users.widget.list.table.created_at"],
+          style: {width: '130px'},
+          attr:'created_at',
+          sort_default: "reverse"
+          skip_natural: true
+          render: (user) ->
+            template:
+              "<span>{{::user.created_at | date: 'dd/MM/yyyy'}}</span>"
+            scope: {user: user}}])
 
     # Fetch users
     fetchUsers = (limit, offset, sort = 'surname') ->

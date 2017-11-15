@@ -1,35 +1,10 @@
 <mno-widget icon="fa-users" heading="{{users.widgetTitle | translate}}" is-loading="users.loading">
   <mno-widget-header>
-    <a href="" ng-click="switchState()" ng-show="users.list && users.switchLinkTitle" ng-class="{'disabled': users.loading}" translate>{{users.switchLinkTitle}}</a>
     <input type="text" ng-model="users.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }' placeholder="{{'mnoe_admin_panel.dashboard.users.widget.list.search_users.placeholder.search_all' | translate}}" class="form-control input-sm search-bar" />
   </mno-widget-header>
   <mno-widget-body class="large no-padding">
-    <table class="table table-layout-fixed" st-table="displayedUsers" st-safe-src="users.list">
-      <thead>
-        <tr>
-          <th st-sort="getters.fullname" translate>mnoe_admin_panel.dashboard.users.widget.list.table.username</th>
-          <th st-sort="getters.last_sign_in_at" width="110" translate>mnoe_admin_panel.dashboard.users.widget.list.table.last_login</th>
-          <th st-sort="created_at" st-sort-default="reverse" width="100" translate>mnoe_admin_panel.dashboard.users.widget.list.table.created_at</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="user in displayedUsers">
-          <td>
-            <a ui-sref="dashboard.customers.user({userId: user.id})">
-              <div ng-show="user.name && user.surname">{{::user.name}} {{::user.surname}}</div>
-              <div ng-show="!user.name && !user.surname">nc</div>
-              <small>{{::user.email}}</small>
-            </a>
-          </td>
-          <td>
-            <span data-toggle="tooltip" title="{{::user.last_sign_in_at | date: 'H:m - dd/MM/yyyy'}}">
-              {{(user.last_sign_in_at | amTimeAgo) || ('mnoe_admin_panel.dashboard.users.widget.list.never' | translate)}}
-            </span>
-          </td>
-          <td>{{::user.created_at | date: 'dd/MM/yyyy'}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <mno-sortable-table row-collection="users.list" is-loading="users.loading" fields="users.fields">
+    </mno-sortable-table>
   </mno-widget-body>
   <mno-widget-footer ng-show="users.list && state == 'all' && !searchMode">
     <mno-pagination
