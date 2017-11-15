@@ -37,3 +37,14 @@
       toastr[message.type](message.msg, _.capitalize(message.type), timeout: 10000)
       $location.search('flash', null) # remove the flash from url
   )
+
+  # Intercom
+  .run(($rootScope, $timeout, IntercomSvc, MnoeCurrentUser) ->
+    # Init Intercom once app is loaded
+    $timeout(->
+      MnoeCurrentUser.getUser().then((user) -> IntercomSvc.init(user))
+    )
+
+    # Track page change
+    $rootScope.$on("$stateChangeStart", -> IntercomSvc.update())
+  )

@@ -1,7 +1,6 @@
 angular.module 'frontendAdmin'
 .controller('CommentEditModal', ($scope, $uibModalInstance, review) ->
 
-  console.log(review)
   $scope.review = review
 
   # Close the current modal

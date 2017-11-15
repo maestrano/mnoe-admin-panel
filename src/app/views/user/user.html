@@ -46,7 +46,10 @@
     </div>
     <div class="bs-row">
       <div class="col-sm-4 col-sm-offset-4" ng-if="::main.adminConfig.isImpersonationEnabled()">
-        <button class="btn btn-primary center-block" ng-click="vm.impersonateUser()" translate>mnoe_admin_panel.dashboard.user.login_button</button>
+        <button ng-if="!vm.user.admin_role" class="btn btn-primary center-block" ng-click="vm.impersonateUser()" translate>mnoe_admin_panel.dashboard.user.login_button</button>
+        <div ng-if="vm.user.admin_role" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.users.widget.local_list.disabled_tooltip' | translate }}" tooltip-enable="vm.user" style="display:inline-block; cursor: not-allowed;">
+          <button class="btn btn-primary center-block" style="pointer-events: none;" disabled translate>mnoe_admin_panel.dashboard.user.login_button</button>
+        </div>
       </div>
       <div class="col-sm-12 top-buffer-2">
         <mnoe-organizations-local-list list="vm.user.organizations" view="all"></mnoe-organizations-local-list>

@@ -1,6 +1,6 @@
 # This service is a wrapper around the config we fetch from the backend
 # MnoeAdminConfig.financeEnabled?
-@App.factory 'MnoeAdminConfig', ($log, ADMIN_PANEL_CONFIG, PAYMENT_CONFIG, ORGANIZATION_MANAGEMENT, DEVISE_CONFIG) ->
+@App.factory 'MnoeAdminConfig', ($log, ADMIN_PANEL_CONFIG, INTERCOM_ID, PAYMENT_CONFIG, ORGANIZATION_MANAGEMENT, DEVISE_CONFIG) ->
   _self = @
 
   @isAuditLogEnabled = () ->
@@ -8,6 +8,12 @@
       ADMIN_PANEL_CONFIG.audit_log.enabled
     else
       true
+
+  @isIntercomEnabled = () ->
+    if ADMIN_PANEL_CONFIG.intercom?
+      ADMIN_PANEL_CONFIG.intercom.enabled && INTERCOM_ID?
+    else
+      false
 
   @isImpersonationEnabled = () ->
     if ADMIN_PANEL_CONFIG.impersonation
