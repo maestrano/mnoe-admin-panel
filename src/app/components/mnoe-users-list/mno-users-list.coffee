@@ -69,35 +69,17 @@
           (response) ->
             scope.users.totalItems = response.headers('x-total-count')
             scope.users.list = response.data
-            $log.log scope.users.list
         ).finally(-> scope.users.loading = false)
       )
 
-    scope.switchState = () ->
-      scope.state = attrs.view = if attrs.view == 'all' then 'last' else 'all'
-      displayCurrentState()
-
-    # if view="all" is set on the directive, all the users are displayed
-    # if view="last" is set on the directive, the last 10 users are displayed
     displayCurrentState = () ->
-      if attrs.view == 'all'
-        setAllUsersList()
-        fetchUsers(scope.users.nbItems, 0)
-      else if attrs.view == 'last'
-        setLastUsersList()
-        fetchUsers(10, 0, 'created_at.desc')
-      else
-        $log.error('Value of attribute view can only be "all" or "last"')
+      setAllUsersList()
+      fetchUsers(scope.users.nbItems, 0)
 
     # Display all the users
     setAllUsersList = () ->
       scope.users.widgetTitle = 'mnoe_admin_panel.dashboard.users.widget.list.all_users.title'
       scope.users.switchLinkTitle = 'mnoe_admin_panel.dashboard.users.widget.list.all_users.switch_link_title'
-
-    # Display only the last 10 users
-    setLastUsersList = () ->
-      scope.users.widgetTitle = 'mnoe_admin_panel.dashboard.users.widget.list.last_users.title'
-      scope.users.switchLinkTitle = 'mnoe_admin_panel.dashboard.users.widget.list.last_users.switch_link_title'
 
     scope.searchChange = () ->
       # Only search if the string is >= than 3 characters
