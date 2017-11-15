@@ -13,7 +13,13 @@
     ctrl.$onChanges = (changes) ->
       # Call the server when ready
       fetchTeams() if changes.organization && !_.isEmpty(ctrl.organization)
-      
+
+    ctrl.hasApps = (apps) ->
+      apps.length > 0
+
+    ctrl.hasUsers = (users) ->
+      users.length > 0
+
     fetchTeams = () ->
       MnoeTeams.list(ctrl.organization.id).then(
         (response) ->
