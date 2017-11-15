@@ -1,0 +1,32 @@
+<mno-widget icon="fa-users" heading="" is-loading="">
+  <mno-widget-header>
+  </mno-widget-header>
+  <mno-widget-body class="large no-padding">
+    <div>
+      <table class="table table-striped table-responsive" >
+        <thead>
+          <tr>
+            <th class="col-lg-2">name</th>
+            <th class="col-lg-10">apps</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="team in $ctrl.teams">
+            <td>{{team.name}}</td>  
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mno-widget-body>
+  <mno-widget-footer>
+    <mno-pagination
+      page=""
+      nb-items=""
+      total-items=""
+      on-change-cb=""
+      is-loading="">
+    </mno-pagination>
+  </mno-widget-footer>
+</mno-widget>
+
