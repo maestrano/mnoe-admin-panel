@@ -33,7 +33,7 @@
             template: """
             <a ui-sref="dashboard.customers.user({userId: user.id})">
               <div ng-show="user.name && user.surname">{{::user.name}} {{::user.surname}}</div>
-              <div ng-show="!user.name && !user.surname">zzz</div>
+              <div ng-show="!user.name && !user.surname">nc</div>
               <small>{{::user.email}}</small>
             </a>
             """,
