@@ -2,7 +2,7 @@
   <mno-widget-header>
     <input type="text" ng-model="organizations.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }' placeholder="{{'mnoe_admin_panel.dashboard.organization.widget.list.search_users.placeholder.search_all' | translate}}" class="form-control input-sm search-bar" />
   </mno-widget-header>
-  <mno-widget-body class="large no-padding">
+  <mno-widget-body class="large-auto-height no-padding">
     <mno-sortable-table row-collection="organizations.list" is-loading="organizations.loading" fields="organizations.fields">
     </mno-sortable-table>
   </mno-widget-body>
