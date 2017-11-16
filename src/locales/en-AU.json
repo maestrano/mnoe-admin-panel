@@ -241,6 +241,7 @@
   "mnoe_admin_panel.dashboard.users.widget.list.table.username": "Username",
   "mnoe_admin_panel.dashboard.users.widget.list.table.last_login": "Last login",
   "mnoe_admin_panel.dashboard.users.widget.list.table.created_at": "Created at",
+  "mnoe_admin_panel.dashboard.users.widget.list.table.lock": "This user is locked",
   "mnoe_admin_panel.dashboard.users.widget.list.never": "never",
   "mnoe_admin_panel.dashboard.users.widget.local_list.all_users.title": "All users ({length})",
   "mnoe_admin_panel.dashboard.users.widget.local_list.all_users.switch_link_title": "(last 10)",

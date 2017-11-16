@@ -35,8 +35,10 @@
           render: (user) ->
             template: """
             <a ui-sref="dashboard.customers.user({userId: user.id})">
-              <div ng-show="user.name && user.surname">{{::user.name}} {{::user.surname}}</div>
-              <div ng-show="!user.name && !user.surname">nc</div>
+              <div> <span ng-show="user.name && user.surname">{{::user.name }} {{::user.surname}} </span>
+              <span ng-show="!user.name && !user.surname">nc</span>
+              <i title="This user is locked" ng-show="user.locked_at" class="fa fa-lock"> </i>
+              </div>
               <small>{{::user.email}}</small>
             </a>
             """,
