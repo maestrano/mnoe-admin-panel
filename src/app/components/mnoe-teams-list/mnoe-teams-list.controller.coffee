@@ -10,6 +10,8 @@
   controller: (MnoeTeams) ->
     ctrl = this
 
+    teamToggled = {}
+
     ctrl.isTeamsLoading = true
 
     ctrl.$onChanges = (changes) ->
@@ -21,6 +23,14 @@
 
     ctrl.hasUsers = (users) ->
       users.length > 0
+
+    ctrl.toggleTeam = (teamToExpand) ->
+      if teamToggled.id == teamToExpand.id
+        teamToggled.expanded = !teamToggled.expanded
+      else
+        teamToggled.expanded = false
+        teamToggled = _.find(ctrl.teams, (team) -> team.id == teamToExpand.id)
+        teamToggled.expanded = true
 
     fetchTeams = () ->
       MnoeTeams.list(ctrl.organization.id).then(
