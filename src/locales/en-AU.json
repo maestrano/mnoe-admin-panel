@@ -405,7 +405,7 @@
   "mnoe_admin_panel.dashboard.mnoe-tasks.tasks.column_label.done": "Done",
   "mnoe_admin_panel.dashboard.mnoe-tasks.toastr_error.get_tasks": "An error occured while retrieving your Messages",
   "mnoe_admin_panel.dashboard.mnoe-tasks.toastr_error.create_task": "An error occured while creating your Message",
-  "mnoe_admin_panel.dashboard.mnoe-tasks.toastr_error.update_task": "An error occured while updating  
+  "mnoe_admin_panel.dashboard.mnoe-tasks.toastr_error.update_task": "An error occured while updating your Message",
   "mnoe_admin_panel.dashboard.comment.title": "Comments",
   "mnoe_admin_panel.dashboard.mno_pagination.number_of_items": "# of items",
   "mnoe_admin_panel.dashboard.mno_confirm.close": "Close",
