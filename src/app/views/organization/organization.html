@@ -19,7 +19,7 @@
           <mno-widget is-loading="!vm.organization.invoices" icon="fa-sitemap" heading="{{vm.organization.name}}">
             <mno-widget-header></mno-widget-header>
             <mno-widget-body class="large">
-              <div class="bs-row row">
+              <div class="row">
                 <div class="col-xs-6">
                   <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.uid</div>
                 </div>
@@ -27,7 +27,7 @@
                   {{vm.organization.uid}}
                 </div>
               </div>
-              <div class="bs-row row"  ng-if="vm.organization.external_id">
+              <div class="row"  ng-if="vm.organization.external_id">
                 <div class="col-xs-6">
                   <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.external_id</div>
                 </div>
@@ -35,7 +35,7 @@
                   {{vm.organization.external_id}}
                 </div>
               </div>
-              <div class="bs-row row">
+              <div class="row">
                 <div class="col-xs-6">
                   <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.account_frozen</div>
                 </div>
@@ -46,7 +46,7 @@
                   <a href="" ng-show="vm.organization.account_frozen" ng-click="vm.unfreezeOrganization()"><i class="fa fa-check"></i></a>
                 </div>
               </div>
-              <div class="bs-row row" ng-if="::main.adminConfig.isPaymentEnabled()">
+              <div class="row" ng-if="::main.adminConfig.isPaymentEnabled()">
                 <div class="col-xs-6">
                   <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.credit_card</div>
                 </div>
@@ -55,7 +55,7 @@
                   <span ng-if="!vm.organization.credit_card.presence" class="text-danger" translate>mnoe_admin_panel.dashboard.organization.credit_card.presence.no</span>
                 </div>
               </div>
-              <div class="bs-row row">
+              <div class="row">
                 <div class="col-xs-6">
                   <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.billing_currency</div>
                 </div>
@@ -70,14 +70,14 @@
                   <span ng-show="vm.isSaving"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
                 </div>
               </div>
-              <div class="bs-row row">
+              <div class="row">
                 <div class="col-sm-6">
                   <div class="label-cell">{{'mnoe_admin_panel.dashboard.organization.active_apps' | translate}}
                     <a ng-if="vm.organization.active_apps.length > 0 && vm.hasDisconnectedApps" ui-sref="dashboard.customers.connect-app({orgId: vm.organization.id})" translate>mnoe_admin_panel.dashboard.organization.connect_apps</a>
                   </div>
                 </div>
                 <div ng-class="main.adminConfig.isProvisioningEnabled() ? 'col-sm-12' : 'col-sm-6'">
-                  <div class="bs-row row apps-box">
+                  <div class="row apps-box">
                     <div class="app-wrapper col-xs-6 col-sm-4 col-md-3" ng-repeat="app in vm.organization.active_apps">
                       <div class="small-app-card ellipsis">
                         <i ng-if="::main.adminConfig.isAppManagementEnabled()" class="fa fa-trash app-remove" ng-click="vm.openRemoveAppModal(app, $index)" uib-tooltip="{{'mnoe_admin_panel.dashboard.organization.remove_app' | translate:{'app_name': app.app_name} }}" tooltip-append-to-body="true"></i>
