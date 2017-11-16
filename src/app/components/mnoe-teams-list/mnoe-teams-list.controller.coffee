@@ -10,6 +10,8 @@
   controller: (MnoeTeams) ->
     ctrl = this
 
+    ctrl.isTeamsLoading = true
+
     ctrl.$onChanges = (changes) ->
       # Call the server when ready
       fetchTeams() if changes.organization && !_.isEmpty(ctrl.organization)
@@ -25,6 +27,7 @@
         (response) ->
           ctrl.teams = response.data.plain()
           ctrl.teams.totalItems = response.headers('x-total-count')
+          ctrl.isTeamsLoading = false
         )
 
     return
