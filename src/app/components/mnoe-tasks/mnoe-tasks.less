@@ -49,6 +49,11 @@ mnoe-tasks {
         .menu-item {
           min-width: 130px;
           max-width: 130px;
+
+          &.selected {
+            background-color: lighten(@link-color, 15%);
+            color: @btn-primary-color;
+          }
         }
       }
     }
