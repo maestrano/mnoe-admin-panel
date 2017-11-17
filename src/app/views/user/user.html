@@ -41,7 +41,7 @@
             <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.number_of_sign_in</div></div>
             <div class="col-sm-3">{{vm.user.sign_in_count}}</div>
           </div>
-          <div class="bs-row row" ng-show="vm.user.locked_at">
+          <div class="row" ng-show="vm.user.access_locked">
             <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.locked_at</div></div>
             <div class="col-sm-3">{{vm.user.locked_at | date: 'dd/MM/yyyy hh:mm'}}</div>
           </div>
