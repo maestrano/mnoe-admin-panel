@@ -1,7 +1,7 @@
 #
 # Mnoe Users List
 #
-@App.directive('mnoeUsersList', ($filter, $log, $translate, MnoeUsers, MnoeCurrentUser) ->
+@App.directive('mnoeUsersList', ($filter, $translate, MnoeUsers, MnoeCurrentUser) ->
   restrict: 'E'
   scope: {
   }
@@ -14,13 +14,14 @@
     # Variables initialization
     scope.users =
       search: ''
+      sortAttr: 'created_at'
       nbItems: 10
       page: 1
       pageChangedCb: (nbItems, page) ->
         scope.users.nbItems = nbItems
         scope.users.page = page
         offset = (page  - 1) * nbItems
-        fetchUsers(nbItems, offset)
+        fetchUsers(nbItems, offset, scope.users.sortAttr)
 
     $translate(["mnoe_admin_panel.dashboard.users.widget.list.table.created_at",
       'mnoe_admin_panel.dashboard.users.widget.list.table.username',
@@ -60,6 +61,15 @@
               "<span>{{::user.created_at | date: 'dd/MM/yyyy'}}</span>"
             scope: {user: user}}])
 
+    # Pipe for the sortable-table
+    scope.pipe = (tableState) ->
+      # The order has changed - reset pagination
+      scope.users.page = 1
+      scope.users.sortAttr = tableState.sort.predicate
+      if tableState.sort.reverse
+      then scope.users.sortAttr += ".desc"
+      fetchUsers(scope.users.nbItems, 0, scope.users.sortAttr)
+
     # Fetch users
     fetchUsers = (limit, offset, sort = 'surname') ->
       scope.users.loading = true
@@ -74,7 +84,7 @@
 
     displayCurrentState = () ->
       setAllUsersList()
-      fetchUsers(scope.users.nbItems, 0)
+      fetchUsers(scope.users.nbItems, 0, scope.users.sortAttr)
 
     # Display all the users
     setAllUsersList = () ->
