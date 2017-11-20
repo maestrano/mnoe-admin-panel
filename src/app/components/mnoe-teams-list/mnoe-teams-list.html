@@ -34,7 +34,7 @@
               ({{team.users.length}})
             </td>
           </tr>
-          <tr ng-if="!$ctrl.isTeamsLoading" id="sub-table" ng-show="team.expanded" ng-repeat-end>
+          <tr ng-if="!$ctrl.isTeamsLoading && team.expanded" id="sub-table" ng-repeat-end>
             <td colspan="12">
               <table class="table table-striped table-responsive no-margin-bottom">
                 <thead>

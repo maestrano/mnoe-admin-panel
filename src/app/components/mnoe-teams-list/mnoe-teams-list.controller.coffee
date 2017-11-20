@@ -37,8 +37,7 @@
       ).finally(-> ctrl.isTeamsLoading = false)
 
     ctrl.searchChange = () ->
-      if ctrl.teams.search.length >= 2
-        setSearchTeamsList(ctrl.teams.search)
+      setSearchTeamsList(ctrl.teams.search)
 
     ctrl.$onChanges = (changes) ->
       # Call the server when ready
