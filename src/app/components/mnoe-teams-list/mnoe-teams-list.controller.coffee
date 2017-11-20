@@ -6,7 +6,6 @@
   bindings: {
     organization: '<'
   }
-
   controller: ($filter, MnoeTeams) ->
     ctrl = this
 
