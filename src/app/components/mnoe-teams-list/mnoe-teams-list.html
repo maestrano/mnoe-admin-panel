@@ -1,14 +1,14 @@
 <mno-widget id="teams" icon="fa-users" heading="Teams" is-loading="$ctrl.isTeamsLoading">
   <mno-widget-header>
-    <input type="text" ng-model="$ctrl.teams.search" ng-change="$ctrl.searchChange()" placeholder="" class="form-control input-sm search-bar" />
+    <input type="text" ng-model="$ctrl.teams.search" ng-change="$ctrl.searchChange()" placeholder="{{'mnoe_admin_panel.dashboard.teams.widget.list.table.search' | translate}}" class="form-control input-sm search-bar" />
   </mno-widget-header>
   <mno-widget-body class="large no-padding">
     <div>
       <table st-table="$ctrl.teams.list" class="table table-layout-fixed">
         <thead>
           <tr>
-            <th class="col-xs-2">Team name</th>
-            <th class="col-xs-9 text-center">Apps</th>
+            <th class="col-xs-2" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.team_name</th>
+            <th class="col-xs-9 text-center" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.apps</th>
             <th class="col-xs-1"></th>
           </tr>
         </thead>
@@ -24,11 +24,11 @@
                   </div>
                 </div>
               </div>
-              <div class="text-center" ng-if="!$ctrl.hasApps(team.app_instances)">
-                no apps in this team
+              <div class="text-center" ng-if="!$ctrl.hasApps(team.app_instances)" translate>
+                mnoe_admin_panel.dashboard.teams.widget.list.table.no_apps
               </div>
             </td>
-            <td ng-click="$ctrl.toggleTeam(team)" class="text-mute highlight">users
+            <td ng-click="$ctrl.toggleTeam(team)" class="text-mute highlight">{{ 'mnoe_admin_panel.dashboard.teams.widget.list.table.show_users' | translate }}
               <span ng-if="team.expanded">[-]</span> 
               <span ng-if="!team.expanded">[+]</span>
               ({{team.users.length}})
@@ -39,13 +39,13 @@
               <table class="table table-striped table-responsive no-margin-bottom">
                 <thead>
                   <tr ng-if="!$ctrl.hasUsers(team.users)">
-                    <th class="col-xs-12 text-center">No users in this team</th>
+                    <th class="col-xs-12 text-center" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.no_users</th>
                   </tr>
                   <tr ng-if="$ctrl.hasUsers(team.users)">
-                    <th class="col-xs-2">Name</th>
-                    <th class="col-xs-2">Surname</th>
-                    <th class="col-xs-5">Email</th>
-                    <th class="col-xs-3">role</th>
+                    <th class="col-xs-2" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.name</th>
+                    <th class="col-xs-2" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.surname</th>
+                    <th class="col-xs-5" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.email</th>
+                    <th class="col-xs-3" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.role</th>
                   </tr>
                 </thead>
                 <tbody>

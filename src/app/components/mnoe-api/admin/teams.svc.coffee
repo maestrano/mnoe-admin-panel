@@ -11,8 +11,8 @@
     teamsApi(organization_id).getList(params).catch(
       (error) ->
         # Something went wrong
-        toastr.error()
-        MnoErrorsHandler.processServerError()
+        toastr.error('mnoe_admin_panel.dashboard.teams_list.toastr_error')
+        MnoErrorsHandler.processServerError(error)
         $q.reject(error)
     )
 
