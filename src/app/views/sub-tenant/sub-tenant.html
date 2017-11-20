@@ -4,15 +4,15 @@
     <mno-widget is-loading="!vm.subTenant" icon="fa-sitemap" heading="{{vm.subTenant.name}}">
       <mno-widget-header></mno-widget-header>
       <mno-widget-body>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.sub_tenant.name</div></div>
           <div class="col-md-3">{{::vm.subTenant.name}}</div>
         </div>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.sub_tenant.created_at</div></div>
           <div class="col-sm-3">{{vm.subTenant.created_at | amCalendar }}</div>
         </div>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.sub_tenant.updated_at</div></div>
           <div class="col-sm-3">{{vm.subTenant.updated_at | amCalendar}}</div>
         </div>

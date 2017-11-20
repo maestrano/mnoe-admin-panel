@@ -4,27 +4,27 @@
     <mno-widget is-loading="!vm.staff" icon="fa-users" heading="{{vm.staff.name + ' ' + vm.staff.surname}}">
       <mno-widget-header></mno-widget-header>
       <mno-widget-body>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.uid</div></div>
           <div class="col-md-3">{{vm.staff.uid}}</div>
         </div>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.name</div></div>
           <div class="col-md-3">
             <input type="text" class="form-control input-sm" ng-model="vm.staff.name" required>
           </div>
         </div>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.surname</div></div>
           <div class="col-md-3">
             <input type="text" class="form-control input-sm" ng-model="vm.staff.surname" required>
           </div>
         </div>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.email</div></div>
           <div class="col-md-3">{{vm.staff.email}}</div>
         </div>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.admin_role</div></div>
           <div class="col-md-3">
             <span ng-if="!vm.isAdmin">{{vm.staff.adminRoleName() | translate}}</span>
@@ -33,15 +33,15 @@
             </select>
           </div>
         </div>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.created_at</div></div>
           <div class="col-sm-3">{{vm.staff.created_at | amCalendar }}</div>
         </div>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.updated_at</div></div>
           <div class="col-sm-3">{{vm.staff.updated_at | amCalendar }}</div>
         </div>
-        <div class="bs-row row" ng-if="vm.isSubTenantEnabled">
+        <div class="row" ng-if="vm.isSubTenantEnabled">
           <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.sub_tenant</div></div>
           <div class="col-sm-3" ng-show="vm.subTenants">
             <span ng-if="!vm.isAdmin">{{vm.staff.subTenantName()}}</span>
@@ -51,7 +51,7 @@
             </select>
           </div>
         </div>
-        <div class="bs-row row">
+        <div class="row">
           <div class="col-sm-3">
             <button class="btn btn-primary" ng-show="vm.staff" ng-disabled="vm.isSaving" ng-click="vm.updateStaff()" translate>
               <span ng-show="vm.isSaving"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>

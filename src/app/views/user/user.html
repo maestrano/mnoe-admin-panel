@@ -9,35 +9,35 @@
       <div class="panel-body">
         <mno-loading-ellipsis ng-show="!vm.user"></mno-loading-ellipsis>
         <div ng-show="vm.user">
-          <div class="bs-row row">
+          <div class="row">
             <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.email</div></div>
             <div class="col-md-3">{{::vm.user.email}}</div>
           </div>
-          <div class="bs-row row">
+          <div class="row">
             <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.uid</div></div>
             <div class="col-md-3">{{::vm.user.uid}}</div>
           </div>
-          <div class="bs-row row">
+          <div class="row">
             <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.phone</div></div>
             <div class="col-md-3">{{vm.user.phone || 'mnoe_admin_panel.dashboard.user.table.phone.none' | translate}}</div>
           </div>
-          <div class="bs-row row">
+          <div class="row">
             <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.admin_role</div></div>
             <div class="col-sm-3">{{vm.user.admin_role || 'mnoe_admin_panel.dashboard.user.table.admin_role.none' | translate}}</div>
           </div>
-          <div class="bs-row row">
+          <div class="row">
             <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.created_at</div></div>
             <div class="col-sm-3">{{vm.user.created_at | amCalendar }}</div>
           </div>
-          <div class="bs-row row">
+          <div class="row">
             <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.confirmed</div></div>
             <div class="col-sm-3">{{(vm.user.confirmed_at | amCalendar) || 'mnoe_admin_panel.dashboard.user.table.never_confirmed' | translate}}</div>
           </div>
-          <div class="bs-row row">
+          <div class="row">
             <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.last_sign_in</div></div>
             <div class="col-sm-3">{{(vm.user.last_sign_in_at | amCalendar) || 'mnoe_admin_panel.dashboard.user.table.never_signed_in' | translate}}</div>
           </div>
-          <div class="bs-row row">
+          <div class="row">
             <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.number_of_sign_in</div></div>
             <div class="col-sm-3">{{vm.user.sign_in_count}}</div>
           </div>
