@@ -12,7 +12,7 @@
     teamToggled = {}
     ctrl.isTeamsLoading = true
     ctrl.teams =
-      list:[]
+      list: []
       search: ''
       sort: 'name'
       nbItems: 10
