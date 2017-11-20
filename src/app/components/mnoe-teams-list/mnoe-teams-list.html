@@ -50,10 +50,11 @@
                 </thead>
                 <tbody>
                   <tr class="highlight" ng-if="$ctrl.hasUsers(team.users)" ng-repeat="user in team.users">
-                    <td>{{user.name}}</td>
-                    <td>{{user.surname}}</td>
+                    <td><a ui-sref="dashboard.customers.user({userId: user.id})">{{user.name}}</a></td>
+                    <td><a ui-sref="dashboard.customers.user({userId: user.id})">{{user.surname}}</a></td>
                     <td>{{user.email}}</td>
                     <td>{{user.role}}</td>
+                  </tr>
               </table>
             </td>
           </tr>
