@@ -1,7 +1,7 @@
 #
 # Mnoe organizations List
 #
-@App.directive('mnoeOrganizationsList', ($filter, $log, $translate, MnoeOrganizations, MnoeAdminConfig, MnoeCurrentUser) ->
+@App.directive('mnoeOrganizationsList', ($filter, $translate, MnoeOrganizations, MnoeAdminConfig, MnoeCurrentUser) ->
   restrict: 'E'
   scope: {
     list: '='
@@ -14,13 +14,14 @@
     # Variables initialization
     scope.organizations =
       search: ''
+      sortAttr: 'created_at'
       nbItems: 10
       page: 1
       pageChangedCb: (nbItems, page) ->
         scope.organizations.nbItems = nbItems
         scope.organizations.page = page
         offset = (page  - 1) * nbItems
-        fetchOrganizations(nbItems, offset)
+        fetchOrganizations(nbItems, offset, scope.organizations.sortAttr)
 
     $translate(["mnoe_admin_panel.dashboard.organization.account_frozen_state",
       "mnoe_admin_panel.dashboard.organization.widget.list.table.creation",
@@ -52,14 +53,23 @@
             scope: {organization: organization}}]
         scope.organizations.fields = unless MnoeAdminConfig.isFinanceEnabled() then basicFields else basicFields.concat(
           [{ header: locale['mnoe_admin_panel.dashboard.organization.widget.list.table.revenue'],
-          skip_natural: true, attr:'financial_metrics.revenue', style: width: '110px',}
+          attr:'financial_metrics.revenue', donotsort: true, style: width: '110px',}
           { header: locale['mnoe_admin_panel.dashboard.organization.widget.list.table.margin'],
-          skip_natural: true, attr:'financial_metrics.margin',  style: width: '110px'}
+          attr:'financial_metrics.margin', donotsort: true,  style: width: '110px'}
           { header: locale['mnoe_admin_panel.dashboard.organization.widget.list.table.currency'],
-          skip_natural: true, attr: 'financial_metrics.currency', style: width: '110px'}]))
+          attr:'financial_metrics.currency', donotsort: true, style: width: '110px'}]))
+
+    # Smart table callback
+    scope.pipe = (tableState) ->
+      # The order has changed - reset pagination
+      scope.organizations.page = 1
+      scope.organizations.sortAttr = tableState.sort.predicate
+      if tableState.sort.reverse
+      then scope.organizations.sortAttr += ".desc"
+      fetchOrganizations(scope.organizations.nbItems, 0, scope.organizations.sortAttr)
 
     # Fetch organisations
-    fetchOrganizations = (limit, offset, sort = 'name') ->
+    fetchOrganizations = (limit, offset, sort = 'created_at') ->
       scope.organizations.loading = true
       MnoeCurrentUser.getUser().then( ->
         params = {sub_tenant_id: MnoeCurrentUser.user.mnoe_sub_tenant_id, account_manager_id: MnoeCurrentUser.user.id}
@@ -72,7 +82,7 @@
 
     displayCurrentState = () ->
       setAllOrganizationsList()
-      fetchOrganizations(scope.organizations.nbItems, 0)
+      fetchOrganizations(scope.organizations.nbItems, 0, scope.organizations.sortAttr)
 
     # Display all the organisations
     setAllOrganizationsList = () ->
