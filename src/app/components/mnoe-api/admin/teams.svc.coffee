@@ -1,10 +1,7 @@
 @App.service 'MnoeTeams', ($q, MnoeAdminApiSvc, toastr, MnoErrorsHandler) ->
 
   @list = (organization_id,limit, offset, sort) ->
-    params = {}
-    params['order_by'] = sort
-    params['limit'] = limit
-    params['offset'] = offset
+    params = { 'order_by': sort, 'limit': limit, 'offset': offset }
     teamsApi(organization_id).getList(params).catch(
       (error) ->
         # Something went wrong
