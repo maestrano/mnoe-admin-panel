@@ -7,10 +7,8 @@
     list: '='
   },
   templateUrl: 'app/components/mnoe-organizations-list/mnoe-organizations-list.html',
-  link: (scope, elem, attrs) ->
+  link: (scope, elem) ->
 
-    # Widget state
-    scope.state = attrs.view
     # Variables initialization
     scope.organizations =
       search: ''

@@ -6,10 +6,7 @@
   scope: {
   }
   templateUrl: 'app/components/mnoe-users-list/mno-users-list.html'
-  link: (scope, elem, attrs) ->
-
-    # Widget state
-    scope.state = attrs.view
+  link: (scope, elem) ->
 
     # Variables initialization
     scope.users =
