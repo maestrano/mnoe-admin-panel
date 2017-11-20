@@ -7,15 +7,15 @@
     organization: '<'
   }
 
-  controller: (MnoeTeams) ->
+  controller: ($filter, MnoeTeams) ->
     ctrl = this
 
     teamToggled = {}
     ctrl.isTeamsLoading = true
     ctrl.teams =
       list:[]
-      search: ""
-      sort: "name"
+      search: ''
+      sort: 'name'
       nbItems: 10
       offset: 0
       page: 1
@@ -24,6 +24,21 @@
         ctrl.teams.page = page
         offset = (page  - 1) * nbItems
         fetchTeams(nbItems, offset)
+
+    # Display only the search results
+    setSearchTeamsList = (search) ->
+      ctrl.isTeamsLoading = true
+      search = ctrl.teams.search.toLowerCase()
+      terms = {'name.like': "%#{search}%"}
+      MnoeTeams.search(ctrl.organization.id, terms).then(
+        (response) ->
+          ctrl.teams.totalItems = response.headers('x-total-count')
+          ctrl.teams.list = $filter('orderBy')(response.data, 'name')
+      ).finally(-> ctrl.isTeamsLoading = false)
+
+    ctrl.searchChange = () ->
+      if ctrl.teams.search.length >= 2
+        setSearchTeamsList(ctrl.teams.search)
 
     ctrl.$onChanges = (changes) ->
       # Call the server when ready
@@ -44,7 +59,7 @@
         teamToggled.expanded = true
 
     fetchTeams = (limit, offset, sort = ctrl.teams.sort) ->
-      ctrl.isTeamsLoading = true    
+      ctrl.isTeamsLoading = true
       MnoeTeams.list(ctrl.organization.id, limit, offset, sort).then(
         (response) ->
           ctrl.teams.list = response.data

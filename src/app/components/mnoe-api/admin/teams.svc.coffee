@@ -13,4 +13,7 @@
         $q.reject(error)
     )
 
+  @search = (organization_id, terms) ->
+    MnoeAdminApiSvc.one('organizations', organization_id).all('teams').getList({terms: terms})
+
   return @
