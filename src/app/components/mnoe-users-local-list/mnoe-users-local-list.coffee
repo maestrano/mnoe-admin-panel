@@ -15,7 +15,7 @@
       displayList: []
       widgetTitle: 'mnoe_admin_panel.dashboard.users.widget.local_list.loading_users.title'
       search: ''
-    scope.availableRoles = _.map(USER_ROLES, 'label')
+    scope.availableRoles = _.map(USER_ROLES, 'value')
 
     # Display all the users
     setAllUsersList = () ->
@@ -82,38 +82,28 @@
     scope.isUserActive = (userStatus) ->
       userStatus == 'active'
 
-    # role here should always be in English (as returned by MnoHub)
-    # This method returns the translation key associated to this role,
-    # for internationalization
-    scope.tlKeyFromUserRole = (role) ->
-      enTranslationTable = $translate.getTranslationTable('en-AU')
-      _.findKey(enTranslationTable, _.partial(_.isEqual, role))
-
     scope.updateUserMail = (user) ->
       user.isUpdatingEmail = true
       MnoeUsers.updateStaff(user).then(
-        (success) ->
+        () ->
           toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.email_update_sent', {extraData: {email: user.email}})
         (error) ->
           toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.email_update_error')
           MnoErrorsHandler.processServerError(error)
       ).finally(-> user.isUpdatingEmail = false)
 
-    scope.updateUserRole = (user) ->
+    scope.keyFromRole = (role) ->
+      _.find(USER_ROLES, 'value', role).label
+
+    scope.updateUserRole = (user, oldRole) ->
       user.isUpdatingRole = true
-      oldRole = user.role
-      # At this point user.roleTlKey contains the translation key for the role,
-      # because scope.availableRoles contains the translation keys.
-      # We need to send to MnoHub the role value in English
-      user.role = $translate.getTranslationTable('en-AU')[user.roleTlKey]
       MnoeUsers.updateUserRole(scope.organization, user).then(
-        (success) ->
-          $translate(user.roleTlKey).then((tls) ->
+        () ->
+          $translate(scope.keyFromRole(user.role)).then((tls) ->
             toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_success', {extraData: {user: "#{user.email}", role: tls}})
           )
         (error) ->
           user.role = oldRole
-          user.roleTlKey = scope.tlKeyFromUserRole(user.role)
           toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_error')
           MnoErrorsHandler.processServerError(error)
       ).finally(-> user.isUpdatingRole = false)
@@ -129,7 +119,7 @@
 
       MnoConfirm.showModal(modalOptions).then( ->
         MnoeUsers.removeUserFromOrganization(scope.organization, user.email).then(
-          (success) ->
+          () ->
             _.remove(scope.users.displayList, user)
             toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.success', {extraData: {email: user.email}})
           (error) ->
