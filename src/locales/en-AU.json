@@ -7,7 +7,7 @@
   "mnoe_admin_panel.constants.admin_roles.sub_tenant_admin": "division admin",
   "mnoe_admin_panel.constants.countries.australia": "Australia",
   "mnoe_admin_panel.constants.countries.usa": "USA",
-  "mnoe_admin_panel.dashboard.layout.title": "Admin Panel",
+  "mnoe_admin_panel.dashboard.layout.title": "Control Panel",
   "mnoe_admin_panel.dashboard.layout.exit": "Exit",
   "mnoe_admin_panel.dashboard.layout.sidebar.title": "Dashboard",
   "mnoe_admin_panel.dashboard.layout.sidebar.navigation": "Navigation",
