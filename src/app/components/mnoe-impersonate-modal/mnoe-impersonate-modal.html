@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h3>{{ 'mnoe_admin_panel.dashboard.users.widget.local_list.modal.request_access_title' | translate }}</h3>
+</div>
+<div class="modal-body">
+  <p>{{ 'mnoe_admin_panel.dashboard.users.widget.local_list.modal.access_restricted' | translate }}</p>
+  <p>
+    {{ 'mnoe_admin_panel.dashboard.users.widget.local_list.modal.request_to_have_access' | translate }}
+    <br/> {{ 'mnoe_admin_panel.dashboard.users.widget.local_list.modal.request_approved_email' | translate }}
+  </p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" ng-click="$ctrl.cancel()">
+    {{ 'mnoe_admin_panel.dashboard.users.widget.local_list.modal.cancel' | translate }}
+  </button>
+  <button type="button" class="btn btn-primary" ng-click="$ctrl.ok()">
+    {{ 'mnoe_admin_panel.dashboard.users.widget.local_list.request_access' | translate }}
+  </button>
+</div>

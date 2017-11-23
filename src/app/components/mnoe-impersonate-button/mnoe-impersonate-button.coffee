@@ -8,7 +8,7 @@
     user: '<',
   }
   controllerAs: 'vm'
-  controller: ($window, toastr, MnoErrorsHandler, MnoeAdminConfig, MnoeUsers) ->
+  controller: ($window, toastr, MnoErrorsHandler, MnoeAdminConfig, MnoeUsers, $uibModal) ->
     vm = this
     vm.isImpersonationEnabled = MnoeAdminConfig.isImpersonationEnabled()
 
@@ -30,6 +30,13 @@
       if vm.organizationId
         url = url + "&dhbRefId=#{vm.organizationId}"
       $window.location.href = url
+
+    vm.openRequestModal = () ->
+      modalInstance = $uibModal.open(
+        component: "mnoeImpersonateModal",
+        resolve:
+          actionCb: () -> vm.requestAccess
+      )
 
     vm.requestAccess = () ->
       MnoeUsers.requestAccess(vm.user).then(
