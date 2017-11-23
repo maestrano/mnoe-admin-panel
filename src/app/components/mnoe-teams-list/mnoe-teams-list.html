@@ -15,10 +15,7 @@
         <tbody>
           <tr ng-click="$ctrl.toggleTeam(team)" ng-if="!$ctrl.isTeamsLoading" ng-repeat-start="team in $ctrl.teams.list">
             <td class="highlight-clickable">{{team.name}}</td>  
-            <td class="text-mute highlight">{{ 'mnoe_admin_panel.dashboard.teams.widget.list.table.show_users' | translate }}
-              <span ng-if="team.expanded">[-]</span> 
-              <span ng-if="!team.expanded">[+]</span>
-              ({{team.users.length}})
+            <td class="text-mute highlight"><span class="badge badge-default">{{team.users.length}} {{ 'mnoe_admin_panel.dashboard.teams.widget.list.table.show_users' | translate }}</span>
             </td>
             <td>
               <div class="bs-row row apps-box">
