@@ -14,8 +14,8 @@
         </thead>
         <tbody>
           <tr ng-click="$ctrl.toggleTeam(team)" ng-if="!$ctrl.isTeamsLoading" ng-repeat-start="team in $ctrl.teams.list">
-            <td class="highlight-clickable">{{team.name}}</td>  
-            <td class="text-mute highlight"><span class="badge badge-default">{{team.users.length}} {{ 'mnoe_admin_panel.dashboard.teams.widget.list.table.show_users' | translate }}</span>
+            <td>{{team.name}}</td>  
+            <td class="text-mute"><span class="badge badge-colour">{{team.users.length}} {{ 'mnoe_admin_panel.dashboard.teams.widget.list.table.show_users' | translate }}</span>
             </td>
             <td>
               <div class="bs-row row apps-box">
@@ -46,7 +46,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="highlight" ng-if="$ctrl.hasUsers(team.users)" ng-repeat="user in team.users">
+                  <tr ng-if="$ctrl.hasUsers(team.users)" ng-repeat="user in team.users">
                     <td><a ui-sref="dashboard.customers.user({userId: user.id})">{{user.name}}</a></td>
                     <td><a ui-sref="dashboard.customers.user({userId: user.id})">{{user.surname}}</a></td>
                     <td>{{user.email}}</td>
