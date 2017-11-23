@@ -9,7 +9,8 @@
           <tr>
             <th class="col-xs-2" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.team_name</th>
             <th class="col-xs-1"></th>
-            <th class="col-xs-9 text-center" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.apps</th>
+            <th class="col-xs-8 text-center" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.apps</th>
+            <th class="col-xs-1"></th>
           </tr>
         </thead>
         <tbody>
@@ -30,6 +31,8 @@
                 mnoe_admin_panel.dashboard.teams.widget.list.table.no_apps
               </div>
             </td>
+            <td ng-if="!team.expanded"><span class="glyphicon glyphicon-chevron-right pull-right icon-colour"></span></td>  
+            <td ng-if="team.expanded"><span class="glyphicon glyphicon-chevron-down pull-right icon-colour"></span></td>  
           </tr>
           <tr ng-if="!$ctrl.isTeamsLoading && team.expanded" id="sub-table" ng-repeat-end>
             <td colspan="12">
