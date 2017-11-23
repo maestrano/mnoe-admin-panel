@@ -8,13 +8,18 @@
         <thead>
           <tr>
             <th class="col-xs-2" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.team_name</th>
-            <th class="col-xs-9 text-center" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.apps</th>
             <th class="col-xs-1"></th>
+            <th class="col-xs-9 text-center" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.apps</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-if="!$ctrl.isTeamsLoading" ng-repeat-start="team in $ctrl.teams.list">
             <td class="highlight-clickable" ng-click="$ctrl.toggleTeam(team)">{{team.name}}</td>  
+            <td ng-click="$ctrl.toggleTeam(team)" class="text-mute highlight">{{ 'mnoe_admin_panel.dashboard.teams.widget.list.table.show_users' | translate }}
+              <span ng-if="team.expanded">[-]</span> 
+              <span ng-if="!team.expanded">[+]</span>
+              ({{team.users.length}})
+            </td>
             <td>
               <div class="bs-row row apps-box">
                 <div ng-if="$ctrl.hasApps(team.app_instances)" class="app-wrapper col-xs-3 col-sm-2 col-md-1" ng-repeat="app in team.app_instances">
@@ -27,11 +32,6 @@
               <div class="text-center" ng-if="!$ctrl.hasApps(team.app_instances)" translate>
                 mnoe_admin_panel.dashboard.teams.widget.list.table.no_apps
               </div>
-            </td>
-            <td ng-click="$ctrl.toggleTeam(team)" class="text-mute highlight">{{ 'mnoe_admin_panel.dashboard.teams.widget.list.table.show_users' | translate }}
-              <span ng-if="team.expanded">[-]</span> 
-              <span ng-if="!team.expanded">[+]</span>
-              ({{team.users.length}})
             </td>
           </tr>
           <tr ng-if="!$ctrl.isTeamsLoading && team.expanded" id="sub-table" ng-repeat-end>
