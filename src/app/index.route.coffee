@@ -74,17 +74,6 @@
         controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.customers.connect_app.title'
-    .state 'dashboard.product-markups',
-      data:
-        pageTitle: 'Price List'
-      url: '/product-markups'
-      templateUrl: 'app/views/product-markups/product-markups.html'
-      controller: 'ProductMarkupsController'
-      controllerAs: 'vm'
-      ncyBreadcrumb:
-        label: 'mnoe_admin_panel.dashboard.product_markups.title'
-      resolve:
-        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
 
   # Routes depending on Feature Flags
   adminConfig = MnoeAdminConfigProvider.$get()
@@ -318,6 +307,20 @@
           controllerAs: 'vm'
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.provisioning.breadcrumb.order_summary'
+
+  if adminConfig.isProductMarkupEnabled()
+    $stateProvider
+      .state 'dashboard.product-markups',
+        data:
+          pageTitle: 'Price List'
+        url: '/product-markups'
+        templateUrl: 'app/views/product-markups/product-markups.html'
+        controller: 'ProductMarkupsController'
+        controllerAs: 'vm'
+        ncyBreadcrumb:
+          label: 'mnoe_admin_panel.dashboard.product_markups.title'
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
 
   if adminConfig.isProvisioningEnabled()
     $stateProvider

@@ -56,6 +56,13 @@
       $log.debug("DASHBOARD_CONFIG.marketplace.local_products")
       false
 
+  @isProductMarkupEnabled = () ->
+    if DASHBOARD_CONFIG.marketplace?.product_markup?
+      DASHBOARD_CONFIG.marketplace.product_markup
+    else
+      $log.debug("DASHBOARD_CONFIG.marketplace.provisioning")
+      true
+
   @isProvisioningEnabled = () ->
     if DASHBOARD_CONFIG.marketplace?.provisioning?
       DASHBOARD_CONFIG.marketplace.provisioning
