@@ -11,15 +11,15 @@
       type: "tabs"
       tabs: [
         {
-          title: $translate.instant('mnoe_admin_panel.dashboard.settings.general.tabs.system')
+          title: 'mnoe_admin_panel.dashboard.settings.general.tabs.system'
           items: ["system"]
         }
         {
-          title: $translate.instant('mnoe_admin_panel.dashboard.settings.general.tabs.dashboard')
+          title: 'mnoe_admin_panel.dashboard.settings.general.tabs.dashboard'
           items: ["dashboard"]
         }
         {
-          title: $translate.instant('mnoe_admin_panel.dashboard.settings.general.tabs.admin_panel')
+          title: 'mnoe_admin_panel.dashboard.settings.general.tabs.admin_panel'
           items: ["admin_panel"]
         }
       ]
