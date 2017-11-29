@@ -1,18 +1,24 @@
 <mno-widget icon="fa-sitemap" heading="{{organizations.widgetTitle | translate}}" is-loading="organizations.loading">
   <mno-widget-header>
-    <input type="text" ng-model="organizations.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }' placeholder="{{'mnoe_admin_panel.dashboard.organization.widget.list.search_users.placeholder.search_all' | translate}}" class="form-control input-sm search-bar" />
+    <input type="text" ng-model="organizations.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }'
+    placeholder="{{'mnoe_admin_panel.dashboard.organization.widget.list.search_users.placeholder.search_all' | translate}}"
+    class="form-control input-sm search-bar" />
   </mno-widget-header>
   <mno-widget-body class="large-auto-height no-padding">
-    <mno-sortable-table row-collection="organizations.list" is-loading="organizations.loading" fields="organizations.fields" pipe="pipe(tableState)">
+    <mno-sortable-table
+    row-collection="organizations.list"
+    is-loading="organizations.loading"
+    fields="organizations.fields"
+    pipe="pipe(tableState)">
     </mno-sortable-table>
   </mno-widget-body>
-  <mno-widget-footer ng-show="organizations.list && state == 'all' && !searchMode">
+  <mno-widget-footer ng-show="organizations.list && !searchMode">
     <mno-pagination
-      page="organizations.page"
-      nb-items="organizations.nbItems"
-      total-items="organizations.totalItems"
-      on-change-cb="organizations.pageChangedCb(nbItems, page)"
-      is-loading="organizations.loading">
+    page="organizations.page"
+    nb-items="organizations.nbItems"
+    total-items="organizations.totalItems"
+    on-change-cb="organizations.pageChangedCb(nbItems, page)"
+    is-loading="organizations.loading">
     </mno-pagination>
   </mno-widget-footer>
 </mno-widget>

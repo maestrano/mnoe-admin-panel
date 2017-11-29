@@ -21,13 +21,18 @@
         offset = (page  - 1) * nbItems
         fetchOrganizations(nbItems, offset, scope.organizations.sortAttr)
 
-    $translate(["mnoe_admin_panel.dashboard.organization.account_frozen_state",
+    # table generation - need to get the locale first
+    $translate(
+      ["mnoe_admin_panel.dashboard.organization.account_frozen_state",
       "mnoe_admin_panel.dashboard.organization.widget.list.table.creation",
       'mnoe_admin_panel.dashboard.organization.widget.list.table.name'
       'mnoe_admin_panel.dashboard.organization.widget.list.table.revenue',
       'mnoe_admin_panel.dashboard.organization.widget.list.table.margin'
-      'mnoe_admin_panel.dashboard.organization.widget.list.table.currency']).then((locale) ->
+      'mnoe_admin_panel.dashboard.organization.widget.list.table.currency'])
+      .then((locale) ->
+        # create the fields for the sortable-table
         basicFields = [
+          # organization name
           { header: locale['mnoe_admin_panel.dashboard.organization.widget.list.table.name']
           attr: 'name'
           skip_natural: true
@@ -39,7 +44,9 @@
                 mnoe_admin_panel.dashboard.organization.account_frozen_state</em>
               </a>
             """,
-            scope: {organization: organization} }
+            scope: {organization: organization}}
+
+          # organization creation date
           { header: locale["mnoe_admin_panel.dashboard.organization.widget.list.table.creation"],
           style: {width: '110px'},
           attr:'created_at',
@@ -48,14 +55,21 @@
           render: (organization) ->
             template:
               "<span>{{::organization.created_at | date: 'dd/MM/yyyy'}}</span>"
-            scope: {organization: organization}}]
-        scope.organizations.fields = unless MnoeAdminConfig.isFinanceEnabled() then basicFields else basicFields.concat(
-          [{ header: locale['mnoe_admin_panel.dashboard.organization.widget.list.table.revenue'],
-          attr:'financial_metrics.revenue', donotsort: true, style: width: '110px',}
+            scope: {organization: organization}}
+        ]
+
+        # Add Finance columns if enabled
+        scope.organizations.fields = unless MnoeAdminConfig.isFinanceEnabled() then basicFields else basicFields.concat([
+          # Revenue
+          { header: locale['mnoe_admin_panel.dashboard.organization.widget.list.table.revenue'],
+          attr:'financial_metrics.revenue', doNotSort: true, style: width: '110px',}
+          # Margin
           { header: locale['mnoe_admin_panel.dashboard.organization.widget.list.table.margin'],
-          attr:'financial_metrics.margin', donotsort: true,  style: width: '110px'}
+          attr:'financial_metrics.margin', doNotSort: true,  style: width: '110px'}
+          # Currency
           { header: locale['mnoe_admin_panel.dashboard.organization.widget.list.table.currency'],
-          attr:'financial_metrics.currency', donotsort: true, style: width: '110px'}]))
+          attr:'financial_metrics.currency', doNotSort: true, style: width: '110px'}])
+      )
 
     # Smart table callback
     scope.pipe = (tableState) ->
@@ -63,7 +77,7 @@
       scope.organizations.page = 1
       scope.organizations.sortAttr = tableState.sort.predicate
       if tableState.sort.reverse
-      then scope.organizations.sortAttr += ".desc"
+        scope.organizations.sortAttr += ".desc"
       fetchOrganizations(scope.organizations.nbItems, 0, scope.organizations.sortAttr)
 
     # Fetch organisations

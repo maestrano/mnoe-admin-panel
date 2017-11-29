@@ -20,11 +20,16 @@
         offset = (page  - 1) * nbItems
         fetchUsers(nbItems, offset, scope.users.sortAttr)
 
-    $translate(["mnoe_admin_panel.dashboard.users.widget.list.table.created_at",
+    # table generation - need to get the locale first
+    $translate([
+      "mnoe_admin_panel.dashboard.users.widget.list.table.created_at",
       'mnoe_admin_panel.dashboard.users.widget.list.table.username',
       'mnoe_admin_panel.dashboard.users.widget.list.table.never',
-      'mnoe_admin_panel.dashboard.users.widget.list.table.last_login']).then((locale) ->
+      'mnoe_admin_panel.dashboard.users.widget.list.table.last_login'])
+      .then((locale) ->
+        # create the fields for the sortable-table
         scope.users.fields = [
+          # User name, surname, and email
           { header: locale['mnoe_admin_panel.dashboard.users.widget.list.table.username']
           attr: "surname"
           render: (user) ->
@@ -37,6 +42,7 @@
             """,
             scope: { user: user }
           skip_natural: true}
+          # User last login date
           { header: locale['mnoe_admin_panel.dashboard.users.widget.list.table.last_login']
           attr: "last_sign_in_at"
           style: {width: "130px"}
@@ -48,6 +54,7 @@
             """,
             scope: {user: user}
           skip_natural: true}
+          # User creation date
           { header: locale["mnoe_admin_panel.dashboard.users.widget.list.table.created_at"],
           style: {width: '130px'},
           attr:'created_at',
@@ -56,7 +63,8 @@
           render: (user) ->
             template:
               "<span>{{::user.created_at | date: 'dd/MM/yyyy'}}</span>"
-            scope: {user: user}}])
+            scope: {user: user}}]
+      )
 
     # Pipe for the sortable-table
     scope.pipe = (tableState) ->
@@ -64,7 +72,7 @@
       scope.users.page = 1
       scope.users.sortAttr = tableState.sort.predicate
       if tableState.sort.reverse
-      then scope.users.sortAttr += ".desc"
+        scope.users.sortAttr += ".desc"
       fetchUsers(scope.users.nbItems, 0, scope.users.sortAttr)
 
     # Fetch users

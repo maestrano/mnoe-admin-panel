@@ -6,7 +6,7 @@
     <mno-sortable-table row-collection="users.list" is-loading="users.loading" fields="users.fields" pipe="pipe(tableState)">
     </mno-sortable-table>
   </mno-widget-body>
-  <mno-widget-footer ng-show="users.list && state == 'all' && !searchMode">
+  <mno-widget-footer ng-show="users.list && !searchMode">
     <mno-pagination
       page="users.page"
       nb-items="users.nbItems"
