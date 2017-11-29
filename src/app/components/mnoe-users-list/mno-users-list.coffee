@@ -1,26 +1,79 @@
 #
 # Mnoe Users List
 #
-@App.directive('mnoeUsersList', ($filter, $log, $translate, MnoeUsers, MnoeCurrentUser) ->
+@App.directive('mnoeUsersList', ($filter, $translate, MnoeUsers, MnoeCurrentUser) ->
   restrict: 'E'
   scope: {
   }
   templateUrl: 'app/components/mnoe-users-list/mno-users-list.html'
-  link: (scope, elem, attrs) ->
-
-    # Widget state
-    scope.state = attrs.view
+  link: (scope, elem) ->
 
     # Variables initialization
     scope.users =
       search: ''
+      sortAttr: 'created_at'
       nbItems: 10
       page: 1
       pageChangedCb: (nbItems, page) ->
         scope.users.nbItems = nbItems
         scope.users.page = page
         offset = (page  - 1) * nbItems
-        fetchUsers(nbItems, offset)
+        fetchUsers(nbItems, offset, scope.users.sortAttr)
+
+    # table generation - need to get the locale first
+    $translate([
+      "mnoe_admin_panel.dashboard.users.widget.list.table.created_at",
+      'mnoe_admin_panel.dashboard.users.widget.list.table.username',
+      'mnoe_admin_panel.dashboard.users.widget.list.table.never',
+      'mnoe_admin_panel.dashboard.users.widget.list.table.last_login'])
+      .then((locale) ->
+        # create the fields for the sortable-table
+        scope.users.fields = [
+          # User name, surname, and email
+          { header: locale['mnoe_admin_panel.dashboard.users.widget.list.table.username']
+          attr: "surname"
+          render: (user) ->
+            template: """
+            <a ui-sref="dashboard.customers.user({userId: user.id})">
+              <div ng-show="user.name && user.surname">{{::user.name}} {{::user.surname}}</div>
+              <div ng-show="!user.name && !user.surname">nc</div>
+              <small>{{::user.email}}</small>
+            </a>
+            """,
+            scope: { user: user }
+          skip_natural: true}
+          # User last login date
+          { header: locale['mnoe_admin_panel.dashboard.users.widget.list.table.last_login']
+          attr: "last_sign_in_at"
+          style: {width: "130px"}
+          render: (user) ->
+            template: """
+            <span data-toggle="tooltip" title="{{::user.last_sign_in_at | date: 'H:m - dd/MM/yyyy'}}">
+              {{(user.last_sign_in_at | amTimeAgo) || ('mnoe_admin_panel.dashboard.users.widget.list.never' | translate)}}
+            </span>
+            """,
+            scope: {user: user}
+          skip_natural: true}
+          # User creation date
+          { header: locale["mnoe_admin_panel.dashboard.users.widget.list.table.created_at"],
+          style: {width: '130px'},
+          attr:'created_at',
+          sort_default: "reverse"
+          skip_natural: true
+          render: (user) ->
+            template:
+              "<span>{{::user.created_at | date: 'dd/MM/yyyy'}}</span>"
+            scope: {user: user}}]
+      )
+
+    # Pipe for the sortable-table
+    scope.pipe = (tableState) ->
+      # The order has changed - reset pagination
+      scope.users.page = 1
+      scope.users.sortAttr = tableState.sort.predicate
+      if tableState.sort.reverse
+        scope.users.sortAttr += ".desc"
+      fetchUsers(scope.users.nbItems, 0, scope.users.sortAttr)
 
     # Fetch users
     fetchUsers = (limit, offset, sort = 'surname') ->
@@ -34,31 +87,14 @@
         ).finally(-> scope.users.loading = false)
       )
 
-    scope.switchState = () ->
-      scope.state = attrs.view = if attrs.view == 'all' then 'last' else 'all'
-      displayCurrentState()
-
-    # if view="all" is set on the directive, all the users are displayed
-    # if view="last" is set on the directive, the last 10 users are displayed
     displayCurrentState = () ->
-      if attrs.view == 'all'
-        setAllUsersList()
-        fetchUsers(scope.users.nbItems, 0)
-      else if attrs.view == 'last'
-        setLastUsersList()
-        fetchUsers(10, 0, 'created_at.desc')
-      else
-        $log.error('Value of attribute view can only be "all" or "last"')
+      setAllUsersList()
+      fetchUsers(scope.users.nbItems, 0, scope.users.sortAttr)
 
     # Display all the users
     setAllUsersList = () ->
       scope.users.widgetTitle = 'mnoe_admin_panel.dashboard.users.widget.list.all_users.title'
       scope.users.switchLinkTitle = 'mnoe_admin_panel.dashboard.users.widget.list.all_users.switch_link_title'
-
-    # Display only the last 10 users
-    setLastUsersList = () ->
-      scope.users.widgetTitle = 'mnoe_admin_panel.dashboard.users.widget.list.last_users.title'
-      scope.users.switchLinkTitle = 'mnoe_admin_panel.dashboard.users.widget.list.last_users.switch_link_title'
 
     scope.searchChange = () ->
       # Only search if the string is >= than 3 characters

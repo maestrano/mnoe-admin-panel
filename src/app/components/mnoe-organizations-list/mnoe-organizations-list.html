@@ -1,57 +1,24 @@
 <mno-widget icon="fa-sitemap" heading="{{organizations.widgetTitle | translate}}" is-loading="organizations.loading">
   <mno-widget-header>
-    &nbsp;<a href="" ng-click="switchState()" ng-show="organizations.list && organizations.switchLinkTitle" ng-class="{'disabled': organizations.loading}" translate>{{organizations.switchLinkTitle}}</a>
-    <input type="text" ng-model="organizations.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }' placeholder="{{'mnoe_admin_panel.dashboard.organization.widget.list.search_users.placeholder.search_all' | translate}}" class="form-control input-sm search-bar" />
+    <input type="text" ng-model="organizations.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }'
+    placeholder="{{'mnoe_admin_panel.dashboard.organization.widget.list.search_users.placeholder.search_all' | translate}}"
+    class="form-control input-sm search-bar" />
   </mno-widget-header>
-  <mno-widget-body class="large no-padding">
-    <table class="table table-layout-fixed">
-      <thead>
-        <tr>
-          <th translate>mnoe_admin_panel.dashboard.organization.widget.list.table.name</th>
-          <th style="width: 100px;" translate>mnoe_admin_panel.dashboard.organization.widget.list.table.creation</th>
-          <th style="width: 100px;" translate ng-if="isFinanceEnabled" >mnoe_admin_panel.dashboard.organization.widget.list.table.revenue</th>
-          <th style="width: 100px;" translate ng-if="isFinanceEnabled">mnoe_admin_panel.dashboard.organization.widget.list.table.margin</th>
-          <th style="width: 100px;" translate ng-if="isFinanceEnabled">mnoe_admin_panel.dashboard.organization.widget.list.table.currency</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="organization in organizations.list">
-          <td>
-            <a ui-sref="dashboard.customers.organization({orgId: organization.id})">
-              {{::organization.name}}
-              <em ng-show="organization.account_frozen" class="text-muted" translate>mnoe_admin_panel.dashboard.organization.account_frozen_state</em>
-            </a>
-          </td>
-          <td>{{::organization.created_at | date: 'dd/MM/yyyy'}}</td>
-          <td ng-if="isFinanceEnabled">
-            <span>
-              <div ng-show="organization.financial_metrics.revenue">{{::organization.financial_metrics.revenue}}</div>
-              <div ng-show="!organization.financial_metrics.revenue">nc</div>
-            </span>
-          </td>
-          <td ng-if="isFinanceEnabled">
-            <span>
-              <div ng-show="organization.financial_metrics.margin">{{::organization.financial_metrics.margin}}</div>
-              <div ng-show="!organization.financial_metrics.margin">nc</div>
-            </span>
-          </td>
-          <td ng-if="isFinanceEnabled">
-            <span>
-              <div ng-show="organization.financial_metrics.currency">{{::organization.financial_metrics.currency}}</div>
-              <div ng-show="!organization.financial_metrics.currency">nc</div>
-            </span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <mno-widget-body class="large-auto-height no-padding">
+    <mno-sortable-table
+    row-collection="organizations.list"
+    is-loading="organizations.loading"
+    fields="organizations.fields"
+    pipe="pipe(tableState)">
+    </mno-sortable-table>
   </mno-widget-body>
-  <mno-widget-footer ng-show="organizations.list && state == 'all' && !searchMode">
+  <mno-widget-footer ng-show="organizations.list && !searchMode">
     <mno-pagination
-      page="organizations.page"
-      nb-items="organizations.nbItems"
-      total-items="organizations.totalItems"
-      on-change-cb="organizations.pageChangedCb(nbItems, page)"
-      is-loading="organizations.loading">
+    page="organizations.page"
+    nb-items="organizations.nbItems"
+    total-items="organizations.totalItems"
+    on-change-cb="organizations.pageChangedCb(nbItems, page)"
+    is-loading="organizations.loading">
     </mno-pagination>
   </mno-widget-footer>
 </mno-widget>
