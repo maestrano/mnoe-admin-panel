@@ -5,6 +5,13 @@
     $rootScope.app_name = APP_NAME
   )
 
+  # Change title on state change - to use ng-bind and make it update with translations
+  .run(($rootScope, $log) ->
+    $rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
+      $rootScope.pageTitle = toState.data.pageTitle
+    )
+  )
+
   # Force the page to scroll to top when a view change
   .run(($rootScope) ->
     $rootScope.$on('$viewContentLoaded', ->
