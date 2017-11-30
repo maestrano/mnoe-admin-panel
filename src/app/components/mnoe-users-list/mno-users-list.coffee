@@ -35,9 +35,10 @@
           render: (user) ->
             template: """
             <a ui-sref="dashboard.customers.user({userId: user.id})">
-              <div> <span ng-show="user.name && user.surname">{{::user.name }} {{::user.surname}} </span>
-              <span ng-show="!user.name && !user.surname">nc</span>
-              <i title="{{ mnoe_admin_panel.dashboard.users.widget.list.table.lock | translate }}" ng-show="user.access_locked" class="fa fa-lock"> </i>
+              <div>
+                <span ng-show="user.name && user.surname">{{::user.name }} {{::user.surname}}</span>
+                <span ng-show="!user.name && !user.surname">nc</span>
+                <i title="{{ mnoe_admin_panel.dashboard.users.widget.list.table.lock | translate }}" ng-show="user.access_locked" class="fa fa-lock"></i>
               </div>
               <small>{{::user.email}}</small>
             </a>
