@@ -6,25 +6,33 @@
   vm.originalSettings = {}
   vm.settingsSchema = {}
 
-  vm.settingsForm = [
-    {
-      type: "tabs"
-      tabs: [
+  $translate([
+    'mnoe_admin_panel.dashboard.settings.general.tabs.system',
+    'mnoe_admin_panel.dashboard.settings.general.tabs.dashboard',
+    'mnoe_admin_panel.dashboard.settings.general.tabs.admin_panel'
+  ]).then(
+    (translations) ->
+      vm.settingsForm = [
         {
-          title: 'mnoe_admin_panel.dashboard.settings.general.tabs.system'
-          items: ["system"]
-        }
-        {
-          title: 'mnoe_admin_panel.dashboard.settings.general.tabs.dashboard'
-          items: ["dashboard"]
-        }
-        {
-          title: 'mnoe_admin_panel.dashboard.settings.general.tabs.admin_panel'
-          items: ["admin_panel"]
+          type: "tabs"
+          tabs: [
+            {
+              title: translations['mnoe_admin_panel.dashboard.settings.general.tabs.system']
+              items: ["system"]
+            }
+            {
+              title: translations['mnoe_admin_panel.dashboard.settings.general.tabs.dashboard']
+              items: ["dashboard"]
+            }
+            {
+              title: translations['mnoe_admin_panel.dashboard.settings.general.tabs.admin_panel']
+              items: ["admin_panel"]
+            }
+          ]
         }
       ]
-    }
-  ]
+  )
+
 
   # Remove apps which are no longer enabled
   validateAppList = (appNidList) ->
