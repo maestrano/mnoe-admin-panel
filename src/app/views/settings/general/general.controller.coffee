@@ -33,7 +33,6 @@
       ]
   )
 
-
   # Remove apps which are no longer enabled
   validateAppList = (appNidList) ->
     if vm.settingsModel?.dashboard?.public_pages?
