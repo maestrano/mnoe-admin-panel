@@ -17,7 +17,6 @@
   'smart-table',
   'angularMoment',
   'duScroll',
-  'ngPageTitle',
   'mnoUiElements',
   'pascalprecht.translate',
   'ngSanitize',
