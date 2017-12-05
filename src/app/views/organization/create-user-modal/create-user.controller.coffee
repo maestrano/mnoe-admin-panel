@@ -12,7 +12,11 @@
         # Close the modal returning the item to the parent window
         $uibModalInstance.close(success.data.user)
       (error) ->
-        toastr.error('mnoe_admin_panel.dashboard.organization.create_user.toastr_error', {extraData: {username: "#{vm.user.name} #{vm.user.surname}"}})
+        if error.data.user_email && _.includes(error.data.user_email, "has already been taken")
+          toastr.error('mnoe_admin_panel.dashboard.organization.create_user.active_invite_toastr_error', {extraData: {email: "#{vm.user.email}"}})
+        else
+          toastr.error('mnoe_admin_panel.dashboard.organization.create_user.toastr_error', {extraData: {username: "#{vm.user.name} #{vm.user.surname}"}})
+
         MnoErrorsHandler.processServerError(error)
     ).finally(-> vm.isLoading = false)
 
