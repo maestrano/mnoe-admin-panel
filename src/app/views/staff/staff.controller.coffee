@@ -9,6 +9,7 @@
   )
 
   vm.isSubTenantEnabled = MnoeAdminConfig.isSubTenantEnabled()
+  vm.isAccountManagerEnabled = MnoeAdminConfig.isAccountManagerEnabled()
 
   # Get the user
   MnoeUsers.get($stateParams.staffId).then(
