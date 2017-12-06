@@ -79,7 +79,7 @@
       MnoeAppMetrics.search(terms).then(
         (response) ->
           scope.apps.totalItems = response.headers('x-total-count')
-          scope.apps.list = $filter('orderBy')(response.data, 'name')
+          scope.apps.list = $filter('orderBy')(response.data[0]['app_metrics'], 'name')
       ).finally(-> scope.apps.loading = false)
 
     # Initial call
