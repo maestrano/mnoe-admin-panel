@@ -1,7 +1,13 @@
 # This service is a wrapper around the config we fetch from the backend
 # MnoeAdminConfig.financeEnabled?
-@App.factory 'MnoeAdminConfig', ($log, ADMIN_PANEL_CONFIG, INTERCOM_ID, PAYMENT_CONFIG, ORGANIZATION_MANAGEMENT, DEVISE_CONFIG) ->
+@App.factory 'MnoeAdminConfig', ($log, ADMIN_PANEL_CONFIG, ADMIN_ROLES, INTERCOM_ID, PAYMENT_CONFIG, ORGANIZATION_MANAGEMENT, DEVISE_CONFIG) ->
   _self = @
+
+  @adminRoles = () ->
+    if @isSubTenantEnabled()
+      ADMIN_ROLES
+    else
+      _.reject(ADMIN_ROLES, {value: 'sub_tenant_admin'})
 
   @isAuditLogEnabled = () ->
     if ADMIN_PANEL_CONFIG.audit_log
