@@ -3,7 +3,7 @@
 #
 @App.component('mnoeStaffsList', {
   templateUrl: 'app/components/mnoe-staffs-list/mnoe-staffs-list.html',
-  controller: ($filter, $log, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeObservables, ADMIN_ROLES, OBS_KEYS, toastr) ->
+  controller: ($filter, $log, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeObservables, MnoeAdminConfig, OBS_KEYS, toastr) ->
     vm = this
 
     vm.listOfStaff = []
@@ -51,7 +51,7 @@
       sort: "surname"
       nbItems: 10
       page: 1
-      roles: ADMIN_ROLES
+      roles: MnoeAdminConfig.adminRoles()
       pageChangedCb: (nbItems, page) ->
         vm.staff.nbItems = nbItems
         vm.staff.page = page
