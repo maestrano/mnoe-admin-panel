@@ -7,10 +7,11 @@
     <table class="table table-layout-fixed">
       <thead>
         <tr>
-          <th translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.username</th>
-          <th style="width: 100px;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.created_at</th>
-          <th style="width: 140px;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.status</th>
-          <th style="width: 140px;" ng-if="isImpersonationEnabled" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.access</th>
+          <th style="width: 29%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.username</th>
+          <th style="width: 15%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.created_at</th>
+          <th style="width: 15%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.status</th>
+          <th style="width: 20%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.role</th>
+          <th style="width: 11%;" ng-if="isImpersonationEnabled" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.access</th>
         </tr>
       </thead>
       <tbody>
@@ -19,8 +20,10 @@
             <a ui-sref="dashboard.customers.user({userId: user.id})">
               <div ng-show="user.name && user.surname">{{::user.name}} {{::user.surname}}</div>
               <div ng-show="!user.name && !user.surname">nc</div>
-              <small>{{::user.email}}</small>
             </a>
+            <small editable-text="user.email" onaftersave="updateUserMail(user)">{{user.email}}</small>
+            <span ng-show="!user.isUpdatingEmail"><i class="fa fa-pencil-square-o fa-1"></i></span>
+            <span ng-show="user.isUpdatingEmail"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           </td>
           <td>{{user.created_at | date: 'dd/MM/yyyy'}}</td>
           <td>
@@ -32,7 +35,14 @@
               <span ng-show="user.isSendingInvite"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
               {{'mnoe_admin_panel.dashboard.users.widget.local_list.resend_invite' | translate}}
             </button>
-            <span ng-show="user.status === 'active'" translate>mnoe_admin_panel.dashboard.users.widget.local_list.active</span>
+            <button ng-show="!isUserActive(user.status)" class="btn btn-xs btn-warning" ng-disabled="user.isSendingInvite" ng-click="removeUserFromOrganization(user)">
+              {{'mnoe_admin_panel.dashboard.users.widget.local_list.cancel_invite' | translate}}
+            </button>
+            <span ng-show="isUserActive(user.status)" translate>mnoe_admin_panel.dashboard.users.widget.local_list.active</span>
+          </td>
+          <td>
+            <select ng-model="user.role" ng-options="role as keyFromRole(role) | translate for role in availableRoles" ng-change="updateUserRole(user, '{{user.role}}')"></select>
+            <span ng-show="user.isUpdatingRole"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           </td>
           <td>
             <mnoe-impersonate-button btn-class-names="btn btn-xs btn-default" user="user"></mnoe-impersonate-button>

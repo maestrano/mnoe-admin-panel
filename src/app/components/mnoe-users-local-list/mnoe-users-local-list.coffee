@@ -1,7 +1,7 @@
 #
 # Mnoe Users List
 #
-@App.directive('mnoeUsersLocalList', ($filter, $log, toastr, MnoeAdminConfig, MnoeUsers, MnoErrorsHandler) ->
+@App.directive('mnoeUsersLocalList', ($filter, $log, $translate, toastr, MnoeAdminConfig, MnoeUsers, MnoErrorsHandler, MnoConfirm, USER_ROLES) ->
   restrict: 'E'
   scope: {
     list: '='
@@ -15,6 +15,7 @@
       displayList: []
       widgetTitle: 'mnoe_admin_panel.dashboard.users.widget.local_list.loading_users.title'
       search: ''
+    scope.availableRoles = _.map(USER_ROLES, 'value')
 
     # Display all the users
     setAllUsersList = () ->
@@ -77,6 +78,55 @@
           toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.toastr_error', {extraData: {username: "#{user.name} #{user.surname}"}})
           MnoErrorsHandler.processServerError(error)
       ).finally(-> user.isSendingInvite = false)
+
+    scope.isUserActive = (userStatus) ->
+      userStatus == 'active'
+
+    scope.updateUserMail = (user) ->
+      user.isUpdatingEmail = true
+      MnoeUsers.updateStaff(user).then(
+        () ->
+          toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.email_update_sent', {extraData: {email: user.email}})
+        (error) ->
+          toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.email_update_error')
+          MnoErrorsHandler.processServerError(error)
+      ).finally(-> user.isUpdatingEmail = false)
+
+    scope.keyFromRole = (role) ->
+      _.find(USER_ROLES, 'value', role).label
+
+    scope.updateUserRole = (user, oldRole) ->
+      user.isUpdatingRole = true
+      MnoeUsers.updateUserRole(scope.organization, user).then(
+        () ->
+          $translate(scope.keyFromRole(user.role)).then((tls) ->
+            toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_success', {extraData: {user: "#{user.email}", role: tls}})
+          )
+        (error) ->
+          user.role = oldRole
+          toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_error')
+          MnoErrorsHandler.processServerError(error)
+      ).finally(-> user.isUpdatingRole = false)
+
+    scope.removeUserFromOrganization = (user) ->
+      modalOptions =
+        closeButtonText: 'mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.cancel'
+        actionButtonText: 'mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.delete'
+        headerText: 'mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.proceed'
+        bodyText: 'mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.perform'
+        bodyTextExtraData: {email: user.email}
+        type: 'danger'
+
+      MnoConfirm.showModal(modalOptions).then( ->
+        MnoeUsers.removeUserFromOrganization(scope.organization, user.email).then(
+          () ->
+            _.remove(scope.users.displayList, user)
+            toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.success', {extraData: {email: user.email}})
+          (error) ->
+            toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.error', {extraData: {email: user.email}})
+            MnoErrorsHandler.processServerError(error)
+        )
+      )
 
     scope.$watch('list', (newVal) ->
       if newVal

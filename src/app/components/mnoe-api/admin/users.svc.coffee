@@ -69,6 +69,13 @@
   @sendSignupEmail = (email) ->
     MnoeAdminApiSvc.all('/users').doPOST({user: {email: email}}, 'signup_email')
 
+  @updateUserRole = (organization, user) ->
+    MnoeAdminApiSvc.one('/organizations', organization.id).customPUT({member: user}, '/update_member')
+
+  @removeUserFromOrganization = (organization, userEmail) ->
+    data = { member: { email: userEmail } }
+    MnoeAdminApiSvc.one('organizations', organization.id).doPUT(data, '/remove_member')
+
   _getStaffs = (limit, offset, sort, params = {}) ->
     params["order_by"] = sort
     params["limit"] = limit
