@@ -34,7 +34,7 @@
     "angular-translate-interpolation-messageformat": "^2.14.0",
     "angular-sanitize": "^1.6.2",
     "angular-message-format": "^1.6.2",
-    "impac-angular": "~1.6.0",
+    "impac-angular": "~1.7.0",
     "angular-bootstrap-toggle": "^0.1.2"
   },
   "devDependencies": {
