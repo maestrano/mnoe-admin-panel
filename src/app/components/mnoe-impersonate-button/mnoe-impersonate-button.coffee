@@ -8,7 +8,7 @@
     user: '<',
   }
   controllerAs: 'vm'
-  controller: ($window, toastr, MnoErrorsHandler, MnoeAdminConfig, MnoeUsers, $uibModal) ->
+  controller: ($window, toastr, MnoErrorsHandler, MnoeAdminConfig, MnoeUsers, MnoConfirm) ->
     vm = this
     vm.isImpersonationEnabled = MnoeAdminConfig.isImpersonationEnabled()
 
@@ -32,10 +32,15 @@
       $window.location.href = url
 
     vm.openRequestModal = () ->
-      modalInstance = $uibModal.open(
-        component: "mnoeImpersonateModal",
-        resolve:
-          actionCb: () -> vm.requestAccess
+
+      modalOptions =
+        closeButtonText: 'mnoe_admin_panel.dashboard.users.widget.local_list.modal.cancel'
+        actionButtonText: 'mnoe_admin_panel.dashboard.users.widget.local_list.request_access'
+        headerText: 'mnoe_admin_panel.dashboard.users.widget.local_list.modal.request_access_title'
+        bodyText: 'mnoe_admin_panel.dashboard.users.widget.local_list.modal.body'
+
+      MnoConfirm.showModal(modalOptions).then( ->
+        vm.requestAccess()
       )
 
     vm.requestAccess = () ->
