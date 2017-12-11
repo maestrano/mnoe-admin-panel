@@ -97,18 +97,6 @@
           vm.staff.oneAdminLeft = _.filter(response.data, {'admin_role': 'admin'}).length == 1
       ).finally(-> vm.staff.loading = false)
 
-    # Initial call and start the listeners
-    fetchStaffs(vm.staff.nbItems, 0).then( ->
-      # Notify me if a user is added
-      MnoeObservables.registerCb(OBS_KEYS.staffAdded, ->
-        fetchStaffs(vm.staff.nbItems, vm.staff.offset)
-      )
-      # Notify me if the list changes
-      MnoeObservables.registerCb(OBS_KEYS.staffChanged, ->
-        fetchStaffs(vm.staff.nbItems, vm.staff.offset)
-      )
-    )
-
     onStaffAdded = ->
       fetchStaffs(vm.staff.nbItems, vm.staff.offset)
 
