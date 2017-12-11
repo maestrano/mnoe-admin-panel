@@ -32,7 +32,6 @@
       $window.location.href = url
 
     vm.openRequestModal = () ->
-
       modalOptions =
         closeButtonText: 'mnoe_admin_panel.dashboard.users.widget.local_list.modal.cancel'
         actionButtonText: 'mnoe_admin_panel.dashboard.users.widget.local_list.request_access'
