@@ -79,9 +79,6 @@
           MnoErrorsHandler.processServerError(error)
       ).finally(-> user.isSendingInvite = false)
 
-    scope.isUserActive = (userStatus) ->
-      userStatus == 'active'
-
     scope.updateUserMail = (user) ->
       user.isUpdatingEmail = true
       MnoeUsers.updateStaff(user).then(

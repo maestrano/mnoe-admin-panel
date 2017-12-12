@@ -259,6 +259,7 @@
   "mnoe_admin_panel.dashboard.users.widget.local_list.invite": "Invite",
   "mnoe_admin_panel.dashboard.users.widget.local_list.resend_invite": "Resend Invite",
   "mnoe_admin_panel.dashboard.users.widget.local_list.cancel_invite": "Cancel Invite",
+  "mnoe_admin_panel.dashboard.users.widget.local_list.cancel_adding_user": "Cancel Adding User",
   "mnoe_admin_panel.dashboard.users.widget.local_list.active": "Active",
   "mnoe_admin_panel.dashboard.users.widget.local_list.login_as": "Log In as...",
   "mnoe_admin_panel.dashboard.users.widget.local_list.disabled_tooltip": "This user is a staff member",

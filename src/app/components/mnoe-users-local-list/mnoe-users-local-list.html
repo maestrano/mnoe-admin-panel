@@ -35,10 +35,9 @@
               <span ng-show="user.isSendingInvite"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
               {{'mnoe_admin_panel.dashboard.users.widget.local_list.resend_invite' | translate}}
             </button>
-            <button ng-show="!isUserActive(user.status)" class="btn btn-xs btn-warning" ng-disabled="user.isSendingInvite" ng-click="removeUserFromOrganization(user)">
-              {{'mnoe_admin_panel.dashboard.users.widget.local_list.cancel_invite' | translate}}
-            </button>
-            <span ng-show="isUserActive(user.status)" translate>mnoe_admin_panel.dashboard.users.widget.local_list.active</span>
+            <span ng-show="user.status === 'active'" translate>mnoe_admin_panel.dashboard.users.widget.local_list.active</span>
+            <span ng-show="user.status === 'pending'" ng-click="removeUserFromOrganization(user)" uib-tooltip="{{'mnoe_admin_panel.dashboard.users.widget.local_list.cancel_adding_user' | translate}}"><i class="fa fa-close fa-1"></i></span>
+            <span ng-show="user.status === 'invited'" ng-click="removeUserFromOrganization(user)" uib-tooltip="{{'mnoe_admin_panel.dashboard.users.widget.local_list.cancel_invite' | translate}}"><i class="fa fa-close fa-1"></i></span>
           </td>
           <td>
             <select ng-model="user.role" ng-options="role as keyFromRole(role) | translate for role in availableRoles" ng-change="updateUserRole(user, '{{user.role}}')"></select>
