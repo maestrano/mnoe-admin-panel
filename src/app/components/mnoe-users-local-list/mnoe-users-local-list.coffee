@@ -115,7 +115,7 @@
         type: 'danger'
 
       MnoConfirm.showModal(modalOptions).then( ->
-        MnoeUsers.removeUserFromOrganization(scope.organization, user.email).then(
+        MnoeUsers.removeUserFromOrganization(scope.organization, user).then(
           () ->
             _.remove(scope.users.displayList, user)
             toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.success', {extraData: {email: user.email}})
