@@ -43,7 +43,7 @@
             <select ng-model="user.role" ng-options="role as keyFromRole(role) | translate for role in availableRoles" ng-change="updateUserRole(user, '{{user.role}}')"></select>
             <span ng-show="user.isUpdatingRole"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           </td>
-          <td>
+          <td ng-if="isImpersonationEnabled">
             <mnoe-impersonate-button btn-class-names="btn btn-xs btn-default" user="user"></mnoe-impersonate-button>
           </td>
         </tr>
