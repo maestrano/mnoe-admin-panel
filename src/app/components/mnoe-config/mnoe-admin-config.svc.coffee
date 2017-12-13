@@ -67,4 +67,7 @@
   @isDashboardTemplatesEnabled = ->
     ADMIN_PANEL_CONFIG.dashboard_templates? && ADMIN_PANEL_CONFIG.dashboard_templates.enabled
 
+  @dashboardTemplatesDatesFormat = ->
+    ADMIN_PANEL_CONFIG.dashboard_templates? && ADMIN_PANEL_CONFIG.dashboard_templates.dates_format || 'L'
+
   return @
