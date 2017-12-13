@@ -79,9 +79,6 @@
           MnoErrorsHandler.processServerError(error)
       ).finally(-> user.isSendingInvite = false)
 
-    scope.isUserActive = (userStatus) ->
-      userStatus == 'active'
-
     scope.updateUserMail = (user) ->
       user.isUpdatingEmail = true
       MnoeUsers.updateStaff(user).then(
@@ -118,7 +115,7 @@
         type: 'danger'
 
       MnoConfirm.showModal(modalOptions).then( ->
-        MnoeUsers.removeUserFromOrganization(scope.organization, user.email).then(
+        MnoeUsers.removeUserFromOrganization(scope.organization, user).then(
           () ->
             _.remove(scope.users.displayList, user)
             toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.success', {extraData: {email: user.email}})

@@ -72,8 +72,8 @@
   @updateUserRole = (organization, user) ->
     MnoeAdminApiSvc.one('/organizations', organization.id).customPUT({member: user}, '/update_member')
 
-  @removeUserFromOrganization = (organization, userEmail) ->
-    data = { member: { email: userEmail } }
+  @removeUserFromOrganization = (organization, user) ->
+    data = { member: user }
     MnoeAdminApiSvc.one('organizations', organization.id).doPUT(data, '/remove_member')
 
   _getStaffs = (limit, offset, sort, params = {}) ->
