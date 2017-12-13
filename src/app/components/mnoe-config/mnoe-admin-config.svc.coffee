@@ -69,6 +69,14 @@
     else
       false
 
+  # If the feature is enabled a "staff" user can be assigned to customers and can only see those ones
+  # If the feature is disabled, the screen to assign customers is not showing and a staff can see all customers (only difference with "admin" in this case is some screens are limited)
+  @isAccountManagerEnabled = () ->
+    if ADMIN_PANEL_CONFIG.account_manager?
+      ADMIN_PANEL_CONFIG.account_manager.enabled
+    else
+      false
+
   # Do not display CC info if Billing or Payment is disabled in the frontend
   @isPaymentEnabled = () ->
     payment_disabled = (PAYMENT_CONFIG? && PAYMENT_CONFIG.disabled)
@@ -78,6 +86,9 @@
 
   @isDashboardTemplatesEnabled = ->
     ADMIN_PANEL_CONFIG.dashboard_templates? && ADMIN_PANEL_CONFIG.dashboard_templates.enabled
+
+  @dashboardTemplatesDatesFormat = ->
+    ADMIN_PANEL_CONFIG.dashboard_templates? && ADMIN_PANEL_CONFIG.dashboard_templates.dates_format || 'L'
 
   @isTasksEnabled = ()->
     if ADMIN_PANEL_CONFIG.tasks?
