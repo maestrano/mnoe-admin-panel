@@ -9,9 +9,9 @@
         <tr>
           <th style="width: 29%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.username</th>
           <th style="width: 15%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.created_at</th>
-          <th style="width: 15%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.status</th>
-          <th style="width: 20%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.role</th>
-          <th style="width: 11%;" ng-if="isImpersonationEnabled" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.access</th>
+          <th style="width: 15%;" ng-if="organizationContext" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.status</th>
+          <th style="width: 20%;" ng-if="organizationContext" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.role</th>
+          <th style="width: 11%;" ng-if="isImpersonationEnabled && organizationContext" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.access</th>
         </tr>
       </thead>
       <tbody>
@@ -26,7 +26,7 @@
             <span ng-show="user.isUpdatingEmail"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           </td>
           <td>{{user.created_at | date: 'dd/MM/yyyy'}}</td>
-          <td>
+          <td ng-if="organizationContext">
             <button ng-show="user.status === 'pending'" ng-click="sendInvitation(user)" class="btn btn-xs btn-warning" ng-disabled="user.isSendingInvite">
               <span ng-show="user.isSendingInvite"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
               {{'mnoe_admin_panel.dashboard.users.widget.local_list.invite' | translate}}
@@ -39,11 +39,11 @@
             <span ng-show="user.status === 'pending'" ng-click="removeUserFromOrganization(user)" uib-tooltip="{{'mnoe_admin_panel.dashboard.users.widget.local_list.cancel_adding_user' | translate}}"><i class="fa fa-close fa-1"></i></span>
             <span ng-show="user.status === 'invited'" ng-click="removeUserFromOrganization(user)" uib-tooltip="{{'mnoe_admin_panel.dashboard.users.widget.local_list.cancel_invite' | translate}}"><i class="fa fa-close fa-1"></i></span>
           </td>
-          <td>
+          <td ng-if="organizationContext">
             <select ng-model="user.role" ng-options="role as keyFromRole(role) | translate for role in availableRoles" ng-change="updateUserRole(user, '{{user.role}}')"></select>
             <span ng-show="user.isUpdatingRole"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           </td>
-          <td ng-if="isImpersonationEnabled">
+          <td ng-if="isImpersonationEnabled && organizationContext">
             <mnoe-impersonate-button btn-class-names="btn btn-xs btn-default" user="user"></mnoe-impersonate-button>
           </td>
         </tr>
