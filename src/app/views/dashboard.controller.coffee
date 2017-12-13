@@ -11,6 +11,7 @@
     main.isFinanceEnabled = MnoeAdminConfig.isFinanceEnabled()
     main.isSubTenantEnabled = MnoeAdminConfig.isSubTenantEnabled()
     main.isDashboardTemplatesEnabled = MnoeAdminConfig.isDashboardTemplatesEnabled()
+    main.isTasksEnabled = MnoeAdminConfig.isTasksEnabled()
     main.adminConfig = MnoeAdminConfig
 
     main.trustSrc = (src) ->

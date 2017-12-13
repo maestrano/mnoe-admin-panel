@@ -90,4 +90,16 @@
   @dashboardTemplatesDatesFormat = ->
     ADMIN_PANEL_CONFIG.dashboard_templates? && ADMIN_PANEL_CONFIG.dashboard_templates.dates_format || 'L'
 
+  @isTasksEnabled = ()->
+    if ADMIN_PANEL_CONFIG.tasks?
+      ADMIN_PANEL_CONFIG.tasks.enabled
+    else
+      false
+
+  @isNotificationsEnabled = ()->
+    if ADMIN_PANEL_CONFIG.notifications?
+      ADMIN_PANEL_CONFIG.notifications.enabled
+    else
+      false
+
   return @

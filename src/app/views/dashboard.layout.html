@@ -48,6 +48,9 @@
     <li class="sidebar-list" ng-show="main.user.admin_role == 'admin'" ng-if="::main.isSubTenantEnabled">
       <a ui-sref="dashboard.sub-tenants">{{'mnoe_admin_panel.dashboard.layout.sidebar.sub_tenants' | translate}}<span class="menu-icon fa fa-institution"></span></a>
     </li>
+    <li class="sidebar-list" ng-if="main.isTasksEnabled" ui-sref-active="active">
+      <a ui-sref="dashboard.messages">{{'mnoe_admin_panel.dashboard.layout.sidebar.messages' | translate}}<span class="menu-icon fa fa-comment-o"></span></a>
+    </li>
     <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="main.isReviewingEnabled" ui-sref-active="active">
       <a ui-sref="dashboard.reviews">{{'mnoe_admin_panel.dashboard.layout.sidebar.reviews' | translate}}<span class="menu-icon fa fa-star-half-o"></span></a>
     </li>

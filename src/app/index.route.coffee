@@ -159,6 +159,17 @@
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.sub_tenant.title'
 
+  if adminConfig.isTasksEnabled()
+    $stateProvider.state 'dashboard.messages',
+      data:
+        pageTitle: 'Messages'
+      url: '/messages'
+      templateUrl: 'app/views/messages/messages.html'
+      controller: 'MessagesController'
+      controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.messages.title'
+
   if adminConfig.isOrganizationManagementEnabled()
     $stateProvider.state 'dashboard.customers.create-step-1',
       url: '^/customers/create-customer'

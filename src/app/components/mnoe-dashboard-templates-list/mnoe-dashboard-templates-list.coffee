@@ -62,7 +62,8 @@
         (result) ->
           # If the user delete a dashboard template
           if result
-            fetchDashboardTemplates()
+            offset = (vm.dashboardTemplates.page  - 1) * vm.dashboardTemplates.nbItems
+            fetchDashboardTemplates(vm.dashboardTemplates.nbItems, offset)
       )
 
     #====================================
