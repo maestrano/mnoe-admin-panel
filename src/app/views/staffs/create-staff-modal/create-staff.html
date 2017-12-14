@@ -16,7 +16,7 @@
 
       <div class="row top-buffer-1">
         <div class="col-sm-6">
-          <input type="email" class="form-control input-sm" id="user-email" ng-model="vm.user.email" placeholder="{{'mnoe_admin_panel.dashboard.staffs.add_staff.modal.placeholder.email' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.staffs.add_staff.modal.placeholder.email' | translate}}" required>
+          <input type="email" class="form-control input-sm" id="user-email" ng-model="vm.user.email" ng-change="vm.staffAlreadyExists = false" placeholder="{{'mnoe_admin_panel.dashboard.staffs.add_staff.modal.placeholder.email' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.staffs.add_staff.modal.placeholder.email' | translate}}" required>
         </div>
         <div class="col-sm-6">
           <select ng-model="vm.user.admin_role" class="form-control input-sm"  ng-options="role.value as role.label | translate for role in vm.admin_roles" required>
@@ -24,15 +24,24 @@
           </select>
         </div>
       </div>
+
+      <div class="alert alert-warning" ng-if="vm.staffAlreadyExists">
+        <span><i class="fa fa-warning"></i></span>
+        {{'mnoe_admin_panel.dashboard.staffs.add_staff.modal.staff_exists' | translate}}
+      </div>
     </div>
   </form>
 
   <div class="modal-footer">
     <div class="row actions">
       <div class="col-xs-12">
-        <button type="button" ng-click="vm.onSubmit()" ng-disabled="vm.isLoading || vm.form.user.$invalid" class="btn btn-primary">
+        <button type="button" ng-click="vm.onSubmit()" ng-disabled="vm.isLoading || vm.form.user.$invalid" class="btn btn-primary" ng-hide="vm.staffAlreadyExists">
           <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           {{'mnoe_admin_panel.dashboard.staffs.add_staff.modal.save' | translate}}
+        </button>
+        <button type="button" ng-click="vm.addStaff()" ng-disabled="vm.isLoading || vm.form.user.$invalid" class="btn btn-primary" ng-show="vm.staffAlreadyExists">
+          <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+          {{'mnoe_admin_panel.dashboard.staffs.add_staff.modal.confirm' | translate}}
         </button>
         <a href="" ng-click="vm.onCancel()"><i class="fa fa-times"></i>{{ 'mnoe_admin_panel.dashboard.staffs.add_staff.modal.cancel' | translate}}</a>
       </div>
