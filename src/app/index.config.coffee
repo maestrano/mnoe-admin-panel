@@ -12,38 +12,45 @@
     $httpProvider.interceptors.push(($q, $window, $injector, $log) ->
       return {
         responseError: (rejection) ->
+          # Inject the toastr  service (avoid circular dependency)
+          toastr = $injector.get('toastr')
 
-          if rejection.status == 401
-            # Inject the toastr service (avoid circular dependency)
-            toastr = $injector.get('toastr')
+          switch rejection.status
+            # Unauthenticated
+            when 401
+              # Redirect the user to the dashboard or login screen
+              $window.location.href = "/"
 
-            # Redirect the user to the dashboard or login screen
-            $window.location.href = "/"
+              # Display an error
+              toastr.error("You are no longer connected or not an administrator, you will be redirected to the dashboard.")
+              $log.error("User is not connected!")
 
-            # Display an error
-            toastr.error("You are no longer connected or not an administrator, you will be redirected to the dashboard.")
-            $log.error("User is not connected!")
+            # Password expired
+            when 403
+              if rejection.data.error && rejection.data.error == "Your password is expired. Please renew your password."
+                $log.info('[PasswordExpiredInterceptor] Password Expired!')
+                $window.location.href = "/mnoe/auth/users/password_expired"
+                # return an empty promise to skip all chaining promises
+                return $q.defer().promise
+              else
+                return $q.reject(rejection)
 
-          $q.reject rejection
+            # Redirect to an error page when MnoHub is not available
+            when 429, 503
+              toastr.error(
+                "mnoe_admin_panel.errors.#{rejection.status}.description",
+                "mnoe_admin_panel.errors.#{rejection.status}.title"
+              )
+
+              $log.info('[MnoHubErrorInterceptor] MnoHub error, redirecting to error page')
+              $window.location.href = "/mnoe/errors/#{rejection.status}"
+              return $q.defer().promise
+
+            else
+              $q.reject rejection
       }
     )
   )
-
-  .factory('PasswordExpiredInterceptor', ($log, $q, $location, $window) ->
-    return {
-      'responseError': (response) ->
-        if response.status == 403 && response.data.error && response.data.error == "Your password is expired. Please renew your password."
-          $log.info('[PasswordExpiredInterceptor] Password Expired!')
-          $window.location.href = "/mnoe/auth/users/password_expired"
-          # return an empty promise to skip all chaining promises
-          return $q.defer().promise
-        else
-          return $q.reject(response)
-    }
-  )
-
-  .config ($httpProvider) ->
-    $httpProvider.interceptors.push('PasswordExpiredInterceptor')
 
   .config(($translateProvider, LOCALES) ->
     # Path to translations files
