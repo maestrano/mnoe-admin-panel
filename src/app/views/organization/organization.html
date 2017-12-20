@@ -46,6 +46,14 @@
                   <a href="" ng-show="vm.organization.account_frozen" ng-click="vm.unfreezeOrganization()"><i class="fa fa-check"></i></a>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.demo_account</div>
+                </div>
+                <div class="col-xs-6">
+                  <input type="checkbox" ng-checked="vm.organization.demo_account" ng-disabled="true"/>
+                </div>
+              </div>
               <div class="row" ng-if="::main.adminConfig.isPaymentEnabled()">
                 <div class="col-xs-6">
                   <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.credit_card</div>
