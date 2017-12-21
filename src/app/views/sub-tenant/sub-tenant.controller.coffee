@@ -2,6 +2,9 @@
   'ngInject'
   vm = this
 
+  vm.clientsFilterParams = {'where[sub_tenants.id]': $stateParams.subTenantId}
+  vm.accountManagersFilterParams = {'where[sub_tenant.id]': $stateParams.subTenantId}
+
   # Get the user
   MnoeSubTenants.get($stateParams.subTenantId).then(
     (response) ->
@@ -9,17 +12,12 @@
   )
 
   vm.updateClientsModal = ->
-    modalInstance = $uibModal.open(
+    $uibModal.open(
       templateUrl: 'app/views/sub-tenant/update-clients-modal/update-clients.html'
       controller: 'UpdateClientsController'
       controllerAs: 'vm',
       resolve: {subTenant: () -> vm.subTenant}
     )
-    modalInstance.result.then(
-      (clients) ->
-        vm.subTenant.clients = clients
-    )
-
 
   vm.updateAccountManagerModal = ->
     modalInstance = $uibModal.open(
@@ -32,5 +30,6 @@
       (account_managers) ->
         vm.subTenant.account_managers = account_managers
     )
+
 
   return
