@@ -46,10 +46,6 @@
             MnoErrorsHandler.processServerError(error)
           )
 
-      MnoConfirm.showModal(modalOptions).then(
-        () -> {} # Handle modal success
-        () -> {} # Handle modal cancel
-      )
-
+      MnoConfirm.showModal(modalOptions)
     return
 })
