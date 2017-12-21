@@ -52,6 +52,7 @@
                 </div>
                 <div class="col-xs-6">
                   <input type="checkbox" ng-checked="vm.organization.demo_account" ng-disabled="true"/>
+                  <span ng-show="vm.organization.demo_account" class="text-muted">({{vm.organization.demo_account}})</span>
                 </div>
               </div>
               <div class="row" ng-if="::main.adminConfig.isPaymentEnabled()">
