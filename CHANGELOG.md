@@ -1,5 +1,21 @@
 # Change Log
 
+## [v1.0.6](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.6) (2017-12-21)
+[Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.5...v1.0.6)
+
+**Implemented enhancements:**
+
+- \[MNOE-110\] MnoHub error handling interceptor [\#179](https://github.com/maestrano/mnoe-admin-panel/pull/179) ([ouranos](https://github.com/ouranos))
+- Use config param for dates format in templates list [\#173](https://github.com/maestrano/mnoe-admin-panel/pull/173) ([cesar-tonnoir](https://github.com/cesar-tonnoir))
+- \[MNOE-788\] Add password expiration interceptor [\#144](https://github.com/maestrano/mnoe-admin-panel/pull/144) ([ouranos](https://github.com/ouranos))
+
+**Fixed bugs:**
+
+- \[MNOE-836\] Duplicate request on Staff table [\#171](https://github.com/maestrano/mnoe-admin-panel/pull/171) ([ouranos](https://github.com/ouranos))
+- Fix gulp serve dist [\#158](https://github.com/maestrano/mnoe-admin-panel/pull/158) ([ouranos](https://github.com/ouranos))
+- \[Support\] App logo sizes differ in IE11 [\#154](https://github.com/maestrano/mnoe-admin-panel/pull/154) ([rheasunshine](https://github.com/rheasunshine))
+- \[MNOE-701\] Fix edition of comments on comments [\#140](https://github.com/maestrano/mnoe-admin-panel/pull/140) ([hedudelgado](https://github.com/hedudelgado))
+
 ## [v1.0.5](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.5) (2017-11-01)
 [Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.4...v1.0.5)
 
