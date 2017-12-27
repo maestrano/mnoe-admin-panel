@@ -42,6 +42,8 @@
                 {{::organization.name}}
                 <em ng-show="organization.account_frozen" class="text-muted" translate>
                 mnoe_admin_panel.dashboard.organization.account_frozen_state</em>
+                <em ng-show="organization.demo_account" class="text-muted" translate>
+                mnoe_admin_panel.dashboard.organization.demo_account_state</em>
               </a>
             """,
             scope: {organization: organization}}
