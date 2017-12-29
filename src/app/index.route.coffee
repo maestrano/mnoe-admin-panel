@@ -76,11 +76,12 @@
         label: 'mnoe_admin_panel.dashboard.customers.connect_app.title'
     .state 'logout',
       url: '/logout'
-      controller: ($window, $http) ->
+      controller: ($window, $http, IntercomSvc) ->
         'ngInject'
 
         # Logout and redirect the user
         $http.delete(URI.logout).then( ->
+          IntercomSvc.logOut()
           $window.location.href = URI.login
         )
 
