@@ -2,7 +2,7 @@ const path = require('path');
 
 const gulp = require('gulp');
 const del = require('del');
-const mainBowerFiles = require('gulp-main-bower-files');
+const mainBowerFiles = require('main-bower-files');
 const filter = require('gulp-filter');
 const flatten = require('gulp-flatten');
 
@@ -26,8 +26,7 @@ function fonts() {
 }
 
 function images() {
-  return gulp.src('./bower.json')
-    .pipe(mainBowerFiles())
+  return gulp.src(mainBowerFiles())
     .pipe(filter('**/*.{png,jpg,jpeg,gif}'))
     .pipe(flatten())
     .pipe(gulp.dest(conf.path.dist('/images/')));
