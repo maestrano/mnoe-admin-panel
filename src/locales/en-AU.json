@@ -411,7 +411,10 @@
   "mnoe_admin_panel.dashboard.mno_confirm.ok": "OK",
   "mnoe_admin_panel.dashboard.mno_confirm.proceed": "Proceed?",
   "mnoe_admin_panel.dashboard.mno_confirm.perform": "Perform this action?",
-  "mnoe_admin_panel.impac.data_not_found_config.custom_message": "This is an example of what the widget will look like for the user",
+  "mnoe_admin_panel.errors.503.title": "We are having some server issues.",
+  "mnoe_admin_panel.errors.503.description": "Please, try again in a moment.",
+  "mnoe_admin_panel.errors.429.title": "Too many requests.",
+  "mnoe_admin_panel.errors.429.description": "We are receiving too many requests, please try again in a moment.",
   "mnoe_admin_panel.notifications.reminder.title": "Task Reminder",
   "mnoe_admin_panel.notifications.reminder.message.title": "Title: {task_title}",
   "mnoe_admin_panel.notifications.reminder.message.from": "From: {user_name} {user_surname} - {organization_name}",
@@ -424,5 +427,6 @@
   "mnoe_admin_panel.notifications.due.message.details": "See your due tasks for more details",
   "mnoe_admin_panel.notifications.completed.title": "Task completed",
   "mnoe_admin_panel.notifications.completed.message.has_completed": "{user_name} {user_surname} ({organization_name}) has completed the task: {task_title}.",
-  "mnoe_admin_panel.notifications.completed.message.details": "See your messages for more details"
+  "mnoe_admin_panel.notifications.completed.message.details": "See your messages for more details",
+  "mnoe_admin_panel.impac.data_not_found_config.custom_message": "This is an example of what the widget will look like for the user"
 }
