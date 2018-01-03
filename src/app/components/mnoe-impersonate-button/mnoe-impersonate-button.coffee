@@ -37,16 +37,15 @@
         actionButtonText: 'mnoe_admin_panel.dashboard.users.widget.local_list.request_access'
         headerText: 'mnoe_admin_panel.dashboard.users.widget.local_list.modal.request_access_title'
         bodyText: 'mnoe_admin_panel.dashboard.users.widget.local_list.modal.body'
-        actionCb: () -> MnoeUsers.requestAccess(vm.user)
+        actionCb: () -> MnoeUsers.requestAccess(vm.user).then(
+          () ->
+            toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.request_access.toastr_success', {extraData: {username: "#{vm.user.name} #{vm.user.surname}"}})
+            vm.user.access_request_status = 'requested'
+          (error) ->
+            toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.request_access.toastr_error', {extraData: {username: "#{vm.user.name} #{vm.user.surname}"}})
+            MnoErrorsHandler.processServerError(error)
+          )
 
-      MnoConfirm.showModal(modalOptions).then(
-        () ->
-          toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.request_access.toastr_success', {extraData: {username: "#{vm.user.name} #{vm.user.surname}"}})
-          vm.user.access_request_status = 'requested'
-        (error) ->
-          toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.request_access.toastr_error', {extraData: {username: "#{vm.user.name} #{vm.user.surname}"}})
-          MnoErrorsHandler.processServerError(error)
-        )
-
+      MnoConfirm.showModal(modalOptions)
     return
 })
