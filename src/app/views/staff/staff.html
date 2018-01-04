@@ -62,7 +62,7 @@
       </mno-widget-body>
     </mno-widget>
 
-    <div class="bs-row" ng-if="vm.staff && vm.staff.admin_role_was=='staff'">
+    <div class="bs-row" ng-if="vm.staff && vm.staff.admin_role_was =='staff' && vm.isAccountManagerEnabled">
       <div class="col-sm-12">
         <h2><i class="fa fa-users"></i> Clients</h2>
         <button class="btn btn-primary center-block" ng-show="vm.staff"  ng-click="vm.updateClientsModal()" translate>mnoe_admin_panel.dashboard.staff.add_remove_clients</button>

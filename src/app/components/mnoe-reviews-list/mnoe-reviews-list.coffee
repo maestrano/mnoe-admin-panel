@@ -21,14 +21,20 @@
       )
 
     scope.openEditModal = (review) ->
+      reviewNoEdited = review
       $uibModal.open(
         templateUrl: 'app/components/mnoe-modals/comment-edit-modal.html'
         controller: 'CommentEditModal'
         resolve:
-          review: review
+          review: angular.copy(review)
       ).result.then(
         (review) ->
-          MnoeReviews.updateDescription(review)
+          MnoeReviews.updateDescription(review).then(
+            (success) ->
+              reviewEdited = success.data.app_review
+              # update description in dom
+              reviewNoEdited.description = reviewEdited.description
+            )
       )
 
     scope.openFeedbackReplyModal = (review) ->

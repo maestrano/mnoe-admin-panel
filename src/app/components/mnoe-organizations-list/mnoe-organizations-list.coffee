@@ -86,7 +86,10 @@
     fetchOrganizations = (limit, offset, sort = 'created_at') ->
       scope.organizations.loading = true
       MnoeCurrentUser.getUser().then( ->
-        params = {sub_tenant_id: MnoeCurrentUser.user.mnoe_sub_tenant_id, account_manager_id: MnoeCurrentUser.user.id}
+        params = if MnoeAdminConfig.isAccountManagerEnabled()
+          {sub_tenant_id: MnoeCurrentUser.user.mnoe_sub_tenant_id, account_manager_id: MnoeCurrentUser.user.id}
+        else
+          {}
         return MnoeOrganizations.list(limit, offset, sort, params).then(
           (response) ->
             scope.organizations.totalItems = response.headers('x-total-count')

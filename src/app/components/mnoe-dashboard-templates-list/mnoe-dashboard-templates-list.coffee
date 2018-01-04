@@ -3,8 +3,10 @@
 #
 @App.component('mnoeDashboardTemplatesList', {
   templateUrl: 'app/components/mnoe-dashboard-templates-list/mnoe-dashboard-templates-list.html',
-  controller: ($uibModal, toastr, MnoeDashboardTemplates) ->
+  controller: ($uibModal, toastr, MnoeDashboardTemplates, MnoeAdminConfig) ->
     vm = this
+
+    vm.datesFormat = MnoeAdminConfig.dashboardTemplatesDatesFormat()
 
     vm.dashboardTemplates =
       search: {}

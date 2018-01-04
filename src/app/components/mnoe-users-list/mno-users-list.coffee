@@ -1,7 +1,7 @@
 #
 # Mnoe Users List
 #
-@App.directive('mnoeUsersList', ($filter, $translate, MnoeUsers, MnoeCurrentUser) ->
+@App.directive('mnoeUsersList', ($filter, $translate, MnoeAdminConfig, MnoeUsers, MnoeCurrentUser) ->
   restrict: 'E'
   scope: {
   }
@@ -82,7 +82,10 @@
     fetchUsers = (limit, offset, sort = 'surname') ->
       scope.users.loading = true
       MnoeCurrentUser.getUser().then( ->
-        params = {sub_tenant_id: MnoeCurrentUser.user.mnoe_sub_tenant_id, account_manager_id: MnoeCurrentUser.user.id}
+        params = if MnoeAdminConfig.isAccountManagerEnabled()
+          {sub_tenant_id: MnoeCurrentUser.user.mnoe_sub_tenant_id, account_manager_id: MnoeCurrentUser.user.id}
+        else
+          {}
         return MnoeUsers.list(limit, offset, sort, params).then(
           (response) ->
             scope.users.totalItems = response.headers('x-total-count')

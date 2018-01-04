@@ -1,5 +1,5 @@
 # This service is a wrapper around the config we fetch from the backend
-@App.factory 'MnoeAdminConfig', ($log, ADMIN_ROLES, ADMIN_PANEL_CONFIG, DASHBOARD_CONFIG) ->
+@App.factory 'MnoeAdminConfig', ($log, ADMIN_ROLES, ADMIN_PANEL_CONFIG, DASHBOARD_CONFIG, INTERCOM_ID) ->
   _self = @
 
   # Only expose subtenant_admin when subtenants are enabled
@@ -8,6 +8,14 @@
       ADMIN_ROLES
     else
       _.reject(ADMIN_ROLES, (role) -> role.value == 'sub_tenant_admin')
+
+  # If the feature is enabled a "staff" user can be assigned to customers and can only see those ones
+  # If the feature is disabled, the screen to assign customers is not showing and a staff can see all customers (only difference with "admin" in this case is some screens are limited)
+  @isAccountManagerEnabled = () ->
+    if ADMIN_PANEL_CONFIG.account_manager?
+      ADMIN_PANEL_CONFIG.account_manager.enabled
+    else
+      false
 
   @isAppManagementEnabled = () ->
     if ADMIN_PANEL_CONFIG.apps_management?.enabled?
@@ -21,6 +29,12 @@
     else
       true
 
+  @isCustomerBatchImportEnabled = () ->
+    if ADMIN_PANEL_CONFIG.customer_batch_import?.enabled?
+      ADMIN_PANEL_CONFIG.customer_batch_import.enabled
+    else
+      false
+
   @isDashboardTemplatesEnabled = ->
     if ADMIN_PANEL_CONFIG.dashboard_templates?.enabled?
       ADMIN_PANEL_CONFIG.dashboard_templates.enabled
@@ -32,6 +46,12 @@
       ADMIN_PANEL_CONFIG.finance.enabled
     else
       true
+
+  @isIntercomEnabled = () ->
+    if ADMIN_PANEL_CONFIG.intercom?
+      ADMIN_PANEL_CONFIG.intercom.enabled && INTERCOM_ID?
+    else
+      false
 
   @isImpersonationEnabled = () ->
     if ADMIN_PANEL_CONFIG.impersonation?.enabled?
@@ -133,10 +153,7 @@
       $log.debug("ADMIN_PANEL_CONFIG.billing_currencies missing")
       ['AED', 'AUD', 'CAD', 'EUR', 'GBP', 'HKD', 'JPY', 'NZD', 'SGD', 'USD']
 
-  @isCustomerBatchImportEnabled = () ->
-    if ADMIN_PANEL_CONFIG.customer_batch_import?.enabled?
-      ADMIN_PANEL_CONFIG.customer_batch_import.enabled
-    else
-      false
+  @dashboardTemplatesDatesFormat = ->
+    ADMIN_PANEL_CONFIG.dashboard_templates? && ADMIN_PANEL_CONFIG.dashboard_templates.dates_format || 'L'
 
   return @

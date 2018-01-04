@@ -45,9 +45,6 @@
       vm.staff.search = search
       return search
 
-    # Widget state
-    vm.state = vm.view
-
     vm.getAdminRoleLabel = (admin_role) ->
       return _.find(vm.staff.roles, (role) -> role.value == admin_role).label
 
@@ -105,15 +102,6 @@
           vm.listOfStaff = response.data
           vm.staff.oneAdminLeft = _.filter(response.data, {'admin_role': 'admin'}).length == 1
       ).finally(-> vm.staff.loading = false)
-
-    # Notify me if a staff is added
-    MnoeObservables.registerCb(OBS_KEYS.staffAdded, ->
-      fetchStaffs(vm.staff.nbItems, vm.staff.offset)
-    )
-    # Notify me if the list changes
-    MnoeObservables.registerCb(OBS_KEYS.staffChanged, ->
-      fetchStaffs(vm.staff.nbItems, vm.staff.offset)
-    )
 
     onStaffAdded = ->
       fetchStaffs(vm.staff.nbItems, vm.staff.offset)

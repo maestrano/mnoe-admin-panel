@@ -197,7 +197,6 @@
   "mnoe_admin_panel.dashboard.product_markups.markup_info.modal.title": "Markup management",
   "mnoe_admin_panel.dashboard.dashboard_templates.title": "Dashboard Templates",
   "mnoe_admin_panel.dashboard.dashboard_templates.back_link": "Back to templates list",
-  "mnoe_admin_panel.dashboard.dashboard_templates.new_template": "New template",
   "mnoe_admin_panel.dashboard.dashboard_templates.published": "Published",
   "mnoe_admin_panel.dashboard.dashboard_templates.draft": "Draft",
   "mnoe_admin_panel.dashboard.dashboard_templates.published_state_tooltip": "Publish / Unpublish Template",
@@ -802,5 +801,9 @@
   "mnoe_admin_panel.dashboard.apps.widget.list.table.revenue": "Revenue",
   "mnoe_admin_panel.dashboard.apps.widget.list.table.margin": "Margin",
   "mnoe_admin_panel.dashboard.apps.widget.list.table.currency": "Currency",
+  "mnoe_admin_panel.errors.503.title": "We are having some server issues.",
+  "mnoe_admin_panel.errors.503.description": "Please, try again in a moment.",
+  "mnoe_admin_panel.errors.429.title": "Too many requests.",
+  "mnoe_admin_panel.errors.429.description": "We are receiving too many requests, please try again in a moment.",
   "mnoe_admin_panel.impac.data_not_found_config.custom_message": "This is an example of what the widget will look like for the user"
 }
