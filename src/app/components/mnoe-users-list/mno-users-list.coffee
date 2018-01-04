@@ -24,7 +24,7 @@
     $translate([
       "mnoe_admin_panel.dashboard.users.widget.list.table.created_at",
       'mnoe_admin_panel.dashboard.users.widget.list.table.username',
-      'mnoe_admin_panel.dashboard.users.widget.list.table.never',
+      'mnoe_admin_panel.dashboard.users.widget.list.never',
       'mnoe_admin_panel.dashboard.users.widget.list.table.last_login'])
       .then((locale) ->
         # create the fields for the sortable-table
