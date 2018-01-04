@@ -1,8 +1,10 @@
-@App.controller 'SettingsAppsController', ($uibModal, MnoeMarketplace, MnoeApps, MnoConfirm) ->
+@App.controller 'SettingsAppsController', ($uibModal, MnoeMarketplace, MnoeApps, MnoeTenant, MnoConfirm) ->
   'ngInject'
   vm = this
 
   vm.enabledApps = []
+
+  vm.tenantManagement = false
 
   vm.openRemoveAppModal = (app, $index)->
     MnoConfirm.showModal(
@@ -53,6 +55,9 @@
         # Copy the marketplace as we will work on the cached object
         vm.enabledApps = angular.copy(response.data.apps)
     )
+    MnoeTenant.get().then(
+      (response) ->
+        vm.tenantManagement = response.data.app_management == "tenant")
 
   init()
 
