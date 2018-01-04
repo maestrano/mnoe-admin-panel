@@ -1,13 +1,12 @@
-@App.controller 'BatchUploadController', ($window, $injector, MnoeCurrentUser) ->
+@App.controller 'BatchUploadController', ($window, toastr, MnoeCurrentUser) ->
   'ngInject'
   vm = this
 
   MnoeCurrentUser.getUser().then( ->
-    vm.user = MnoeCurrentUser.user
-    if !vm.user.id?
-      toastr = $injector.get('toastr')
+    user = MnoeCurrentUser.user
+    if !user.id?
       $window.location.href = "/"
-      toastr.error("You are no longer connected or not an administrator, you will be redirected to the dashboard.")
+      toastr.error("mnoe_admin_panel.errors.401.description")
       $log.error("User is not connected!")
   )
 

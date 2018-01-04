@@ -23,7 +23,7 @@
               $window.location.href = "/"
 
               # Display an error
-              toastr.error("You are no longer connected or not an administrator, you will be redirected to the dashboard.")
+              toastr.error("mnoe_admin_panel.errors.#{rejection.status}.description")
               $log.error("User is not connected!")
 
             # Password expired

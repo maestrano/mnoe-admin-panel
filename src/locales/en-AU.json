@@ -805,5 +805,6 @@
   "mnoe_admin_panel.errors.503.description": "Please, try again in a moment.",
   "mnoe_admin_panel.errors.429.title": "Too many requests.",
   "mnoe_admin_panel.errors.429.description": "We are receiving too many requests, please try again in a moment.",
+  "mnoe_admin_panel.errors.401.description": "You are no longer connected or not an administrator, you will be redirected to the dashboard.",
   "mnoe_admin_panel.impac.data_not_found_config.custom_message": "This is an example of what the widget will look like for the user"
 }
