@@ -6,6 +6,7 @@
     toastrConfig.timeOut = 3000
     toastrConfig.positionClass = 'toast-top-right'
     toastrConfig.preventDuplicates = false
+    toastrConfig.preventOpenDuplicates = true
     toastrConfig.progressBar = true
   )
 
