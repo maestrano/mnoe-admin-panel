@@ -11,7 +11,7 @@
   )
 
   .config(($httpProvider) ->
-    $httpProvider.interceptors.push(($q, $window, $injector, $log) ->
+    $httpProvider.interceptors.push(($q, $window, $injector, $log, URI) ->
       return {
         responseError: (rejection) ->
           # Inject the toastr  service (avoid circular dependency)
@@ -20,22 +20,28 @@
           switch rejection.status
             # Unauthenticated
             when 401
-              # Redirect the user to the dashboard or login screen
-              $window.location.href = "/"
+              # Redirect the user to the login screen while retaining the url
+              redirect = window.encodeURIComponent("#{location.pathname}#{location.hash}")
+              $window.location.href = URI.login + "?return_to=#{redirect}"
 
               # Display an error
               toastr.error("mnoe_admin_panel.errors.#{rejection.status}.description")
               $log.error("User is not connected!")
 
-            # Password expired
+            # Forbidden or Password expired
             when 403
               if rejection.data.error && rejection.data.error == "Your password is expired. Please renew your password."
                 $log.info('[PasswordExpiredInterceptor] Password Expired!')
                 $window.location.href = "/mnoe/auth/users/password_expired"
-                # return an empty promise to skip all chaining promises
-                return $q.defer().promise
               else
-                return $q.reject(rejection)
+                # Redirect the user to the dashboard
+                $window.location.href = '/'
+
+                toastr.error("mnoe_admin_panel.errors.#{rejection.status}.description")
+                $log.error('Forbidden Access')
+
+              # return an empty promise to skip all chaining promises
+              return $q.defer().promise
 
             # Redirect to an error page when MnoHub is not available
             when 429, 503
