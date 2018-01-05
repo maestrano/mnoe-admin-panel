@@ -1,11 +1,12 @@
-@App.controller 'BatchUploadController', ($window, toastr, MnoeCurrentUser) ->
+@App.controller 'BatchUploadController', ($window, toastr, URI, MnoeCurrentUser) ->
   'ngInject'
   vm = this
 
   MnoeCurrentUser.getUser().then( ->
     user = MnoeCurrentUser.user
     if !user.id?
-      $window.location.href = "/"
+      redirect = window.encodeURIComponent("#{location.pathname}#{location.hash}")
+      $window.location.href = URI.login + "?return_to=#{redirect}"
       toastr.error("mnoe_admin_panel.errors.401.description")
       $log.error("User is not connected!")
   )
