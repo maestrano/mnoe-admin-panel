@@ -1,4 +1,4 @@
-@App.controller('ProvisioningConfirmCtrl', ($q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig) ->
+@App.controller('ProvisioningConfirmCtrl', ($q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, PRICING_TYPES) ->
   vm = this
 
   vm.isLoading = true
