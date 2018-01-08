@@ -15,7 +15,7 @@
           <td>{{ vm.subscription.product_pricing.name }}</td>
           <td>{{ vm.subscription.product_pricing.description }}</td>
           <td>
-            <span ng-hide="vm.subscription.product_pricing.pricing_type == 'payg'" ng-repeat="price in vm.subscription.product_pricing.prices | filterBy: ['currency']: vm.orgCurrency" class="badge">
+            <span ng-show="pricingPlan.pricing_type == 'recurring' || pricingPlan.pricing_type == 'one_off'" ng-repeat="price in vm.subscription.product_pricing.prices | filterBy: ['currency']: vm.orgCurrency" class="badge">
               {{ price.currency }} {{ price.price_cents / 100 }}
             </span>
             <span ng-show="vm.subscription.product_pricing.pricing_type == 'recurring'">
@@ -23,6 +23,9 @@
             </span>
             <span ng-show="vm.subscription.product_pricing.pricing_type == 'payg'">
               {{ 'mnoe_admin_panel.dashboard.provisioning.order.pricing_type.payg' | translate }}
+            </span>
+            <span ng-show="vm.subscription.product_pricing.pricing_type == 'free'">
+              {{ 'mnoe_admin_panel.dashboard.provisioning.order.pricing_type.free' | translate }}
             </span>
           </td>
         </tr>
