@@ -1,4 +1,4 @@
-@App.controller('ProvisioningSummaryCtrl', ($q, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig) ->
+@App.controller('ProvisioningSummaryCtrl', ($q, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, PRICING_TYPES) ->
   vm = this
 
   orgPromise = MnoeOrganizations.get($stateParams.orgId)
