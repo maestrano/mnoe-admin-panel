@@ -301,6 +301,7 @@
   "mnoe_admin_panel.dashboard.staff.add_staff": "Add staff",
   "mnoe_admin_panel.dashboard.staff.add_staff.modal.title": "Add a new staff",
   "mnoe_admin_panel.dashboard.staff.add_staff.modal.staff_exists": "This user already exists. Please confirm that you want to give them access to the Control Panel? (Only the role will be updated)",
+  "mnoe_admin_panel.dashboard.staff.add_staff.modal.confirm": "Confirm",
   "mnoe_admin_panel.dashboard.staff.add_staff.modal.cancel": "Cancel",
   "mnoe_admin_panel.dashboard.staff.add_staff.modal.save": "Save",
   "mnoe_admin_panel.dashboard.staff.add_staff.modal.placeholder.name": "First name",
