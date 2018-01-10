@@ -22,7 +22,9 @@
 
   MnoeCurrentUser.getUser().then(
     # Display the layout
-    main.user = MnoeCurrentUser.user
+    (user) ->
+      main.user = user
+      main.organizationAvailable = user.organizations? && user.organizations.length > 0
   )
 
   main.exit = ->
