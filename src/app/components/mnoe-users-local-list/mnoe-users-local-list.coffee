@@ -54,6 +54,16 @@
       else
         $log.error('Value of attribute view can only be "all" or "last"')
 
+    scope.adminRoleOrPendingInvite = (user) ->
+      if user.admin_role
+        scope.impersonationDisabledText = "mnoe_admin_panel.dashboard.users.widget.local_list.disabled_tooltip_for_role"
+        return true
+      if !user.allow_impersonation
+        scope.impersonationDisabledText = "mnoe_admin_panel.dashboard.users.widget.local_list.disabled_tooltip_for_impersonation"
+        return true
+      false
+
+
     scope.switchState = () ->
       if attrs.view == 'all'
         attrs.view = 'last'
