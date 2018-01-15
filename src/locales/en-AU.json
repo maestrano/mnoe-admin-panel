@@ -299,6 +299,8 @@
   "mnoe_admin_panel.dashboard.organization.account_frozen.no": "No",
   "mnoe_admin_panel.dashboard.organization.demo_account_state": "(demo)",
   "mnoe_admin_panel.dashboard.organization.demo_account": "Demo Organization",
+  "mnoe_admin_panel.dashboard.organization.demo_account.yes": "Yes",
+  "mnoe_admin_panel.dashboard.organization.demo_account.no": "No",
   "mnoe_admin_panel.dashboard.organization.billing_currency": "Billing Currency",
   "mnoe_admin_panel.dashboard.organization.credit_card": "Credit Card",
   "mnoe_admin_panel.dashboard.organization.credit_card.presence.yes": "Yes",
