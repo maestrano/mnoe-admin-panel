@@ -21,7 +21,7 @@
           <td>{{ pricingPlan.name }}</td>
           <td>{{ pricingPlan.description }}</td>
           <td>
-            <span ng-hide="PRICING_TYPES['unpriced'].indexOf(pricingPlan.pricing_type) != -1" ng-repeat="price in pricingPlan.prices | filterBy: ['currency']: vm.orgCurrency" class="badge">
+            <span ng-hide="PRICING_TYPES['unpriced'].indexOf(pricingPlan.pricing_type) == -1" ng-repeat="price in pricingPlan.prices | filterBy: ['currency']: vm.orgCurrency" class="badge">
               {{ price.currency }} {{ price.price_cents / 100 }}
             </span>
             <span ng-show="pricingPlan.pricing_type == 'recurring'">
