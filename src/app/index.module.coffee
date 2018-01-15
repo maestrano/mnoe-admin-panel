@@ -27,5 +27,6 @@
   'ui.toggle',
   'textAngular',
   'maestrano.impac',
-  'user-friendly-angular-json-tree'
+  'user-friendly-angular-json-tree',
+  'xeditable'
 ]
