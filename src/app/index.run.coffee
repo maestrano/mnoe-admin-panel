@@ -55,3 +55,9 @@
     # Track page change
     $rootScope.$on("$stateChangeStart", -> IntercomSvc.update())
   )
+
+  # xeditable-angular configuration
+  .run((editableOptions) ->
+    # bootstrap3 theme. Can be also 'bs2', 'default'
+    editableOptions.theme = 'bs3'
+  )
