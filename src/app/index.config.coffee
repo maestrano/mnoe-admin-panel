@@ -52,6 +52,18 @@
     )
   )
 
+  .config ($httpProvider) ->
+    $httpProvider.interceptors.push ($q, $injector, DEVISE_CONFIG) ->
+      {
+        request: (config) ->
+          # Intercept requests made to the API and reset the sessions timeout
+          if DEVISE_CONFIG.timeout_in > 0
+            if config.url.includes('mnoe') && !config.url.includes('sign_out') && !config.url.includes('sign_in')
+              MnoSessionTimeout = $injector.get("MnoSessionTimeout")
+              MnoSessionTimeout.resetTimer()
+          config
+      }
+
   .config(($translateProvider, LOCALES) ->
     # Path to translations files
     $translateProvider.useStaticFilesLoader(
