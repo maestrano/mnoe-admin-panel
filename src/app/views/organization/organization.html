@@ -51,7 +51,8 @@
                   <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.demo_account</div>
                 </div>
                 <div class="col-xs-6">
-                  <input type="checkbox" ng-checked="vm.organization.demo_account" ng-disabled="true"/>
+                  <span ng-if="vm.organization.demo_account" translate>mnoe_admin_panel.dashboard.organization.demo_account.yes</span>
+                  <span ng-if="!vm.organization.demo_account" translate>mnoe_admin_panel.dashboard.organization.demo_account.no</span>
                   <span ng-show="vm.organization.demo_account" class="text-muted">({{vm.organization.demo_account}})</span>
                 </div>
               </div>
