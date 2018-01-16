@@ -120,7 +120,7 @@
           skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
       .state 'dashboard.settings-apps',
         data:
-          pageTitle: 'Apps Selection'
+          pageTitle: 'Products Selection'
         url: '/settings/apps'
         templateUrl: 'app/views/settings/apps/apps.html'
         controller: 'SettingsAppsController'
@@ -347,7 +347,7 @@
     $stateProvider
       .state 'dashboard.products',
         data:
-          pageTitle:'Products'
+          pageTitle:'My Products'
         url: '/products'
         views: '@dashboard':
           templateUrl: 'app/views/products/products.html'
