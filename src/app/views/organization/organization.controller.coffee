@@ -79,12 +79,18 @@
 
   vm.openSelectProductModal = () ->
     vm.isLoadingProducts = true
+    params = {
+      skip_dependencies: true,
+      fields: {
+        products: ['name, logo']
+      }
+    }
     modalInstance = $uibModal.open(
       component: 'mnoProductSelectorModal'
       backdrop: 'static'
       size: 'lg'
       resolve:
-        products: -> MnoeProducts.list().finally(-> vm.isLoadingProducts = false)
+        products: -> MnoeProducts.products(_, _, _, params).finally(-> vm.isLoadingProducts = false)
         multiple: -> false
     )
     modalInstance.result.then(
