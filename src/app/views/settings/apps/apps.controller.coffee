@@ -18,24 +18,14 @@
         )
     )
 
-  vm.availableAppsList = () ->
-    MnoeApps.list().then(
-      (response) ->
-        # Copy the response, we're are modifying the response in place and
-        # don't want to modify the cached version in MnoeApps
-        resp = angular.copy(response)
-        enabledIds = _.map(vm.enabledApps, 'id')
-        _.remove(resp.data, (app)-> _.includes(enabledIds, app.id))
-        return resp
-    )
-
   vm.openAddAppModal = () ->
     modalInstance = $uibModal.open(
       component: 'mnoProductSelectorModal'
       backdrop: 'static'
       size: 'lg'
       resolve:
-        products: -> vm.availableAppsList()
+        dataFlag: -> 'settings-add-new-app'
+        enabledApps: -> vm.enabledApps
         multiple: -> true
         headerText: -> 'mnoe_admin_panel.dashboard.settings.apps.modal.add_app.title'
         actionButtonText: -> 'mnoe_admin_panel.dashboard.settings.apps.modal.add_app.add'

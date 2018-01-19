@@ -1,4 +1,4 @@
-@App.controller 'OrganizationController', ($filter, $state, $stateParams, $uibModal, toastr, MnoeAdminConfig, MnoeOrganizations, MnoeUsers, MnoAppsInstances, MnoeProducts) ->
+@App.controller 'OrganizationController', ($filter, $state, $stateParams, $uibModal, toastr, MnoeAdminConfig, MnoeOrganizations, MnoeUsers, MnoAppsInstances) ->
   'ngInject'
   vm = this
 
@@ -78,19 +78,12 @@
     vm.updateOrganization()
 
   vm.openSelectProductModal = () ->
-    vm.isLoadingProducts = true
-    params = {
-      skip_dependencies: true,
-      fields: {
-        products: ['name, logo']
-      }
-    }
     modalInstance = $uibModal.open(
       component: 'mnoProductSelectorModal'
       backdrop: 'static'
       size: 'lg'
       resolve:
-        products: -> MnoeProducts.products(_, _, _, params).finally(-> vm.isLoadingProducts = false)
+        dataFlag: -> 'organization-create-order'
         multiple: -> false
     )
     modalInstance.result.then(

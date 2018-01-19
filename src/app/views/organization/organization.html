@@ -9,7 +9,6 @@
             mnoe_admin_panel.dashboard.organization.add_a_user
           </button>
           <button ng-if="::main.adminConfig.isProvisioningEnabled()" ng-click="vm.openSelectProductModal()" ng-disabled="!vm.organization || vm.isLoadingProducts" class="btn btn-primary">
-            <span ng-show="vm.isLoadingProducts"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
             <span translate>mnoe_admin_panel.dashboard.organization.create_an_order</span>
           </button>
         </div>
