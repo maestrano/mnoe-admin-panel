@@ -31,7 +31,11 @@
               </td>
               <td>
                 <span style="display: flex;" ng-if="item.status !== 'cancelled'">
-                  <a ui-sref="dashboard.provisioning.order({id: item.id, orgId: item.organization_id})" ng-if="subscription.status !== 'cancelled'" class="btn btn-link btn-link-warning" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.modify_tooltip' | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.subscriptions.approve(item)" class="btn btn-link btn-link-success" ng-if="item.status == 'requested' || item.externally_provisioned" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.approve_tooltip' | translate }}"
+                    tooltip-append-to-body="true">
+                    <i class="fa fa-check"></i>
+                  </a>
+                  <a ui-sref="dashboard.provisioning.order({id: item.id, orgId: item.organization_id})" class="btn btn-link btn-link-warning" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.modify_tooltip' | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-pencil-square-o"></i>
                   </a>
                   <a ng-click="$ctrl.subscriptions.cancel(item)" class="btn btn-link btn-link-danger" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.cancel_tooltip' | translate }}" tooltip-append-to-body="true">

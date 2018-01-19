@@ -24,6 +24,25 @@
         ctrl.subscriptions.offset = (page  - 1) * nbItems
         fetchSubscriptions(nbItems, ctrl.subscriptions.offset)
 
+      approve: (subscription) ->
+        modalOptions =
+          closeButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.close'
+          actionButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.cancel'
+          headerText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.proceed'
+          bodyText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.perform'
+          bodyTextExtraData: {subscription_name: subscription.name}
+          type: 'danger'
+          actionCb: ->
+            MnoeProvisioning.approveSubscription({organization_id: subscription.organization.id, id: subscription.id }).then(
+              (response) ->
+                angular.copy(response.data.subscription, subscription)
+                toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_success', {extraData: {subscription_name: subscription.name}})
+              ->
+                toastr.error('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_error', {extraData: {subscription_name: subscription.name}})
+            )
+
+        MnoConfirm.showModal(modalOptions)
+
       cancel: (subscription) ->
         modalOptions =
           closeButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.close'
