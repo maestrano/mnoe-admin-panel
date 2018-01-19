@@ -30,7 +30,8 @@
         <button ng-click="$ctrl.dismissModal()" class="btn btn-default" translate>
           mnoe_admin_panel.components.mno-product-selector.cancel
         </button>
-        <button ng-click="$ctrl.closeModal()" ng-disabled="$ctrl.selectedProducts.length === 0" class="btn btn-primary arrow">
+        <button ng-click="$ctrl.closeModal()" ng-disabled="$ctrl.selectedProducts.length === 0 || $ctrl.isLoadingProduct" class="btn btn-primary arrow">
+          <span ng-show="$ctrl.isLoadingProduct"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           {{$ctrl.actionButtonText | translate}}
         </button>
       </div>

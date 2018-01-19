@@ -10,7 +10,7 @@
     dismiss: '&'
   },
   templateUrl: 'app/components/mno-product-selector/mno-product-selector.html',
-  controller: ($window, orderByFilter) ->
+  controller: ($window, orderByFilter, MnoeProducts) ->
     'ngInject'
 
     $ctrl = this
@@ -32,9 +32,13 @@
         $ctrl.selectedProducts.push(product)
       product.checked = !product.checked
 
-    # Close the modal and return the selected products
+    # Close the modal and return the selected product
     $ctrl.closeModal = ->
-      $ctrl.close({$value: if $ctrl.multiple then $ctrl.selectedProducts else $ctrl.selectedProducts[0]})
+      $ctrl.isLoadingProduct = true
+      MnoeProducts.get($ctrl.selectedProducts[0].id).then(
+        (response) ->
+          $ctrl.close({$value: response.data})
+      ).finally(-> $ctrl.isLoadingProduct = false)
 
     $ctrl.dismissModal = ->
       $ctrl.dismiss()
