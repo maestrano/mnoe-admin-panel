@@ -57,8 +57,8 @@
       {
         request: (config) ->
           # Intercept requests made to the API and reset the sessions timeout
-          if DEVISE_CONFIG.timeout_in > 0
-            if config.url.includes('mnoe') && !config.url.includes('sign_out') && !config.url.includes('sign_in')
+          if DEVISE_CONFIG.timeout_in
+            if config.url.includes('mnoe') && !config.url.match(/(sign_out|sign_in)/)
               MnoSessionTimeout = $injector.get("MnoSessionTimeout")
               MnoSessionTimeout.resetTimer()
           config

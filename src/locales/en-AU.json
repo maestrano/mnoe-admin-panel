@@ -339,7 +339,7 @@
   "mnoe_admin_panel.auth.sessions.timeout.stay_logged_in": "Stay Logged In",
   "mnoe_admin_panel.auth.sessions.timeout.log_off": "Log Off",
   "mnoe_admin_panel.auth.sessions.timeout.log_in": "Log In",
-  "mnoe_admin_panel.auth.sessions.timeout.error": "We couldnt manage to remain you logged in. You will be redirected to the login page",
+  "mnoe_admin_panel.auth.sessions.timeout.error": "We could not manage to remain you logged in. You will be redirected to the login page",
   "mnoe_admin_panel.errors.503.title": "We are having some server issues.",
   "mnoe_admin_panel.errors.503.description": "Please, try again in a moment.",
   "mnoe_admin_panel.errors.429.title": "Too many requests.",
