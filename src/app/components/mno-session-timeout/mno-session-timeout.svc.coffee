@@ -5,14 +5,12 @@
 
   @resetTimer = ->
     _self.cancelTimer()
-    console.debug 'reset timer'
     timer = $timeout(showTimeoutModal, (DEVISE_CONFIG.timeout_in - 12) * 1000)
 
   @cancelTimer = ->
     $timeout.cancel(timer)
 
   showTimeoutModal = ->
-    console.debug("Timeout finished!")
 
     $uibModal.open({
       size: 'md'
