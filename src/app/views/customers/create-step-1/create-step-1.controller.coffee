@@ -1,9 +1,13 @@
-@App.controller 'CreateStep1Controller', ($scope, $document, $state, toastr, MnoeAdminConfig, MnoeOrganizations, MnoeMarketplace, MnoErrorsHandler) ->
+@App.controller 'CreateStep1Controller', ($scope, $document, $state, toastr, MnoeAdminConfig, MnoeOrganizations, MnoeMarketplace, MnoErrorsHandler, MnoeCurrentUser, MnoeSubTenants) ->
   'ngInject'
   vm = this
 
   vm.organization = {}
   vm.appSearch = ""
+  vm.subTenantLoading = true
+  vm.isAdmin = false
+  vm.selectedSubTenants = {}
+  vm.sub_tenants = []
 
   vm.toggleApp = (app) ->
     app.checked = !app.checked
@@ -25,6 +29,8 @@
 
     # List of checked apps
     vm.organization.app_nids = _.map(_.filter(vm.marketplace.apps, {checked: true}), 'nid') if MnoeAdminConfig.isAppManagementEnabled()
+
+    vm.organization.sub_tenant_ids = Object.keys vm.selectedSubTenants
 
     MnoeOrganizations.create(vm.organization).then(
       (response) ->
@@ -48,5 +54,21 @@
       # Copy the marketplace as we will work on the cached object
       vm.marketplace = angular.copy(response.data)
   ) if MnoeAdminConfig.isAppManagementEnabled()
+
+  loadSubTenants = ->
+    MnoeSubTenants.list(null, null, 'name.desc').then(
+      (response) ->
+        vm.sub_tenants = response.data
+    ).finally(-> vm.subTenantLoading = false)
+
+  MnoeCurrentUser.getUser().then(
+    vm.user = MnoeCurrentUser.user
+    vm.isAdmin = vm.user.admin_role == 'admin'
+    if vm.isAdmin
+      loadSubTenants()
+    else
+      vm.selectedSubTenants[vm.user.mnoe_sub_tenant_id] = true
+      vm.subTenantLoading = false
+  )
 
   return
