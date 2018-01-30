@@ -15,35 +15,6 @@
 
     $ctrl = this
 
-    loadProductsPromise = ->
-      deferred = $q.defer()
-
-      params = {
-        skip_dependencies: true,
-        fields: {
-          products: ['name, logo']
-        }
-      }
-      switch $ctrl.flag
-        when 'organization-create-order'
-          MnoeProducts.products(_, _, _, params).then(
-            (response) ->
-              deferred.resolve orderByFilter(response.data, 'name')
-          )
-        when 'settings-add-new-app'
-          MnoeApps.list().then(
-            (response) ->
-              apps = $ctrl.resolve.enabledApps
-              # Copy the response, we're are modifying the response in place and
-              # don't want to modify the cached version in MnoeApps
-              resp = angular.copy(response)
-              enabledIds = _.map(apps, 'id')
-              _.remove(resp.data, (app)-> _.includes(enabledIds, app.id))
-
-              deferred.resolve orderByFilter(resp.data, 'name')
-          )
-      deferred.promise
-
     selectedProductsPromise = ->
       deferred = $q.defer()
 
@@ -69,10 +40,33 @@
     $ctrl.resolveProducts = ->
       $ctrl.isLoadingProducts = true
 
-      promise = loadProductsPromise()
+      params = {
+        skip_dependencies: true,
+        fields: {
+          products: ['name, logo']
+        }
+      }
+      $ctrl.isLoadingProducts = true
+
+      promise =
+        switch $ctrl.flag
+          when 'organization-create-order'
+            MnoeProducts.products(_, _, _, params)
+          when 'settings-add-new-app'
+            MnoeApps.list().then(
+              (response) ->
+                apps = $ctrl.resolve.enabledApps
+                # Copy the response, we're are modifying the response in place and
+                # don't want to modify the cached version in MnoeApps
+                resp = angular.copy(response)
+                enabledIds = _.map(apps, 'id')
+                _.remove(resp.data, (app)-> _.includes(enabledIds, app.id))
+                resp
+            )
+
       promise.then(
         (response) ->
-          $ctrl.products = response
+          $ctrl.products = orderByFilter(response.data, 'name')
       ).finally(-> $ctrl.isLoadingProducts = false)
 
     # Select or deselect a product
