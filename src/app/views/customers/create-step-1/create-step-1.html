@@ -41,7 +41,7 @@
           </mno-widget-body>
         </mno-widget>
 
-        <mno-widget ng-if="vm.isAdmin" icon="fa-institution" heading="{{'mnoe_admin_panel.dashboard.customers.create_customer.division_details' | translate}}" class="top-buffer-2" is-loading="vm.subTenantLoading">
+        <mno-widget ng-if="::vm.isSubTenantEnabled && vm.isAdmin" icon="fa-institution" heading="{{'mnoe_admin_panel.dashboard.customers.create_customer.division_details' | translate}}" class="top-buffer-2" is-loading="vm.subTenantLoading">
           <mno-widget-header></mno-widget-header>
           <mno-widget-body>
             <div class='row'>

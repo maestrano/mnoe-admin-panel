@@ -8,6 +8,7 @@
   vm.isAdmin = false
   vm.selectedSubTenants = {}
   vm.sub_tenants = []
+  vm.isSubTenantEnabled = MnoeAdminConfig.isSubTenantEnabled()
 
   vm.toggleApp = (app) ->
     app.checked = !app.checked
@@ -30,7 +31,7 @@
     # List of checked apps
     vm.organization.app_nids = _.map(_.filter(vm.marketplace.apps, {checked: true}), 'nid') if MnoeAdminConfig.isAppManagementEnabled()
 
-    vm.organization.sub_tenant_ids = Object.keys vm.selectedSubTenants
+    vm.organization.sub_tenant_ids = Object.keys(vm.selectedSubTenants) if vm.isSubTenantEnabled
 
     MnoeOrganizations.create(vm.organization).then(
       (response) ->
@@ -64,11 +65,12 @@
   MnoeCurrentUser.getUser().then(
     vm.user = MnoeCurrentUser.user
     vm.isAdmin = vm.user.admin_role == 'admin'
-    if vm.isAdmin
-      loadSubTenants()
-    else
-      vm.selectedSubTenants[vm.user.mnoe_sub_tenant_id] = true
-      vm.subTenantLoading = false
+    if vm.isSubTenantEnabled
+      if vm.isAdmin
+        loadSubTenants()
+      else
+        vm.selectedSubTenants[vm.user.mnoe_sub_tenant_id] = true
+        vm.subTenantLoading = false
   )
 
   return
