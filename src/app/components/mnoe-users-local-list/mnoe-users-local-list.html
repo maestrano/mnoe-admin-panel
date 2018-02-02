@@ -32,11 +32,18 @@
               <span ng-show="user.isSendingInvite"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
               {{'mnoe_admin_panel.dashboard.users.widget.local_list.resend_invite' | translate}}
             </button>
+            <button ng-show="user.status === 'notify'" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.users.widget.local_list.notify_email' | translate }}" ng-click="sendInvitation(user)" class="btn btn-xs btn-warning" ng-disabled="user.isSendingInvite">
+              <span ng-show="user.isSendingInvite"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+              {{'mnoe_admin_panel.dashboard.users.widget.local_list.notify' | translate}}
+            </button>
+            <button ng-show="user.status === 'notified'" class="btn btn-xs btn-default disabled" ng-disabled="true">
+              {{'mnoe_admin_panel.dashboard.users.widget.local_list.notify' | translate}}
+            </button>
             <span ng-show="user.status === 'active'" translate>mnoe_admin_panel.dashboard.users.widget.local_list.active</span>
           </td>
           <td ng-if="isImpersonationEnabled">
-            <button ng-if="!user.admin_role" class="btn btn-xs btn-primary center-block" ng-click="impersonateUser(user)" translate>mnoe_admin_panel.dashboard.users.widget.local_list.login_as</button>
-            <div ng-if="user.admin_role" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.users.widget.local_list.disabled_tooltip' | translate }}" tooltip-enable="user" style="display:inline-block; cursor: not-allowed;">
+            <button ng-if="!impersonationDisabledText(user)" class="btn btn-xs btn-primary center-block" ng-click="impersonateUser(user)" translate>mnoe_admin_panel.dashboard.users.widget.local_list.login_as</button>
+            <div ng-if="::impersonationDisabledText(user)" uib-tooltip="{{ ::impersonationDisabledText(user) | translate }}" tooltip-enable="user" class='center-block' style="cursor: not-allowed;">
               <button class="btn btn-xs btn-primary center-block" style="pointer-events: none;" disabled translate>mnoe_admin_panel.dashboard.users.widget.local_list.login_as</button>
             </div>
           </td>
