@@ -1,5 +1,13 @@
 # Change Log
 
+## [v1.0.8](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.8) (2018-02-02)
+[Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.7...v1.0.8)
+
+**Implemented enhancements:**
+
+- \[MNOE-887\] Better error handling [\#211](https://github.com/maestrano/mnoe-admin-panel/pull/211) ([ouranos](https://github.com/ouranos))
+- \[MNOE-887\] Invitations Structure rework [\#196](https://github.com/maestrano/mnoe-admin-panel/pull/196) ([MAhsenArif](https://github.com/MAhsenArif))
+
 ## [v1.0.7](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.7) (2018-01-24)
 [Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.6...v1.0.7)
 
