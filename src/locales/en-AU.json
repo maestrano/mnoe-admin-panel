@@ -151,6 +151,7 @@
   "mnoe_admin_panel.dashboard.users.widget.local_list.notify": "NOTIFY",
   "mnoe_admin_panel.dashboard.users.widget.local_list.active": "Active",
   "mnoe_admin_panel.dashboard.users.widget.local_list.login_as": "Log In as...",
+  "mnoe_admin_panel.dashboard.users.widget.local_list.notify_email": "Inform the user that they have been given access to this organisation",
   "mnoe_admin_panel.dashboard.users.widget.local_list.disabled_tooltip_for_role": "This user is a staff member",
   "mnoe_admin_panel.dashboard.users.widget.local_list.disabled_tooltip_for_impersonation": "This user hasn't accepted the invitation yet",
   "mnoe_admin_panel.dashboard.users.widget.local_list.toastr_success": "{username}'s invitation has been sent.",
