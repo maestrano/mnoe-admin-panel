@@ -181,6 +181,7 @@
   "mnoe_admin_panel.dashboard.organization.create_user.form.last_name": "Last Name",
   "mnoe_admin_panel.dashboard.organization.create_user.form.phone": "Phone",
   "mnoe_admin_panel.dashboard.organization.create_user.form.email": "Email",
+  "mnoe_admin_panel.dashboard.organization.create_user.form.error.email": "Email {error}",
   "mnoe_admin_panel.dashboard.organization.create_user.form.role": "Role",
   "mnoe_admin_panel.dashboard.organization.create_user.add": "Add a new user",
   "mnoe_admin_panel.dashboard.organization.create_user.cancel": "Cancel",
