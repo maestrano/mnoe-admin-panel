@@ -1,6 +1,7 @@
 @App.controller 'CreateUserController', ($filter, $stateParams, $uibModalInstance, toastr, MnoeUsers, MnoErrorsHandler, USER_ROLES, organization) ->
   'ngInject'
   vm = this
+  vm.errorHandler = MnoErrorsHandler
 
   vm.USER_ROLES = USER_ROLES
 
@@ -13,7 +14,7 @@
         $uibModalInstance.close(success.data.user)
       (error) ->
         toastr.error('mnoe_admin_panel.dashboard.organization.create_user.toastr_error', {extraData: {username: "#{vm.user.name} #{vm.user.surname}"}})
-        MnoErrorsHandler.processServerError(error)
+        MnoErrorsHandler.processServerError(error, vm.form.user)
     ).finally(-> vm.isLoading = false)
 
   vm.onCancel = () ->
