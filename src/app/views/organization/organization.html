@@ -80,6 +80,22 @@
                 </div>
               </div>
               <div class="row">
+                <div class="col-xs-6">
+                  <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.created_at</div>
+                </div>
+                <div class="col-xs-6">
+                  {{vm.organization.created_at | date: 'dd/MM/yyyy'}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.credit_card_updated</div>
+                </div>
+                <div class="col-xs-6">
+                  {{vm.organization.credit_card.updated_at | date: 'dd/MM/yyyy'}}
+                </div>
+              </div>
+              <div class="row">
                 <div class="col-sm-6">
                   <div class="label-cell">{{'mnoe_admin_panel.dashboard.organization.active_apps' | translate}}
                     <a ng-if="vm.organization.active_apps.length > 0 && vm.hasDisconnectedApps" ui-sref="dashboard.customers.connect-app({orgId: vm.organization.id})" translate>mnoe_admin_panel.dashboard.organization.connect_apps</a>
