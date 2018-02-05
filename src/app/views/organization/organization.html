@@ -34,7 +34,7 @@
                   {{vm.organization.external_id}}
                 </div>
               </div>
-              <div class="row">
+              <!-- <div class="row">
                 <div class="col-xs-6">
                   <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.account_frozen</div>
                 </div>
@@ -44,7 +44,7 @@
                   <a href="" ng-hide="vm.organization.account_frozen" ng-click="vm.freezeOrganization()"><i class="fa fa-ban"></i></a>
                   <a href="" ng-show="vm.organization.account_frozen" ng-click="vm.unfreezeOrganization()"><i class="fa fa-check"></i></a>
                 </div>
-              </div>
+              </div> -->
               <div class="row">
                 <div class="col-xs-6">
                   <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.demo_account</div>
@@ -92,7 +92,7 @@
                   <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.credit_card_updated</div>
                 </div>
                 <div class="col-xs-6">
-                  {{vm.organization.credit_card.updated_at | date: 'dd/MM/yyyy'}}
+                  {{(vm.organization.credit_card.updated_at | date: 'dd/MM/yyyy') || ('mnoe_admin_panel.dashboard.organization.credit_card_updated.never' | translate)}}
                 </div>
               </div>
               <div class="row">
@@ -130,10 +130,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6 bottom-buffer-1">
+    <div class="col-md-12 bottom-buffer-1">
       <mnoe-users-local-list list="vm.organization.members" organization="vm.organization" view="all"></mnoe-users-local-list>
     </div>
-    <div class="col-md-6 bottom-buffer-1" ng-if="::main.adminConfig.isFinanceEnabled()">
+    <div class="col-md-12 bottom-buffer-1" ng-if="::main.adminConfig.isFinanceEnabled()">
       <mno-widget icon="fa-file-text-o" heading="{{'mnoe_admin_panel.dashboard.organization.invoices.title' | translate}}" is-loading="!vm.organization.invoices" >
         <mno-widget-header></mno-widget-header>
         <mno-widget-body class="medium no-padding">
