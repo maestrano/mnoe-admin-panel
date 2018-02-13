@@ -20,7 +20,10 @@
         </div>
 
         <div class="col-sm-6">
-          <input type="email" class="form-control input-sm" id="user-email" ng-model="vm.user.email" placeholder="{{'mnoe_admin_panel.dashboard.organization.create_user.form.email' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.organization.create_user.form.email' | translate}}" required>
+          <input type="email" class="form-control input-sm" name="email" id="user-email" ng-change="vm.errorHandler.resetErrors(vm.form.user)" ng-model="vm.user.email" placeholder="{{'mnoe_admin_panel.dashboard.organization.create_user.form.email' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.organization.create_user.form.email' | translate}}" required>
+          <div ng-messages="vm.form.user.email.$error" role="alert" ng-if="vm.form.user.email.$dirty || vm.form.user.$submitted">
+            <p ng-message="server" class="help-block" translate-value-error="{{ vm.errorHandler.errorMessage('email') }}" translate>mnoe_admin_panel.dashboard.organization.create_user.form.error.email</p>
+          </div>
         </div>
       </div>
 

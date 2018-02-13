@@ -1,5 +1,32 @@
 # Change Log
 
+## [v1.0.8](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.8) (2018-02-02)
+[Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.7...v1.0.8)
+
+**Implemented enhancements:**
+
+- \[MNOE-887\] Better error handling [\#211](https://github.com/maestrano/mnoe-admin-panel/pull/211) ([ouranos](https://github.com/ouranos))
+- \[MNOE-887\] Invitations Structure rework [\#196](https://github.com/maestrano/mnoe-admin-panel/pull/196) ([MAhsenArif](https://github.com/MAhsenArif))
+
+## [v1.0.7](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.7) (2018-01-24)
+[Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.6...v1.0.7)
+
+Small improvements and fix build issue with gulp 4.0
+
+**Implemented enhancements:**
+
+- \[MNOE-873\] Made phone number optional when inviting users from admin panel [\#187](https://github.com/maestrano/mnoe-admin-panel/pull/187) ([MAhsenArif](https://github.com/MAhsenArif))
+
+**Fixed bugs:**
+
+- \[MNOE-868\] User: Adjusted widget title to show user name, if available [\#186](https://github.com/maestrano/mnoe-admin-panel/pull/186) ([MAhsenArif](https://github.com/MAhsenArif))
+- Replace gulp-main-bower-files with main-bower-files [\#184](https://github.com/maestrano/mnoe-admin-panel/pull/184) ([ouranos](https://github.com/ouranos))
+- \[EMERAL-122\] Add staff when user already exists [\#178](https://github.com/maestrano/mnoe-admin-panel/pull/178) ([manu-d](https://github.com/manu-d))
+
+**Merged pull requests:**
+
+- Add missing locale [\#193](https://github.com/maestrano/mnoe-admin-panel/pull/193) ([manu-d](https://github.com/manu-d))
+
 ## [v1.0.6](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.6) (2017-12-21)
 [Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.5...v1.0.6)
 
