@@ -12,7 +12,7 @@
     # Variables initialization
     scope.organizations =
       displayList: []
-      widgetTitle: 'mnoe_admin_panel.dashboard.organization.widget.local_list.loading_users.title'
+      widgetTitle: 'mnoe_admin_panel.dashboard.organization.widget.local_list.loading_orgs.title'
       search: ''
 
     # Display all the organizations
