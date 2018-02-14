@@ -1,0 +1,53 @@
+<div id="app-info">
+  <div class="close" type="button" aria-label="Close" ng-click="vm.close()">×</div>
+  <div class="modal-header">
+    <div class="flex-container top-buffer-1">
+      <div><img class="pull-left" ng-src="{{vm.app.logo}}"></div>
+      <div><h1 class="app-name">{{vm.app.name}}</h1></div>
+      <div class="pull-right"><mno-app-features app="vm.app"></mno-app-features></div>
+
+    </div>
+    </div>
+  </div>
+  <div class="modal-body">
+
+    <!-- Description -->
+    <h4 translate translate-value-name="{{vm.app.name}}">mno_enterprise.templates.settings.apps.modal.app_infos.description</h4>
+    <div class="well top-buffer-1" ng-bind-html="vm.app.description"></div>
+
+    <!-- Screenshots -->
+      <div ng-hide="vm.app.pictures.length == 0" class="well top-buffer-1">
+        <div class="well carousel">
+          <div uib-carousel interval="3000" active="0">
+            <div uib-slide ng-repeat="picture in vm.app.pictures" class="screenshot" index="$index">
+              <img ng-src={{picture}} alt="picture">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Pricing -->
+    <h4>{{ 'mno_enterprise.templates.settings.apps.modal.app_infos.pricing' | translate }}</h4>
+      <div class="well top-buffer-1" ng-switch="vm.app.pricing_plans">
+          <ul>
+            <li ng-if="vm.app.free_trial_duration > 0">
+              <b>{{ 'mno_enterprise.templates.settings.apps.modal.app_infos.free_trial_duration' | translate }}</b>: {{vm.app.free_trial_duration}} {{vm.app.free_trial_unit}}
+            </li>
+            <li ng-repeat="plan in vm.pricing_plans">
+              <b>{{plan.name}}</b>: {{plan.description}}<br>
+              <div ng-hide="PRICING_TYPES['unpriced'].indexOf(plan.pricing_type) == -1">
+                <span>{{plan.currency}}</span>
+                <span ng-show="plan.price.value">{{plan.price.value}}</span>
+                <span ng-hide="plan.price.value">{{plan.price}}</span>
+                <span ng-show="plan.pricing_type == 'recurring'">{{plan.factor}}</span>
+              </div>
+              <div ng-show="plan.pricing_type == 'payg'">
+                <span>{{ 'mno_enterprise.templates.settings.apps.modal.app_infos.payg' | translate }}</span>
+              </div>
+            </li>
+          </ul>
+          <div ng-bind-html="vm.app.pricing_text"></div>
+        </div>
+
+  </div>
+</div>
