@@ -15,15 +15,14 @@
         </thead>
         <tbody>
           <tr ng-click="$ctrl.toggleTeam(team)" ng-if="!$ctrl.isTeamsLoading" ng-repeat-start="team in $ctrl.teams.list">
-            <td>{{team.name}}</td>  
+            <td>{{team.name}}</td>
             <td class="text-mute"><span class="badge badge-colour">{{team.users.length}} {{ 'mnoe_admin_panel.dashboard.teams.widget.list.table.show_users' | translate }}</span>
             </td>
             <td>
               <div class="bs-row row apps-box">
                 <div ng-if="$ctrl.hasApps(team.app_instances)" class="app-wrapper col-xs-3 col-sm-2 col-md-1" ng-repeat="app in team.app_instances">
-                  <div class="small-app-card ellipsis">
+                  <div uib-tooltip="{{ ::app.name }}" class="small-app-card ellipsis">
                     <img ng-src="{{::app.logo}}" width="60">
-                    <span>{{::app.name}}</span>
                   </div>
                 </div>
               </div>
@@ -31,8 +30,8 @@
                 mnoe_admin_panel.dashboard.teams.widget.list.table.no_apps
               </div>
             </td>
-            <td ng-if="!team.expanded"><span class="glyphicon glyphicon-chevron-right pull-right icon-colour"></span></td>  
-            <td ng-if="team.expanded"><span class="glyphicon glyphicon-chevron-down pull-right icon-colour"></span></td>  
+            <td ng-if="!team.expanded"><span class="glyphicon glyphicon-chevron-right pull-right icon-colour"></span></td>
+            <td ng-if="team.expanded"><span class="glyphicon glyphicon-chevron-down pull-right icon-colour"></span></td>
           </tr>
           <tr ng-if="!$ctrl.isTeamsLoading && team.expanded" id="sub-table" ng-repeat-end>
             <td colspan="12">
@@ -72,4 +71,3 @@
     </mno-pagination>
   </mno-widget-footer>
 </mno-widget>
-
