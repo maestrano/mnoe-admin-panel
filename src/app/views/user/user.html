@@ -22,6 +22,22 @@
             <div class="col-md-3">{{vm.user.phone || 'mnoe_admin_panel.dashboard.user.table.phone.none' | translate}}</div>
           </div>
           <div class="row">
+            <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.geo_country_code</div></div>
+            <div class="col-md-3">{{vm.user.geo_country_code || 'mnoe_admin_panel.dashboard.user.geo_country_code.none' | translate}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.geo_state_code</div></div>
+            <div class="col-md-3">{{vm.user.geo_state_code || 'mnoe_admin_panel.dashboard.user.geo_state_code.none' | translate }}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.geo_city</div></div>
+            <div class="col-md-3">{{vm.user.geo_city || 'mnoe_admin_panel.dashboard.user.geo_city.none' | translate}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.geo_currency</div></div>
+            <div class="col-md-3">{{vm.user.geo_currency || 'mnoe_admin_panel.dashboard.user.geo_currency.none' | translate}}</div>
+          </div>
+          <div class="row">
             <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.created_at</div></div>
             <div class="col-sm-3">{{vm.user.created_at | amCalendar }}</div>
           </div>
@@ -31,11 +47,19 @@
           </div>
           <div class="row">
             <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.last_sign_in</div></div>
-            <div class="col-sm-3">{{(vm.user.last_sign_in_at | amCalendar) || 'mnoe_admin_panel.dashboard.user.table.never_signed_in' | translate}}</div>
+            <div class="col-sm-3">{{(vm.user.last_sign_in_at | amCalendar) || 'mnoe_admin_panel.dashboard.user.table.last_sign_in.never' | translate}}</div>
           </div>
           <div class="row">
             <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.number_of_sign_in</div></div>
             <div class="col-sm-3">{{vm.user.sign_in_count}}</div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.failed_attempts</div></div>
+            <div class="col-sm-3">{{vm.user.failed_attempts || 'mnoe_admin_panel.dashboard.user.table.failed_attempts.none' | translate}}</div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.password_changed_at</div></div>
+            <div class="col-sm-3">{{vm.user.password_changed_at || 'mnoe_admin_panel.dashboard.user.table.password_changed_at.never' | translate }}</div>
           </div>
           <div class="row" ng-show="vm.user.access_locked">
             <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.locked_at</div></div>
