@@ -9,6 +9,7 @@
         <tr>
           <th translate>mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.name</th>
           <th style="width: 100px;" translate>mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.created_at</th>
+          <th style="width: 130px;" translate>mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.role</th>
         </tr>
       </thead>
       <tbody>
@@ -21,6 +22,15 @@
             </a>
           </td>
           <td>{{organization.created_at | date: 'dd/MM/yyyy'}}</td>
+          <td>
+            <select ng-show="organization.editMode" ng-model="organization.role" ng-options="role.value as role.translatedLabel for role in userRoles.availableRolesForOptions"></select>
+            <span ng-show="organization.isUpdatingRole"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+            <span ng-click="editRole(organization)" ng-hide="organization.editMode">{{ userRoles.keyFromRole(organization.role) | translate }}</span>
+            <a class="role_edit_link" ng-hide="organization.editMode" ng-click="editRole(organization)"><i class="fa fa-pencil"></i></a>
+            <a class="role_edit_link" ng-show="organization.editMode" ng-click="updateUserRole(organization, user)"><i class="fa fa-check"></i></a>
+            <a class="role_edit_link" ng-show="organization.editMode" ng-click="exitEditRole(organization)"><i class="fa fa-times"></i></a>
+            <span ng-show="vm.isSaving"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+          </td>
         </tr>
       </tbody>
     </table>

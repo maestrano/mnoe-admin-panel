@@ -70,9 +70,8 @@
     </div>
     <div class="bs-row">
       <mnoe-impersonate-button wrapper-class-names="col-sm-4 col-sm-offset-4" btn-class-names="btn btn-primary center-block" user="vm.user"></mnoe-impersonate-button>
-
       <div class="col-sm-12 top-buffer-2">
-        <mnoe-organizations-local-list list="vm.user.organizations" view="all"></mnoe-organizations-local-list>
+        <mnoe-organizations-local-list list="vm.user.organizations" user="vm.user" view="all"></mnoe-organizations-local-list>
       </div>
     </div>
   </div>
