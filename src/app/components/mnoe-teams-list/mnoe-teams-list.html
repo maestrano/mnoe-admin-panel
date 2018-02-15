@@ -1,0 +1,73 @@
+<mno-widget id="teams" icon="fa-users" heading="Teams" is-loading="$ctrl.isTeamsLoading">
+  <mno-widget-header>
+    <input type="text" ng-model="$ctrl.teams.search" ng-change="$ctrl.searchChange()" placeholder="{{'mnoe_admin_panel.dashboard.teams.widget.list.table.search' | translate}}" class="form-control input-sm search-bar" />
+  </mno-widget-header>
+  <mno-widget-body class="large no-padding">
+    <div>
+      <table st-table="$ctrl.teams.list" class="table table-layout-fixed">
+        <thead>
+          <tr>
+            <th class="col-xs-2" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.team_name</th>
+            <th class="col-xs-1"></th>
+            <th class="col-xs-8 text-center" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.apps</th>
+            <th class="col-xs-1"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-click="$ctrl.toggleTeam(team)" ng-if="!$ctrl.isTeamsLoading" ng-repeat-start="team in $ctrl.teams.list">
+            <td>{{team.name}}</td>
+            <td class="text-mute"><span class="badge badge-colour">{{team.users.length}} {{ 'mnoe_admin_panel.dashboard.teams.widget.list.table.show_users' | translate }}</span>
+            </td>
+            <td>
+              <div class="bs-row row apps-box">
+                <div ng-if="$ctrl.hasApps(team.app_instances)" class="app-wrapper col-xs-3 col-sm-2 col-md-1" ng-repeat="app in team.app_instances">
+                  <div uib-tooltip="{{ ::app.name }}" class="small-app-card ellipsis">
+                    <img ng-src="{{::app.logo}}" width="60">
+                  </div>
+                </div>
+              </div>
+              <div class="text-center" ng-if="!$ctrl.hasApps(team.app_instances)" translate>
+                mnoe_admin_panel.dashboard.teams.widget.list.table.no_apps
+              </div>
+            </td>
+            <td ng-if="!team.expanded"><span class="glyphicon glyphicon-chevron-right pull-right icon-colour"></span></td>
+            <td ng-if="team.expanded"><span class="glyphicon glyphicon-chevron-down pull-right icon-colour"></span></td>
+          </tr>
+          <tr ng-if="!$ctrl.isTeamsLoading && team.expanded" id="sub-table" ng-repeat-end>
+            <td colspan="12">
+              <table class="table table-striped table-responsive no-margin-bottom">
+                <thead>
+                  <tr ng-if="!$ctrl.hasUsers(team.users)">
+                    <th class="col-xs-12 text-center" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.no_users</th>
+                  </tr>
+                  <tr ng-if="$ctrl.hasUsers(team.users)">
+                    <th class="col-xs-2" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.name</th>
+                    <th class="col-xs-2" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.surname</th>
+                    <th class="col-xs-5" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.email</th>
+                    <th class="col-xs-3" translate>mnoe_admin_panel.dashboard.teams.widget.list.table.role</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-if="$ctrl.hasUsers(team.users)" ng-repeat="user in team.users">
+                    <td><a ui-sref="dashboard.customers.user({userId: user.id})">{{user.name}}</a></td>
+                    <td><a ui-sref="dashboard.customers.user({userId: user.id})">{{user.surname}}</a></td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.role}}</td>
+                  </tr>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mno-widget-body>
+  <mno-widget-footer ng-if="!$ctrl.isTeamsLoading && $ctrl.teams.list">
+    <mno-pagination
+      page="$ctrl.teams.page"
+      nb-items="$ctrl.teams.nbItems"
+      total-items="$ctrl.teams.totalItems"
+      on-change-cb="$ctrl.teams.pageChangedCb(nbItems, page)"
+      is-loading="$ctrl.isTeamsLoading">
+    </mno-pagination>
+  </mno-widget-footer>
+</mno-widget>
