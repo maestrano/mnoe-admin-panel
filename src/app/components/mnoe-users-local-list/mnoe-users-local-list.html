@@ -44,7 +44,7 @@
             <span ng-show="user.isUpdatingRole"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           </td>
           <td ng-if="isImpersonationEnabled && organizationContext">
-            <mnoe-impersonate-button btn-class-names="btn btn-xs btn-default" user="user"></mnoe-impersonate-button>
+            <mnoe-impersonate-button btn-class-names="btn btn-xs btn-default" user="user" organization-id="organization.id"></mnoe-impersonate-button>
           </td>
         </tr>
       </tbody>
