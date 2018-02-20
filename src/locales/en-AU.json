@@ -141,6 +141,7 @@
   "mno_enterprise.templates.settings.apps.modal.app_infos.pricing": "Pricing",
   "mno_enterprise.templates.settings.apps.modal.app_infos.free_trial_duration": "Free trial duration",
   "mno_enterprise.templates.settings.apps.modal.app_infos.payg": "Usage based",
+  "mno_enterprise.templates.settings.apps.modal.app_infos.shared_entities_title": "Entities shared with Connec!",
   "mno_enterprise.templates.settings.apps.app_feature.single_sign_on": "Single Sign-on",
   "mno_enterprise.templates.settings.apps.app_feature.single_billing": "Single billing",
   "mno_enterprise.templates.settings.apps.app_feature.data_sharing": "Data-sharing",

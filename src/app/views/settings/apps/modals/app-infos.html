@@ -5,7 +5,6 @@
       <div><img class="pull-left" ng-src="{{vm.app.logo}}"></div>
       <div><h1 class="app-name">{{vm.app.name}}</h1></div>
       <div class="pull-right"><mno-app-features app="vm.app"></mno-app-features></div>
-
     </div>
     </div>
   </div>
@@ -49,5 +48,28 @@
           <div ng-bind-html="vm.app.pricing_text"></div>
         </div>
 
+    <!-- Shared Entities -->
+    <h4>{{ 'mno_enterprise.templates.settings.apps.modal.app_infos.shared_entities_title' | translate }}</h4>
+    <div class="well top-buffer-1">
+      <div class="datasharing-wrapper">
+        <ul ng-if="vm.app.app_shared_entities" class="connec-entities row">
+          <li class="connec-entity col-md-3" ng-repeat="shared_entity in vm.app.app_shared_entities">
+            {{shared_entity.shared_entity_name}}
+            <div class="permission-icons">
+              <span>
+                <i class="fa fa-book">
+                  <i class="fa" ng-class="shared_entity.read ? 'fa-check can-read' : 'fa-close cant-read'"></i>
+                </i>
+              </span>
+              <span>
+                <i class="fa fa-pencil">
+                  <i class="fa" ng-class="shared_entity.write ? 'fa-check can-read' : 'fa-close cant-read'"></i>
+                </i>
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
   </div>
-</div>
