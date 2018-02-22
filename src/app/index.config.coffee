@@ -53,12 +53,13 @@
   )
 
   .config ($httpProvider) ->
-    $httpProvider.interceptors.push ($q, $injector, DEVISE_CONFIG) ->
+    $httpProvider.interceptors.push ($q, $injector, DEVISE_CONFIG, $rootScope) ->
       {
         request: (config) ->
           # Intercept requests made to the API and reset the sessions timeout
-          if DEVISE_CONFIG.timeout_in
-            if config.url.includes('mnoe') && !config.url.match(/(sign_out|sign_in)/)
+          if DEVISE_CONFIG.timeout_in > 0
+            if config.url.includes('mnoe') && !config.url.match(/(sign_out|sign_in)/) && !$rootScope.timeoutSet
+              $rootScope.timeoutSet = true
               MnoSessionTimeout = $injector.get("MnoSessionTimeout")
               MnoSessionTimeout.resetTimer()
           config
