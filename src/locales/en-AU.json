@@ -225,7 +225,6 @@
   "mnoe_admin_panel.dashboard.teams.widget.list.table.name": "Name",
   "mnoe_admin_panel.dashboard.teams.widget.list.table.surname":"Surname",
   "mnoe_admin_panel.dashboard.teams.widget.list.table.email":"Email",
-  "mnoe_admin_panel.dashboard.teams.widget.list.table.role":"Role",
   "mnoe_admin_panel.dashboard.teams_list.toastr_error": "An error occurred while fetching teams.",
   "mnoe_admin_panel.dashboard.user.title": "User",
   "mnoe_admin_panel.dashboard.user.subtitle": "User info",
