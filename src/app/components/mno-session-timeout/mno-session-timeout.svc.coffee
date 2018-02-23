@@ -1,7 +1,8 @@
-@App.service 'MnoSessionTimeout', ($rootScope, $q, $window, $timeout, $uibModal, DEVISE_CONFIG) ->
+@App.service 'MnoSessionTimeout', ($q, $window, $timeout, $uibModal, DEVISE_CONFIG) ->
   _self = @
 
   timer = null
+  countdownInterval = null
 
   @resetTimer = ->
     _self.cancelTimer()
@@ -11,7 +12,6 @@
     $timeout.cancel(timer)
 
   showTimeoutModal = ->
-
     $uibModal.open({
       size: 'md'
       keyboard: false
@@ -26,7 +26,7 @@
 
     $scope.countdown = 10
 
-    $interval((
+    countdownInterval = $interval((
       ->
         $scope.countdown -= 1
         $scope.logOff(true) if $scope.countdown == 0
@@ -35,7 +35,7 @@
 
     $scope.stayLoggedIn = () ->
       $scope.isLoading = true
-      $rootScope.timeoutSet = false
+      $interval.cancel(countdownInterval)
       MnoeCurrentUser.refreshUser().then(
         (response) ->
           $uibModalInstance.close(response)
@@ -46,6 +46,7 @@
 
     $scope.logOff = (timeout = false) ->
       $uibModalInstance.dismiss('cancel')
+      $interval.cancel(countdownInterval)
       $http.delete('/mnoe/auth/users/sign_out')
 
       url = '/mnoe/auth/users/sign_in'
