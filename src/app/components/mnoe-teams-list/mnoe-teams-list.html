@@ -16,7 +16,7 @@
         <tbody>
           <tr ng-click="$ctrl.toggleTeam(team)" ng-if="!$ctrl.isTeamsLoading" ng-repeat-start="team in $ctrl.teams.list">
             <td>{{team.name}}</td>
-            <td class="text-mute"><span class="badge badge-colour">{{team.users.length}} {{ 'mnoe_admin_panel.dashboard.teams.widget.list.table.show_users' | translate }}</span>
+            <td class="text-mute"><span class="badge badge-colour">{{ 'mnoe_admin_panel.dashboard.teams.widget.list.table.show_users' | translate: { QTY: team.users.length} }}</span>
             </td>
             <td>
               <div class="bs-row row apps-box">

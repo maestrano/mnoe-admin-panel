@@ -219,7 +219,7 @@
   "mnoe_admin_panel.dashboard.teams.widget.list.table.apps": "Apps",
   "mnoe_admin_panel.dashboard.teams.widget.list.table.search": "search",
   "mnoe_admin_panel.dashboard.teams.widget.list.table.no_apps": "No apps in this team.",
-  "mnoe_admin_panel.dashboard.teams.widget.list.table.show_users": "Users",
+  "mnoe_admin_panel.dashboard.teams.widget.list.table.show_users": "{QTY} {QTY, plural, one{User} other{Users}}",
   "mnoe_admin_panel.dashboard.teams.widget.list.table.team_name": "Team name",
   "mnoe_admin_panel.dashboard.teams.widget.list.table.no_users": "No users in this team",
   "mnoe_admin_panel.dashboard.teams.widget.list.table.name": "Name",
