@@ -9,7 +9,7 @@
     controller: ($scope) ->
       $scope.isSingleBilling = !!$scope.app.single_billing
       $scope.isDataSharing = !!$scope.app.is_connec_ready
-      $scope.isSingleSignOn = !!$scope.app.add_on
+      $scope.isSingleSignOn = !!$scope.app.sso_enabled
       return
   }
 )
