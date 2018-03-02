@@ -326,6 +326,7 @@
   "mnoe_admin_panel.dashboard.organization.account_frozen": "Account Frozen",
   "mnoe_admin_panel.dashboard.organization.account_frozen.yes": "Yes",
   "mnoe_admin_panel.dashboard.organization.account_frozen.no": "No",
+  "mnoe_admin_panel.dashboard.organization.account_frozen.tooltip": "This account has been deactivated",
   "mnoe_admin_panel.dashboard.organization.demo_account_state": "(demo)",
   "mnoe_admin_panel.dashboard.organization.demo_account": "Demo Organization",
   "mnoe_admin_panel.dashboard.organization.demo_account.yes": "Yes",
