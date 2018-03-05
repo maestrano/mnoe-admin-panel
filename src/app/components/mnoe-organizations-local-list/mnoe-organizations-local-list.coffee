@@ -18,7 +18,6 @@
       displayList: []
       widgetTitle: 'mnoe_admin_panel.dashboard.organization.widget.local_list.loading_users.title'
       search: ''
-    # Keep track of old roles when editing organization's roles.
 
     # Display all the organizations
     setAllOrganizationsList = () ->
@@ -70,6 +69,7 @@
         setSearchOrganizationsList()
 
     scope.editRole = (organization) ->
+      # Keep track of old roles when editing organization's roles.
       organization.beforeEditRole = organization.role
       organization.editMode = true
 

@@ -16,7 +16,6 @@
     scope.organizationContext = attrs.organization?
     scope.userRoles = UserRoles
     scope.editMode = false
-    # Keep track of old roles when editing user's roles.
 
     # Variables initialization
     scope.users =
@@ -74,6 +73,7 @@
         setSearchUsersList()
 
     scope.editRole = (user) ->
+      # Keep track of old roles when editing user's roles.
       user.beforeEditRole = user.role
       user.editMode = true
 
