@@ -31,7 +31,7 @@
               </td>
               <td>
                 <span style="display: flex;" ng-if="item.status !== 'cancelled'">
-                  <a ng-click="$ctrl.subscriptions.approve(item)" class="btn btn-link btn-link-success" ng-if="item.status == 'requested' || item.externally_provisioned" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.approve_tooltip' | translate }}"
+                  <a ng-click="$ctrl.subscriptions.approve(item)" class="btn btn-link btn-link-success" ng-if="item.status == 'requested' || item.externally_provisioned" ng-disabled="item.status != 'requested'" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.approve_tooltip' | translate }}"
                     tooltip-append-to-body="true">
                     <i class="fa fa-check"></i>
                   </a>
