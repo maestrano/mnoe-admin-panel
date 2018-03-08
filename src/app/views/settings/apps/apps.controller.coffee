@@ -1,4 +1,4 @@
-@App.controller 'SettingsAppsController', ($uibModal, MnoeMarketplace, MnoeApps, MnoeTenant, MnoConfirm) ->
+@App.controller 'SettingsAppsController', ($uibModal, MnoeMarketplace, MnoeApps, MnoeTenant, MnoConfirm, MnoeCurrentUser) ->
   'ngInject'
   vm = this
 
@@ -64,6 +64,11 @@
     MnoeTenant.get().then(
       (response) ->
         vm.tenantManagement = response.data.app_management == "tenant")
+
+    MnoeCurrentUser.getUser().then(
+      (response) ->
+        vm.isAccountManager = (response.admin_role == 'staff')
+    )
 
   init()
 

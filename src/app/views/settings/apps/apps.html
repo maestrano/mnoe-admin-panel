@@ -14,7 +14,7 @@
                     <span>{{::app.name}}</span>
                   </div>
                 </div>
-                <div ng-if="vm.tenantManagement" class="app-wrapper col-xs-3 col-sm-2 col-md-2">
+                <div ng-if="vm.tenantManagement" ng-hide="vm.isAccountManager" class="app-wrapper col-xs-3 col-sm-2 col-md-2">
                   <div class="small-app-card ellipsis add-app" ng-click="vm.openAddAppModal()">
                     <span>{{'mnoe_admin_panel.dashboard.organization.add_an_app' | translate}}<i class="fa fa-plus"></i></span>
                   </div>
