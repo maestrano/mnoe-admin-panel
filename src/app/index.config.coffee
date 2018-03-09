@@ -53,7 +53,7 @@
   )
 
   .config ($httpProvider) ->
-    $httpProvider.interceptors.push ($q, $injector, DEVISE_CONFIG, $rootScope) ->
+    $httpProvider.interceptors.push ($q, $injector, DEVISE_CONFIG) ->
       {
         request: (config) ->
           # Intercept requests made to the API and reset the sessions timeout
