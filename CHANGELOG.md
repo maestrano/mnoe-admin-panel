@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.0.9](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.9) (2018-03-12)
+[Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.8...v1.0.9)
+
+**Fixed bugs:**
+
+- \[MNOE-887\] Fix locale regression [\#223](https://github.com/maestrano/mnoe-admin-panel/pull/223) ([ouranos](https://github.com/ouranos))
+
 ## [v1.0.8](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.8) (2018-02-02)
 [Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.7...v1.0.8)
 
