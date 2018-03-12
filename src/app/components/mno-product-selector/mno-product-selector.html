@@ -11,13 +11,13 @@
     </div>
     <div class="products-container">
       <div class="product-icon" ng-repeat="product in $ctrl.products | filter:{name: $ctrl.productSearch}">
-        <div class="product-icon-wrapper" ng-click="$ctrl.toggleProduct(product)">
+        <div class="product-icon-wrapper" ng-click="$ctrl.toggleProduct(product)" uib-tooltip="{{::product.name}}">
           <div class="checked" ng-show="product.checked">
             <i class="fa fa-check fa-5x"></i>
           </div>
           <img class="product-logo img-thumbnail" ng-src="{{product.logo}}" alt="{{::product.name}} logo" title="{{::product.tiny_description}}">
         </div>
-        <div class="product-title">
+        <div class="product-title" uib-tooltip="{{::product.name}}">
           {{::product.name}}
         </div>
       </div>
