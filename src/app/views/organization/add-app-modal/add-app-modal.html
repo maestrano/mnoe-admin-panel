@@ -19,13 +19,13 @@
         <i class="fa fa-pulse fa-spinner "></i>
       </div>
       <div class="app-icon" ng-repeat="app in vm.marketplace.filtered_apps | filter:{name: vm.appSearch}">
-        <div class="app-icon-wrapper" ng-click="vm.toggleApp(app)">
+        <div class="app-icon-wrapper" ng-click="vm.toggleApp(app)" uib-tooltip="{{::app.name}}">
           <div class="checked" ng-show="app.checked">
             <i class="fa fa-check fa-5x"></i>
           </div>
           <img class="app-logo img-thumbnail" ng-src="{{app.logo}}" alt="{{::app.name}} logo" title="{{::app.tiny_description}}">
         </div>
-        <div class="app-title">
+        <div class="app-title" uib-tooltip="{{::app.name}}">
           {{::app.name}}
         </div>
       </div>
