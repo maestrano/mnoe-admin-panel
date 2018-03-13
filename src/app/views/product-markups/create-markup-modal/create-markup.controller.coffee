@@ -9,6 +9,8 @@
   vm.companies = []
   vm.markup.product_id = null
   vm.markup.organization_id = null
+  vm.selectedProdPricing = null
+  vm.isPricing = false
 
   vm.onSubmit = () ->
     vm.isLoading = true
@@ -40,7 +42,12 @@
     return MnoeOrganizations.organizations(vm.nbItems, 0, 'name', {'where[name.like]' : search + '%'})
 
   vm.toggleProductFilter = (product) ->
-    vm.markup.product_id = product.originalObject.id
+    vm.markup.product_id = null
+    vm.isPricing = false
+    if product && product.originalObject
+      vm.markup.product_id = product.originalObject.id
+      vm.selectedProdPricings = product.originalObject.product_pricings
+      vm.isPricing = true if vm.selectedProdPricings
 
   vm.toggleCompanyFilter = (company) ->
     vm.markup.organization_id = company.originalObject.id

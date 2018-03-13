@@ -1,0 +1,32 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="col-sm-3">Offer</th>
+      <th class="col-sm-3">Pricing Type</th>
+      <th class="col-sm-3">Original Prices</th>
+      <th class="col-sm-3">Final Prices</th>
+      <!-- <th class="col-sm-3" translate>Offer</th>
+      <th class="col-sm-3" translate>Pricing Type</th>
+      <th class="col-sm-3" translate>Original Prices</th>
+      <th class="col-sm-3" translate>Final Prices</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="offer in offers">
+      <td>{{offer.name}}</td>
+      <td>{{offer.per_unit}} / {{offer.per_duration}}</td>
+      <td ng-if="offer.prices">
+        <div ng-repeat="priceHash in offer.prices">
+          {{formatPrice(priceHash)}}
+        </div>
+      </td>
+      <td ng-if="!offer.prices">-</td>
+      <td ng-if="offer.prices">
+        <div ng-repeat="priceHash in offer.prices">
+          {{formatFinalPrice(priceHash)}}
+        </div>
+      </td>
+      <td ng-if="!offer.prices">-</td>
+    </tr>
+  </tbody>
+</table>
