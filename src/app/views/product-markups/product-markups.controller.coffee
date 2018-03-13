@@ -9,6 +9,7 @@
         templateUrl: 'app/views/product-markups/create-markup-modal/create-markup.html'
         controller: 'CreateMarkupController'
         controllerAs: 'vm'
+        size: 'lg'
       )
     displayInfo: ->
       modalInstance = $uibModal.open(

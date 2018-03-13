@@ -69,6 +69,12 @@
         (response) ->
           vm.markups.totalItems = response.headers('x-total-count')
           vm.markups.list = response.data
+          # vm.markups.list = _.map(vm.markups.list, data -> _.extend({expanded: false}, data))
+          vm.markups.list = _.map(vm.markups.list,
+            (app) ->
+              _.extend({expanded: false}, app)
+          )
+          vm.markups.list = _.merge(vm.markups.list, {expanded : false})
       ).finally(-> vm.markups.loading = false)
 
     # Initial call and start the listeners
@@ -110,6 +116,9 @@
           toastr.success('mnoe_admin_panel.dashboard.product_markups.modal.remove_product_markup.toastr_success')
         )
       )
+
+    vm.inPercentage = (val) ->
+      val * 100
 
     onMarkupAdded = ->
       fetchProductMarkups(vm.markups.nbItems, vm.markups.offset)

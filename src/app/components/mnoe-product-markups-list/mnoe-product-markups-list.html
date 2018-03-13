@@ -8,6 +8,7 @@
         <table st-pipe="$ctrl.callServer" st-table="$ctrl.markups.list" class="table table-striped" >
           <thead>
           <tr>
+            <th></th>
             <th st-sort="product.name" class="col-sm-4" translate>mnoe_admin_panel.dashboard.product_markups.widget.list.table.product</th>
             <th st-sort="organization.name" class="col-sm-4" translate>mnoe_admin_panel.dashboard.product_markups.widget.list.table.customer</th>
             <th st-sort="percentage" class="col-sm-2 text-center" translate>mnoe_admin_panel.dashboard.product_markups.widget.list.table.percentage</th>
@@ -15,6 +16,7 @@
             <th class="col-sm-1"></th>
           </tr>
           <tr>
+            <th></th>
             <th>
               <input st-search="product.name" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.widget.list.placeholder.search_product' | translate}}" class="form-control input-sm search-bar col-sm-4" type="text"/>
             </th>
@@ -32,21 +34,34 @@
           </tr>
           </tbody>
           <tbody ng-show="!$ctrl.markups.loading" >
-          <tr ng-repeat="pmElem in $ctrl.markups.list">
-            <td>{{ pmElem.product.name || ('mnoe_admin_panel.dashboard.product_markups.add_markup.modal.all_products' | translate) }}</td>
-            <td>{{ pmElem.organization.name || ('mnoe_admin_panel.dashboard.product_markups.add_markup.modal.all_companies' | translate) }}</td>
-            <td class="text-center">
-              <span ng-show="!$ctrl.editmode[pmElem.id]">{{pmElem.percentage*100 | number:2}}%</span>
-              <input ng-show="$ctrl.editmode[pmElem.id]" type="number" class="form-control input-sm" percentage-input ng-model="pmElem.percentage" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" required>
-            </td>
-            <td>
-              <a href="" ng-hide="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.editmode[pmElem.id] = true"><i class="fa fa-pencil"></i></a>
-            </td>
-            <td>
-              <a href="" ng-hide="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.remove(pmElem)"><i class="fa fa-times"></i></a>
-              <a href="" ng-show="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.update(pmElem)"><i class="fa fa-check"></i></a>
-            </td>
-          </tr>
+            <tr ng-repeat-start="pmElem in $ctrl.markups.list">
+              <td>
+                <button ng-click="pmElem.expanded = !pmElem.expanded">
+                    <span ng-bind="pmElem.expanded ? '-' : '+'"></span>
+                </button>
+              </td>
+              <td>{{ pmElem.product.name || ('mnoe_admin_panel.dashboard.product_markups.add_markup.modal.all_products' | translate) }}</td>
+              <td>{{ pmElem.organization.name || ('mnoe_admin_panel.dashboard.product_markups.add_markup.modal.all_companies' | translate) }}</td>
+              <td class="text-center">
+                <span ng-show="!$ctrl.editmode[pmElem.id]">{{pmElem.percentage*100 | number:2}}%</span>
+                <input ng-show="$ctrl.editmode[pmElem.id]" type="number" class="form-control input-sm" percentage-input ng-model="pmElem.percentage" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" required>
+              </td>
+              <td>
+                <a href="" ng-hide="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.editmode[pmElem.id] = true"><i class="fa fa-pencil"></i></a>
+              </td>
+              <td>
+                <a href="" ng-hide="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.remove(pmElem)"><i class="fa fa-times"></i></a>
+                <a href="" ng-show="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.update(pmElem)"><i class="fa fa-check"></i></a>
+              </td>
+            </tr>
+
+            <tr ng-show="pmElem.expanded" ng-repeat-end>
+              <td></td>
+              <td colspan="4">
+                <div mno-offers-list offers="pmElem.product.product_pricings" markup="pmElem.percentage"></div>
+                <!-- <mno-offers-list offers="$ctrl.markups.list[0].product.product_pricings"></mno-offers-list> -->
+              </td>
+            </tr>
           </tbody>
         </table>
     </div>
