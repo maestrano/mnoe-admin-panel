@@ -76,24 +76,18 @@
     <li class="sidebar-list" ng-if="::main.isDashboardTemplatesEnabled" ui-sref-active="active">
       <a ui-sref="dashboard.dashboard-templates">{{'mnoe_admin_panel.dashboard.layout.sidebar.dashboard_templates' | translate}}<span class="menu-icon fa fa-bar-chart"></span></a>
     </li>
-    <div ng-if="::main.adminConfig.areSettingsEnabled()" ng-show="main.user.admin_role == 'staff'">
+    <div ng-if="::main.adminConfig.areSettingsEnabled()" ng-show="['admin', 'staff'].includes(main.user.admin_role)">
       <li class="sidebar-title"><span>{{'mnoe_admin_panel.dashboard.layout.sidebar.settings' | translate}}</span></li>
-      <li class="sidebar-list" ui-sref-active="active">
-        <a ui-sref="dashboard.settings-apps">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings-apps' | translate}}<span class="menu-icon fa fa-th-large"></span></a>
-      </li>
-    </div>
-    <div ng-if="::main.adminConfig.areSettingsEnabled()" ng-show="main.user.admin_role == 'admin'">
-      <li class="sidebar-title"><span>{{'mnoe_admin_panel.dashboard.layout.sidebar.settings' | translate}}</span></li>
-      <li class="sidebar-list" ui-sref-active="active">
+      <li class="sidebar-list" ui-sref-active="active" ng-hide="main.user.admin_role == 'staff'">
         <a ui-sref="dashboard.settings-general">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings-general' | translate}}<span class="menu-icon fa fa-cogs"></span></a>
       </li>
       <li class="sidebar-list" ui-sref-active="active">
         <a ui-sref="dashboard.settings-apps">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings-apps' | translate}}<span class="menu-icon fa fa-th-large"></span></a>
       </li>
-      <li class="sidebar-list" ui-sref-active="active">
+      <li class="sidebar-list" ui-sref-active="active" ng-hide="main.user.admin_role == 'staff'">
         <a ui-sref="dashboard.settings-plugins">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings-plugins' | translate}}<span class="menu-icon fa fa-puzzle-piece"></span></a>
       </li>
-      <li class="sidebar-list" ui-sref-active="active">
+      <li class="sidebar-list" ui-sref-active="active" ng-hide="main.user.admin_role == 'staff'">
         <a ui-sref="dashboard.settings-domain">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings-domain' | translate}}<span class="menu-icon fa fa-shield"></span></a>
       </li>
     </div>
