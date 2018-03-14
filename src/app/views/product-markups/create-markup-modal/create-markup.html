@@ -48,8 +48,8 @@
           <mno-widget-header>
             <!--{{ 'mnoe_admin_panel.dashboard.product_markups.widget.list.title' | translate}}-->
           </mno-widget-header>
-          <mno-widget-body class="large no-padding">
-            <div mno-offers-list offers="vm.selectedProdPricings" markup="vm.markup.percentage"></div>
+          <mno-widget-body class='no-padding'>
+            <div mno-offers-list offers="vm.selectedProdPricings" markup="vm.markup.percentage" class='text-left'></div>
           </mno-widget-body>
         </mno-widget>
         <div ng-class="{ 'top-buffer-4': vm.isPricing }">

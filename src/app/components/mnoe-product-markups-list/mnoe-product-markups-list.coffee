@@ -117,9 +117,6 @@
         )
       )
 
-    vm.inPercentage = (val) ->
-      val * 100
-
     onMarkupAdded = ->
       fetchProductMarkups(vm.markups.nbItems, vm.markups.offset)
 
