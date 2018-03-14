@@ -69,12 +69,7 @@
         (response) ->
           vm.markups.totalItems = response.headers('x-total-count')
           vm.markups.list = response.data
-          # vm.markups.list = _.map(vm.markups.list, data -> _.extend({expanded: false}, data))
-          vm.markups.list = _.map(vm.markups.list,
-            (app) ->
-              _.extend({expanded: false}, app)
-          )
-          vm.markups.list = _.merge(vm.markups.list, {expanded : false})
+          vm.markups.list = _.map(vm.markups.list, (app) -> _.extend({expanded: false}, app))
       ).finally(-> vm.markups.loading = false)
 
     # Initial call and start the listeners

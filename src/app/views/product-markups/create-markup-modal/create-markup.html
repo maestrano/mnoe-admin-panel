@@ -35,8 +35,6 @@
         <div class="col-sm-2">
           <input type="number" class="form-control input-sm" percentage-input ng-model="vm.markup.percentage" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" required>
         </div>
-
-        
       </div>
     </div>
   </form>
@@ -45,9 +43,7 @@
     <div class="row actions">
       <div class="col-xs-12">
         <mno-widget ng-if="vm.isPricing" heading="Offers">
-          <mno-widget-header>
-            <!--{{ 'mnoe_admin_panel.dashboard.product_markups.widget.list.title' | translate}}-->
-          </mno-widget-header>
+          <mno-widget-header></mno-widget-header>
           <mno-widget-body class='no-padding'>
             <div mno-offers-list offers="vm.selectedProdPricings" markup="vm.markup.percentage" class='text-left'></div>
           </mno-widget-body>
