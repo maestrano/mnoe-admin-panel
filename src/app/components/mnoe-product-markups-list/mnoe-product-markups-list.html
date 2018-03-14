@@ -36,9 +36,12 @@
           <tbody ng-show="!$ctrl.markups.loading" >
             <tr ng-repeat-start="pmElem in $ctrl.markups.list">
               <td>
-                <button ng-click="pmElem.expanded = !pmElem.expanded">
-                    <span ng-bind="pmElem.expanded ? '-' : '+'"></span>
-                </button>
+                <div class='offers-listing' ng-click="pmElem.expanded = !pmElem.expanded">
+                    <span>
+                      <!-- <i class="fa fa-caret-right" ng-class="pmElem.expanded ? 'fa-caret-right' : 'fa-caret-down'"></i> -->
+                      <i class="fa fa-2x grey" ng-class="{ 'fa-caret-right': !pmElem.expanded, 'fa-caret-down': pmElem.expanded }"></i>
+                    </span>
+                </div>
               </td>
               <td>{{ pmElem.product.name || ('mnoe_admin_panel.dashboard.product_markups.add_markup.modal.all_products' | translate) }}</td>
               <td>{{ pmElem.organization.name || ('mnoe_admin_panel.dashboard.product_markups.add_markup.modal.all_companies' | translate) }}</td>
