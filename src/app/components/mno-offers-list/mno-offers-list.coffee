@@ -20,6 +20,15 @@
       else
         scope.formatPrice(priceHash)
 
+    scope.pricingType = (offer) ->
+      switch offer.pricing_type
+        when 'recurring'
+          offer.per_unit + " / " + offer.per_duration
+        when 'one_off'
+          "usage based"
+        when 'payg'
+          "one off"
+
     inDollars = (val) ->
       parseInt(val) / 100.0
 )

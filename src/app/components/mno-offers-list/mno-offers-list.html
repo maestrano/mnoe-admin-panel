@@ -14,7 +14,7 @@
   <tbody>
     <tr ng-repeat="offer in offers">
       <td>{{offer.name}}</td>
-      <td>{{offer.per_unit}} / {{offer.per_duration}}</td>
+      <td>{{pricingType(offer)}}</td>
       <td ng-if="offer.prices">
         <div ng-repeat="priceHash in offer.prices">
           {{formatPrice(priceHash)}}
