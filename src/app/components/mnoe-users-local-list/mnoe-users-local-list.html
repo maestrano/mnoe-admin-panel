@@ -7,11 +7,13 @@
     <table class="table table-layout-fixed">
       <thead>
         <tr>
-          <th style="width: 29%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.username</th>
-          <th style="width: 15%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.created_at</th>
-          <th style="width: 15%;" ng-if="organizationContext" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.status</th>
-          <th style="width: 20%;" ng-if="organizationContext" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.role</th>
-          <th style="width: 11%;" ng-if="isImpersonationEnabled && organizationContext" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.access</th>
+          <th style="width: 20%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.username</th>
+          <th style="width: 10%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.user_uid</th>
+          <th style="width: 10%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.created_at</th>
+          <th style="width: 10%;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.last_login</th>
+          <th style="width: 10%;" ng-if="organizationContext" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.status</th>
+          <th style="width: 10%;" ng-if="organizationContext" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.role</th>
+          <th style="width: 10%;" ng-if="isImpersonationEnabled && organizationContext" translate>mnoe_admin_panel.dashboard.users.widget.local_list.table.access</th>
         </tr>
       </thead>
       <tbody>
@@ -25,7 +27,9 @@
             <a href class='email_edit_link' ng-hide="user.isUpdatingEmail || emailForm.$visible" ng-click="emailForm.$show()"><i class="fa fa-pencil-square-o fa-1"></i></a>
             <span ng-show="user.isUpdatingEmail"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           </td>
+          <td>{{user.uid}}</td>
           <td>{{user.created_at | date: 'dd/MM/yyyy'}}</td>
+          <td>{{(user.last_sign_in_at | date: 'dd/MM/yyyy') || ('mnoe_admin_panel.dashboard.users.widget.local_list.last_login.never' | translate)}}</td>
           <td ng-if="organizationContext">
             <button ng-show="user.status === 'pending'" ng-click="sendInvitation(user)" class="btn btn-xs btn-warning" ng-disabled="user.isSendingInvite">
               <span ng-show="user.isSendingInvite"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
