@@ -24,9 +24,9 @@
       switch offer.pricing_type
         when 'recurring'
           offer.per_unit + " / " + offer.per_duration
-        when 'one_off'
-          $translate.instant("mnoe_admin_panel.dashboard.product_markups.offers.modal.usage_based")
         when 'payg'
+          $translate.instant("mnoe_admin_panel.dashboard.product_markups.offers.modal.usage_based")
+        when 'one_off'
           $translate.instant("mnoe_admin_panel.dashboard.product_markups.offers.modal.one_off")
 
     inDollars = (val) ->
