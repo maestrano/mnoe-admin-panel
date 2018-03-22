@@ -135,6 +135,8 @@
   "mnoe_admin_panel.dashboard.settings.modal.confirm.perform": "Do you really want to apply these changes?",
   "mnoe_admin_panel.dashboard.settings.modal.confirm.unsaved": "Are you sure you want to leave this page without saving your changes?",
   "mnoe_admin_panel.dashboard.settings.apps.title": "Configure the Product Catalogue",
+  "mnoe_admin_panel.dashboard.settings.apps.search": "Search",
+  "mnoe_admin_panel.dashboard.settings.apps.select_all": "All",
   "mnoe_admin_panel.dashboard.settings.apps.available_apps": "Available Products",
   "mnoe_admin_panel.dashboard.settings.apps.modal.add_app.add": "Add products",
   "mnoe_admin_panel.dashboard.settings.apps.modal.add_app.title": "Add additional products",
