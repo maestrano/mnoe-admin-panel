@@ -34,11 +34,13 @@
   )
 
   # Remove apps which are no longer enabled
-  validateAppList = (appNidList) ->
+  validateAppList = (appNidList, localProductNidList) ->
     if vm.settingsModel?.dashboard?.public_pages?
       publicPagesConf = vm.settingsModel.dashboard.public_pages
       publicPagesConf.applications = _.intersection(publicPagesConf.applications, appNidList)
       publicPagesConf.highlighted_applications = _.intersection(publicPagesConf.highlighted_applications, appNidList)
+      publicPagesConf.local_products = _.intersection(publicPagesConf.local_products, localProductNidList)
+      publicPagesConf.highlighted_local_products = _.intersection(publicPagesConf.highlighted_local_products, localProductNidList)
 
   # Load config from the Tenant
   loadConfig = ->
@@ -48,7 +50,7 @@
         vm.settingsModel = response.tenant.data.frontend_config
         vm.originalSettings = angular.copy(vm.settingsModel)
         vm.settingsSchema = response.tenant.data.config_schema
-        validateAppList(_.map(response.marketplace.data.apps, 'nid'))
+        validateAppList(_.map(response.marketplace.data.apps, 'nid'), _.map(_.filter(response.marketplace.data.products, 'local'), 'nid'))
     ).finally(-> vm.isLoading = false)
 
   loadConfig()
