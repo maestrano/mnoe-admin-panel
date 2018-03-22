@@ -1,6 +1,34 @@
 <mno-widget icon="fa-sitemap" heading="{{organizations.widgetTitle | translate}}" is-loading="organizations.loading">
   <mno-widget-header>
     &nbsp;<a href="" ng-click="switchState()" ng-show="organizations.list && organizations.switchLinkTitle" ng-class="{'disabled': organizations.loading}" translate>{{organizations.switchLinkTitle}}</a>
+
+    <span class='cogwheel-dropdown' uib-dropdown>
+      <a href='' uib-dropdown-toggle>
+        <span class='fa fa-cog'></span>
+      </a>
+      <ul class='dropdown-menu dropdown-menu-right'>
+        <li class='dropdown-description' translate>
+          mnoe_admin_panel.dashboard.organization.widget.list.filters.description
+        </li>
+        <li>
+          <div class='checkbox'>
+            <label>
+              <input type='checkbox' ng-model="showFrozen" ng-click="toggleSearchFilters('isFrozen')">
+              {{ 'mnoe_admin_panel.dashboard.organization.widget.list.filters.frozen' | translate }}
+            </label>
+          </div>
+        </li>
+        <li>
+          <div class='checkbox'>
+            <label>
+              <input type='checkbox' ng-model="showDemo" ng-click="toggleSearchFilters('isDemo')">
+              {{ 'mnoe_admin_panel.dashboard.organization.widget.list.filters.demo' | translate }}
+            </label>
+          </div>
+        </li>
+      </ul>
+    </span>
+
     <input type="text" ng-model="organizations.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }' placeholder="{{'mnoe_admin_panel.dashboard.organization.widget.list.search_users.placeholder.search_all' | translate}}" class="form-control input-sm search-bar" />
   </mno-widget-header>
   <mno-widget-body class="large no-padding">
@@ -24,8 +52,11 @@
       </tbody>
     </table>
   </mno-widget-body>
-  <mno-widget-footer ng-show="organizations.list && state == 'all' && !searchMode">
-    <mno-pagination
+  <mno-widget-footer ng-if="showFooter()">
+    <p ng-if="showListingMessage()" translate>
+      mnoe_admin_panel.dashboard.organization.widget.list.filters.additional_message
+    </p>
+    <mno-pagination ng-if="showPagination()"
       page="organizations.page"
       nb-items="organizations.nbItems"
       total-items="organizations.totalItems"

@@ -1,7 +1,7 @@
 #
 # Mnoe organizations List
 #
-@App.directive('mnoeOrganizationsList', ($filter, $log, MnoeOrganizations) ->
+@App.directive('mnoeOrganizationsList', ($filter, $log, $window, MnoeOrganizations) ->
   restrict: 'E'
   scope: {
     list: '='
@@ -23,10 +23,16 @@
         offset = (page  - 1) * nbItems
         fetchOrganizations(nbItems, offset)
 
+    listingFilters = (term) ->
+      term[ 'account_frozen' ] = !scope.showFrozen
+      term[ 'demo_account' ] = !scope.showDemo
+
     # Fetch organisations
     fetchOrganizations = (limit, offset, sort = 'name') ->
       scope.organizations.loading = true
-      return MnoeOrganizations.list(limit, offset, sort).then(
+      search = {}
+      listingFilters(search)
+      return MnoeOrganizations.list(limit, offset, sort, search).then(
         (response) ->
           scope.organizations.totalItems = response.headers('x-total-count')
           scope.organizations.list = response.data
@@ -35,6 +41,10 @@
     scope.switchState = () ->
       scope.state = attrs.view = if attrs.view == 'all' then 'last' else 'all'
       displayCurrentState()
+
+    loadDefaultFilters = () ->
+      scope.showFrozen = $window.sessionStorage.getItem('isFrozen') == 'true'
+      scope.showDemo = $window.sessionStorage.getItem('isDemo') == 'true'
 
     # if view="all" is set on the directive, all the users are displayed
     # if view="last" is set on the directive, the last 10 users are displayed
@@ -68,6 +78,28 @@
         scope.searchMode = false
         displayCurrentState()
 
+    scope.toggleSearchFilters = (filter) ->
+      switch filter
+        when 'isDemo'
+          scope.showDemo = !scope.showDemo
+          $window.sessionStorage.setItem(filter, scope.showDemo)
+        when 'isFrozen'
+          scope.showFrozen = !scope.showFrozen
+          $window.sessionStorage.setItem(filter, scope.showFrozen)
+      if scope.searchMode == true
+        setSearchOrganizationsList(scope.organizations.search)
+      else
+        displayCurrentState()
+
+    scope.showFooter = ->
+      scope.showListingMessage() || scope.showPagination()
+
+    scope.showListingMessage = ->
+      !(scope.showDemo && scope.showFrozen)
+
+    scope.showPagination = ->
+      scope.organizations.list && scope.state == 'all' && !scope.searchMode
+
     # Display only the search results
     setSearchOrganizationsList = (search) ->
       scope.organizations.loading = true
@@ -75,11 +107,16 @@
       delete scope.organizations.switchLinkTitle
       search = scope.organizations.search.toLowerCase()
       terms = {'name.like': "%#{search}%"}
+      terms['listing_filters'] = {}
+      listingFilters(terms['listing_filters'])
       MnoeOrganizations.search(terms).then(
         (response) ->
           scope.organizations.totalItems = response.headers('x-total-count')
           scope.organizations.list = $filter('orderBy')(response.data, 'name')
       ).finally(-> scope.organizations.loading = false)
+
+    # Set session based filters
+    loadDefaultFilters()
 
     # Initial call
     displayCurrentState()
