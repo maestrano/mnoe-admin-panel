@@ -445,6 +445,7 @@
   "mnoe_admin_panel.dashboard.provisioning.subscriptions.end_date": "End date",
   "mnoe_admin_panel.dashboard.provisioning.subscriptions.status": "Status",
   "mnoe_admin_panel.dashboard.provisioning.subscriptions.modify": "Modify subscription",
+  "mnoe_admin_panel.dashboard.provisioning.subscriptions.cannot_modify": "Cannot modify",
   "mnoe_admin_panel.dashboard.provisioning.subscriptions.cancel": "Cancel subscription",
   "mnoe_admin_panel.dashboard.provisioning.subscriptions.cancel_modal.title": "Cancel subscription",
   "mnoe_admin_panel.dashboard.provisioning.subscriptions.cancel_modal.body": "Do you want to cancel this subscription?",
