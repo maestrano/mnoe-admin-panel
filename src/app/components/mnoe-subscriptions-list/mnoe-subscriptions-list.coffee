@@ -112,7 +112,16 @@
       ).finally(-> ctrl.subscriptions.loading = false)
 
     ctrl.displayInfoTooltip = (subscription) ->
-      return subscription.status == 'aborted'
+      subscription.status == 'aborted'
+
+    ctrl.subscriptionModifiable = (subscription) ->
+      subscription.available_edit_actions && subscription.status != 'cancelled'
+
+    ctrl.subscriptionModifyToolTip = (subscription) ->
+      if ctrl.subscriptionModifiable(subscription)
+        'mnoe_admin_panel.dashboard.provisioning.subscriptions.modify'
+      else
+        'mnoe_admin_panel.dashboard.provisioning.subscriptions.cannot_modify'
 
     ctrl.displayStatusInfo = ->
       modalInstance = $uibModal.open(
