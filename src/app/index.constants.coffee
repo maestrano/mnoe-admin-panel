@@ -36,9 +36,9 @@
     'unpriced': ['free', 'payg']
   })
   .constant('EDIT_ACTIONS', {
-    'EDIT': 'mno_enterprise.templates.dashboard.provisioning.subscription.edit',
-    'CHANGE': 'mno_enterprise.templates.dashboard.provisioning.subscription.change',
-    'RENEW': 'mno_enterprise.templates.dashboard.provisioning.subscription.renew',
-    'SUSPEND': 'mno_enterprise.templates.dashboard.provisioning.subscription.suspend',
-    'REACTIVATE': 'mno_enterprise.templates.dashboard.provisioning.subscription.reactivate'
+    'EDIT': 'mnoe_admin_panel.dashboard.provisioning.subscriptions.edit',
+    'CHANGE': 'mnoe_admin_panel.dashboard.provisioning.subscriptions.change',
+    'RENEW': 'mnoe_admin_panel.dashboard.provisioning.subscriptions.renew',
+    'SUSPEND': 'mnoe_admin_panel.dashboard.provisioning.subscriptions.suspend',
+    'REACTIVATE': 'mnoe_admin_panel.dashboard.provisioning.subscriptions.reactivate'
   })

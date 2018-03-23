@@ -5,19 +5,17 @@
   vm.product = null
 
   orgPromise = MnoeOrganizations.get($stateParams.orgId)
-  prodsPromise = MnoeProvisioning.getProducts()
   initPromise = MnoeProvisioning.initSubscription({productNid: $stateParams.nid, subscriptionId: $stateParams.id, orgId: $stateParams.orgId})
 
   # Return true if the plan has a dollar value
   vm.pricedPlan = ProvisioningHelper.pricedPlan
 
-  $q.all({organization: orgPromise, products: prodsPromise, subscription: initPromise}).then(
+  $q.all({organization: orgPromise, subscription: initPromise}).then(
     (response) ->
       vm.orgCurrency = response.organization.data.billing_currency || MnoeAdminConfig.marketplaceCurrency()
       vm.subscription = response.subscription
       vm.subscription.organization_id = response.organization.data.id
-
-      MnoeProvisioning.findProduct({id: vm.subscription.product?.id, nid: $stateParams.nid}).then(
+      MnoeProvisioning.getProduct(vm.subscription.product.id, { editAction: $stateParams.editAction }).then(
         (response) ->
           vm.subscription.product = response
 
@@ -35,9 +33,9 @@
   vm.next = (subscription) ->
     MnoeProvisioning.setSubscription(subscription)
     if vm.subscription.product.custom_schema?
-      $state.go('dashboard.provisioning.additional_details', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid})
+      $state.go('dashboard.provisioning.additional_details', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid, editAction: $stateParams.editAction})
     else
-      $state.go('dashboard.provisioning.confirm', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid})
+      $state.go('dashboard.provisioning.confirm', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid, editAction: $stateParams.editAction})
 
   # Delete the cached subscription when we are leaving the subscription workflow.
   $scope.$on('$stateChangeStart', (event, toState) ->

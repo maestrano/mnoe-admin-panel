@@ -7,10 +7,22 @@
   vm.singleBilling = vm.subscription.product.single_billing_enabled
   vm.billedLocally = vm.subscription.product.billed_locally
 
+  vm.editOrder = () ->
+    params = {
+      nid: $stateParams.nid,
+      orgId: $stateParams.orgId
+      id: $stateParams.id,
+      editAction: $stateParams.editAction
+    }
+    if $stateParams.editAction == 'CHANGE'
+      $state.go('dashboard.provisioning.order', params)
+    else
+      $state.go('dashboard.provisioning.additional_details', params)
+
   # Happen when the user reload the browser during the provisioning
   if _.isEmpty(vm.subscription)
     # Redirect the user to the first provisioning screen
-    $state.go('dashboard.provisioning.order', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid}, {reload: true})
+    vm.editOrder()
 
   $q.all({organization: orgPromise}).then(
     (response) ->

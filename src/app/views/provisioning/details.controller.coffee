@@ -1,14 +1,7 @@
-@App.controller('ProvisioningDetailsCtrl', ($scope, $state, $stateParams, MnoeProvisioning, schemaForm) ->
+@App.controller('ProvisioningDetailsCtrl', ($scope, $q, $state, $stateParams, MnoeProvisioning, MnoeOrganizations, schemaForm, PRICING_TYPES, EDIT_ACTIONS) ->
   vm = this
 
   vm.subscription = MnoeProvisioning.getSubscription()
-
-  # Happen when the user reload the browser during the provisioning
-  if _.isEmpty(vm.subscription)
-    # Redirect the user to the first provisioning screen
-    $state.go('dashboard.provisioning.order', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid}, {reload: true})
-
-  vm.isEditMode = !_.isEmpty(vm.subscription.custom_data)
 
   # We must use model schemaForm's sf-model, as #json_schema_opts are namespaced under model
   vm.model = vm.subscription.custom_data || {}
@@ -21,27 +14,64 @@
     .add(contractLength.split('Months')[0], 'M')
     .format('YYYY-MM-DD')
 
-  # The schema is contained in field vm.product.custom_schema
-  #
-  # jsonref is used to resolve $ref references
-  # jsonref is not cyclic at this stage hence the need to make a
-  # reasonable number of passes (2 below + 1 in the sf-schema directive)
-  # to resolve cyclic references
-  #
-  MnoeProvisioning.findProduct(id: vm.subscription.product.id).then((response) ->
-    vm.form = if response.asf_options then JSON.parse(response.asf_options) else ["*"]
+  getCustomSchema = (product) ->
+    # The schema is contained in field vm.product.custom_schema
+    #
+    # jsonref is used to resolve $ref references
+    # jsonref is not cyclic at this stage hence the need to make a
+    # reasonable number of passes (2 below + 1 in the sf-schema directive)
+    # to resolve cyclic references
+    schemaForm.jsonref(JSON.parse(product.custom_schema))
+      .then((schema) -> schemaForm.jsonref(schema))
+      .then((schema) -> schemaForm.jsonref(schema))
+      .then((schema) ->
+        vm.schema = schema
+      )
 
-    if response.custom_schema then JSON.parse(response.custom_schema) else {}
-    ).then((schema) -> schemaForm.jsonref(schema))
-    .then((schema) -> schemaForm.jsonref(schema))
-    .then((schema) -> vm.schema = schema)
+  if _.isEmpty(vm.subscription)
+    vm.isLoading = true
+    # Redirect the user to the first provisioning screen
+    orgPromise = MnoeOrganizations.get($stateParams.orgId)
+    initPromise = MnoeProvisioning.initSubscription({productNid: $stateParams.nid, subscriptionId: $stateParams.id, orgId: $stateParams.orgId})
+
+    $q.all({organization: orgPromise, subscription: initPromise}).then(
+      (response) ->
+        vm.orgCurrency = response.organization.data.billing_currency || MnoeAdminConfig.marketplaceCurrency()
+        vm.subscription = response.subscription
+        vm.subscription.organization_id = response.organization.data.id
+
+        vm.isEditMode = !_.isEmpty(vm.subscription.custom_data)
+        MnoeProvisioning.getProduct(vm.subscription.product.id, { editAction: $stateParams.editAction }).then(
+          (response) ->
+            vm.subscription.product = response
+
+            # Filters the pricing plans not containing current currency
+            vm.subscription.product.product_pricings = _.filter(vm.subscription.product.product_pricings,
+              (pp) -> (pp.pricing_type in PRICING_TYPES['unpriced']) || _.some(pp.prices, (p) -> p.currency == vm.orgCurrency)
+            )
+
+            MnoeProvisioning.setSubscription(vm.subscription)
+
+            vm.subscription.product
+          ).then((product) -> getCustomSchema(product))
+    ).finally(-> vm.isLoading = false)
+  else
+    vm.schema = getCustomSchema(vm.subscription.product)
+
+  vm.isEditMode = !_.isEmpty(vm.subscription.custom_data)
 
   vm.submit = (form) ->
     $scope.$broadcast('schemaFormValidate')
     return unless form.$valid
     vm.subscription.custom_data = vm.model
     MnoeProvisioning.setSubscription(vm.subscription)
-    $state.go('dashboard.provisioning.confirm', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid})
+    $state.go('dashboard.provisioning.confirm', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid, editAction: $stateParams.editAction})
+
+  vm.editButtonText = (editAction) ->
+    if editAction == 'SUSPEND' && vm.subscription.status == 'suspended'
+      EDIT_ACTIONS['REACTIVATE']
+    else
+      EDIT_ACTIONS[editAction]
 
   # Delete the cached subscription when we are leaving the subscription workflow.
   $scope.$on('$stateChangeStart', (event, toState) ->

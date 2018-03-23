@@ -41,6 +41,11 @@
         _.find(productsResponse.products, (a) -> a.id == id || a.nid == nid)
     )
 
+  productPromises = {}
+  @getProduct = (productId, params) ->
+    productPromises["#{productId}/#{params.editAction}"] ?= MnoeAdminApiSvc.one('/products', productId).get(params)
+      .then((response) -> response.data.product)
+
   @setSubscription = (s) ->
     subscription = s
 
@@ -99,8 +104,8 @@
           response.data
       )
 
-  @fetchSubscription = (id, orgId) ->
-    MnoeAdminApiSvc.one('/organizations', orgId).one('subscriptions', id).get().catch(
+  @fetchSubscription = (id, orgId, params) ->
+    MnoeAdminApiSvc.one('/organizations', orgId).one('subscriptions', id).get(params).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)
