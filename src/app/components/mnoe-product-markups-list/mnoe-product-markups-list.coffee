@@ -72,10 +72,11 @@
           vm.markups.totalItems = response.headers('x-total-count')
           vm.markups.list = response.data
           if vm.customerOrg
+            vm.customerAppIds = _.map(vm.customerOrg.active_apps, 'nid')
             vm.readOnlyView = true
             vm.markups.list = _.filter(vm.markups.list, (app) ->
               app if !app.product ||
-              _.includes(_.map(vm.customerOrg.active_apps, 'nid'), app.product.nid)
+              _.includes(vm.customerAppIds, app.product.nid)
             )
       ).finally(-> vm.markups.loading = false)
 
