@@ -13,7 +13,7 @@
         <li>
           <div class='checkbox'>
             <label>
-              <input type='checkbox' ng-model="showFrozen" ng-click="toggleSearchFilters('isFrozen')">
+              <input type='checkbox' ng-checked="!hideFrozen" ng-click="toggleSearchFilters('isFrozen')">
               {{ 'mnoe_admin_panel.dashboard.organization.widget.list.filters.frozen' | translate }}
             </label>
           </div>
@@ -21,7 +21,7 @@
         <li>
           <div class='checkbox'>
             <label>
-              <input type='checkbox' ng-model="showDemo" ng-click="toggleSearchFilters('isDemo')">
+              <input type='checkbox' ng-checked="!hideDemo" ng-click="toggleSearchFilters('isDemo')">
               {{ 'mnoe_admin_panel.dashboard.organization.widget.list.filters.demo' | translate }}
             </label>
           </div>

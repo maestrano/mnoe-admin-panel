@@ -24,8 +24,8 @@
         fetchOrganizations(nbItems, offset)
 
     listingFilters = (term) ->
-      term[ 'account_frozen' ] = !scope.showFrozen
-      term[ 'demo_account' ] = !scope.showDemo
+      term[ 'account_frozen' ] = !scope.hideFrozen if scope.hideFrozen
+      term[ 'demo_account' ] = !scope.hideDemo if scope.hideDemo
 
     # Fetch organisations
     fetchOrganizations = (limit, offset, sort = 'name') ->
@@ -43,8 +43,8 @@
       displayCurrentState()
 
     loadDefaultFilters = () ->
-      scope.showFrozen = $window.sessionStorage.getItem('isFrozen') == 'true'
-      scope.showDemo = $window.sessionStorage.getItem('isDemo') == 'true'
+      scope.hideFrozen = if $window.sessionStorage.getItem('isFrozen') then $window.sessionStorage.getItem('isFrozen') == 'true' else true
+      scope.hideDemo = if $window.sessionStorage.getItem('isDemo') then $window.sessionStorage.getItem('isDemo') == 'true' else true
 
     # if view="all" is set on the directive, all the users are displayed
     # if view="last" is set on the directive, the last 10 users are displayed
@@ -81,11 +81,11 @@
     scope.toggleSearchFilters = (filter) ->
       switch filter
         when 'isDemo'
-          scope.showDemo = !scope.showDemo
-          $window.sessionStorage.setItem(filter, scope.showDemo)
+          scope.hideDemo = !scope.hideDemo
+          $window.sessionStorage.setItem(filter, scope.hideDemo)
         when 'isFrozen'
-          scope.showFrozen = !scope.showFrozen
-          $window.sessionStorage.setItem(filter, scope.showFrozen)
+          scope.hideFrozen = !scope.hideFrozen
+          $window.sessionStorage.setItem(filter, scope.hideFrozen)
       if scope.searchMode == true
         setSearchOrganizationsList(scope.organizations.search)
       else
@@ -95,7 +95,7 @@
       scope.showListingMessage() || scope.showPagination()
 
     scope.showListingMessage = ->
-      !(scope.showDemo && scope.showFrozen)
+      !(scope.hideDemo && scope.hideFrozen)
 
     scope.showPagination = ->
       scope.organizations.list && scope.state == 'all' && !scope.searchMode
