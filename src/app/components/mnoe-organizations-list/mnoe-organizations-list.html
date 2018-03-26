@@ -9,7 +9,8 @@
     row-collection="organizations.list"
     is-loading="organizations.loading"
     fields="organizations.fields"
-    pipe="pipe(tableState)">
+    pipe="pipe(tableState)"
+    bindings="customizations.bindings">
     </mno-sortable-table>
   </mno-widget-body>
   <mno-widget-footer ng-show="organizations.list && !searchMode">

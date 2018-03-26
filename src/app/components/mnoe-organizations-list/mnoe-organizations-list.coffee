@@ -4,7 +4,9 @@
 @App.directive('mnoeOrganizationsList', ($filter, $translate, MnoeOrganizations, MnoeAdminConfig, MnoeCurrentUser) ->
   restrict: 'E'
   scope: {
-    list: '='
+    list: '=',
+    user: '<',
+    customizations: '<'
   },
   templateUrl: 'app/components/mnoe-organizations-list/mnoe-organizations-list.html',
   link: (scope, elem) ->
@@ -46,7 +48,7 @@
                 mnoe_admin_panel.dashboard.organization.demo_account_state</em>
               </a>
             """,
-            scope: {organization: organization}}
+            scope: { organization: organization }}
 
           # organization creation date
           { header: locale["mnoe_admin_panel.dashboard.organization.widget.list.table.creation"],
@@ -57,7 +59,7 @@
           render: (organization) ->
             template:
               "<span>{{::organization.created_at | date: 'dd/MM/yyyy'}}</span>"
-            scope: {organization: organization}}
+            scope: { organization: organization }}
         ]
 
         # Add Finance columns if enabled
@@ -71,6 +73,8 @@
           # Currency
           { header: locale['mnoe_admin_panel.dashboard.organization.widget.list.table.currency'],
           attr:'financial_metrics.currency', doNotSort: true, style: width: '110px'}])
+
+        scope.organizations.fields = scope.organizations.fields.concat(scope.customizations.fields) if scope.customizations.fields
       )
 
     # Smart table callback
@@ -90,6 +94,7 @@
           {sub_tenant_id: MnoeCurrentUser.user.mnoe_sub_tenant_id, account_manager_id: MnoeCurrentUser.user.id}
         else
           {}
+        params = angular.extend({}, params, scope.searchParams) if scope.searchParams
         return MnoeOrganizations.list(limit, offset, sort, params).then(
           (response) ->
             scope.organizations.totalItems = response.headers('x-total-count')
@@ -123,12 +128,18 @@
       delete scope.organizations.switchLinkTitle
       search = scope.organizations.search.toLowerCase()
       terms = {'name.like': "%#{search}%"}
-      MnoeOrganizations.search(terms).then(
+      # Custom search parameters are given to the directive. E.g. when we only want to search orgs of a particular user.
+      params = scope.customizations.searchParams || {}
+      MnoeOrganizations.search(terms, params).then(
         (response) ->
           scope.organizations.totalItems = response.headers('x-total-count')
           scope.organizations.list = $filter('orderBy')(response.data, 'name')
       ).finally(-> scope.organizations.loading = false)
 
+    init = () ->
+      scope.organizations.loading = true
+      setAllOrganizationsList()
+
     # Initial call
-    displayCurrentState()
+    init()
 )
