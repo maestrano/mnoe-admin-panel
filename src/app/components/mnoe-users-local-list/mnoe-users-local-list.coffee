@@ -1,7 +1,9 @@
 #
 # Mnoe Users List
-#
-@App.directive('mnoeUsersLocalList', ($filter, $log, $translate, toastr, MnoeAdminConfig, MnoeUsers, MnoErrorsHandler, MnoConfirm, USER_ROLES) ->
+# The users-local-list is on the organization's info page and shows the users attached to an organization, while
+# the users-list is on the homepage and shows all the organizations.
+
+@App.directive('mnoeUsersLocalList', ($filter, $log, $translate, toastr, MnoeAdminConfig, MnoeUsers, MnoErrorsHandler, MnoConfirm, UserRoles) ->
   restrict: 'E'
   scope: {
     list: '='
@@ -12,13 +14,14 @@
     scope.isImpersonationEnabled = MnoeAdminConfig.isImpersonationEnabled()
     # Only some info in the context of an organization
     scope.organizationContext = attrs.organization?
+    scope.userRoles = UserRoles
+    scope.editMode = false
 
     # Variables initialization
     scope.users =
       displayList: []
       widgetTitle: 'mnoe_admin_panel.dashboard.users.widget.local_list.loading_users.title'
       search: ''
-    scope.availableRoles = _.map(USER_ROLES, 'value')
 
     # Display all the users
     setAllUsersList = () ->
@@ -69,6 +72,15 @@
       else
         setSearchUsersList()
 
+    scope.editRole = (user) ->
+      # Keep track of old roles when editing user's roles.
+      user.beforeEditRole = user.role
+      user.editMode = true
+
+    scope.exitEditRole = (user) ->
+      user.role = user.beforeEditRole
+      user.editMode = false
+
     # Send an invitation to a user
     scope.sendInvitation = (user) ->
       user.isSendingInvite = true
@@ -92,21 +104,22 @@
           MnoErrorsHandler.processServerError(error)
       ).finally(-> user.isUpdatingEmail = false)
 
-    scope.keyFromRole = (role) ->
-      _.find(USER_ROLES, 'value', role).label
-
-    scope.updateUserRole = (user, oldRole) ->
+    scope.updateUserRole = (user) ->
       user.isUpdatingRole = true
       MnoeUsers.updateUserRole(scope.organization, user).then(
         () ->
-          $translate(scope.keyFromRole(user.role)).then((tls) ->
+          $translate(UserRoles.keyFromRole(user.role)).then((tls) ->
             toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_success', {extraData: {user: "#{user.email}", role: tls}})
           )
         (error) ->
-          user.role = oldRole
+          user.role = user.beforeEditRole
           toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_error')
           MnoErrorsHandler.processServerError(error)
-      ).finally(-> user.isUpdatingRole = false)
+      ).finally( () ->
+        user.beforeEditRole = null
+        user.isUpdatingRole = false
+        user.editMode = false
+      )
 
     scope.removeUserFromOrganization = (user) ->
       modalOptions =

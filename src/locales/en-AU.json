@@ -486,6 +486,7 @@
   "mnoe_admin_panel.dashboard.subscriptions.modal.approve_disabled": "Your order status cannot be updated at this stage",
   "mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.name": "Name",
   "mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.created_at": "Created At",
+  "mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.role": "Role",
   "mnoe_admin_panel.dashboard.reviews.title": "Reviews",
   "mnoe_admin_panel.dashboard.reviews_list.title": "All reviews",
   "mnoe_admin_panel.dashboard.reviews_list.author": "Author",

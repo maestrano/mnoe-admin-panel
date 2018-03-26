@@ -44,8 +44,13 @@
             <span ng-show="user.status === 'invited'" ng-click="removeUserFromOrganization(user)" uib-tooltip="{{'mnoe_admin_panel.dashboard.users.widget.local_list.cancel_invite' | translate}}"><i class="fa fa-close fa-1"></i></span>
           </td>
           <td ng-if="organizationContext">
-            <select ng-model="user.role" ng-options="role as keyFromRole(role) | translate for role in availableRoles" ng-change="updateUserRole(user, '{{user.role}}')"></select>
+            <select ng-show="user.editMode" ng-model="user.role" ng-options="role.value as role.translatedLabel for role in userRoles.availableRolesForOptions"></select>
             <span ng-show="user.isUpdatingRole"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+            <span ng-click="editRole(user)" ng-hide="user.editMode">{{ userRoles.keyFromRole(user.role) | translate }}</span>
+            <a class="role_edit_link" ng-hide="user.editMode" ng-click="editRole(user)"><i class="fa fa-pencil"></i></a>
+            <a class="role_edit_link" ng-show="user.editMode" ng-click="updateUserRole(user, user.role)"><i class="fa fa-check"></i></a>
+            <a class="role_edit_link" ng-show="user.editMode" ng-click="exitEditRole(user)"><i class="fa fa-times"></i></a>
+            <span ng-show="vm.isSaving"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           </td>
           <td ng-if="isImpersonationEnabled && organizationContext">
             <mnoe-impersonate-button btn-class-names="btn btn-xs btn-default" user="user" organization-id="organization.id"></mnoe-impersonate-button>
