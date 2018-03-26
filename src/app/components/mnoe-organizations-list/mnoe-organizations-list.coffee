@@ -95,7 +95,7 @@
       scope.showListingMessage() || scope.showPagination()
 
     scope.showListingMessage = ->
-      !(scope.hideDemo && scope.hideFrozen)
+      scope.hideDemo || scope.hideFrozen
 
     scope.showPagination = ->
       scope.organizations.list && scope.state == 'all' && !scope.searchMode
