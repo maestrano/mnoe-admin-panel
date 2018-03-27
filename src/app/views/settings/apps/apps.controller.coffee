@@ -47,7 +47,10 @@
       (apps) ->
         MnoeApps.enableMultiple(_.map(apps, 'id')).then(
           ->
-            vm.enabledApps = vm.enabledApps.concat(apps)
+            MnoeMarketplace.getApps().then(
+              (response) ->
+                vm.enabledApps = angular.copy(response.data.apps)
+            )
         )
     )
 
