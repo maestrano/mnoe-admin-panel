@@ -4,14 +4,19 @@
 
   main.errorHandler = MnoErrorsHandler
   main.staffPageAuthorized = STAFF_PAGE_AUTH
-  main.isReviewingEnabled = MnoeAdminConfig.isReviewingEnabled()
-  main.areQuestionsEnabled = MnoeAdminConfig.areQuestionsEnabled()
-  main.isFinanceEnabled = MnoeAdminConfig.isFinanceEnabled()
-  main.areLocalProductsEnabled = MnoeAdminConfig.areLocalProductsEnabled()
-  main.isProvisioningEnabled = MnoeAdminConfig.isProvisioningEnabled()
-  main.isSubTenantEnabled = MnoeAdminConfig.isSubTenantEnabled()
-  main.isDashboardTemplatesEnabled = MnoeAdminConfig.isDashboardTemplatesEnabled()
   main.adminConfig = MnoeAdminConfig
+  main.showProductManagement =
+    MnoeAdminConfig.areLocalProductsEnabled() ||
+    MnoeAdminConfig.isProductMarkupEnabled() ||
+    MnoeAdminConfig.areSettingsEnabled()
+  main.showWebstore =
+    MnoeAdminConfig.isStaffEnabled() ||
+    MnoeAdminConfig.isSubTenantEnabled() ||
+    MnoeAdminConfig.isFinanceEnabled() ||
+    MnoeAdminConfig.isReviewingEnabled() ||
+    MnoeAdminConfig.areQuestionsEnabled() ||
+    MnoeAdminConfig.isDashboardTemplatesEnabled() ||
+    MnoeAdminConfig.isAuditLogEnabled()
 
   main.trustSrc = (src) ->
     $sce.trustAsResourceUrl(src)
