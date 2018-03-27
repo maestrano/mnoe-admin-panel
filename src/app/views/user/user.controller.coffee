@@ -1,8 +1,9 @@
-@App.controller 'UserController', ($stateParams, MnoeUsers, UserRoles, $translate, toastr, MnoErrorsHandler, MnoeOrganizations) ->
+@App.controller 'UserController', ($stateParams, MnoeUsers, UserRoles, $translate, toastr, MnoErrorsHandler) ->
   'ngInject'
   vm = this
   vm.user = {}
-  vm.orgTableCustomizations = {}
+  vm.orgSearchParams = { 'where[users.id]': $stateParams.userId }
+
   # Get the user
   MnoeUsers.get($stateParams.userId).then(
     (response) ->
@@ -12,10 +13,8 @@
       if phone && countryCode
         vm.user.phone = '+' + countryCode + phone
 
-      vm.orgTableCustomizations.searchParams = { 'where[users.id]': vm.user.id }
-
       # These bindings are so that we can add additional fields with functionality to the organization table.
-      vm.orgTableCustomizations.bindings = {
+      vm.orgTableBindings = {
         userRoles: UserRoles
         user: vm.user
 
@@ -53,7 +52,7 @@
 
   $translate('mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.role')
     .then((translation) ->
-      vm.orgTableCustomizations.fields = [
+      vm.orgTableFields= [
         {
           header: translation
           style: {
@@ -81,10 +80,5 @@
         }
       ]
     )
-
-  vm.orgTableCustomizations.getOrganizations = (limit, offset, sort = 'created_at') ->
-    return unless vm.user['id']
-    params = vm.orgTableCustomizations.searchParams
-    MnoeOrganizations.list(limit, offset, sort, params)
 
   return

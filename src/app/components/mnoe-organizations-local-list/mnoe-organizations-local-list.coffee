@@ -1,19 +1,16 @@
 #
-# Mnoe Organizations List
-# The organization-local-list is on the user's info page and shows the organizations attached to a user, while
-# the organizations-list is on the homepage and shows all the users.
-
-@App.directive('mnoeOrganizationsLocalList', ($translate, $filter, $log, toastr, UserRoles, MnoeUsers) ->
+# Mnoe Organizations Local List
+# The organization-local-list is used for organizations that already exist on the frontend, e.g. when uploading a CSV file.
+# Whereas organizations-list is used when organizations must be fetched.
+#
+@App.directive('mnoeOrganizationsLocalList', ($filter, $log) ->
   restrict: 'E'
   scope: {
     list: '=',
-    user: '='
   },
   templateUrl: 'app/components/mnoe-organizations-local-list/mnoe-organizations-local-list.html',
   link: (scope, elem, attrs) ->
-    # Only display some info in the context of an user
-    scope.userContext = attrs.user?
-    scope.userRoles = UserRoles
+
     # Variables initialization
     scope.organizations =
       displayList: []
@@ -68,35 +65,6 @@
         displayNormalState()
       else
         setSearchOrganizationsList()
-
-    scope.editRole = (organization) ->
-      # Keep track of old roles when editing organization's roles.
-      organization.beforeEditRole = organization.role
-      organization.editMode = true
-
-    scope.exitEditRole = (organization) ->
-      organization.role = organization.beforeEditRole
-      organization.editMode = false
-
-    scope.updateUserRole = (organization, user) ->
-      user.isUpdatingRole = true
-      # The role must be set on the user for #updateUserRole.
-      user.role = organization.role
-      MnoeUsers.updateUserRole(organization, user).then(
-        () ->
-          $translate(UserRoles.keyFromRole(user.role)).then((tls) ->
-            toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_success', {extraData: {user: "#{user.email}", role: tls}})
-          )
-        (error) ->
-          organization.role = organization.beforeEditRole
-          toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.role_update_error')
-          MnoErrorsHandler.processServerError(error)
-      ).finally( () ->
-        # So that the organization/user reverts back to non-editing view.
-        organization.beforeEditRole = null
-        organization.isUpdatingRole = false
-        organization.editMode = false
-      )
 
     scope.$watch('list', (newVal) ->
       if newVal

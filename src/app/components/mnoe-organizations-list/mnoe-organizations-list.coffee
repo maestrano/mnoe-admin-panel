@@ -1,12 +1,14 @@
 #
-# Mnoe organizations List
+# Mnoe Organizations Local List
+# The organization-local-list is used for organizations that already exist on the frontend, e.g. when uploading a CSV file.
+# Whereas organizations-list is used when organizations must be fetched.
 #
 @App.directive('mnoeOrganizationsList', ($filter, $translate, MnoeOrganizations, MnoeAdminConfig, MnoeCurrentUser) ->
   restrict: 'E'
   scope: {
-    list: '=',
-    user: '<',
-    customizations: '<'
+    fields: '<',
+    searchParams: '<',
+    bindings: '<'
   },
   templateUrl: 'app/components/mnoe-organizations-list/mnoe-organizations-list.html',
   link: (scope, elem) ->
@@ -74,7 +76,7 @@
           { header: locale['mnoe_admin_panel.dashboard.organization.widget.list.table.currency'],
           attr:'financial_metrics.currency', doNotSort: true, style: width: '110px'}])
 
-        scope.organizations.fields = scope.organizations.fields.concat(scope.customizations.fields) if scope.customizations.fields
+        scope.organizations.fields = scope.organizations.fields.concat(scope.fields) if scope.fields
       )
 
     # Smart table callback
@@ -129,7 +131,7 @@
       search = scope.organizations.search.toLowerCase()
       terms = {'name.like': "%#{search}%"}
       # Custom search parameters are given to the directive. E.g. when we only want to search orgs of a particular user.
-      params = scope.customizations.searchParams || {}
+      params = scope.searchParams || {}
       MnoeOrganizations.search(terms, params).then(
         (response) ->
           scope.organizations.totalItems = response.headers('x-total-count')

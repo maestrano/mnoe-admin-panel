@@ -1,4 +1,4 @@
-@App.controller 'HomeController', (moment, MnoeUsers, MnoeOrganizations, MnoeInvoices, MnoeAdminConfig, MnoeCurrentUser) ->
+@App.controller 'HomeController', (moment, MnoeUsers, MnoeOrganizations, MnoeInvoices, MnoeAdminConfig) ->
   'ngInject'
   vm = this
 
@@ -32,18 +32,5 @@
     (response) ->
       vm.invoices.outstandingAmount = response.data
   ) if MnoeAdminConfig.isFinanceEnabled()
-
-  vm.orgTableCustomizations = {
-    getOrganizations: (limit, offset, sort = 'created_at') ->
-      MnoeCurrentUser.getUser().then( ->
-        params = {}
-
-        if MnoeAdminConfig.isAccountManagerEnabled()
-          params['sub_tenant_id'] = MnoeCurrentUser.user.mnoe_sub_tenant_id
-          params['account_manager_id'] = MnoeCurrentUser.user.id
-
-        MnoeOrganizations.list(limit, offset, sort, params)
-      )
-    }
 
   return
