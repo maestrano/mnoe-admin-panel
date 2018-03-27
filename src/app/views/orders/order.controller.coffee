@@ -34,6 +34,11 @@
         )
   ).finally(-> vm.isLoading = false)
 
+  MnoeProvisioning.getSubscriptionEvents(vm.orderId, vm.orgId).then(
+    (response) ->
+      vm.subscriptionEvents = response.data.subscription_events
+  )
+
   vm.getInfo = ->
     MnoeOrganizations.get(vm.orgId).then(
       (response) ->

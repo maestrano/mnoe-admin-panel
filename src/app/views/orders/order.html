@@ -138,4 +138,30 @@
       </mno-widget>
     </div>
   </div>
+  <div class='row'>
+    <div class='col-xs-6'>
+      <mno-widget icon="fa-info-circle" heading="{{'mnoe_admin_panel.dashboard.orders.provision.subscription.events' | translate}}" is-loading="vm.isLoading">
+        <mno-widget-header></mno-widget-header>
+        <mno-widget-body>
+          <span ng-show="!vm.subscriptionEvents" translate>
+            mnoe_admin_panel.dashboard.orders.provision.subscription.no_events
+          </span>
+          <div ng-repeat="subscriptionEvent in vm.subscriptionEvents">
+            <div class='row subscription-event'>
+              <div class='col-sm-2'>{{ subscriptionEvent.created_at | amDateFormat: 'L' }}</div>
+              <div class='col-sm-2'>{{ subscriptionEvent.event_type }}</div>
+              <div class='col-sm-2'>{{ subscriptionEvent.status }}</div>
+              <div class='col-sm-6'>{{ subscriptionEvent.message }}</div>
+            </div>
+
+            <div class='row subscription-event-provisioning-data' ng-if="subscriptionEvent.provisioning_data">
+              <div class='col-sm-10 col-sm-offset-2'>
+                <user-friendly-json-tree start-expanded="false" object="subscriptionEvent.provisioning_data" options="vm.jsonTreeSettings" root-name="vm.rootName"></user-friendly-json-tree>
+              </div>
+            </div>
+          </div>
+        </mno-widget-body>
+      </mno-widget>
+    </div>
+  </div>
 </div>
