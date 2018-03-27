@@ -24,8 +24,8 @@
         fetchOrganizations(nbItems, offset)
 
     listingFilters = (term) ->
-      term[ 'account_frozen' ] = !scope.hideFrozen if scope.hideFrozen
-      term[ 'demo_account' ] = !scope.hideDemo if scope.hideDemo
+      term[ 'account_frozen' ] = false if scope.hideFrozen
+      term[ 'demo_account' ] = false if scope.hideDemo
 
     # Fetch organisations
     fetchOrganizations = (limit, offset, sort = 'name') ->
