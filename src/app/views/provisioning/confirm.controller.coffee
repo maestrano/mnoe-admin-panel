@@ -1,4 +1,4 @@
-@App.controller('ProvisioningConfirmCtrl', ($q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, PRICING_TYPES) ->
+@App.controller('ProvisioningConfirmCtrl', ($q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, PRICING_TYPES, EDIT_ACTIONS) ->
   vm = this
 
   vm.isLoading = true
@@ -14,6 +14,9 @@
     (response) ->
       vm.orgCurrency = response.organization.data.billing_currency || MnoeAdminConfig.marketplaceCurrency()
   ).finally(-> vm.isLoading = false)
+
+  vm.validateButtonText = ->
+    EDIT_ACTIONS[vm.subscription.editAction]
 
   vm.validate = () ->
     vm.isLoading = true
