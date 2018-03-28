@@ -1,5 +1,5 @@
 #
-# Mnoe Organizations Local List
+# Mnoe Organizations List
 # The organization-local-list is used for organizations that already exist on the frontend, e.g. when uploading a CSV file.
 # Whereas organizations-list is used when organizations must be fetched.
 #
@@ -16,7 +16,7 @@
     # Variables initialization
     scope.organizations =
       search: ''
-      sortAttr: 'created_at'
+      sortAttr: 'created_at.desc'
       nbItems: 10
       page: 1
       pageChangedCb: (nbItems, page) ->
@@ -89,7 +89,7 @@
       fetchOrganizations(scope.organizations.nbItems, 0, scope.organizations.sortAttr)
 
     # Fetch organisations
-    fetchOrganizations = (limit, offset, sort = 'created_at') ->
+    fetchOrganizations = (limit, offset, sort = 'created_at.desc') ->
       scope.organizations.loading = true
       MnoeCurrentUser.getUser().then( ->
         params = if MnoeAdminConfig.isAccountManagerEnabled()
