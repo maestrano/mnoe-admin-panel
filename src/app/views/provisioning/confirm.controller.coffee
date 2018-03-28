@@ -22,5 +22,7 @@
         $state.go('dashboard.provisioning.order_summary', {orgId: $stateParams.orgId, subscriptionId: subscription.id})
     ).finally(-> vm.isLoading = false)
 
+  vm.pricingUnavailable = _.includes(PRICING_TYPES['unpriced'], vm.subscription.product_pricing.pricing_type)
+
   return
 )
