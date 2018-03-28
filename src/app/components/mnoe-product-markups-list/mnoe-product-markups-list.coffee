@@ -67,17 +67,13 @@
     # Fetch markups
     fetchProductMarkups = (limit, offset, sort = vm.markups.sort, search = vm.markups.search) ->
       vm.markups.loading = true
+      if vm.customerOrg
+        vm.readOnlyView = true
+        search[ 'where[with_organization_id]'] = vm.customerOrg.id
       return MnoeProductMarkups.markups(limit, offset, sort, search).then(
         (response) ->
           vm.markups.totalItems = response.headers('x-total-count')
           vm.markups.list = response.data
-          if vm.customerOrg
-            vm.customerAppIds = _.map(vm.customerOrg.active_apps, 'nid')
-            vm.readOnlyView = true
-            vm.markups.list = _.filter(vm.markups.list, (app) ->
-              app if !app.product ||
-              _.includes(vm.customerAppIds, app.product.nid)
-            )
       ).finally(-> vm.markups.loading = false)
 
     # Initial call and start the listeners

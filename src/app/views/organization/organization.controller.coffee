@@ -6,6 +6,7 @@
   vm.users = {}
   vm.hasDisconnectedApps = false
   vm.status = {}
+  vm.isLoading = true
 
   vm.availableBillingCurrencies = MnoeAdminConfig.availableBillingCurrencies()
 
@@ -30,7 +31,7 @@
       vm.organization = response.data.plain()
       vm.organization.invoices = $filter('orderBy')(vm.organization.invoices, '-started_at')
       vm.updateStatus()
-  )
+  ).finally(-> vm.isLoading = false)
 
   vm.freezeOrganization = ->
     MnoeOrganizations.freeze(vm.organization).then(
