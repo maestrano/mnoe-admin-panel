@@ -66,10 +66,10 @@
           # Looping on each product markup retrieved
           _.each(success.data, (pm) ->
             # if product is not specified, product should not exists in response but organization should match
-            if !vm.markup.product_id? && !pm.product && pm.organization.id == vm.markup.organization_id
+            if !vm.markup.product_id? && !pm.product && pm.organization?.id == vm.markup.organization_id
               exists = true
             # if organization is not specified, organization should not exists in response but product should match
-            if !vm.markup.organization_id? && !pm.organization && pm.product.id == vm.markup.product_id
+            if !vm.markup.organization_id? && !pm.organization && pm.product?.id == vm.markup.product_id
               exists = true
             # if neither organization not product are specified, none should exist in the response
             if !vm.markup.product_id? && !vm.markup.organization_id? && !pm.product && !pm.organization
