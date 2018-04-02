@@ -18,6 +18,19 @@
         )
     )
 
+  # ====================================
+  # App Info modal
+  # ====================================
+  vm.openInfoModal = (app) ->
+    $uibModal.open(
+      templateUrl: 'app/views/settings/apps/modals/app-infos.html'
+      controller: 'appInfoCtrl'
+      controllerAs: 'vm',
+      size: 'lg'
+      resolve:
+        app: app
+    )
+
   vm.openAddAppModal = () ->
     modalInstance = $uibModal.open(
       component: 'mnoProductSelectorModal'
@@ -34,7 +47,10 @@
       (apps) ->
         MnoeApps.enableMultiple(_.map(apps, 'id')).then(
           ->
-            vm.enabledApps = vm.enabledApps.concat(apps)
+            MnoeMarketplace.getApps().then(
+              (response) ->
+                vm.enabledApps = angular.copy(response.data.apps)
+            )
         )
     )
 
