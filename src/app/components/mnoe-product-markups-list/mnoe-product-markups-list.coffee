@@ -69,7 +69,7 @@
       vm.markups.loading = true
       if vm.customerOrg
         vm.readOnlyView = true
-        search[ 'where[with_organization_id]'] = vm.customerOrg.id
+        search[ 'where[for_organization]' ] = vm.customerOrg.id
       return MnoeProductMarkups.markups(limit, offset, sort, search).then(
         (response) ->
           vm.markups.totalItems = response.headers('x-total-count')
