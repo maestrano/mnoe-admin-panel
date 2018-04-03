@@ -44,7 +44,8 @@
         skip_dependencies: true,
         fields: {
           products: ['name, logo']
-        }
+        },
+        'where[active]': true
       }
       $ctrl.isLoadingProducts = true
 
