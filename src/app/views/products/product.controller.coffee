@@ -66,7 +66,7 @@
 
   vm.updateProductPricing = (pricingPlan) ->
     # Add any unsaved prices
-    unless vm.priceForm.$invalid
+    if pricingPlan && !vm.priceForm.$invalid
       new_price = {
         currency: vm.priceForm.currency.$modelValue
         price_cents: vm.priceForm.price_cents.$modelValue
