@@ -1,4 +1,4 @@
-@App.controller('ProvisioningConfirmCtrl', ($q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, PRICING_TYPES) ->
+@App.controller('ProvisioningConfirmCtrl', ($q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, ProvisioningHelper) ->
   vm = this
 
   vm.isLoading = true
@@ -22,7 +22,8 @@
         $state.go('dashboard.provisioning.order_summary', {orgId: $stateParams.orgId, subscriptionId: subscription.id})
     ).finally(-> vm.isLoading = false)
 
-  vm.pricingUnavailable = _.includes(PRICING_TYPES['unpriced'], vm.subscription.product_pricing.pricing_type)
+  # Return true if the plan has a dollar value
+  vm.pricedPlan = ProvisioningHelper.pricedPlan
 
   return
 )
