@@ -12,6 +12,11 @@
   controller: ($filter, $log, $uibModal, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning) ->
     ctrl = this
 
+    MnoeCurrentUser.getUser().then(
+      (response) ->
+        ctrl.isAccountManager = (response.admin_role == 'staff')
+      )
+
     ctrl.subscriptions =
       list: []
       sort: "created_at.desc"
