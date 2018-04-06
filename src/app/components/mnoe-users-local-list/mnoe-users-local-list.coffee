@@ -12,7 +12,7 @@
   templateUrl: 'app/components/mnoe-users-local-list/mnoe-users-local-list.html',
   link: (scope, elem, attrs) ->
     scope.isImpersonationEnabled = MnoeAdminConfig.isImpersonationEnabled()
-    # Only some info in the context of an organization
+    # Only display some info in the context of an organization
     scope.organizationContext = attrs.organization?
     scope.userRoles = UserRoles
     scope.editMode = false

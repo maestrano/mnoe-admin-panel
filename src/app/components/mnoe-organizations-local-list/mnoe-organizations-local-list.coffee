@@ -11,7 +11,8 @@
   },
   templateUrl: 'app/components/mnoe-organizations-local-list/mnoe-organizations-local-list.html',
   link: (scope, elem, attrs) ->
-
+    # Only display some info in the context of an user
+    scope.userContext = attrs.user?
     scope.userRoles = UserRoles
     # Variables initialization
     scope.organizations =
