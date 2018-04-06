@@ -9,7 +9,7 @@
         <tr>
           <th translate>mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.name</th>
           <th style="width: 100px;" translate>mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.created_at</th>
-          <th style="width: 130px;" translate>mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.role</th>
+          <th style="width: 130px;" ng-if="userContext" translate>mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.role</th>
         </tr>
       </thead>
       <tbody>
@@ -22,7 +22,7 @@
             </a>
           </td>
           <td>{{organization.created_at | date: 'dd/MM/yyyy'}}</td>
-          <td>
+          <td ng-if="userContext">
             <select ng-show="organization.editMode" ng-model="organization.role" ng-options="role.value as role.translatedLabel for role in userRoles.availableRolesForOptions"></select>
             <span ng-show="organization.isUpdatingRole"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
             <span ng-click="editRole(organization)" ng-hide="organization.editMode">{{ userRoles.keyFromRole(organization.role) | translate }}</span>
