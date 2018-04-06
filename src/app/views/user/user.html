@@ -1,69 +1,81 @@
 <div class="row">
   <div class="col-xs-12">
     <h1><i class="fa fa-users"></i>{{'mnoe_admin_panel.dashboard.user.subtitle' | translate}}</h1>
-    <div class="panel panel-default top-buffer-2">
-      <div class="panel-heading" ng-show="vm.user">
-        <h3 ng-show="vm.user.name && vm.user.surname" class="panel-title">{{::vm.user.name}} {{::vm.user.surname}}</h3>
-        <h3 ng-show="!vm.user.name && !vm.user.surname" class="panel-title">{{::vm.user.email}}</h3>
+    <div class="panel-group">
+      <div class="panel panel-default top-buffer-2">
+        <div class="panel-heading" ng-show="vm.user">
+          <h3 ng-show="vm.user.name && vm.user.surname" class="panel-title">{{::vm.user.name}} {{::vm.user.surname}}</h3>
+          <h3 ng-show="!vm.user.name && !vm.user.surname" class="panel-title">{{::vm.user.email}}</h3>
+        </div>
+        <div class="panel-body">
+          <mno-loading-ellipsis ng-show="!vm.user"></mno-loading-ellipsis>
+          <div ng-show="vm.user">
+            <div class="row">
+              <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.email</div></div>
+              <div class="col-md-3">{{::vm.user.email}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.uid</div></div>
+              <div class="col-md-3">{{::vm.user.uid}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.phone</div></div>
+              <div class="col-md-3">{{vm.user.phone || ('mnoe_admin_panel.dashboard.user.table.phone.none' | translate)}}</div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.created_at</div></div>
+              <div class="col-sm-3">{{vm.user.created_at | amCalendar }}</div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.confirmed</div></div>
+              <div class="col-sm-3">{{(vm.user.confirmed_at | amCalendar) || ('mnoe_admin_panel.dashboard.user.table.never_confirmed' | translate)}}</div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.last_sign_in</div></div>
+              <div class="col-sm-3">{{(vm.user.last_sign_in_at | amCalendar) || ('mnoe_admin_panel.dashboard.user.table.last_sign_in.never' | translate)}}</div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.number_of_sign_in</div></div>
+              <div class="col-sm-3">{{vm.user.sign_in_count}}</div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.failed_attempts</div></div>
+              <div class="col-sm-3">{{vm.user.failed_attempts || ('mnoe_admin_panel.dashboard.user.table.failed_attempts.none' | translate)}}</div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.password_changed_at</div></div>
+              <div class="col-sm-3">{{vm.user.password_changed_at || ('mnoe_admin_panel.dashboard.user.table.password_changed_at.never' | translate)}}</div>
+            </div>
+            <div class="row" ng-show="vm.user.access_locked">
+              <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.locked_at</div></div>
+              <div class="col-sm-3">{{vm.user.locked_at | date: 'dd/MM/yyyy hh:mm'}}</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="panel-body">
-        <mno-loading-ellipsis ng-show="!vm.user"></mno-loading-ellipsis>
-        <div ng-show="vm.user">
-          <div class="row">
-            <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.email</div></div>
-            <div class="col-md-3">{{::vm.user.email}}</div>
-          </div>
-          <div class="row">
-            <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.uid</div></div>
-            <div class="col-md-3">{{::vm.user.uid}}</div>
-          </div>
-          <div class="row">
-            <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.phone</div></div>
-            <div class="col-md-3">{{vm.user.phone || 'mnoe_admin_panel.dashboard.user.table.phone.none' | translate}}</div>
-          </div>
-          <div class="row">
-            <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.geo_country_code</div></div>
-            <div class="col-md-3">{{vm.user.geo_country_code || 'mnoe_admin_panel.dashboard.user.geo_country_code.none' | translate}}</div>
-          </div>
-          <div class="row">
-            <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.geo_state_code</div></div>
-            <div class="col-md-3">{{vm.user.geo_state_code || 'mnoe_admin_panel.dashboard.user.geo_state_code.none' | translate }}</div>
-          </div>
-          <div class="row">
-            <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.geo_city</div></div>
-            <div class="col-md-3">{{vm.user.geo_city || 'mnoe_admin_panel.dashboard.user.geo_city.none' | translate}}</div>
-          </div>
-          <div class="row">
-            <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.geo_currency</div></div>
-            <div class="col-md-3">{{vm.user.geo_currency || 'mnoe_admin_panel.dashboard.user.geo_currency.none' | translate}}</div>
-          </div>
-          <div class="row">
-            <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.created_at</div></div>
-            <div class="col-sm-3">{{vm.user.created_at | amCalendar }}</div>
-          </div>
-          <div class="row">
-            <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.confirmed</div></div>
-            <div class="col-sm-3">{{(vm.user.confirmed_at | amCalendar) || 'mnoe_admin_panel.dashboard.user.table.never_confirmed' | translate}}</div>
-          </div>
-          <div class="row">
-            <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.last_sign_in</div></div>
-            <div class="col-sm-3">{{(vm.user.last_sign_in_at | amCalendar) || 'mnoe_admin_panel.dashboard.user.table.last_sign_in.never' | translate}}</div>
-          </div>
-          <div class="row">
-            <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.number_of_sign_in</div></div>
-            <div class="col-sm-3">{{vm.user.sign_in_count}}</div>
-          </div>
-          <div class="row">
-            <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.failed_attempts</div></div>
-            <div class="col-sm-3">{{vm.user.failed_attempts || 'mnoe_admin_panel.dashboard.user.table.failed_attempts.none' | translate}}</div>
-          </div>
-          <div class="row">
-            <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.password_changed_at</div></div>
-            <div class="col-sm-3">{{vm.user.password_changed_at || 'mnoe_admin_panel.dashboard.user.table.password_changed_at.never' | translate }}</div>
-          </div>
-          <div class="row" ng-show="vm.user.access_locked">
-            <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.locked_at</div></div>
-            <div class="col-sm-3">{{vm.user.locked_at | date: 'dd/MM/yyyy hh:mm'}}</div>
+      <div class="panel panel-default">
+        <div class="panel-heading" ng-show="vm.user">
+          <h3 class="panel-title">{{'mnoe_admin_panel.dashboard.user.geo_information_title' | translate}}   <i class="fa fa-question-circle" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.user.geo_information.tooltip' | translate }}"></i></h3>
+        </div>
+        <div class="panel-body">
+          <mno-loading-ellipsis ng-show="!vm.user"></mno-loading-ellipsis>
+          <div ng-show="vm.user">
+            <div class="row">
+              <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.geo_country_code</div></div>
+              <div class="col-md-3">{{vm.user.geo_country_code || ('mnoe_admin_panel.dashboard.user.geo_country_code.none' | translate)}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.geo_state_code</div></div>
+              <div class="col-md-3">{{vm.user.geo_state_code || ('mnoe_admin_panel.dashboard.user.geo_state_code.none' | translate)}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.geo_city</div></div>
+              <div class="col-md-3">{{vm.user.geo_city || ('mnoe_admin_panel.dashboard.user.geo_city.none' | translate)}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.geo_tz</div></div>
+              <div class="col-md-3">{{vm.user.geo_tz || ('mnoe_admin_panel.dashboard.user.geo_tz.none' | translate)}}</div>
+            </div>
           </div>
         </div>
       </div>
