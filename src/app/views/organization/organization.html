@@ -112,8 +112,8 @@
                         <span>{{::app.app_name}}</span>
                       </div>
                     </div>
-                    <div class="app-wrapper col-xs-6 col-sm-4 col-md-3" ng-if="::main.adminConfig.isAppManagementEnabled()">
-                      <div class="small-app-card ellipsis add-app" ng-click="vm.openAddAppModal()">
+                    <div class="app-wrapper col-xs-6 col-sm-4 col-md-3" ng-if="::(main.adminConfig.isProvisioningEnabled() && main.adminConfig.isAppManagementEnabled())">
+                      <div class="small-app-card ellipsis add-app" ng-click="vm.openSelectProductModal()">
                         <span>{{'mnoe_admin_panel.dashboard.organization.add_an_app' | translate}}<i class="fa fa-plus"></i></span>
                       </div>
                     </div>
