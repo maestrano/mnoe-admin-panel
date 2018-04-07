@@ -114,20 +114,20 @@
     ctrl.displayInfoTooltip = (subscription) ->
       subscription.status == 'aborted'
 
-    ctrl.subscriptionModifiable = (subscription) ->
-      subscription.available_edit_actions && subscription.status != 'cancelled'
-
-    ctrl.subscriptionModifyToolTip = (subscription) ->
-      if ctrl.subscriptionModifiable(subscription)
-        'mnoe_admin_panel.dashboard.provisioning.subscriptions.modify'
-      else
-        'mnoe_admin_panel.dashboard.provisioning.subscriptions.cannot_modify'
-
     ctrl.displayStatusInfo = ->
       modalInstance = $uibModal.open(
         templateUrl: 'app/views/orders/order-status-info-modal/order-status-info.html'
         controller: 'OrderInfoController'
         controllerAs: 'vm'
+      )
+
+    ctrl.openEditModal = (subscription) ->
+      $uibModal.open(
+        templateUrl: 'app/views/provisioning/edit-subscription-modal/edit.html'
+        controller: 'EditSubscriptionController'
+        controllerAs: 'vm'
+        resolve:
+          subscription: -> subscription
       )
 
     return

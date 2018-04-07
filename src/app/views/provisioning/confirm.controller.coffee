@@ -14,10 +14,12 @@
       id: $stateParams.id,
       editAction: $stateParams.editAction
     }
-    if $stateParams.editAction == 'CHANGE'
-      $state.go('dashboard.provisioning.order', params)
-    else
-      $state.go('dashboard.provisioning.additional_details', params)
+
+    switch $stateParams.editAction
+      when 'CHANGE', 'NEW', null
+        $state.go('dashboard.provisioning.order', params)
+      else
+        $state.go('dashboard.provisioning.additional_details', params)
 
   # Happen when the user reload the browser during the provisioning
   if _.isEmpty(vm.subscription)

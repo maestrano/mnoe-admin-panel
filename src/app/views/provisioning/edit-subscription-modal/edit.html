@@ -1,0 +1,23 @@
+<div id="edit-subscription-modal">
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="{{'mnoe_admin_panel.dashboard.mno_confirm.close' | translate}}" ng-click="vm.closeModal()"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" translate>mnoe_admin_panel.dashboard.provisioning.subscription.modal.title</h3>
+  </div>
+  <div class="subscription-edit-buttons">
+    <a ng-click="vm.changePlan('CHANGE')" class="btn btn-large btn-primary edit-button-center" ng-show="vm.editActionAvailable('CHANGE')" translate>
+      mnoe_admin_panel.dashboard.provisioning.subscriptions.change
+    </a>
+    <a ng-click="vm.changePlan('EDIT')" class="btn btn-large btn-primary edit-button-center" ng-show="vm.editActionAvailable('EDIT')" translate>
+      mnoe_admin_panel.dashboard.provisioning.subscriptions.edit
+    </a>
+    <a ng-click="vm.changePlan('RENEW')" class="btn btn-large btn-primary edit-button-center" ng-show="vm.editActionAvailable('RENEW')" translate>
+      mnoe_admin_panel.dashboard.provisioning.subscriptions.renew
+    </a>
+    <a ng-click="vm.changePlan('SUSPEND')" class="btn btn-large btn-primary edit-button-center" ng-show="vm.editActionAvailable('SUSPEND')" translate>
+      mnoe_admin_panel.dashboard.provisioning.subscriptions.suspend
+    </a>
+    <a ng-click="vm.changePlan('REACTIVATE')" class="btn btn-large btn-primary edit-button-center" ng-show="vm.editActionAvailable('REACTIVATE')" translate>
+      mnoe_admin_panel.dashboard.provisioning.subscriptions.reactivate
+    </a>
+  </div>
+</div>

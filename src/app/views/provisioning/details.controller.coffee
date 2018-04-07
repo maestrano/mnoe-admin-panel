@@ -14,6 +14,13 @@
     .add(contractLength.split('Months')[0], 'M')
     .format('YYYY-MM-DD')
 
+  urlParams =
+    orgId: $stateParams.orgId,
+    id: $stateParams.id,
+    nid: $stateParams.nid,
+    editAction: $stateParams.editAction
+
+
   getCustomSchema = (product) ->
     # The schema is contained in field vm.product.custom_schema
     #
@@ -30,18 +37,26 @@
 
   if _.isEmpty(vm.subscription)
     vm.isLoading = true
-    # Redirect the user to the first provisioning screen
+    # Fetch organizations, subscription, and products
     orgPromise = MnoeOrganizations.get($stateParams.orgId)
-    initPromise = MnoeProvisioning.initSubscription({productNid: $stateParams.nid, subscriptionId: $stateParams.id, orgId: $stateParams.orgId})
+    prodsPromise = MnoeProvisioning.getProducts()
+    initPromise = MnoeProvisioning.initSubscription({productNid: $stateParams.nid, subscriptionId: $stateParams.id, orgId: $stateParams.orgId })
 
-    $q.all({organization: orgPromise, subscription: initPromise}).then(
+    $q.all({organization: orgPromise, products: prodsPromise, subscription: initPromise}).then(
       (response) ->
         vm.orgCurrency = response.organization.data.billing_currency || MnoeAdminConfig.marketplaceCurrency()
         vm.subscription = response.subscription
         vm.subscription.organization_id = response.organization.data.id
-
         vm.isEditMode = !_.isEmpty(vm.subscription.custom_data)
-        MnoeProvisioning.getProduct(vm.subscription.product.id, { editAction: $stateParams.editAction }).then(
+
+
+        # If the product id is available, get the product, otherwise find with the nid.
+        productPromise = if vm.subscription.product?.id
+          MnoeProvisioning.getProduct(vm.subscription.product.id, { editAction: $stateParams.editAction })
+        else
+          MnoeProvisioning.findProduct({nid: $stateParams.nid})
+
+        productPromise.then(
           (response) ->
             vm.subscription.product = response
 
@@ -54,9 +69,12 @@
 
             vm.subscription.product
           ).then((product) -> getCustomSchema(product))
-    ).finally(-> vm.isLoading = false)
+        ).finally(-> vm.isLoading = false)
+  else if vm.subscription?.product
+    getCustomSchema(vm.subscription.product)
   else
-    vm.schema = getCustomSchema(vm.subscription.product)
+    $state.go('dashboard.provisioning.order', urlParams)
+
 
   vm.isEditMode = !_.isEmpty(vm.subscription.custom_data)
 
@@ -65,13 +83,7 @@
     return unless form.$valid
     vm.subscription.custom_data = vm.model
     MnoeProvisioning.setSubscription(vm.subscription)
-    $state.go('dashboard.provisioning.confirm', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid, editAction: $stateParams.editAction})
-
-  vm.editButtonText = (editAction) ->
-    if editAction == 'SUSPEND' && vm.subscription.status == 'suspended'
-      EDIT_ACTIONS['REACTIVATE']
-    else
-      EDIT_ACTIONS[editAction]
+    $state.go('dashboard.provisioning.confirm', urlParams)
 
   # Delete the cached subscription when we are leaving the subscription workflow.
   $scope.$on('$stateChangeStart', (event, toState) ->
