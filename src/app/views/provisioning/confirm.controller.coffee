@@ -1,4 +1,4 @@
-@App.controller('ProvisioningConfirmCtrl', ($q, $scope, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, ProvisioningHelper) ->
+@App.controller('ProvisioningConfirmCtrl', ($scope, $q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, PRICING_TYPES, EDIT_ACTIONS) ->
   vm = this
 
   vm.isLoading = true
@@ -6,6 +6,9 @@
   vm.subscription = MnoeProvisioning.getSubscription()
   vm.singleBilling = vm.subscription.product.single_billing_enabled
   vm.billedLocally = vm.subscription.product.billed_locally
+
+  vm.orderTypeText = (editAction) ->
+    EDIT_ACTIONS[editAction]
 
   vm.editOrder = () ->
     params = {
@@ -25,6 +28,8 @@
   if _.isEmpty(vm.subscription)
     # Redirect the user to the first provisioning screen
     vm.editOrder()
+
+  vm.subscription.edit_action = $stateParams.editAction
 
   $q.all({organization: orgPromise}).then(
     (response) ->

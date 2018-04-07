@@ -1,5 +1,4 @@
-@App.controller 'EditSubscriptionController', ($filter, $stateParams, $log, $state, $uibModalInstance, toastr, MnoeUsers, MnoErrorsHandler, MnoeAdminConfig, MnoeProvisioning, subscription) ->
-  'ngInject'
+@App.controller 'EditSubscriptionController', ($uibModalInstance, $state, MnoeProvisioning, subscription) ->
 
   vm = this
   vm.subscription = subscription
