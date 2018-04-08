@@ -37,6 +37,13 @@
       )
   ).finally(-> vm.isLoading = false)
 
+  vm.subscriptionPlanText = () ->
+    switch $stateParams.editAction
+      when 'NEW'
+        'mnoe_admin_panel.dashboard.provisioning.order.new_title'
+      when 'CHANGE'
+        'mnoe_admin_panel.dashboard.provisioning.order.change_title'
+
   vm.next = (subscription) ->
     MnoeProvisioning.setSubscription(subscription)
     params = {

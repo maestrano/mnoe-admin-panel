@@ -94,5 +94,18 @@
         MnoeProvisioning.setSubscription({})
   )
 
+  vm.editPlanText = () ->
+    switch $stateParams.editAction
+      when 'NEW'
+        "mnoe_admin_panel.dashboard.provisioning.details.new_title"
+      when 'CHANGE', 'EDIT'
+        "mnoe_admin_panel.dashboard.provisioning.details.edit_title"
+      when 'REACTIVATE'
+        "mnoe_admin_panel.dashboard.provisioning.details.reactivate_title"
+      when 'RENEW'
+        "mnoe_admin_panel.dashboard.provisioning.details.renew_title"
+      when 'SUSPEND'
+        "mnoe_admin_panel.dashboard.provisioning.details.suspend_title"
+
   return
 )

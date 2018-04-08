@@ -265,6 +265,7 @@
       .state 'dashboard.provisioning',
         abstract: true
         templateUrl: 'app/views/provisioning/layout.html'
+        controller: 'ProvisioningLayoutController'
         url: '/provisioning'
       .state 'dashboard.provisioning.order',
         data:
