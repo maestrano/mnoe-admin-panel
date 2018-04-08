@@ -677,6 +677,8 @@
   "mnoe_admin_panel.dashboard.orders.widget.list.table.order": "Order",
   "mnoe_admin_panel.dashboard.orders.widget.list.placeholder.search_product": "search product",
   "mnoe_admin_panel.dashboard.orders.widget.list.placeholder.search_cutomer": "search cutomer",
+  "mnoe_admin_panel.dashboard.orders.provision.subscription.events": "Provisioning events",
+  "mnoe_admin_panel.dashboard.orders.provision.subscription.no_events": "No provisioning events",
   "mnoe_admin_panel.dashboard.product.create_product_modal.title": "Create a product",
   "mnoe_admin_panel.dashboard.product.create_product_modal.body": "Enter the name of the product:",
   "mnoe_admin_panel.dashboard.product.create_product_modal.cancel": "Cancel",
