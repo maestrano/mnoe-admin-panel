@@ -8,6 +8,7 @@
   vm.status = {}
 
   vm.availableBillingCurrencies = MnoeAdminConfig.availableBillingCurrencies()
+  vm.managementAndProvisioningEnabled = MnoeAdminConfig.isProvisioningEnabled() && MnoeAdminConfig.isAppManagementEnabled()
 
   # Display user creation modal
   vm.users.createUserModal = ->
