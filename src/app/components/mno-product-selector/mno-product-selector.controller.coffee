@@ -10,7 +10,7 @@
     dismiss: '&'
   },
   templateUrl: 'app/components/mno-product-selector/mno-product-selector.html',
-  controller: ($window, $q, orderByFilter, MnoeProducts, MnoeCategories, MnoeApps) ->
+  controller: ($window, $q, orderByFilter, MnoeProducts, MnoeApps) ->
     'ngInject'
 
     $ctrl = this
