@@ -5,12 +5,12 @@
         <mno-widget-header>
           <div class="pull-right">
             <div ng-if="vm.displayCategories" class="apps-filter col-sm-6">
-              <select class="form-control" ng-model="vm.selectedCategory" ng-options="c for c in vm.categories" ng-change="vm.searchTerm = ''">
+              <select class="form-control" ng-model="vm.selectedCategory" ng-options="c for c in vm.categories" ng-change="vm.onCategoryChange(vm.selectedCategory)">
                 <option value=''>{{ 'mnoe_admin_panel.dashboard.settings.apps.select_all' | translate }}</option>
               </select>
             </div>
             <div class="apps-filter col-sm-4">
-              <input type="search" ng-model="vm.searchTerm" placeholder="{{'mnoe_admin_panel.dashboard.settings.apps.search' | translate}}" ng-change="vm.selectedCategory = ''"/>
+              <input type="search" ng-model="vm.searchTerm" placeholder="{{'mnoe_admin_panel.dashboard.settings.apps.search' | translate}}" ng-change="vm.onSearchChange()"/>
             </div>
           </div>
         </mno-widget-header>
@@ -18,7 +18,7 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="row apps-box">
-                <div class="app-wrapper col-xs-3 col-sm-2 col-md-2" ng-repeat="app in vm.enabledApps | filter:vm.appsFilter | filter:vm.searchTerm">
+                <div class="app-wrapper col-xs-3 col-sm-2 col-md-2" ng-repeat="app in vm.filteredApps">
                   <div class="small-app-card ellipsis" uib-tooltip="{{::app.name}}">
                     <i class="fa fa-trash app-remove" ng-if="vm.tenantManagement" ng-click="vm.openRemoveAppModal(app, $index)" uib-tooltip="{{'mnoe_admin_panel.dashboard.organization.remove_app' | translate:{'app_name': app.name} }}" tooltip-append-to-body="true"></i>
                     <img ng-src="{{::app.logo}}" width="60" class="app-info-modal" ng-click="vm.openInfoModal(app)">

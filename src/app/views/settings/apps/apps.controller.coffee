@@ -3,16 +3,34 @@
   vm = this
 
   vm.enabledApps = []
+  vm.filteredApps = []
   vm.selectedCategory = ''
   vm.searchTerm = ''
 
   vm.tenantManagement = false
 
-  vm.appsFilter = (app) ->
-    if (vm.searchTerm? && vm.searchTerm.length > 0) || !vm.selectedCategory
-      return true
+  # Filter products by name or category
+  vm.onSearchChange = () ->
+    vm.selectedCategory = ''
+    vm.filteredApps = []
+    firstFilterResult = []
+    for app in vm.enabledApps
+      if (vm.searchTerm? && vm.searchTerm.length > 0) || !vm.selectedCategory
+        firstFilterResult.push(app)
+      else
+        if _.contains(app.categories, vm.selectedCategory)
+          firstFilterResult.push(app)
+    term = vm.searchTerm.toLowerCase()
+    vm.filteredApps = firstFilterResult.filter( (app) ->
+      app.name.toLowerCase().indexOf(term) > -1)
+
+  vm.onCategoryChange = () ->
+    vm.searchTerm = ''
+    if (vm.selectedCategory? && vm.selectedCategory.length > 0)
+      vm.filteredApps = vm.enabledApps.filter( (app) ->
+        _.contains(app.categories, vm.selectedCategory))
     else
-      return _.contains(app.categories, vm.selectedCategory)
+      vm.filteredApps = vm.enabledApps
 
   vm.openRemoveAppModal = (app, $index)->
     MnoConfirm.showModal(
@@ -68,6 +86,7 @@
       (response) ->
         # Copy the marketplace as we will work on the cached object
         vm.enabledApps = angular.copy(response.data.apps)
+        vm.filteredApps = vm.enabledApps
         vm.categories = angular.copy(response.data.categories)
         vm.displayCategories = vm.categories.length > 1
     )

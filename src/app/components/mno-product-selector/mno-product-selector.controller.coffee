@@ -10,7 +10,7 @@
     dismiss: '&'
   },
   templateUrl: 'app/components/mno-product-selector/mno-product-selector.html',
-  controller: ($window, $q, orderByFilter, MnoeProducts, MnoeApps) ->
+  controller: ($window, $q, orderByFilter, MnoeProducts, MnoeCategories, MnoeApps) ->
     'ngInject'
 
     $ctrl = this
@@ -34,6 +34,8 @@
       $ctrl.multiple = $ctrl.resolve.multiple
       $ctrl.modalHeight = ($window.innerHeight - 200) + "px"
       $ctrl.selectedProducts = []
+      $ctrl.selectedCategory = ''
+      $ctrl.searchTerm = ''
       $ctrl.headerText = $ctrl.resolve.headerText || 'mnoe_admin_panel.components.mno-product-selector.title'
       $ctrl.actionButtonText = $ctrl.resolve.actionButtonText || 'mnoe_admin_panel.components.mno-product-selector.create_order'
 
@@ -42,8 +44,10 @@
 
       params = {
         skip_dependencies: true,
+        includes: ['categories'],
         fields: {
-          products: ['name, logo']
+          products: ['name, logo, categories']
+          categories: ['name']
         },
         'where[active]': true
       }
@@ -67,8 +71,38 @@
 
       promise.then(
         (response) ->
+          # Extract the categories
+          categories = []
+          response.data.forEach((p) ->
+            categories = categories.concat(p.categories))
+          $ctrl.categories = _.uniq(categories)
+
           $ctrl.products = orderByFilter(response.data, 'name')
+          $ctrl.filteredProducts = $ctrl.products
       ).finally(-> $ctrl.isLoadingProducts = false)
+
+    # Filter products by name or category
+    $ctrl.onSearchChange = () ->
+      $ctrl.selectedCategory = ''
+      $ctrl.filteredProducts = []
+      firstFilterResult = []
+      for product in $ctrl.products
+        if ($ctrl.searchTerm? && $ctrl.searchTerm.length > 0) || !$ctrl.selectedCategory
+          firstFilterResult.push(product)
+        else
+          if _.contains(product.categories, $ctrl.selectedCategory)
+            firstFilterResult.push(product)
+      term = $ctrl.searchTerm.toLowerCase()
+      $ctrl.filteredProducts = firstFilterResult.filter( (p) ->
+        p.name.toLowerCase().indexOf(term) > -1)
+
+    $ctrl.onCategoryChange = () ->
+      $ctrl.searchTerm = ''
+      if ($ctrl.selectedCategory? && $ctrl.selectedCategory.length > 0)
+        $ctrl.filteredProducts = $ctrl.products.filter( (p) ->
+          _.contains(p.categories, $ctrl.selectedCategory))
+      else
+        $ctrl.filteredProducts = $ctrl.products
 
     # Select or deselect a product
     $ctrl.toggleProduct = (product) ->
