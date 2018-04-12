@@ -400,7 +400,7 @@
   "mnoe_admin_panel.dashboard.organization.widget.local_list.all_organizations.switch_link_title": "(last 10)",
   "mnoe_admin_panel.dashboard.organization.widget.local_list.last_organizations.title": "Last 10 users",
   "mnoe_admin_panel.dashboard.organization.widget.local_list.last_organizations.switch_link_title": "(view all)",
-  "mnoe_admin_panel.dashboard.organization.widget.local_list.loading_users.title": "Loading users...",
+  "mnoe_admin_panel.dashboard.organization.widget.local_list.loading_orgs.title": "Loading orgs...",
   "mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.title": "Search result",
   "mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.placeholder.search_all": "Search all",
   "mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.name": "name",
