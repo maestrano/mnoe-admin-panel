@@ -8,13 +8,13 @@
           <button ng-if="::main.adminConfig.isUserManagementEnabled()" ng-click="vm.users.createUserModal()" ng-disabled="!vm.organization" class="btn btn-primary" translate>
             mnoe_admin_panel.dashboard.organization.add_a_user
           </button>
-          <button ng-if="::main.adminConfig.isProvisioningEnabled()" ng-click="vm.openSelectProductModal()" ng-disabled="!vm.organization || vm.isLoadingProducts" class="btn btn-primary">
+          <button ng-if="::vm.managementAndProvisioningEnabled" ng-click="vm.openSelectProductModal()" ng-disabled="!vm.organization || vm.isLoadingProducts" class="btn btn-primary">
             <span translate>mnoe_admin_panel.dashboard.organization.create_an_order</span>
           </button>
         </div>
       </div>
       <div class="row">
-        <div ng-class="main.adminConfig.isProvisioningEnabled() ? 'col-md-6' : 'col-md-12'">
+        <div ng-class="::vm.managementAndProvisioningEnabled ? 'col-md-6' : 'col-md-12'">
           <mno-widget is-loading="!vm.organization.invoices" icon="fa-sitemap" heading="{{vm.organization.name}}">
             <mno-widget-header></mno-widget-header>
             <mno-widget-body class="large">
@@ -101,18 +101,18 @@
                     <a ng-if="vm.organization.active_apps.length > 0 && vm.hasDisconnectedApps" ui-sref="dashboard.customers.connect-app({orgId: vm.organization.id})" translate>mnoe_admin_panel.dashboard.organization.connect_apps</a>
                   </div>
                 </div>
-                <div ng-class="main.adminConfig.isProvisioningEnabled() ? 'col-sm-12' : 'col-sm-6'">
+                <div ng-class="::vm.managementAndProvisioningEnabled ? 'col-sm-12' : 'col-sm-6'">
                   <div class="row apps-box">
                     <div class="app-wrapper col-xs-6 col-sm-4 col-md-3" ng-repeat="app in vm.organization.active_apps">
                       <div class="small-app-card ellipsis" uib-tooltip="{{app.app_name}}">
-                        <i ng-if="::main.adminConfig.isAppManagementEnabled()" class="fa fa-trash app-remove" ng-click="vm.openRemoveAppModal(app, $index)" uib-tooltip="{{'mnoe_admin_panel.dashboard.organization.remove_app' | translate:{'app_name': app.app_name} }}" tooltip-append-to-body="true"></i>
+                        <i ng-if="::vm.managementAndProvisioningEnabled" class="fa fa-trash app-remove" ng-click="vm.openRemoveAppModal(app, $index)" uib-tooltip="{{'mnoe_admin_panel.dashboard.organization.remove_app' | translate:{'app_name': app.app_name} }}" tooltip-append-to-body="true"></i>
                         <i ng-show="vm.status[app.nid]" class="fa fa-check-circle app-state state-success" uib-tooltip="{{'mnoe_admin_panel.dashboard.organization.app_connected' | translate:{'app_name': app.app_name} }}" tooltip-append-to-body="true"></i>
                         <i ng-show="!vm.status[app.nid]" class="fa fa-exclamation-circle app-state state-warning" uib-tooltip="{{'mnoe_admin_panel.dashboard.organization.app_not_connected' | translate:{'app_name': app.app_name} }}" tooltip-append-to-body="true"></i>
                         <img ng-src="{{::app.app_logo}}" width="60">
                         <span>{{::app.app_name}}</span>
                       </div>
                     </div>
-                    <div class="app-wrapper col-xs-6 col-sm-4 col-md-3" ng-if="::(main.adminConfig.isProvisioningEnabled() && main.adminConfig.isAppManagementEnabled())">
+                    <div class="app-wrapper col-xs-6 col-sm-4 col-md-3" ng-if="::vm.managementAndProvisioningEnabled">
                       <div class="small-app-card ellipsis add-app" ng-click="vm.openSelectProductModal()">
                         <span>{{'mnoe_admin_panel.dashboard.organization.add_an_app' | translate}}<i class="fa fa-plus"></i></span>
                       </div>
@@ -123,7 +123,7 @@
             </mno-widget-body>
           </mno-widget>
         </div>
-        <div class="col-md-6" ng-if="::main.adminConfig.isProvisioningEnabled()">
+        <div class="col-md-6" ng-if="::vm.managementAndProvisioningEnabled">
           <mnoe-subscriptions-list organization="vm.organization"></mnoe-subscriptions-list>
         </div>
       </div>
