@@ -61,17 +61,17 @@
               <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.approval</div>
             </div>
             <div class="col-xs-3" ng-hide="!vm.displayApproval()">
-              <button role="button" ng-click="vm.approveOrder()" ng-disabled="vm.disableApproval()" class="btn btn-primary btn-xs" translate>
+              <button role="button" ng-click="vm.approveOrder()" ng-disabled="vm.disableApproval() || vm.isAccountManager" class="btn btn-primary btn-xs" translate>
                 mnoe_admin_panel.dashboard.order.approve
               </button>
             </div>
             <div class="col-xs-3" ng-hide="!vm.displayFulfillApproval()">
-              <button role="button" ng-click="vm.fulfillOrder()" ng-disabled="vm.disableFulfillApproval()" class="btn btn-primary btn-xs" translate>
+              <button role="button" ng-click="vm.fulfillOrder()" ng-disabled="vm.disableFulfillApproval() || vm.isAccountManager" class="btn btn-primary btn-xs" translate>
                 mnoe_admin_panel.dashboard.order.fulfill
               </button>
             </div>
             <div class="col-xs-3">
-              <button role="button" ng-click="vm.cancelOrder()" ng-disabled="vm.disableCancel()" class="btn btn-primary btn-xs" translate>
+              <button role="button" ng-click="vm.cancelOrder()" ng-disabled="vm.disableCancel() || vm.isAccountManager" class="btn btn-primary btn-xs" translate>
                 mnoe_admin_panel.dashboard.order.reject
               </button>
             </div>
