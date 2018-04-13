@@ -1,8 +1,13 @@
-@App.controller 'ProductsController', ($state, MnoeProducts, MnoeProvisioning, MnoConfirm) ->
+@App.controller 'ProductsController', ($state, MnoeProducts, MnoeProvisioning, MnoConfirm, MnoeCurrentUser) ->
   'ngInject'
 
   vm = this
   vm.product = {}
+
+  MnoeCurrentUser.getUser().then(
+    (response) ->
+      vm.isAccountManager = (response.admin_role == 'staff')
+  )
 
   vm.createProduct = () ->
     modalOptions =

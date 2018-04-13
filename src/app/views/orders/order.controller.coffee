@@ -1,4 +1,4 @@
-@App.controller 'OrderController', ($filter, $state, $stateParams, $uibModal, toastr, MnoeProvisioning, MnoeOrganizations, MnoeUsers, MnoConfirm) ->
+@App.controller 'OrderController', ($filter, $state, $stateParams, $uibModal, toastr, MnoeProvisioning, MnoeOrganizations, MnoeUsers, MnoConfirm, MnoeCurrentUser) ->
   'ngInject'
   vm = this
 
@@ -37,6 +37,11 @@
   MnoeProvisioning.getSubscriptionEvents(vm.orderId, vm.orgId).then(
     (response) ->
       vm.subscriptionEvents = response.data.subscription_events
+  )
+
+  MnoeCurrentUser.getUser().then(
+    (response) ->
+      vm.isAccountManager = (response.admin_role == 'staff')
   )
 
   vm.getInfo = ->

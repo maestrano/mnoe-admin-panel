@@ -9,12 +9,12 @@
               <div class="row apps-box">
                 <div class="app-wrapper col-xs-3 col-sm-2 col-md-2" ng-repeat="app in vm.enabledApps">
                   <div class="small-app-card ellipsis" uib-tooltip="{{::app.name}}">
-                    <i class="fa fa-trash app-remove" ng-if="vm.tenantManagement" ng-click="vm.openRemoveAppModal(app, $index)" uib-tooltip="{{'mnoe_admin_panel.dashboard.organization.remove_app' | translate:{'app_name': app.name} }}" tooltip-append-to-body="true"></i>
+                    <i class="fa fa-trash app-remove" ng-if="vm.tenantManagement && !vm.isAccountManager" ng-click="vm.openRemoveAppModal(app, $index)" uib-tooltip="{{'mnoe_admin_panel.dashboard.organization.remove_app' | translate:{'app_name': app.name} }}" tooltip-append-to-body="true"></i>
                     <img ng-src="{{::app.logo}}" width="60" class="app-info-modal" ng-click="vm.openInfoModal(app)">
                     <span>{{::app.name}}</span>
                   </div>
                 </div>
-                <div ng-if="vm.tenantManagement" class="app-wrapper col-xs-3 col-sm-2 col-md-2">
+                <div ng-if="vm.tenantManagement && !vm.isAccountManager" class="app-wrapper col-xs-3 col-sm-2 col-md-2">
                   <div class="small-app-card ellipsis add-app" ng-click="vm.openAddAppModal()">
                     <span>{{'mnoe_admin_panel.dashboard.organization.add_an_app' | translate}}<i class="fa fa-plus"></i></span>
                   </div>
