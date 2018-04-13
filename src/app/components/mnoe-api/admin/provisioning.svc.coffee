@@ -41,6 +41,10 @@
         _.find(productsResponse.products, (a) -> a.id == id || a.nid == nid)
     )
 
+  @getProduct = (productId, params) ->
+    MnoeAdminApiSvc.one('/products', productId).get(params)
+      .then((response) -> response.data.product)
+
   @setSubscription = (s) ->
     subscription = s
 
@@ -70,13 +74,13 @@
     return deferred.promise
 
   createSubscription = (s) ->
-    subscriptionsApi(s.organization_id).post({subscription: {product_pricing_id: s.product_pricing.id, custom_data: s.custom_data}}).catch(
+    subscriptionsApi(s.organization_id).post({subscription: {product_pricing_id: s.product_pricing.id, custom_data: s.custom_data}, edit_action: s.editAction}).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
     )
 
   updateSubscription = (s) ->
-    subscription.patch({subscription: {product_pricing_id: s.product_pricing.id, custom_data: s.custom_data}}).catch(
+    subscription.patch({subscription: {product_pricing_id: s.product_pricing.id, custom_data: s.custom_data}, edit_action: s.editAction}).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
     )
@@ -96,8 +100,8 @@
           response.data
       )
 
-  @fetchSubscription = (id, orgId) ->
-    MnoeAdminApiSvc.one('/organizations', orgId).one('subscriptions', id).get().catch(
+  @fetchSubscription = (id, orgId, params) ->
+    MnoeAdminApiSvc.one('/organizations', orgId).one('subscriptions', id).get(params).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)

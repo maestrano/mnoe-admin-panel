@@ -1,4 +1,11 @@
 <div id="provisioning-details">
+  <div class="subscription-provisioning-details">
+    <div uib-tabset active="vm.activeTab">
+      <div ng-repeat="editAction in vm.availableEditActions" uib-tab index="editAction" ng-click="vm.getSubscription()">
+        <div uib-tab-heading>{{ vm.editButtonText(editAction) | translate }}</div>
+      </div>
+    </div>
+  </div>
   <mno-widget is-loading="vm.isLoading" icon="fa-sitemap" heading="{{'mnoe_admin_panel.dashboard.provisioning.details.title' | translate}}">
     <mno-widget-header>
       <div class="breadcrumb-info">

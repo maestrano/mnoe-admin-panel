@@ -18,27 +18,27 @@
             </tr>
           </thead>
           <tbody ng-show="!$ctrl.subscriptions.loading" >
-            <tr ng-repeat="item in $ctrl.subscriptions.list">
-              <td>{{item.start_date | amDateFormat:'L'}}</td>
-              <td ng-if="$ctrl.all"><a ui-sref="dashboard.order({orderId : item.id, orgId: item.organization_id})">{{item.organization.name}}</a></td>
-              <td><a ui-sref="dashboard.order({orderId : item.id, orgId: item.organization_id})">{{item.product.name}}</a></td>
-              <td>{{item.product_pricing.name}}</td>
+            <tr ng-repeat="subscription in $ctrl.subscriptions.list">
+              <td>{{subscription.start_date | amDateFormat:'L'}}</td>
+              <td ng-if="$ctrl.all"><a ui-sref="dashboard.order({orderId : subscription.id, orgId: subscription.organization_id})">{{subscription.organization.name}}</a></td>
+              <td><a ui-sref="dashboard.order({orderId : subscription.id, orgId: subscription.organization_id})">{{subscription.product.name}}</a></td>
+              <td>{{subscription.product_pricing.name}}</td>
               <td>
                 <div>
-                  {{item.status}}
-                  <span><a href="" class="tooltip_link" ng-hide="!$ctrl.displayInfoTooltip(item)" ng-click="$ctrl.displayStatusInfo()"><i class="fa fa-info-circle"></i></a></span>
+                  {{subscription.status}}
+                  <span><a href="" class="tooltip_link" ng-show="$ctrl.displayInfoTooltip(subscription)" ng-click="$ctrl.displayStatusInfo()"><i class="fa fa-info-circle"></i></a></span>
                 </div>
               </td>
               <td>
-                <span style="display: flex;" ng-if="item.status !== 'cancelled'">
-                  <a ng-click="$ctrl.subscriptions.approve(item)" class="btn btn-link btn-link-success" ng-if="item.status == 'requested' || item.externally_provisioned" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.approve_tooltip' | translate }}"
+                <span style="display: flex;" ng-if="subscription.status !== 'cancelled'">
+                  <a ng-click="$ctrl.subscriptions.approve(subscription)" class="btn btn-link btn-link-success" ng-if="subscription.status == 'requested' || subscription.externally_provisioned" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.approve_tooltip' | translate }}"
                     tooltip-append-to-body="true">
                     <i class="fa fa-check"></i>
                   </a>
-                  <a ui-sref="dashboard.provisioning.order({id: item.id, orgId: item.organization_id})" class="btn btn-link btn-link-warning" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.modify_tooltip' | translate }}" tooltip-append-to-body="true">
+                  <a ui-sref="dashboard.provisioning.order({id: subscription.id, orgId: subscription.organization_id})" class="btn btn-link btn-link-warning" ng-disabled="!$ctrl.subscriptionModifiable(subscription)" uib-tooltip="{{ $ctrl.subscriptionModifyToolTip(subscription) | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-pencil-square-o"></i>
                   </a>
-                  <a ng-click="$ctrl.subscriptions.cancel(item)" class="btn btn-link btn-link-danger" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.cancel_tooltip' | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.subscriptions.cancel(subscription)" class="btn btn-link btn-link-danger" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.cancel_tooltip' | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-remove"></i>
                   </a>
                 </span>
