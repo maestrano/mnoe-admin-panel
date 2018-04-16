@@ -1,4 +1,4 @@
-@App.controller('ProvisioningConfirmCtrl', ($scope, $q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, PRICING_TYPES, EDIT_ACTIONS) ->
+@App.controller('ProvisioningConfirmCtrl', ($scope, $q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, PRICING_TYPES) ->
   vm = this
 
   vm.isLoading = true
@@ -8,7 +8,7 @@
   vm.billedLocally = vm.subscription.product.billed_locally
 
   vm.orderTypeText = (editAction) ->
-    EDIT_ACTIONS[editAction]
+    'mnoe_admin_panel.dashboard.provisioning.subscriptions.' + editAction.toLowerCase()
 
   vm.editOrder = () ->
     params = {

@@ -35,11 +35,3 @@
   .constant('PRICING_TYPES', {
     'unpriced': ['free', 'payg']
   })
-  .constant('EDIT_ACTIONS', {
-    'NEW': 'mnoe_admin_panel.dashboard.provisioning.subscriptions.new'
-    'EDIT': 'mnoe_admin_panel.dashboard.provisioning.subscriptions.edit',
-    'CHANGE': 'mnoe_admin_panel.dashboard.provisioning.subscriptions.change',
-    'RENEW': 'mnoe_admin_panel.dashboard.provisioning.subscriptions.renew',
-    'SUSPEND': 'mnoe_admin_panel.dashboard.provisioning.subscriptions.suspend',
-    'REACTIVATE': 'mnoe_admin_panel.dashboard.provisioning.subscriptions.reactivate'
-  })
