@@ -35,10 +35,19 @@
                     tooltip-append-to-body="true">
                     <i class="fa fa-check"></i>
                   </a>
-                  <a ng-click="$ctrl.editSubscription(item)" ng-disabled="!$ctrl.subscriptionModifiable(subscription)" class="btn btn-link btn-link-warning" uib-tooltip="{{ $ctrl.subscriptionModifyToolTip(subscription) | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.editSubscription(subscription, 'REACTIVATE')" ng-show="$ctrl.showEditAction(subscription, 'REACTIVATE')" class="btn btn-link btn-link-primary subscription-btn" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.reactivate_tooltip' | translate }}" tooltip-append-to-body="true">
+                    <i class="fa fa-refresh"></i>
+                  </a>
+                  <a ng-click="$ctrl.editSubscription(subscription, 'RENEW')" ng-show="$ctrl.showEditAction(subscription, 'RENEW')" class="btn btn-link btn-link-primary subscription-btn" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.renew_tooltip' | translate }}" tooltip-append-to-body="true">
+                    <i class="fa fa-check-square"></i>
+                  </a>
+                  <a ng-click="$ctrl.editSubscription(subscription, 'CHANGE')" ng-show="$ctrl.showEditAction(subscription, 'CHANGE')" class="btn btn-link btn-link-warning subscription-btn" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.change_tooltip' | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-pencil-square-o"></i>
                   </a>
-                  <a ng-click="$ctrl.subscriptions.cancel(subscription)" class="btn btn-link btn-link-danger" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.cancel_tooltip' | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.editSubscription(subscription, 'EDIT')" ng-show="$ctrl.showEditAction(subscription, 'EDIT')" class="btn btn-link btn-link-warning subscription-btn" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.edit_tooltip' | translate }}" tooltip-append-to-body="true">
+                    <i class="fa fa-pencil"></i>
+                  </a>
+                  <a ng-click="$ctrl.subscriptions.cancel(subscription)" ng-show="$ctrl.showEditAction(subscription, 'SUSPEND')" class="btn btn-link btn-link-danger subscription-btn" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.cancel_tooltip' | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-remove"></i>
                   </a>
                 </span>

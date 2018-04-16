@@ -121,14 +121,18 @@
         controllerAs: 'vm'
       )
 
-    ctrl.openEditModal = (subscription) ->
-      $uibModal.open(
-        templateUrl: 'app/views/provisioning/edit-subscription-modal/edit.html'
-        controller: 'EditSubscriptionController'
-        controllerAs: 'vm'
-        resolve:
-          subscription: -> subscription
-      )
+    ctrl.showEditAction = (subscription, editAction) ->
+      editAction in subscription.available_edit_actions
+
+    ctrl.editSubscription = (subscription, editAction) ->
+      MnoeProvisioning.setSubscription({})
+
+      params = {id: subscription.id, orgId: subscription.organization_id, editAction: editAction}
+      switch editAction
+        when 'CHANGE'
+          $state.go('dashboard.provisioning.order', params)
+        else
+          $state.go('dashboard.provisioning.additional_details', params)
 
     return
 })
