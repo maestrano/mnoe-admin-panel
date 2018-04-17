@@ -35,7 +35,7 @@
         <tbody ng-show="!$ctrl.markups.loading" >
             <tr ng-repeat-start="pmElem in $ctrl.markups.list">
               <td>
-                <div class='offers-listing' ng-click="pmElem.expanded = !pmElem.expanded">
+                <div class='offers-listing' ng-click="pmElem.expanded = !pmElem.expanded" ng-if="pmElem.product.id">
                     <span>
                       <i class="fa fa-2x" ng-class="{ 'fa-caret-right': !pmElem.expanded, 'fa-caret-down': pmElem.expanded }"></i>
                     </span>
