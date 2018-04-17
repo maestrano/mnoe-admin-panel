@@ -73,13 +73,13 @@
     return deferred.promise
 
   createSubscription = (s) ->
-    subscriptionsApi(s.organization_id).post({subscription: {product_pricing_id: s.product_pricing.id, custom_data: s.custom_data}}).catch(
+    subscriptionsApi(s.organization_id).post({subscription: {product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data}}).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
     )
 
   updateSubscription = (s) ->
-    subscription.patch({subscription: {product_pricing_id: s.product_pricing.id, custom_data: s.custom_data}}).catch(
+    subscription.patch({subscription: {product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data}}).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
     )
