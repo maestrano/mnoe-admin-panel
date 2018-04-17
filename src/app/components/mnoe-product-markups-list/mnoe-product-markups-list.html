@@ -6,62 +6,62 @@
     <div>
       <table st-pipe="$ctrl.callServer" st-table="$ctrl.markups.list" class="table table-striped" >
         <thead>
-          <tr>
-            <th></th>
-            <th st-sort="product.name" ng-class="$ctrl.readOnlyView ? 'col-sm-5' : 'col-sm-4'" translate>mnoe_admin_panel.dashboard.product_markups.widget.list.table.product</th>
-            <th st-sort="organization.name" ng-class="$ctrl.readOnlyView ? 'col-sm-5' : 'col-sm-4'" translate>{{ $ctrl.customerHeader() }}</th>
-            <th st-sort="percentage" class="col-sm-2 text-center" translate>mnoe_admin_panel.dashboard.product_markups.widget.list.table.percentage</th>
-            <th ng-if="!$ctrl.readOnlyView" class="col-sm-1"></th>
-            <th ng-if="!$ctrl.readOnlyView" class="col-sm-1"></th>
-          </tr>
-          <tr>
-            <th></th>
-            <th>
-              <input st-search="product.name" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.widget.list.placeholder.search_product' | translate}}" class="form-control input-sm search-bar col-sm-4" type="text"/>
-            </th>
-            <th>
-              <input ng-if="!$ctrl.readOnlyView" st-search="organization.name" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.widget.list.placeholder.search_customer' | translate}}" class="form-control input-sm search-bar col-sm-4" type="text"/>
-            </th>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr>
+        <tr>
+          <th></th>
+          <th st-sort="product.name" ng-class="$ctrl.readOnlyView ? 'col-sm-5' : 'col-sm-4'" translate>mnoe_admin_panel.dashboard.product_markups.widget.list.table.product</th>
+          <th st-sort="organization.name" ng-class="$ctrl.readOnlyView ? 'col-sm-5' : 'col-sm-4'" translate>{{ $ctrl.customerHeader() }}</th>
+          <th st-sort="percentage" class="col-sm-2 text-center" translate>mnoe_admin_panel.dashboard.product_markups.widget.list.table.percentage</th>
+          <th ng-if="!$ctrl.readOnlyView" class="col-sm-1"></th>
+          <th ng-if="!$ctrl.readOnlyView" class="col-sm-1"></th>
+        </tr>
+        <tr>
+          <th></th>
+          <th>
+            <input st-search="product.name" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.widget.list.placeholder.search_product' | translate}}" class="form-control input-sm search-bar col-sm-4" type="text"/>
+          </th>
+          <th>
+            <input ng-if="!$ctrl.readOnlyView" st-search="organization.name" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.widget.list.placeholder.search_customer' | translate}}" class="form-control input-sm search-bar col-sm-4" type="text"/>
+          </th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
         </thead>
         <tbody ng-show="$ctrl.markups.loading">
-          <tr>
-            <td colspan="6" class="text-center" translate>mnoe_admin_panel.dashboard.product_markups.widget.list.loading_product_markups</td>
-          </tr>
+        <tr>
+          <td colspan="6" class="text-center" translate>mnoe_admin_panel.dashboard.product_markups.widget.list.loading_product_markups</td>
+        </tr>
         </tbody>
         <tbody ng-show="!$ctrl.markups.loading" >
-            <tr ng-repeat-start="pmElem in $ctrl.markups.list">
-              <td>
-                <div class='offers-listing' ng-click="pmElem.expanded = !pmElem.expanded" ng-if="pmElem.product.id">
-                    <span>
-                      <i class="fa fa-2x" ng-class="{ 'fa-caret-right': !pmElem.expanded, 'fa-caret-down': pmElem.expanded }"></i>
-                    </span>
-                </div>
-              </td>
-              <td>{{ pmElem.product.name || ('mnoe_admin_panel.dashboard.product_markups.add_markup.modal.all_products' | translate) }}</td>
-              <td>{{ $ctrl.showOrgName(pmElem.organization.name) }}</td>
-              <td class="text-center">
-                <span ng-show="!$ctrl.editmode[pmElem.id]">{{pmElem.percentage*100 | number:2}}%</span>
-                <input ng-show="$ctrl.editmode[pmElem.id]" type="number" class="form-control input-sm" percentage-input ng-model="pmElem.percentage" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" required>
-              </td>
-              <td ng-if="!$ctrl.readOnlyView">
-                <a href="" ng-hide="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.editmode[pmElem.id] = true"><i class="fa fa-pencil"></i></a>
-              </td>
-              <td ng-if="!$ctrl.readOnlyView">
-                <a href="" ng-hide="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.remove(pmElem)"><i class="fa fa-times"></i></a>
-                <a href="" ng-show="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.update(pmElem)"><i class="fa fa-check"></i></a>
-              </td>
-            </tr>
+        <tr ng-repeat-start="pmElem in $ctrl.markups.list">
+          <td>
+            <div class='offers-listing' ng-click="pmElem.expanded = !pmElem.expanded" ng-if="pmElem.product.id">
+              <span>
+                <i class="fa fa-2x" ng-class="{ 'fa-caret-right': !pmElem.expanded, 'fa-caret-down': pmElem.expanded }"></i>
+              </span>
+            </div>
+          </td>
+          <td>{{ pmElem.product.name || ('mnoe_admin_panel.dashboard.product_markups.add_markup.modal.all_products' | translate) }}</td>
+          <td>{{ $ctrl.showOrgName(pmElem.organization.name) }}</td>
+          <td class="text-center">
+            <span ng-show="!$ctrl.editmode[pmElem.id]">{{pmElem.percentage*100 | number:2}}%</span>
+            <input ng-show="$ctrl.editmode[pmElem.id]" type="number" class="form-control input-sm" percentage-input ng-model="pmElem.percentage" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" required>
+          </td>
+          <td ng-if="!$ctrl.readOnlyView">
+            <a href="" ng-hide="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.editmode[pmElem.id] = true"><i class="fa fa-pencil"></i></a>
+          </td>
+          <td ng-if="!$ctrl.readOnlyView">
+            <a href="" ng-hide="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.remove(pmElem)"><i class="fa fa-times"></i></a>
+            <a href="" ng-show="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.update(pmElem)"><i class="fa fa-check"></i></a>
+          </td>
+        </tr>
 
-            <tr ng-show="pmElem.expanded" ng-repeat-end>
-              <td></td>
-              <td colspan='4'>
-                <div mno-offers-list offers="pmElem.product.product_pricings" markup="pmElem.percentage"></div>
-              </td>
-            </tr>
+        <tr ng-show="pmElem.expanded" ng-repeat-end>
+          <td></td>
+          <td colspan='4'>
+            <div mno-offers-list offers="pmElem.product.product_pricings" markup="pmElem.percentage"></div>
+          </td>
+        </tr>
         </tbody>
       </table>
     </div>
