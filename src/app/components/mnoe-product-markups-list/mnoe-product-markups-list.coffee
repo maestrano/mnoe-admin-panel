@@ -75,6 +75,7 @@
       ).finally(-> vm.markups.loading = false)
 
     vm.update = (pm) ->
+      pm.isSaving = true
       MnoeProductMarkups.updateProductMarkup(pm).then(
         (response) ->
           updateSort()
@@ -85,7 +86,7 @@
           # Display an error
           $log.error('Error while saving product markup', error)
           toastr.error('mnoe_admin_panel.dashboard.product_markups.add_markup.modal.toastr_error')
-      )
+      ).finally(-> pm.isSaving = false)
 
     vm.remove = (pm) ->
       modalOptions =
@@ -95,11 +96,12 @@
         bodyText: 'mnoe_admin_panel.dashboard.product_markups.modal.remove_product_markup.perform'
 
       MnoConfirm.showModal(modalOptions).then( ->
+        pm.isSaving = true
         MnoeProductMarkups.deleteProductMarkup(pm).then( ->
           updateSort()
           updateSearch()
           toastr.success('mnoe_admin_panel.dashboard.product_markups.modal.remove_product_markup.toastr_success')
-        )
+        ).finally(-> pm.isSaving = false)
       )
 
     vm.showOrgName = (name) ->

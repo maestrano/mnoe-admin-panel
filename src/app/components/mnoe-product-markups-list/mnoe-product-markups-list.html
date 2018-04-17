@@ -45,14 +45,15 @@
           <td>{{ $ctrl.showOrgName(pmElem.organization.name) }}</td>
           <td class="text-center">
             <span ng-show="!$ctrl.editmode[pmElem.id]">{{pmElem.percentage*100 | number:2}}%</span>
-            <input ng-show="$ctrl.editmode[pmElem.id]" type="number" class="form-control input-sm" percentage-input ng-model="pmElem.percentage" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" required>
+            <input ng-disabled="pmElem.isSaving" ng-show="$ctrl.editmode[pmElem.id]" type="number" class="form-control input-sm" percentage-input ng-model="pmElem.percentage" placeholder="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.placeholder.percentage' | translate}}" required>
           </td>
           <td ng-if="!$ctrl.readOnlyView">
-            <a href="" ng-hide="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.editmode[pmElem.id] = true"><i class="fa fa-pencil"></i></a>
+            <a href="" ng-hide="$ctrl.editmode[pmElem.id] || pmElem.isSaving" ng-click="$ctrl.editmode[pmElem.id] = true"><i class="fa fa-pencil"></i></a>
           </td>
           <td ng-if="!$ctrl.readOnlyView">
-            <a href="" ng-hide="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.remove(pmElem)"><i class="fa fa-times"></i></a>
-            <a href="" ng-show="$ctrl.editmode[pmElem.id]" ng-click="$ctrl.update(pmElem)"><i class="fa fa-check"></i></a>
+            <a href="" ng-hide="$ctrl.editmode[pmElem.id] || pmElem.isSaving" ng-click="$ctrl.remove(pmElem)"><i class="fa fa-times"></i></a>
+            <a href="" ng-show="$ctrl.editmode[pmElem.id] && !pmElem.isSaving" ng-click="$ctrl.update(pmElem)"><i class="fa fa-check"></i></a>
+            <span ng-show="pmElem.isSaving"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           </td>
         </tr>
 
