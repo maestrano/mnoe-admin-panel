@@ -4,9 +4,8 @@
   </mno-widget-header>
   <mno-widget-body class="large-auto-height no-padding">
     <div>
-      <table class="table" st-pipe="$ctrl.callServer" st-table="$ctrl.displayed">
-        <table st-pipe="$ctrl.callServer" st-table="$ctrl.markups.list" class="table table-striped" >
-          <thead>
+      <table st-pipe="$ctrl.callServer" st-table="$ctrl.markups.list" class="table table-striped" >
+        <thead>
           <tr>
             <th></th>
             <th st-sort="product.name" ng-class="$ctrl.readOnlyView ? 'col-sm-5' : 'col-sm-4'" translate>mnoe_admin_panel.dashboard.product_markups.widget.list.table.product</th>
@@ -27,13 +26,13 @@
             <th></th>
             <th></th>
           </tr>
-          </thead>
-          <tbody ng-show="$ctrl.markups.loading">
+        </thead>
+        <tbody ng-show="$ctrl.markups.loading">
           <tr>
             <td colspan="3" class="text-center" translate>mnoe_admin_panel.dashboard.product_markups.widget.list.loading_product_markups</td>
           </tr>
-          </tbody>
-          <tbody ng-show="!$ctrl.markups.loading" >
+        </tbody>
+        <tbody ng-show="!$ctrl.markups.loading" >
             <tr ng-repeat-start="pmElem in $ctrl.markups.list">
               <td>
                 <div class='offers-listing' ng-click="pmElem.expanded = !pmElem.expanded">
@@ -63,8 +62,8 @@
                 <div mno-offers-list offers="pmElem.product.product_pricings" markup="pmElem.percentage"></div>
               </td>
             </tr>
-          </tbody>
-        </table>
+        </tbody>
+      </table>
     </div>
   </mno-widget-body>
   <mno-widget-footer ng-show="$ctrl.markups.list ">

@@ -30,7 +30,6 @@
     vm.callServer = (tableState) ->
       sort   = updateSort (tableState.sort)
       search = updateSearch (tableState.search)
-
       fetchProductMarkups(vm.markups.nbItems, vm.markups.offset, sort, search)
 
     # Update sorting parameters
@@ -61,7 +60,6 @@
 
       # Update markups sort
       vm.markups.search = search
-      vm.markups.pageChangedCb(vm.markups.nbItems, 1)
       return search
 
     # Fetch markups
@@ -75,18 +73,6 @@
           vm.markups.totalItems = response.headers('x-total-count')
           vm.markups.list = response.data
       ).finally(-> vm.markups.loading = false)
-
-    # Initial call and start the listeners
-    fetchProductMarkups(vm.markups.nbItems, 0).then( ->
-    # Notify me if a user is added
-      MnoeObservables.registerCb(OBS_KEYS.markupAdded, ->
-        fetchProductMarkups(vm.markups.nbItems, vm.markups.offset)
-      )
-      # Notify me if the list changes
-      MnoeObservables.registerCb(OBS_KEYS.markupChanged, ->
-        fetchProductMarkups(vm.markups.nbItems, vm.markups.offset)
-      )
-    )
 
     vm.update = (pm) ->
       MnoeProductMarkups.updateProductMarkup(pm).then(
