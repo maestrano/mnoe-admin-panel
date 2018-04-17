@@ -44,7 +44,7 @@
 
       params = {
         skip_dependencies: true,
-        includes: ['categories'],
+        includes: ['categories']
         fields: {
           products: ['name, logo, categories']
           categories: ['name']
@@ -72,10 +72,8 @@
       promise.then(
         (response) ->
           # Extract the categories
-          categories = []
-          response.data.forEach((p) ->
-            categories = categories.concat(p.categories))
-          $ctrl.categories = _.uniq(categories)
+          categories = (product.categories for product in response.data)
+          $ctrl.categories = _.uniq([].concat categories...)
 
           $ctrl.products = orderByFilter(response.data, 'name')
           $ctrl.filteredProducts = $ctrl.products
@@ -84,23 +82,13 @@
     # Filter products by name or category
     $ctrl.onSearchChange = () ->
       $ctrl.selectedCategory = ''
-      $ctrl.filteredProducts = []
-      firstFilterResult = []
-      for product in $ctrl.products
-        if ($ctrl.searchTerm? && $ctrl.searchTerm.length > 0) || !$ctrl.selectedCategory
-          firstFilterResult.push(product)
-        else
-          if _.contains(product.categories, $ctrl.selectedCategory)
-            firstFilterResult.push(product)
       term = $ctrl.searchTerm.toLowerCase()
-      $ctrl.filteredProducts = firstFilterResult.filter( (p) ->
-        p.name.toLowerCase().indexOf(term) > -1)
+      $ctrl.filteredProducts = (product for product in $ctrl.products when product.name.toLowerCase().indexOf(term) isnt -1)
 
     $ctrl.onCategoryChange = () ->
       $ctrl.searchTerm = ''
-      if ($ctrl.selectedCategory? && $ctrl.selectedCategory.length > 0)
-        $ctrl.filteredProducts = $ctrl.products.filter( (p) ->
-          _.contains(p.categories, $ctrl.selectedCategory))
+      if ($ctrl.selectedCategory?.length > 0)
+        $ctrl.filteredProducts = (product for product in $ctrl.products when $ctrl.selectedCategory in product.categories)
       else
         $ctrl.filteredProducts = $ctrl.products
 

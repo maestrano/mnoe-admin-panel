@@ -9,26 +9,16 @@
 
   vm.tenantManagement = false
 
-  # Filter products by name or category
+  # Filter apps by name or category
   vm.onSearchChange = () ->
     vm.selectedCategory = ''
-    vm.filteredApps = []
-    firstFilterResult = []
-    for app in vm.enabledApps
-      if (vm.searchTerm? && vm.searchTerm.length > 0) || !vm.selectedCategory
-        firstFilterResult.push(app)
-      else
-        if _.contains(app.categories, vm.selectedCategory)
-          firstFilterResult.push(app)
     term = vm.searchTerm.toLowerCase()
-    vm.filteredApps = firstFilterResult.filter( (app) ->
-      app.name.toLowerCase().indexOf(term) > -1)
+    vm.filteredApps = (app for app in vm.enabledApps when app.name.toLowerCase().indexOf(term) isnt -1)
 
   vm.onCategoryChange = () ->
     vm.searchTerm = ''
-    if (vm.selectedCategory? && vm.selectedCategory.length > 0)
-      vm.filteredApps = vm.enabledApps.filter( (app) ->
-        _.contains(app.categories, vm.selectedCategory))
+    if (vm.selectedCategory?.length > 0)
+      vm.filteredApps = (app for app in vm.enabledApps when vm.selectedCategory in app.categories)
     else
       vm.filteredApps = vm.enabledApps
 
