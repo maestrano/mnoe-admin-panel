@@ -29,6 +29,11 @@
       )
   )
 
+  MnoeOrganizations.count().then(
+    (response) ->
+      vm.organizations.nonDemoCount = response.data.non_demo_count
+  )
+
   $scope.$on('$destroy', () ->
     MnoeObservables.unsubscribe(OBS_KEYS.userChanged, updateUsersCounter)
   )
