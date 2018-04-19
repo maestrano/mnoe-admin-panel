@@ -1,4 +1,4 @@
-@App.controller('ProvisioningSummaryCtrl', ($q, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, PRICING_TYPES) ->
+@App.controller('ProvisioningSummaryCtrl', ($q, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, ProvisioningHelper) ->
   vm = this
 
   orgPromise = MnoeOrganizations.get($stateParams.orgId)
@@ -7,6 +7,8 @@
     MnoeProvisioning.initSubscription({orgId: $stateParams.orgId, subscriptionId: $stateParams.subscriptionId})
   else
     $q.resolve(subscription)
+
+  vm.pricedPlan = ProvisioningHelper.pricedPlan
 
   vm.isLoading = true
   $q.all({organization: orgPromise, subscription: subPromise}).then(
