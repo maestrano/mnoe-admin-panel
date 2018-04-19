@@ -1,4 +1,4 @@
-@App.controller('ProvisioningOrderCtrl', ($q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, ProvisioningHelper) ->
+@App.controller('ProvisioningOrderCtrl', ($scope, $q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, ProvisioningHelper) ->
   vm = this
 
   vm.isLoading = true
@@ -36,6 +36,15 @@
       $state.go('dashboard.provisioning.additional_details', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid})
     else
       $state.go('dashboard.provisioning.confirm', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid})
+
+  # Delete the cached subscription when we are leaving the subscription workflow.
+  $scope.$on('$stateChangeStart', (event, toState) ->
+    switch toState.name
+      when "dashboard.provisioning.confirm", "dashboard.provisioning.order_summary", "dashboard.provisioning.additional_details"
+        null
+      else
+        MnoeProvisioning.setSubscription({})
+  )
 
   return
 )
