@@ -4,14 +4,15 @@
       <mno-widget icon="fa-th-large" heading="{{'mnoe_admin_panel.dashboard.settings.apps.available_apps' | translate}}">
         <mno-widget-header>
           <div class="pull-right">
+            <div class="apps-filter col-sm-6">
+              <input type="search" ng-model="vm.searchTerm" placeholder="{{'mnoe_admin_panel.dashboard.settings.apps.search' | translate}}" ng-change="vm.onSearchChange()"/>
+            </div>
             <div ng-if="vm.displayCategories" class="apps-filter col-sm-6">
               <select class="form-control" ng-model="vm.selectedCategory" ng-options="c for c in vm.categories" ng-change="vm.onCategoryChange(vm.selectedCategory)">
                 <option value=''>{{ 'mnoe_admin_panel.dashboard.settings.apps.select_all' | translate }}</option>
               </select>
             </div>
-            <div class="apps-filter col-sm-4">
-              <input type="search" ng-model="vm.searchTerm" placeholder="{{'mnoe_admin_panel.dashboard.settings.apps.search' | translate}}" ng-change="vm.onSearchChange()"/>
-            </div>
+            
           </div>
         </mno-widget-header>
         <mno-widget-body>
