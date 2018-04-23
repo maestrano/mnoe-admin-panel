@@ -10,7 +10,7 @@
     dismiss: '&'
   },
   templateUrl: 'app/components/mno-product-selector/mno-product-selector.html',
-  controller: ($window, $q, orderByFilter, MnoeProducts, MnoeApps) ->
+  controller: ($window, $q, orderByFilter, MnoeProducts, MnoeApps, MnoeProvisioning) ->
     'ngInject'
 
     $ctrl = this
@@ -104,6 +104,7 @@
     # Close the modal and return the selected products
     $ctrl.closeModal = ->
       $ctrl.isLoadingProducts = true
+      MnoeProvisioning.setSubscription({})
 
       promise = selectedProductsPromise()
       promise.then(

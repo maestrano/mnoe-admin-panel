@@ -1,4 +1,4 @@
-@App.controller('ProvisioningSummaryCtrl', ($q, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, ProvisioningHelper) ->
+@App.controller('ProvisioningSummaryCtrl', ($q, $scope, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, ProvisioningHelper) ->
   vm = this
 
   orgPromise = MnoeOrganizations.get($stateParams.orgId)
@@ -16,6 +16,11 @@
       vm.orgCurrency = response.organization.data.billing_currency || MnoeAdminConfig.marketplaceCurrency()
       vm.subscription = response.subscription
   ).finally(-> vm.isLoading = false)
+
+  # Delete the cached subscription.
+  $scope.$on('$stateChangeStart', (event, toState) ->
+    MnoeProvisioning.setSubscription({})
+  )
 
   return
 )

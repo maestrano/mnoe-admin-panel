@@ -9,8 +9,12 @@
     filters: '<'
     titleKey: '@'
   }
-  controller: ($filter, $log, $uibModal, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning) ->
+  controller: ($state, $filter, $log, $uibModal, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning) ->
     ctrl = this
+
+    ctrl.editSubscription = (subscription) ->
+      MnoeProvisioning.setSubscription({})
+      $state.go('dashboard.provisioning.order', {id: subscription.id, orgId: subscription.organization_id})
 
     ctrl.subscriptions =
       list: []
