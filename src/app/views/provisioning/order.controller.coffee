@@ -1,4 +1,4 @@
-@App.controller('ProvisioningOrderCtrl', ($q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, PRICING_TYPES) ->
+@App.controller('ProvisioningOrderCtrl', ($scope, $q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, ProvisioningHelper) ->
   vm = this
 
   vm.isLoading = true
@@ -7,6 +7,9 @@
   orgPromise = MnoeOrganizations.get($stateParams.orgId)
   prodsPromise = MnoeProvisioning.getProducts()
   initPromise = MnoeProvisioning.initSubscription({productNid: $stateParams.nid, subscriptionId: $stateParams.id, orgId: $stateParams.orgId})
+
+  # Return true if the plan has a dollar value
+  vm.pricedPlan = ProvisioningHelper.pricedPlan
 
   $q.all({organization: orgPromise, products: prodsPromise, subscription: initPromise}).then(
     (response) ->
@@ -20,7 +23,7 @@
 
           # Filters the pricing plans not containing current currency
           vm.subscription.product.product_pricings = _.filter(vm.subscription.product.product_pricings,
-            (pp) -> (pp.pricing_type in PRICING_TYPES['unpriced']) || _.some(pp.prices, (p) -> p.currency == vm.orgCurrency)
+            (pp) -> !vm.pricedPlan(pp) || _.some(pp.prices, (p) -> p.currency == vm.orgCurrency)
           )
 
           MnoeProvisioning.setSubscription(vm.subscription)
@@ -33,6 +36,15 @@
       $state.go('dashboard.provisioning.additional_details', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid})
     else
       $state.go('dashboard.provisioning.confirm', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid})
+
+  # Delete the cached subscription when we are leaving the subscription workflow.
+  $scope.$on('$stateChangeStart', (event, toState) ->
+    switch toState.name
+      when "dashboard.provisioning.confirm", "dashboard.provisioning.order_summary", "dashboard.provisioning.additional_details"
+        null
+      else
+        MnoeProvisioning.setSubscription({})
+  )
 
   return
 )

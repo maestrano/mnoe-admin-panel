@@ -34,10 +34,13 @@
         )
   ).finally(-> vm.isLoading = false)
 
-  MnoeProvisioning.getSubscriptionEvents(vm.orderId, vm.orgId).then(
-    (response) ->
-      vm.subscriptionEvents = response.data.subscription_events
-  )
+  fetchSubscriptionEvents = () ->
+    MnoeProvisioning.getSubscriptionEvents(vm.orderId, vm.orgId).then(
+      (response) ->
+        vm.subscriptionEvents = response.data.subscription_events
+    )
+
+  fetchSubscriptionEvents()
 
   vm.getInfo = ->
     MnoeOrganizations.get(vm.orgId).then(
@@ -94,7 +97,7 @@
             toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_success', {extraData: {subscription_name: vm.order.product.name}})
           ->
             toastr.error('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_error', {extraData: {subscription_name: vm.order.product.name}})
-        )
+        ).finally(() -> fetchSubscriptionEvents())
 
     MnoConfirm.showModal(modalOptions)
 
@@ -113,7 +116,7 @@
             toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.toastr_success', {extraData: {subscription_name: vm.order.product.name}})
           ->
             toastr.error('mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.toastr_error', {extraData: {subscription_name: vm.order.product.name}})
-        )
+        ).finally(() -> fetchSubscriptionEvents())
 
     MnoConfirm.showModal(modalOptions)
 
@@ -132,7 +135,7 @@
             toastr.success('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_success', {extraData: {subscription_name: vm.order.product.name}})
           ->
             toastr.error('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_error', {extraData: {subscription_name: vm.order.product.name}})
-        )
+        ).finally(() -> fetchSubscriptionEvents())
 
     MnoConfirm.showModal(modalOptions)
 

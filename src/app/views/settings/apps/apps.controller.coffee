@@ -3,8 +3,24 @@
   vm = this
 
   vm.enabledApps = []
+  vm.filteredApps = []
+  vm.selectedCategory = ''
+  vm.searchTerm = ''
 
   vm.tenantManagement = false
+
+  # Filter apps by name or category
+  vm.onSearchChange = () ->
+    vm.selectedCategory = ''
+    term = vm.searchTerm.toLowerCase()
+    vm.filteredApps = (app for app in vm.enabledApps when app.name.toLowerCase().indexOf(term) isnt -1)
+
+  vm.onCategoryChange = () ->
+    vm.searchTerm = ''
+    if (vm.selectedCategory?.length > 0)
+      vm.filteredApps = (app for app in vm.enabledApps when vm.selectedCategory in app.categories)
+    else
+      vm.filteredApps = vm.enabledApps
 
   vm.openRemoveAppModal = (app, $index)->
     MnoConfirm.showModal(
@@ -60,6 +76,9 @@
       (response) ->
         # Copy the marketplace as we will work on the cached object
         vm.enabledApps = angular.copy(response.data.apps)
+        vm.filteredApps = vm.enabledApps
+        vm.categories = angular.copy(response.data.categories)
+        vm.displayCategories = vm.categories.length > 1
     )
     MnoeTenant.get().then(
       (response) ->
