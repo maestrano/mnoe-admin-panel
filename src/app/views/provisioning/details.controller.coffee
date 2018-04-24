@@ -42,7 +42,8 @@
     .then((schema) -> vm.schema = schema)
 
   vm.submit = (form) ->
-    return if form.$invalid
+    $scope.$broadcast('schemaFormValidate')
+    return unless form.$valid
     vm.subscription.custom_data = vm.model
     MnoeProvisioning.setSubscription(vm.subscription)
     $state.go('dashboard.provisioning.confirm', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid})
