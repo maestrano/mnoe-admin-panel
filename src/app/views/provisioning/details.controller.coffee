@@ -1,4 +1,4 @@
-@App.controller('ProvisioningDetailsCtrl', ($scope, $q, $state, $stateParams, MnoeProvisioning, MnoeOrganizations, schemaForm, PRICING_TYPES) ->
+@App.controller('ProvisioningDetailsCtrl', ($scope, $q, $state, $stateParams, MnoeProvisioning, MnoeOrganizations, schemaForm, PRICING_TYPES, toastr) ->
   vm = this
 
   vm.subscription = MnoeProvisioning.getSubscription()
@@ -20,20 +20,22 @@
     nid: $stateParams.nid,
     editAction: $stateParams.editAction
 
-
+  # The schema is contained in field vm.product.custom_schema
+  #
+  # jsonref is used to resolve $ref references
+  # jsonref is not cyclic at this stage hence the need to make a
+  # reasonable number of passes (2 below + 1 in the sf-schema directive)
+  # to resolve cyclic references
   getCustomSchema = (product) ->
-    # The schema is contained in field vm.product.custom_schema
-    #
-    # jsonref is used to resolve $ref references
-    # jsonref is not cyclic at this stage hence the need to make a
-    # reasonable number of passes (2 below + 1 in the sf-schema directive)
-    # to resolve cyclic references
-    schemaForm.jsonref(JSON.parse(product.custom_schema))
-      .then((schema) -> schemaForm.jsonref(schema))
-      .then((schema) -> schemaForm.jsonref(schema))
-      .then((schema) ->
-        vm.schema = schema
-      )
+    customSchema = JSON.parse(product.custom_schema)
+    if customSchema.status == 'error'
+      toastr.error('mnoe_admin_panel.dashboard.provisioning.subscriptions.custom_schema_error')
+      $state.go('dashboard.customers.organization', {orgId: $stateParams.orgId})
+    else
+      schemaForm.jsonref(customSchema)
+        .then((schema) -> schemaForm.jsonref(schema))
+        .then((schema) -> schemaForm.jsonref(schema))
+        .then((schema) -> vm.schema = schema)
 
   if _.isEmpty(vm.subscription)
     vm.isLoading = true
