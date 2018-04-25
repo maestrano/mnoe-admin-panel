@@ -1,41 +1,35 @@
 @App.controller('ProvisioningOrderCtrl', ($scope, $q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, ProvisioningHelper) ->
   vm = this
-
-  vm.isLoading = true
   vm.product = null
+  vm.subscription = MnoeProvisioning.getSubscription()
+  if _.isEmpty(vm.subscription)
+    vm.isLoading = true
+    orgPromise = MnoeOrganizations.get($stateParams.orgId)
+    initPromise = MnoeProvisioning.initSubscription({productId: $stateParams.productId, subscriptionId: $stateParams.subscriptionId, orgId: $stateParams.orgId})
 
-  orgPromise = MnoeOrganizations.get($stateParams.orgId)
-  prodsPromise = MnoeProvisioning.getProducts()
-  initPromise = MnoeProvisioning.initSubscription({productNid: $stateParams.nid, subscriptionId: $stateParams.id, orgId: $stateParams.orgId})
+    vm.pricedPlan = ProvisioningHelper.pricedPlan
 
-  vm.pricedPlan = ProvisioningHelper.pricedPlan
+    $q.all({organization: orgPromise, subscription: initPromise}).then(
+      (response) ->
+        vm.orgCurrency = response.organization.data.billing_currency || MnoeAdminConfig.marketplaceCurrency()
+        vm.subscription = response.subscription
+        vm.subscription.organization_id = response.organization.data.id
 
-  $q.all({organization: orgPromise, products: prodsPromise, subscription: initPromise}).then(
-    (response) ->
-      vm.orgCurrency = response.organization.data.billing_currency || MnoeAdminConfig.marketplaceCurrency()
-      vm.subscription = response.subscription
-      vm.subscription.organization_id = response.organization.data.id
+        # When in edit mode, we will be getting the product ID from the subscription, otherwise from the url.
+        productId = vm.subscription.product?.id || $stateParams.productId
+        MnoeProvisioning.getProduct(productId, { editAction: $stateParams.editAction }).then(
+          (response) ->
+            vm.subscription.product = response
+            return vm.next(vm.subscription) if vm.skipPriceSelection(vm.subscription.product)
 
-      # If the product id is available, get the product, otherwise find with the nid.
-      productPromise = if vm.subscription.product?.id
-        MnoeProvisioning.getProduct(vm.subscription.product.id, { editAction: $stateParams.editAction })
-      else
-        MnoeProvisioning.findProduct({nid: $stateParams.nid})
+            # Filters the pricing plans not containing current currency
+            vm.subscription.product.product_pricings = _.filter(vm.subscription.product.product_pricings,
+              (pp) -> !vm.pricedPlan(pp) || _.some(pp.prices, (p) -> p.currency == vm.orgCurrency)
+            )
 
-      productPromise.then(
-        (response) ->
-          vm.subscription.product = response
-
-          vm.next(vm.subscription) if vm.skipPriceSelection(vm.subscription.product)
-
-          # Filters the pricing plans not containing current currency
-          vm.subscription.product.product_pricings = _.filter(vm.subscription.product.product_pricings,
-            (pp) -> !vm.pricedPlan(pp) || _.some(pp.prices, (p) -> p.currency == vm.orgCurrency)
-          )
-
-          MnoeProvisioning.setSubscription(vm.subscription)
-      )
-  ).finally(-> vm.isLoading = false)
+            MnoeProvisioning.setSubscription(vm.subscription)
+        )
+    ).finally(-> vm.isLoading = false)
 
   vm.subscriptionPlanText = () ->
     switch $stateParams.editAction
@@ -47,9 +41,9 @@
   vm.next = (subscription) ->
     MnoeProvisioning.setSubscription(subscription)
     params = {
+      productId: $stateParams.productId,
       orgId: $stateParams.orgId,
-      id: $stateParams.id,
-      nid: $stateParams.nid,
+      subscriptionId: $stateParams.subscriptionId,
       editAction: $stateParams.editAction
     }
     if vm.subscription.product.custom_schema?

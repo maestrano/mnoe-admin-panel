@@ -270,7 +270,7 @@
       .state 'dashboard.provisioning.order',
         data:
           pageTitle:'Purchase - Order'
-        url: '/order/?nid&id&orgId&editAction'
+        url: '/order/:productId?subscriptionId&orgId&editAction'
         views: '@dashboard.provisioning':
           templateUrl: 'app/views/provisioning/order.html'
           controller: 'ProvisioningOrderCtrl'
@@ -280,7 +280,7 @@
       .state 'dashboard.provisioning.additional_details',
         data:
           pageTitle:'Purchase - Additional details'
-        url: '/details/?nid&id&orgId&editAction'
+        url: '/details/:productId?subscriptionId&orgId&editAction'
         views: '@dashboard.provisioning':
           templateUrl: 'app/views/provisioning/details.html'
           controller: 'ProvisioningDetailsCtrl'
@@ -290,7 +290,7 @@
       .state 'dashboard.provisioning.confirm',
         data:
           pageTitle:'Purchase - Confirm'
-        url: '/confirm/?nid&id&orgId&editAction'
+        url: '/confirm/:productId?subscriptionId&orgId&editAction'
         views: '@dashboard.provisioning':
           templateUrl: 'app/views/provisioning/confirm.html'
           controller: 'ProvisioningConfirmCtrl'
@@ -300,7 +300,7 @@
       .state 'dashboard.provisioning.order_summary',
         data:
           pageTitle:'Purchase - Order summary'
-        url: '/summary/?orgId&subscriptionId'
+        url: '/summary/:productId?subscriptionId&orgId&editAction'
         views: '@dashboard.provisioning':
           templateUrl: 'app/views/provisioning/summary.html'
           controller: 'ProvisioningSummaryCtrl'

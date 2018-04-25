@@ -12,10 +12,6 @@
   controller: ($state, $filter, $log, $uibModal, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning) ->
     ctrl = this
 
-    ctrl.editSubscription = (subscription) ->
-      MnoeProvisioning.setSubscription({})
-      $state.go('dashboard.provisioning.order', {id: subscription.id, orgId: subscription.organization_id})
-
     ctrl.subscriptions =
       list: []
       sort: "created_at.desc"
@@ -127,7 +123,7 @@
     ctrl.editSubscription = (subscription, editAction) ->
       MnoeProvisioning.setSubscription({})
 
-      params = {id: subscription.id, orgId: subscription.organization_id, editAction: editAction}
+      params = {subscriptionId: subscription.id, orgId: subscription.organization_id, editAction: editAction}
       switch editAction
         when 'CHANGE'
           $state.go('dashboard.provisioning.order', params)

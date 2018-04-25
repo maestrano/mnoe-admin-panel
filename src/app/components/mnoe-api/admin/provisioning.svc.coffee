@@ -56,9 +56,8 @@
   # if productNid: return the default subscription
   # if subscriptionId: return the fetched subscription
   # else: return the subscription in cache (edition mode)
-  @initSubscription = ({productNid = null, subscriptionId = null, orgId = null}) ->
+  @initSubscription = ({productId = null, subscriptionId = null, orgId = null}) ->
     deferred = $q.defer()
-
     # Edit a subscription
     if !_.isEmpty(subscription)
       deferred.resolve(subscription)
@@ -68,7 +67,7 @@
           angular.copy(response.data, subscription)
           deferred.resolve(subscription)
       )
-    else if productNid?
+    else if productId?
       # Create a new subscription to a product
       angular.copy(defaultSubscription, subscription)
       deferred.resolve(subscription)

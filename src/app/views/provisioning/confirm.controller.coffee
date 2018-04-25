@@ -1,4 +1,4 @@
-@App.controller('ProvisioningConfirmCtrl', ($scope, $q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, PRICING_TYPES) ->
+@App.controller('ProvisioningConfirmCtrl', ($scope, $q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, ProvisioningHelper) ->
   vm = this
 
   vm.isLoading = true
@@ -7,29 +7,29 @@
   vm.singleBilling = vm.subscription.product.single_billing_enabled
   vm.billedLocally = vm.subscription.product.billed_locally
 
-  vm.orderTypeText = (editAction) ->
-    'mnoe_admin_panel.dashboard.provisioning.subscriptions.' + editAction.toLowerCase()
-
-  vm.editOrder = () ->
+  vm.editOrder = (reload = false) ->
     params = {
-      nid: $stateParams.nid,
+      productId: $stateParams.productId,
       orgId: $stateParams.orgId
-      id: $stateParams.id,
+      subscriptionId: $stateParams.subscriptionId,
       editAction: $stateParams.editAction
     }
 
     switch $stateParams.editAction
       when 'CHANGE', 'NEW', null
-        $state.go('dashboard.provisioning.order', params)
+        $state.go('dashboard.provisioning.order', params, {reload: reload})
       else
-        $state.go('dashboard.provisioning.additional_details', params)
+        $state.go('dashboard.provisioning.additional_details', params, {reload: reload})
 
-  # Happen when the user reload the browser during the provisioning
   if _.isEmpty(vm.subscription)
     # Redirect the user to the first provisioning screen
-    vm.editOrder()
+    vm.editOrder(true)
+  else
+    vm.subscription.edit_action = $stateParams.editAction
 
-  vm.subscription.edit_action = $stateParams.editAction
+  vm.orderTypeText = (editAction) ->
+    'mnoe_admin_panel.dashboard.provisioning.subscriptions.' + editAction.toLowerCase()
+
 
   $q.all({organization: orgPromise}).then(
     (response) ->
@@ -40,14 +40,11 @@
     vm.isLoading = true
     MnoeProvisioning.saveSubscription(vm.subscription).then(
       (subscription) ->
-        $state.go('dashboard.provisioning.order_summary', {orgId: $stateParams.orgId, subscriptionId: subscription.id})
+        $state.go('dashboard.provisioning.order_summary', {orgId: $stateParams.orgId, subscriptionId: subscription.id, editAction: $stateParams.editAction})
     ).finally(-> vm.isLoading = false)
 
   # Return true if the plan has a dollar value
   vm.pricedPlan = ProvisioningHelper.pricedPlan
-
-  vm.editOrder = () ->
-    $state.go('dashboard.provisioning.order', {nid: $stateParams.nid, orgId: $stateParams.orgId, id: $stateParams.id})
 
   # Delete the cached subscription when we are leaving the subscription workflow.
   $scope.$on('$stateChangeStart', (event, toState) ->

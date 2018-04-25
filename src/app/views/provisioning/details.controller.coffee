@@ -1,6 +1,5 @@
 @App.controller('ProvisioningDetailsCtrl', ($scope, $q, $state, $stateParams, MnoeProvisioning, MnoeOrganizations, schemaForm, PRICING_TYPES, toastr) ->
   vm = this
-
   vm.subscription = MnoeProvisioning.getSubscription()
 
   # We must use model schemaForm's sf-model, as #json_schema_opts are namespaced under model
@@ -16,8 +15,8 @@
 
   urlParams =
     orgId: $stateParams.orgId,
-    id: $stateParams.id,
-    nid: $stateParams.nid,
+    subscriptionId: $stateParams.subscriptionId,
+    productId: $stateParams.productId,
     editAction: $stateParams.editAction
 
   # The schema is contained in field vm.product.custom_schema
@@ -35,30 +34,27 @@
       schemaForm.jsonref(customSchema)
         .then((schema) -> schemaForm.jsonref(schema))
         .then((schema) -> schemaForm.jsonref(schema))
-        .then((schema) -> vm.schema = schema)
+        .then((schema) ->
+          vm.schema = if schema.json_schema then schema.json_schema else schema
+          vm.form = if schema.asf_options then schema.asf_options else ["*"]
+          )
 
   if _.isEmpty(vm.subscription)
     vm.isLoading = true
     # Fetch organizations, subscription, and products
     orgPromise = MnoeOrganizations.get($stateParams.orgId)
-    prodsPromise = MnoeProvisioning.getProducts()
-    initPromise = MnoeProvisioning.initSubscription({productNid: $stateParams.nid, subscriptionId: $stateParams.id, orgId: $stateParams.orgId })
+    initPromise = MnoeProvisioning.initSubscription({productId: $stateParams.productId, subscriptionId: $stateParams.subscriptionId, orgId: $stateParams.orgId})
 
-    $q.all({organization: orgPromise, products: prodsPromise, subscription: initPromise}).then(
+    $q.all({organization: orgPromise, subscription: initPromise}).then(
       (response) ->
         vm.orgCurrency = response.organization.data.billing_currency || MnoeAdminConfig.marketplaceCurrency()
         vm.subscription = response.subscription
         vm.subscription.organization_id = response.organization.data.id
         vm.isEditMode = !_.isEmpty(vm.subscription.custom_data)
 
-
-        # If the product id is available, get the product, otherwise find with the nid.
-        productPromise = if vm.subscription.product?.id
-          MnoeProvisioning.getProduct(vm.subscription.product.id, { editAction: $stateParams.editAction })
-        else
-          MnoeProvisioning.findProduct({nid: $stateParams.nid})
-
-        productPromise.then(
+        # When in edit mode, we will be getting the product ID from the subscription, otherwise from the url.
+        productId = vm.subscription.product?.id || $stateParams.productId
+        MnoeProvisioning.getProduct(productId, { editAction: $stateParams.editAction }).then(
           (response) ->
             vm.subscription.product = response
 

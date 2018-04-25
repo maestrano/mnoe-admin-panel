@@ -4,7 +4,7 @@
   orgPromise = MnoeOrganizations.get($stateParams.orgId)
   subscription = MnoeProvisioning.getSubscription()
   subPromise = if _.isEmpty(vm.subscription)
-    MnoeProvisioning.initSubscription({orgId: $stateParams.orgId, subscriptionId: $stateParams.subscriptionId})
+    MnoeProvisioning.initSubscription({productId: $stateParams.productId, orgId: $stateParams.orgId, subscriptionId: $stateParams.subscriptionId})
   else
     $q.resolve(subscription)
 
