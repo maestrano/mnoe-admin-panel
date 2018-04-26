@@ -21,15 +21,22 @@
       else
         $state.go('dashboard.provisioning.additional_details', params, {reload: reload})
 
+  # Happen when the user reload the browser during the provisioning
   if _.isEmpty(vm.subscription)
     # Redirect the user to the first provisioning screen
     vm.editOrder(true)
   else
     vm.subscription.edit_action = $stateParams.editAction
 
-  vm.orderTypeText = (editAction) ->
-    'mnoe_admin_panel.dashboard.provisioning.subscriptions.' + editAction.toLowerCase()
+  vm.orderTypeText = 'mnoe_admin_panel.dashboard.provisioning.subscriptions.' + $stateParams.editAction.toLowerCase()
 
+  vm.orderEditable = () ->
+    # The order is editable if we are changing the plan, or the product has a custom schema.
+    switch $stateParams.editAction
+      when 'CHANGE', 'NEW'
+        true
+      else
+        if vm.subscription.product?.custom_schema then true else false
 
   $q.all({organization: orgPromise}).then(
     (response) ->

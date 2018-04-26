@@ -26,6 +26,7 @@
   # reasonable number of passes (2 below + 1 in the sf-schema directive)
   # to resolve cyclic references
   getCustomSchema = (product) ->
+    $state.go('dashboard.provisioning.confirm', urlParams, {reload: true}) unless product.custom_schema
     customSchema = JSON.parse(product.custom_schema)
     if customSchema.status == 'error'
       toastr.error('mnoe_admin_panel.dashboard.provisioning.subscriptions.custom_schema_error')
@@ -66,7 +67,7 @@
             MnoeProvisioning.setSubscription(vm.subscription)
 
             vm.subscription.product
-          ).then((product) -> getCustomSchema(product))
+          ).then((product) -> getCustomSchema(product) if product)
         ).finally(-> vm.isLoading = false)
   else if vm.subscription?.product
     getCustomSchema(vm.subscription.product)
