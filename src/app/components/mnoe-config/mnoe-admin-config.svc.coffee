@@ -1,5 +1,5 @@
 # This service is a wrapper around the config we fetch from the backend
-@App.factory 'MnoeAdminConfig', ($log, ADMIN_ROLES, ADMIN_PANEL_CONFIG, DASHBOARD_CONFIG, INTERCOM_ID) ->
+@App.factory 'MnoeAdminConfig', ($log, ADMIN_ROLES, ADMIN_PANEL_CONFIG, DASHBOARD_CONFIG, INTERCOM_ID, URL_CONFIG) ->
   _self = @
 
   # Only expose subtenant_admin when subtenants are enabled
