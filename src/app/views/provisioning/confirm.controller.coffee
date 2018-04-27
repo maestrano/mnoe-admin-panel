@@ -3,7 +3,7 @@
 
   vm.isLoading = true
   orgPromise = MnoeOrganizations.get($stateParams.orgId)
-  vm.subscription = MnoeProvisioning.getSubscription()
+  vm.subscription = MnoeProvisioning.getCachedSubscription()
   vm.singleBilling = vm.subscription.product.single_billing_enabled
   vm.billedLocally = vm.subscription.product.billed_locally
 

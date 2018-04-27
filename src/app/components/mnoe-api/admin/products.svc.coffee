@@ -28,6 +28,9 @@
         $q.reject(error)
     )
 
+  @fetchCustomSchema = (id, params) ->
+    MnoeAdminApiSvc.one("/products/#{id}/custom_schema").get(params)
+
   @get = (id) ->
     MnoeAdminApiSvc.one('products', id).get().catch(
       (error) ->

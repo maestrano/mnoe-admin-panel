@@ -49,7 +49,7 @@
   @setSubscription = (s) ->
     subscription = s
 
-  @getSubscription = () ->
+  @getCachedSubscription = () ->
     subscription
 
   # Return the subscription
