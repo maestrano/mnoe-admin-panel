@@ -1,4 +1,4 @@
-@App.controller('ProvisioningOrderCtrl', ($scope, $q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, ProvisioningHelper, MnoeProducts) ->
+@App.controller('ProvisioningOrderCtrl', ($scope, $q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, ProvisioningHelper, MnoeProducts, toastr) ->
   vm = this
   vm.product = null
   vm.subscription = MnoeProvisioning.getCachedSubscription()
@@ -33,12 +33,21 @@
 
   fetchCustomSchema = () ->
     MnoeProducts.fetchCustomSchema(vm.productId, { editAction: $stateParams.editAction }).then((response) ->
-      vm.subscription.product.custom_schema = response.data.plain()
+      # Some products have custom schemas, whereas others do not.
+      vm.subscription.product.custom_schema = if response.data then response.data.plain() else null
       )
 
   if _.isEmpty(vm.subscription)
     vm.isLoading = true
-    fetchSubscription().then(fetchProduct).then(fetchCustomSchema).finally(() -> vm.isLoading = false)
+    fetchSubscription()
+      .then(fetchProduct)
+      .then(fetchCustomSchema)
+      .catch((error) ->
+        debugger
+        toastr.error('mnoe_admin_panel.dashboard.provisioning.subscriptions.product_error')
+        $state.go('dashboard.customers.organization', {orgId: $stateParams.orgId})
+        )
+      .finally(() -> vm.isLoading = false)
 
   vm.subscriptionPlanText = () ->
     switch $stateParams.editAction

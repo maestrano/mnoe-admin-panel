@@ -28,7 +28,7 @@
   # to resolve cyclic references
   extractCustomSchema = (product) ->
     schema = product.custom_schema
-    $state.go('dashboard.provisioning.confirm', urlParams, {reload: true}) unless schema
+    return $state.go('dashboard.provisioning.confirm', urlParams, {reload: true}) unless schema
     customSchema = if schema.json_schema then schema.json_schema else schema
     vm.form = if schema.asf_options then schema.asf_options else ["*"]
 
@@ -54,6 +54,7 @@
   fetchProduct = () ->
     # When in edit mode, we will be getting the product ID from the subscription, otherwise from the url.
     vm.productId = vm.subscription.product?.id || $stateParams.productId
+
     MnoeProvisioning.getProduct(vm.productId, { editAction: $stateParams.editAction }).then(
       (response) ->
         vm.subscription.product = response
@@ -71,6 +72,10 @@
     vm.isLoading = true
     fetchSubscription().then(fetchProduct).then(fetchCustomSchema)
       .then(() -> extractCustomSchema(vm.subscription.product))
+      .catch((error) ->
+        toastr.error('mnoe_admin_panel.dashboard.provisioning.subscriptions.product_error')
+        $state.go('dashboard.customers.organization', {orgId: urlParams.orgId})
+        )
       .finally(() -> vm.isLoading = false)
   else if vm.subscription?.product
     extractCustomSchema(vm.subscription.product)
