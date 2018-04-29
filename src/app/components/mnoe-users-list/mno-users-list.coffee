@@ -11,7 +11,7 @@
     # Variables initialization
     scope.users =
       search: ''
-      sortAttr: 'created_at'
+      sortAttr: 'created_at.desc'
       nbItems: 10
       page: 1
       pageChangedCb: (nbItems, page) ->
@@ -79,7 +79,7 @@
       fetchUsers(scope.users.nbItems, 0, scope.users.sortAttr)
 
     # Fetch users
-    fetchUsers = (limit, offset, sort = 'surname') ->
+    fetchUsers = (limit, offset, sort = 'created_at.desc') ->
       scope.users.loading = true
       MnoeCurrentUser.getUser().then( ->
         params = if MnoeAdminConfig.isAccountManagerEnabled()

@@ -1,10 +1,14 @@
 #
-# Mnoe organizations List
+# Mnoe Organizations List
+# The organization-local-list is used for organizations that already exist on the frontend, e.g. when uploading a CSV file.
+# Whereas organizations-list is used when organizations must be fetched.
 #
 @App.directive('mnoeOrganizationsList', ($filter, $translate, MnoeOrganizations, MnoeAdminConfig, MnoeCurrentUser) ->
   restrict: 'E'
   scope: {
-    list: '='
+    fields: '<',
+    searchParams: '<',
+    bindings: '<'
   },
   templateUrl: 'app/components/mnoe-organizations-list/mnoe-organizations-list.html',
   link: (scope, elem) ->
@@ -12,7 +16,7 @@
     # Variables initialization
     scope.organizations =
       search: ''
-      sortAttr: 'created_at'
+      sortAttr: 'created_at.desc'
       nbItems: 10
       page: 1
       pageChangedCb: (nbItems, page) ->
@@ -46,7 +50,7 @@
                 mnoe_admin_panel.dashboard.organization.demo_account_state</em>
               </a>
             """,
-            scope: {organization: organization}}
+            scope: { organization: organization }}
 
           # organization creation date
           { header: locale["mnoe_admin_panel.dashboard.organization.widget.list.table.creation"],
@@ -57,7 +61,7 @@
           render: (organization) ->
             template:
               "<span>{{::organization.created_at | date: 'dd/MM/yyyy'}}</span>"
-            scope: {organization: organization}}
+            scope: { organization: organization }}
         ]
 
         # Add Finance columns if enabled
@@ -71,6 +75,8 @@
           # Currency
           { header: locale['mnoe_admin_panel.dashboard.organization.widget.list.table.currency'],
           attr:'financial_metrics.currency', doNotSort: true, style: width: '110px'}])
+
+        scope.organizations.fields = scope.organizations.fields.concat(scope.fields) if scope.fields
       )
 
     # Smart table callback
@@ -83,13 +89,14 @@
       fetchOrganizations(scope.organizations.nbItems, 0, scope.organizations.sortAttr)
 
     # Fetch organisations
-    fetchOrganizations = (limit, offset, sort = 'created_at') ->
+    fetchOrganizations = (limit, offset, sort = 'created_at.desc') ->
       scope.organizations.loading = true
       MnoeCurrentUser.getUser().then( ->
         params = if MnoeAdminConfig.isAccountManagerEnabled()
           {sub_tenant_id: MnoeCurrentUser.user.mnoe_sub_tenant_id, account_manager_id: MnoeCurrentUser.user.id}
         else
           {}
+        params = angular.extend({}, params, scope.searchParams) if scope.searchParams
         return MnoeOrganizations.list(limit, offset, sort, params).then(
           (response) ->
             scope.organizations.totalItems = response.headers('x-total-count')
@@ -123,12 +130,18 @@
       delete scope.organizations.switchLinkTitle
       search = scope.organizations.search.toLowerCase()
       terms = {'name.like': "%#{search}%"}
-      MnoeOrganizations.search(terms).then(
+      # Custom search parameters are given to the directive. E.g. when we only want to search orgs of a particular user.
+      params = scope.searchParams || {}
+      MnoeOrganizations.search(terms, params).then(
         (response) ->
           scope.organizations.totalItems = response.headers('x-total-count')
           scope.organizations.list = $filter('orderBy')(response.data, 'name')
       ).finally(-> scope.organizations.loading = false)
 
+    init = () ->
+      scope.organizations.loading = true
+      setAllOrganizationsList()
+
     # Initial call
-    displayCurrentState()
+    init()
 )
