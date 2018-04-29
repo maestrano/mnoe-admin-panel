@@ -1,12 +1,19 @@
 @App.controller('ProvisioningOrderCtrl', ($scope, $q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, ProvisioningHelper, MnoeProducts, toastr) ->
+
   vm = this
-  vm.product = null
   vm.subscription = MnoeProvisioning.getCachedSubscription()
   vm.pricedPlan = ProvisioningHelper.pricedPlan
+  urlParams = {
+    productId: $stateParams.productId,
+    orgId: $stateParams.orgId,
+    subscriptionId: $stateParams.subscriptionId,
+    editAction: $stateParams.editAction
+  }
 
   fetchSubscription = () ->
     orgPromise = MnoeOrganizations.get($stateParams.orgId)
     initPromise = MnoeProvisioning.initSubscription({productId: $stateParams.productId, subscriptionId: $stateParams.subscriptionId, orgId: $stateParams.orgId})
+
     $q.all({organization: orgPromise, subscription: initPromise}).then((response) ->
       vm.orgCurrency = response.organization.data.billing_currency || MnoeAdminConfig.marketplaceCurrency()
       vm.subscription = response.subscription
@@ -34,8 +41,8 @@
   fetchCustomSchema = () ->
     MnoeProducts.fetchCustomSchema(vm.productId, { editAction: $stateParams.editAction }).then((response) ->
       # Some products have custom schemas, whereas others do not.
-      vm.subscription.product.custom_schema = if response.data then response.data.plain() else null
-      )
+      vm.subscription.product.custom_schema = response
+    )
 
   if _.isEmpty(vm.subscription)
     vm.isLoading = true
@@ -43,32 +50,23 @@
       .then(fetchProduct)
       .then(fetchCustomSchema)
       .catch((error) ->
-        debugger
         toastr.error('mnoe_admin_panel.dashboard.provisioning.subscriptions.product_error')
         $state.go('dashboard.customers.organization', {orgId: $stateParams.orgId})
         )
       .finally(() -> vm.isLoading = false)
 
-  vm.subscriptionPlanText = () ->
-    switch $stateParams.editAction
-      when 'NEW'
-        'mnoe_admin_panel.dashboard.provisioning.order.new_title'
-      when 'CHANGE'
-        'mnoe_admin_panel.dashboard.provisioning.order.change_title'
+  vm.subscriptionPlanText = switch $stateParams.editAction
+    when 'NEW'
+      'mnoe_admin_panel.dashboard.provisioning.order.new_title'
+    when 'CHANGE'
+      'mnoe_admin_panel.dashboard.provisioning.order.change_title'
 
   vm.next = (subscription) ->
     MnoeProvisioning.setSubscription(subscription)
-    params = {
-      productId: $stateParams.productId,
-      orgId: $stateParams.orgId,
-      subscriptionId: $stateParams.subscriptionId,
-      editAction: $stateParams.editAction
-    }
-
     if vm.subscription.product.custom_schema?
-      $state.go('dashboard.provisioning.additional_details', params)
+      $state.go('dashboard.provisioning.additional_details', urlParams)
     else
-      $state.go('dashboard.provisioning.confirm', params)
+      $state.go('dashboard.provisioning.confirm', urlParams)
 
   # Delete the cached subscription when we are leaving the subscription workflow.
   $scope.$on('$stateChangeStart', (event, toState) ->

@@ -30,6 +30,9 @@
 
   @fetchCustomSchema = (id, params) ->
     MnoeAdminApiSvc.one("/products/#{id}/custom_schema").get(params)
+      .then((response) ->
+        response.data.custom_schema
+        )
 
   @get = (id) ->
     MnoeAdminApiSvc.one('products', id).get().catch(
