@@ -121,7 +121,7 @@
       )
 
     ctrl.showEditAction = (subscription, editAction) ->
-      editAction in subscription.available_edit_actions
+      editAction in subscription.available_actions
 
     ctrl.editSubscription = (subscription, editAction) ->
       MnoeProvisioning.setSubscription({})
