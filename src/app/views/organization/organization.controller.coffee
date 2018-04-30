@@ -29,8 +29,14 @@
     (response) ->
       vm.organization = response.data.plain()
       vm.organization.invoices = $filter('orderBy')(vm.organization.invoices, '-started_at')
+      vm.active_products = filterActiveProducts(vm.organization.product_instances)
       vm.updateStatus()
   )
+
+  filterActiveProducts = (product_instances) ->
+    _.filter(product_instances, (instance) ->
+      _.some(instance.subscriptions, (s) -> s['status'] == 'fulfilled')
+    )
 
   vm.freezeOrganization = ->
     MnoeOrganizations.freeze(vm.organization).then(
