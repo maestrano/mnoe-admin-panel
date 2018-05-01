@@ -35,19 +35,19 @@
                     tooltip-append-to-body="true">
                     <i class="fa fa-check"></i>
                   </a>
-                  <a ng-click="$ctrl.editSubscription(subscription, 'REACTIVATE')" ng-show="$ctrl.showEditAction(subscription, 'REACTIVATE')" class="btn btn-link btn-link-primary subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('reactivate') | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.editSubscription(subscription, 'reactivate')" ng-show="$ctrl.showEditAction(subscription, 'reactivate')" class="btn btn-link btn-link-primary subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('reactivate') | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-refresh"></i>
                   </a>
-                  <a ng-click="$ctrl.editSubscription(subscription, 'RENEW')" ng-show="$ctrl.showEditAction(subscription, 'RENEW')" class="btn btn-link btn-link-primary subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('renew') | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.editSubscription(subscription, 'renew')" ng-show="$ctrl.showEditAction(subscription, 'renew')" class="btn btn-link btn-link-primary subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('renew') | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-check-square"></i>
                   </a>
-                  <a ng-click="$ctrl.editSubscription(subscription, 'CHANGE')" ng-show="$ctrl.showEditAction(subscription, 'CHANGE')" class="btn btn-link btn-link-warning subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('change') | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.editSubscription(subscription, 'change')" ng-show="$ctrl.showEditAction(subscription, 'change')" class="btn btn-link btn-link-warning subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('change') | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-pencil-square-o"></i>
                   </a>
-                  <a ng-click="$ctrl.editSubscription(subscription, 'MODIFY')" ng-show="$ctrl.showEditAction(subscription, 'MODIFY')" class="btn btn-link btn-link-warning subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('modify') | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.editSubscription(subscription, 'modify')" ng-show="$ctrl.showEditAction(subscription, 'modify')" class="btn btn-link btn-link-warning subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('modify') | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-pencil"></i>
                   </a>
-                  <a ng-click="$ctrl.subscriptions.cancel(subscription)" ng-show="$ctrl.showEditAction(subscription, 'SUSPEND')" class="btn btn-link btn-link-danger subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('cancel') | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.subscriptions.cancel(subscription)" ng-show="$ctrl.showEditAction(subscription, 'suspend')" class="btn btn-link btn-link-danger subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('suspend') | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-remove"></i>
                   </a>
                 </span>

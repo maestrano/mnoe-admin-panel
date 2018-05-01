@@ -15,8 +15,8 @@
       editAction: $stateParams.editAction
     }
 
-    switch $stateParams.editAction
-      when 'CHANGE', 'NEW', null
+    switch $stateParams.editAction.toLowerCase()
+      when 'change', 'new', null
         $state.go('dashboard.provisioning.order', params, {reload: reload})
       else
         $state.go('dashboard.provisioning.additional_details', params, {reload: reload})
@@ -32,8 +32,8 @@
 
   vm.orderEditable = () ->
     # The order is editable if we are changing the plan, or the product has a custom schema.
-    switch $stateParams.editAction
-      when 'CHANGE', 'NEW'
+    switch $stateParams.editAction.toLowerCase()
+      when 'change', 'new'
         true
       else
         if vm.subscription.product?.custom_schema then true else false

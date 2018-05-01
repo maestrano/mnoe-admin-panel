@@ -74,7 +74,7 @@
       )
 
   if _.isEmpty(vm.subscription)
-    $state.go('home.provisioning.order', urlParams, {reload: true}) if urlParams.editAction == 'NEW'
+    $state.go('home.provisioning.order', urlParams, {reload: true}) if urlParams.editAction == 'new'
     vm.isLoading = true
     fetchSubscription().then(fetchProduct).then(fetchCustomSchema)
       .then(() -> setCustomSchema(vm.subscription.product))

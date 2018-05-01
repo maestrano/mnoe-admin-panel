@@ -128,7 +128,7 @@
 
       params = {subscriptionId: subscription.id, orgId: subscription.organization_id, editAction: editAction}
       switch editAction
-        when 'CHANGE'
+        when 'change'
           $state.go('dashboard.provisioning.order', params)
         else
           $state.go('dashboard.provisioning.additional_details', params)

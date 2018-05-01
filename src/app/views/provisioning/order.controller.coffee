@@ -55,10 +55,10 @@
         )
       .finally(() -> vm.isLoading = false)
 
-  vm.subscriptionPlanText = switch $stateParams.editAction
-    when 'NEW'
+  vm.subscriptionPlanText = switch $stateParams.editAction.toLowerCase()
+    when 'new'
       'mnoe_admin_panel.dashboard.provisioning.order.new_title'
-    when 'CHANGE'
+    when 'change'
       'mnoe_admin_panel.dashboard.provisioning.order.change_title'
 
   vm.next = (subscription) ->
