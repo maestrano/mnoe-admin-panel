@@ -2,6 +2,6 @@
   _self = @
 
   @pricedPlan = (plan) ->
-    plan.pricing_type not in PRICING_TYPES['unpriced']
+    plan?.pricing_type not in PRICING_TYPES['unpriced']
 
   return @

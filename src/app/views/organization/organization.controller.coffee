@@ -8,6 +8,7 @@
   vm.status = {}
 
   vm.availableBillingCurrencies = MnoeAdminConfig.availableBillingCurrencies()
+  vm.managementAndProvisioningEnabled = MnoeAdminConfig.isProvisioningEnabled() && MnoeAdminConfig.isAppManagementEnabled()
 
   # Display user creation modal
   vm.users.createUserModal = ->
@@ -89,24 +90,6 @@
     modalInstance.result.then(
       (product) ->
         $state.go('dashboard.provisioning.order', {nid: product.nid, orgId: vm.organization.id})
-    )
-
-  # Add app modal
-  vm.openAddAppModal = () ->
-    modalInstance = $uibModal.open(
-      templateUrl: 'app/views/organization/add-app-modal/add-app-modal.html'
-      controller: 'AddAppModalCtrl'
-      controllerAs: 'vm'
-      backdrop: 'static'
-      windowClass: 'add-app-modal'
-      size: 'lg'
-      resolve:
-        organization: vm.organization
-    )
-    modalInstance.result.then(
-      (organization) ->
-        vm.organization = angular.copy(organization)
-        vm.updateStatus()
     )
 
   # Remove app modal

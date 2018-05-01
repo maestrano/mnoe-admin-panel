@@ -24,6 +24,8 @@
         (response) ->
           vm.subscription.product = response
 
+          vm.next(vm.subscription) if vm.skipPriceSelection(vm.subscription.product)
+
           # Get all the possible currencies
           currenciesArray = []
           _.forEach(vm.subscription.product.product_pricings,
@@ -46,8 +48,15 @@
       (pp) -> !vm.pricedPlan(pp) || _.some(pp.prices, (p) -> p.currency == vm.selectedCurrency)
     )
 
-  vm.next = (subscription) ->
+  # Filters the pricing plans not containing current currency
+  vm.pricingPlanFilter = () ->
+    vm.filteredPricingPlans = _.filter(vm.subscription.product.product_pricings,
+      (pp) -> !vm.pricedPlan(pp) || _.some(pp.prices, (p) -> p.currency == vm.selectedCurrency)
+    )
+
+  vm.next = (subscription, selectedCurrency) ->
     MnoeProvisioning.setSubscription(subscription)
+    MnoeProvisioning.setSelectedCurrency(selectedCurrency)
     if vm.subscription.product.custom_schema?
       $state.go('dashboard.provisioning.additional_details', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid})
     else
@@ -61,6 +70,11 @@
       else
         MnoeProvisioning.setSubscription({})
   )
+
+  # Skip pricing selection for products with product_type 'application' if
+  # single billing is disabled or if single billing is enabled but externally managed
+  vm.skipPriceSelection = (product) ->
+    product.product_type == 'application' && (!product.single_billing_enabled || !product.billed_locally)
 
   return
 )

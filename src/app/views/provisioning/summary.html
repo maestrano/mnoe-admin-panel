@@ -9,7 +9,7 @@
       </div>
     </mno-widget-header>
     <mno-widget-body class="no-padding">
-      <table class="table table-striped">
+      <table class="table table-striped" ng-show="vm.subscription.product_pricing">
         <thead>
         <tr>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.summary.name' | translate }}</th>
@@ -22,7 +22,7 @@
           <td>{{ vm.subscription.product_pricing.name }}</td>
           <td>{{ vm.subscription.product_pricing.description }}</td>
           <td>
-            <span ng-show="vm.pricedPlan(vm.subscription.product_pricing)" ng-repeat="price in vm.subscription.product_pricing.prices | filterBy: ['currency']: vm.orgCurrency" class="badge">
+            <span ng-show="vm.pricedPlan(vm.subscription.product_pricing)" ng-repeat="price in vm.subscription.product_pricing.prices | filterBy: ['currency']: vm.selectedCurrency" class="badge">
               {{ price.currency }} {{ price.price_cents / 100 }}
             </span>
             <span ng-show="vm.subscription.product_pricing.pricing_type == 'recurring'">
