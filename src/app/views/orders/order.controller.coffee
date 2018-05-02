@@ -36,7 +36,7 @@
 
   MnoeProvisioning.getSubscriptionEvents(vm.orderId, vm.orgId).then(
     (response) ->
-      vm.subscriptionEvents = response.data.subscription_events
+      vm.subscriptionEvents = response.data
   )
 
   MnoeCurrentUser.getUser().then(
