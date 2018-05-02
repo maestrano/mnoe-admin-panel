@@ -143,7 +143,7 @@
       <mno-widget icon="fa-info-circle" heading="{{'mnoe_admin_panel.dashboard.orders.provision.subscription.events' | translate}}" is-loading="vm.isLoading">
         <mno-widget-header></mno-widget-header>
         <mno-widget-body>
-          <span ng-show="!vm.subscriptionEvents" translate>
+          <span ng-show="vm.subscriptionEvents.length == 0" translate>
             mnoe_admin_panel.dashboard.orders.provision.subscription.no_events
           </span>
           <div ng-repeat="subscriptionEvent in vm.subscriptionEvents">
