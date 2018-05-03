@@ -59,7 +59,9 @@
         <tr>
           <th translate>mnoe_admin_panel.dashboard.invoice.details.product</th>
           <th translate>mnoe_admin_panel.dashboard.invoice.details.description</th>
-          <th translate>mnoe_admin_panel.dashboard.invoice.details.price</th>
+          <th translate>mnoe_admin_panel.dashboard.invoice.details.original_price</th>
+          <th translate>mnoe_admin_panel.dashboard.invoice.details.forex</th>
+          <th translate>mnoe_admin_panel.dashboard.invoice.details.converted_price</th>
         </tr>
       </thead>
       <tbody ng-show="!vm.isLoading">
@@ -67,6 +69,8 @@
           <td>{{bill.billing_group}}</td>
           <td>{{bill.description}}</td>
           <td>{{bill.currency}} {{bill.end_user_price_cents/100}}</td>
+          <td>{{bill.closure_exchange_rate}}</td>
+          <td>{{bill.closed_end_user_price.currency.iso_code}} {{bill.closed_end_user_price.fractional / 100}}</td>
         </tr>
       </tbody>
     </table>
