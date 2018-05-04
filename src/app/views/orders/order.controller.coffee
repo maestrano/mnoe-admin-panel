@@ -30,7 +30,8 @@
         # Get the product schema
         MnoeProvisioning.findProduct(id: vm.order.product_id).then(
           (response) ->
-            vm.schema = JSON.parse(response.custom_schema)
+            vm.schema = if response.custom_schema then JSON.parse(response.custom_schema) else {}
+            vm.form = if response.asf_options then JSON.parse(response.asf_options) else ["*"]
         )
   ).finally(-> vm.isLoading = false)
 
