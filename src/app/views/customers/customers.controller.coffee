@@ -17,6 +17,7 @@
     )
 
   updateUsersCounter = (response) ->
+    console.log("Updating users: ", response)
     vm.users.totalCount = response.headers('x-total-count')
     return
 
@@ -27,6 +28,11 @@
       (response) ->
         vm.organizations.totalCount = response.headers('x-total-count')
       )
+  )
+
+  MnoeUsers.metrics().then(
+    (response) ->
+      vm.users.metrics = response.data.metrics
   )
 
   MnoeOrganizations.count().then(
