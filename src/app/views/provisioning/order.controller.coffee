@@ -21,6 +21,8 @@
         (response) ->
           vm.subscription.product = response
 
+          vm.next(vm.subscription) if vm.skipPriceSelection(vm.subscription.product)
+
           # Filters the pricing plans not containing current currency
           vm.subscription.product.product_pricings = _.filter(vm.subscription.product.product_pricings,
             (pp) -> !vm.pricedPlan(pp) || _.some(pp.prices, (p) -> p.currency == vm.orgCurrency)
@@ -45,6 +47,11 @@
       else
         MnoeProvisioning.setSubscription({})
   )
+
+  # Skip pricing selection for products with product_type 'application' if
+  # single billing is disabled or if single billing is enabled but externally managed
+  vm.skipPriceSelection = (product) ->
+    product.product_type == 'application' && (!product.single_billing_enabled || !product.billed_locally)
 
   return
 )
