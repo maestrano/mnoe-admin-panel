@@ -80,6 +80,7 @@
   "mnoe_admin_panel.dashboard.customers.create_customer.name": "Name",
   "mnoe_admin_panel.dashboard.customers.create_customer.required.name": "Name is required",
   "mnoe_admin_panel.dashboard.customers.create_customer.error.name": "Name {error}",
+  "mnoe_admin_panel.dashboard.customers.create_customer.main_address": "Main address",
   "mnoe_admin_panel.dashboard.customers.create_customer.select_your_app": "Select your products",
   "mnoe_admin_panel.dashboard.customers.create_customer.search": "search",
   "mnoe_admin_panel.dashboard.customers.create_customer.create": "Create",
