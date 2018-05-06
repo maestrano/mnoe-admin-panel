@@ -1,0 +1,34 @@
+<div id="address">
+  <div class="form-group">
+    <div class="col-sm-6 address-field">
+      <label class="address-sub-label control-label">{{ 'mnoe_admin_panel.components.mno-address-input.street' | translate }}</label>
+      <input type="text" class="form-control" ng-model="address.street"/>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-6 address-field">
+      <label class="address-sub-label">{{ 'mnoe_admin_panel.components.mno-address-input.city' | translate }}</label>
+      <input type="text" class="form-control" ng-model="address.city"/>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-6 address-field">
+      <label class="address-sub-label">{{ 'mnoe_admin_panel.components.mno-address-input.state' | translate }}</label>
+      <input type="text" class="form-control" ng-model="address.state_code"/>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-6 address-field">
+      <label class="address-sub-label">{{ 'mnoe_admin_panel.components.mno-address-input.postal_code' | translate }}</label>
+      <input type="text" class="form-control" ng-model="address.postal_code"/>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-6 address-field">
+      <label class="address-sub-label">{{ 'mnoe_admin_panel.components.mno-address-input.country' | translate }}</label>
+      <select class="form-control" ng-model="address.country_code" ng-options="country.val as country.label for country in validCountries">
+        <option value='' disabled selected class="country-select">{{ 'mnoe_admin_panel.components.mno-address-input.select' | translate}}</option>
+      </select>
+    </div>
+  </div>
+</div>
