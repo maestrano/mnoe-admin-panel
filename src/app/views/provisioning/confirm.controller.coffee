@@ -4,8 +4,6 @@
   vm.isLoading = true
   orgPromise = MnoeOrganizations.get($stateParams.orgId)
   vm.subscription = MnoeProvisioning.getCachedSubscription()
-  vm.singleBilling = vm.subscription.product.single_billing_enabled
-  vm.billedLocally = vm.subscription.product.billed_locally
 
   vm.editOrder = (reload = false) ->
     params = {
@@ -26,6 +24,8 @@
     # Redirect the user to the first provisioning screen
     vm.editOrder(true)
   else
+    vm.singleBilling = vm.subscription.product.single_billing_enabled
+    vm.billedLocally = vm.subscription.product.billed_locally
     vm.subscription.edit_action = $stateParams.editAction
 
   vm.orderTypeText = 'mnoe_admin_panel.dashboard.provisioning.subscriptions.' + $stateParams.editAction.toLowerCase()

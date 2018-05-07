@@ -1,12 +1,6 @@
 @App.controller('ProvisioningDetailsCtrl', ($scope, $q, $state, $stateParams, MnoeProvisioning, MnoeOrganizations, schemaForm, ProvisioningHelper, MnoeProducts, toastr) ->
   vm = this
-<<<<<<< HEAD
-=======
-
-  vm.form = [ "*" ]
->>>>>>> [OPAL-432] Refactor frontend for change in mnoe #custom_schema endpoint
   vm.subscription = MnoeProvisioning.getCachedSubscription()
-  vm.isEditMode = !_.isEmpty(vm.subscription.custom_data)
 
   # We must use model schemaForm's sf-model, as #json_schema_opts are namespaced under model
   vm.model = vm.subscription.custom_data || {}
@@ -49,6 +43,7 @@
       vm.orgCurrency = response.organization.data.billing_currency || MnoeAdminConfig.marketplaceCurrency()
       vm.subscription = response.subscription
       vm.subscription.organization_id = response.organization.data.id
+      vm.isEditMode = !_.isEmpty(vm.subscription.custom_data)
     )
 
   filterCurrencies = (productPricings) ->

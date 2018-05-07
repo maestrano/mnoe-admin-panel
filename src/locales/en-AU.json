@@ -508,7 +508,7 @@
   "mnoe_admin_panel.dashboard.subscriptions.widget.list.table.modify_tooltip": "Edit subscription details",
   "mnoe_admin_panel.dashboard.subscriptions.widget.list.table.renew_tooltip": "Renew subscription",
   "mnoe_admin_panel.dashboard.subscriptions.widget.list.table.reactivate_tooltip": "Reactivate subscription",
-  "mnoe_admin_panel.dashboard.subscriptions.widget.list.table.cancel_tooltip": "Reject subscription",
+  "mnoe_admin_panel.dashboard.subscriptions.widget.list.table.suspend_tooltip": "Reject subscription",
   "mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.close": "Close",
   "mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.cancel": "Reject",
   "mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.proceed": "Reject a subscription",

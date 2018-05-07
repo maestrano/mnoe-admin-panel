@@ -31,7 +31,6 @@
     MnoeProvisioning.getProduct(vm.productId, { editAction: $stateParams.editAction }).then(
       (response) ->
         vm.subscription.product = response
-        return vm.next(vm.subscription) if vm.skipPriceSelection(vm.subscription.product)
 
         # Filters the pricing plans not containing current currency
         vm.subscription.product.product_pricings = filterCurrencies(vm.subscription.product.product_pricings)
@@ -49,6 +48,7 @@
     fetchSubscription()
       .then(fetchProduct)
       .then(fetchCustomSchema)
+      .then(() -> vm.next(vm.subscription) if vm.skipPriceSelection(vm.subscription.product))
       .catch((error) ->
         toastr.error('mnoe_admin_panel.dashboard.provisioning.subscriptions.product_error')
         $state.go('dashboard.customers.organization', {orgId: $stateParams.orgId})
