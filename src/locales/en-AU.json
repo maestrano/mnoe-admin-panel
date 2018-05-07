@@ -254,7 +254,7 @@
   "mnoe_admin_panel.dashboard.user.table.number_of_sign_in": "Times signed in",
   "mnoe_admin_panel.dashboard.user.table.password_changed_at": "Password changed at",
   "mnoe_admin_panel.dashboard.user.table.password_changed_at.never": "(never)",
-  "mnoe_admin_panel.dashboard.user.geo_information.tooltip": "These fields are automatically calculated based on the user's location.",
+  "mnoe_admin_panel.dashboard.user.geo_information.tooltip": "These fields are automatically calculated based on the user's location. Some fields may not be available for all locations.",
   "mnoe_admin_panel.dashboard.user.geo_information_title": "User Geolocation Information",
   "mnoe_admin_panel.dashboard.user.geo_state_code": "State code",
   "mnoe_admin_panel.dashboard.user.geo_country_code": "Country code",
