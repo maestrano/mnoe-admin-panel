@@ -175,4 +175,10 @@
       <mnoe-teams-list organization="vm.organization" ></mnoe-teams-list>
     </div>
   </div>
+
+  <div class='row'>
+    <div class="col-md-12 bottom-buffer-1">
+      <mnoe-product-markups-list ng-if="!vm.isLoading" customer-org="vm.organization" view="all"></mnoe-product-markups-list>
+    </div>
+  </div>
 </div>
