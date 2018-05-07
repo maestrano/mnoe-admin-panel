@@ -13,6 +13,7 @@
   productsResponse = null
 
   subscription = {}
+  selectedCurrency = ""
 
   defaultSubscription = {
     id: null
@@ -47,6 +48,12 @@
   @getSubscription = () ->
     subscription
 
+  @setSelectedCurrency = (c) ->
+    selectedCurrency = c
+
+  @getSelectedCurrency = () ->
+    selectedCurrency
+
   # Return the subscription
   # if productNid: return the default subscription
   # if subscriptionId: return the fetched subscription
@@ -73,6 +80,7 @@
     return deferred.promise
 
   createSubscription = (s) ->
+    console.log("Creating: ", s.product_pricing, s.custom_data)
     subscriptionsApi(s.organization_id).post({subscription: {product_pricing_id: s.product_pricing.id, custom_data: s.custom_data}}).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
@@ -86,6 +94,7 @@
 
   # Detect if the subscription should be a POST or A PUT and call corresponding method
   @saveSubscription = (subscription) ->
+    console.log("Saving: ", subscription)
     if subscription.id
       updateSubscription(subscription).then(
         (response) ->

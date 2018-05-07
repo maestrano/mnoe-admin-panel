@@ -46,8 +46,10 @@
       (pp) -> !vm.pricedPlan(pp) || _.some(pp.prices, (p) -> p.currency == vm.selectedCurrency)
     )
 
-  vm.next = (subscription) ->
+  vm.next = (subscription, selectedCurrency) ->
+    console.log(subscription)
     MnoeProvisioning.setSubscription(subscription)
+    MnoeProvisioning.setSelectedCurrency(selectedCurrency)
     if vm.subscription.product.custom_schema?
       $state.go('dashboard.provisioning.additional_details', {orgId: $stateParams.orgId, id: $stateParams.id, nid: $stateParams.nid})
     else

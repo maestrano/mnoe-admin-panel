@@ -3,6 +3,7 @@
 
   orgPromise = MnoeOrganizations.get($stateParams.orgId)
   subscription = MnoeProvisioning.getSubscription()
+  vm.selectedCurrency = MnoeProvisioning.getSelectedCurrency()
   subPromise = if _.isEmpty(vm.subscription)
     MnoeProvisioning.initSubscription({orgId: $stateParams.orgId, subscriptionId: $stateParams.subscriptionId})
   else

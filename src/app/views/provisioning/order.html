@@ -48,7 +48,7 @@
     </mno-widget-body>
   </mno-widget>
 
-  <button class="btn btn-primary top-buffer-1 pull-right" ng-click="vm.next(vm.subscription)" ng-hide="vm.isLoading" ng-disabled="!vm.subscription.product_pricing" translate>
+  <button class="btn btn-primary top-buffer-1 pull-right" ng-click="vm.next(vm.subscription, vm.selectedCurrency)" ng-hide="vm.isLoading" ng-disabled="!vm.subscription.product_pricing" translate>
     mnoe_admin_panel.dashboard.provisioning.order.next
   </button>
 </div>

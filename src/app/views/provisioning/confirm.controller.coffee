@@ -4,6 +4,8 @@
   vm.isLoading = true
   orgPromise = MnoeOrganizations.get($stateParams.orgId)
   vm.subscription = MnoeProvisioning.getSubscription()
+  vm.selectedCurrency = MnoeProvisioning.getSelectedCurrency()
+  console.log(vm.subscription)
   # Happen when the user reload the browser during the provisioning
   if _.isEmpty(vm.subscription)
     # Redirect the user to the first provisioning screen
