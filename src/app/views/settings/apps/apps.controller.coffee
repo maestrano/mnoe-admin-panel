@@ -78,7 +78,7 @@
         vm.enabledApps = angular.copy(response.data.apps)
         vm.filteredApps = vm.enabledApps
         vm.categories = angular.copy(response.data.categories)
-        vm.displayCategories = vm.categories.length > 1
+        vm.displayCategories = vm.categories.length > 0
     )
     MnoeTenant.get().then(
       (response) ->
