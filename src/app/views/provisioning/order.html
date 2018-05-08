@@ -1,5 +1,5 @@
 <div id="provisioning-order">
-  <mno-widget is-loading="vm.isLoading" icon="fa-sitemap" heading="{{'mnoe_admin_panel.dashboard.provisioning.order.title' | translate}}">
+  <mno-widget is-loading="vm.isLoading" icon="fa-sitemap" heading="{{ vm.subscriptionPlanText | translate }}">
     <mno-widget-header>
       <div class="breadcrumb-info">
         <ol class="breadcrumb">
@@ -19,7 +19,7 @@
         </thead>
         <tbody>
         <tr ng-if="vm.subscription.product.product_pricings.length === 0">
-          <td colspan="4" class="text-center">{{ 'mnoe_admin_panel.dashboard.provisioning.order.no_pricing_found' | translate }}</td>
+          <td colspan="4" class="text-center">{{ 'mnoe_admin_panel.dashboard.provisioning.order.no_pricing_found' | translate:{'currency': vm.orgCurrency} }}</td>
         </tr>
         <tr ng-repeat="pricingPlan in vm.subscription.product.product_pricings" ng-click="vm.subscription.product_pricing = pricingPlan">
           <td><input type="radio" name="optradio" ng-model="vm.subscription.product_pricing.id" ng-value="pricingPlan.id"></td>
