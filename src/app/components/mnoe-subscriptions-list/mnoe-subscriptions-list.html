@@ -1,5 +1,5 @@
 <div id="mnoe-subscriptions-list">
-  <mno-widget icon="fa-shopping-basket" heading="{{$ctrl.subscriptions.widgetTitle}}" is-loading="$ctrl.subscriptions.loading">
+  <mno-widget icon="{{ $ctrl.companyCart ? 'fa-shopping-cart' : 'fa-shopping-basket' }}" heading="{{$ctrl.subscriptions.widgetTitle}}" is-loading="$ctrl.subscriptions.loading">
     <mno-widget-header>
       &nbsp;{{ $ctrl.titleText | translate}}
     </mno-widget-header>
@@ -13,7 +13,7 @@
               <th ng-if="$ctrl.all" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.organization</th>
               <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.product</th>
               <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.subscription</th>
-              <th st-sort="status" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.status</th>
+              <th ng-if="!$ctrl.companyCart" st-sort="status" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.status</th>
               <th class="col-lg-2"></th>
             </tr>
           </thead>
@@ -23,7 +23,7 @@
               <td ng-if="$ctrl.all"><a ui-sref="dashboard.order({orderId : item.id, orgId: item.organization_id})">{{item.organization.name}}</a></td>
               <td><a ui-sref="dashboard.order({orderId : item.id, orgId: item.organization_id})">{{item.product.name}}</a></td>
               <td>{{item.product_pricing.name}}</td>
-              <td>
+              <td ng-if="!$ctrl.companyCart">
                 <div>
                   {{item.status}}
                   <span><a href="" class="tooltip_link" ng-hide="!$ctrl.displayInfoTooltip(item)" ng-click="$ctrl.displayStatusInfo()"><i class="fa fa-info-circle"></i></a></span>
@@ -31,14 +31,14 @@
               </td>
               <td>
                 <span style="display: flex;" ng-if="item.status !== 'cancelled'">
-                  <a ng-click="$ctrl.subscriptions.approve(item)" class="btn btn-link btn-link-success" ng-if="item.status == 'requested' || item.externally_provisioned" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.approve_tooltip' | translate }}"
+                  <a ng-click="$ctrl.subscriptions.approve(item)" class="btn btn-link btn-link-success" ng-if="(item.status == 'requested' || item.externally_provisioned) && !$ctrl.companyCart" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.approve_tooltip' | translate }}"
                     tooltip-append-to-body="true">
                     <i class="fa fa-check"></i>
                   </a>
                   <a ng-click="$ctrl.editSubscription(item)" class="btn btn-link btn-link-warning" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.modify_tooltip' | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-pencil-square-o"></i>
                   </a>
-                  <a ng-click="$ctrl.subscriptions.cancel(item)" class="btn btn-link btn-link-danger" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.cancel_tooltip' | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.subscriptions.cancel(item)" class="btn btn-link btn-link-danger" uib-tooltip="{{ $ctrl.companyCart ? 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.cart_cancel_tooltip' : 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.cancel_tooltip' | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-remove"></i>
                   </a>
                 </span>
