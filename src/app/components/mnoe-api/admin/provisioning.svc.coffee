@@ -83,7 +83,7 @@
     )
 
   updateSubscription = (s) ->
-    subscription.patch({subscription: {product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data}}).catch(
+    subscription.patch({subscription: {product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data, edit_action: s.edit_action}}).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
     )
