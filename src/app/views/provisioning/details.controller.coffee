@@ -43,7 +43,6 @@
       vm.orgCurrency = response.organization.data.billing_currency || MnoeAdminConfig.marketplaceCurrency()
       vm.subscription = response.subscription
       vm.subscription.organization_id = response.organization.data.id
-      vm.isEditMode = !_.isEmpty(vm.subscription.custom_data)
     )
 
   filterCurrencies = (productPricings) ->
