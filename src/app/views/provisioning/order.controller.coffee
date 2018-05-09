@@ -3,6 +3,9 @@
 
   vm.isLoading = true
   vm.product = null
+  vm.selectedCurrency = ''
+  vm.currencies = []
+  vm.filteredPricingPlans = []
 
   orgPromise = MnoeOrganizations.get($stateParams.orgId)
   prodsPromise = MnoeProvisioning.getProducts()
@@ -23,14 +26,27 @@
 
           vm.next(vm.subscription) if vm.skipPriceSelection(vm.subscription.product)
 
-          # Filters the pricing plans not containing current currency
-          vm.subscription.product.product_pricings = _.filter(vm.subscription.product.product_pricings,
-            (pp) -> !vm.pricedPlan(pp) || _.some(pp.prices, (p) -> p.currency == vm.orgCurrency)
-          )
+          # Get all the possible currencies
+          currenciesArray = []
+          _.forEach(vm.subscription.product.product_pricings,
+            (pp) -> _.forEach(pp.prices, (p) -> currenciesArray.push(p.currency)))
+          vm.currencies = _.uniq(currenciesArray)
+          # Set a default currency
+          if vm.currencies.includes(vm.orgCurrency)
+            vm.selectedCurrency = vm.orgCurrency
+          else
+            vm.selectedCurrency = vm.currencies[0]
+          vm.pricingPlanFilter()
 
           MnoeProvisioning.setSubscription(vm.subscription)
       )
   ).finally(-> vm.isLoading = false)
+
+  # Filters the pricing plans not containing current currency
+  vm.pricingPlanFilter = () ->
+    vm.filteredPricingPlans = _.filter(vm.subscription.product.product_pricings,
+      (pp) -> !vm.pricedPlan(pp) || _.some(pp.prices, (p) -> p.currency == vm.selectedCurrency)
+    )
 
   vm.next = (subscription) ->
     MnoeProvisioning.setSubscription(subscription)

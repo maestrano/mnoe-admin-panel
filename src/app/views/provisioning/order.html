@@ -15,18 +15,20 @@
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.order.name' | translate }}</th>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.order.description' | translate }}</th>
           <th style="width: 25%">{{ 'mnoe_admin_panel.dashboard.provisioning.order.price' | translate }}</th>
+          <th><select class="form-control" ng-if="::main.adminConfig.isCurrencySelectionEnabled()" ng-model="vm.selectedCurrency" ng-options="c for c in vm.currencies" ng-change="vm.pricingPlanFilter()">
+          </select></th>
         </tr>
         </thead>
         <tbody>
         <tr ng-if="vm.subscription.product.product_pricings.length === 0">
           <td colspan="4" class="text-center">{{ 'mnoe_admin_panel.dashboard.provisioning.order.no_pricing_found' | translate }}</td>
         </tr>
-        <tr ng-repeat="pricingPlan in vm.subscription.product.product_pricings" ng-click="vm.subscription.product_pricing = pricingPlan">
+        <tr ng-repeat="pricingPlan in vm.filteredPricingPlans" ng-click="vm.subscription.product_pricing = pricingPlan">
           <td><input type="radio" name="optradio" ng-model="vm.subscription.product_pricing.id" ng-value="pricingPlan.id"></td>
           <td>{{ pricingPlan.name }}</td>
           <td>{{ pricingPlan.description }}</td>
           <td>
-            <span ng-show="vm.pricedPlan(pricingPlan)" ng-repeat="price in pricingPlan.prices | filterBy: ['currency']: vm.orgCurrency" class="badge">
+            <span ng-show="vm.pricedPlan(pricingPlan)" ng-repeat="price in pricingPlan.prices | filterBy: ['currency']: vm.selectedCurrency" class="badge">
               {{ price.currency }} {{ price.price_cents / 100 }}
             </span>
             <span ng-show="pricingPlan.pricing_type == 'recurring'">
@@ -39,6 +41,7 @@
               {{ 'mnoe_admin_panel.dashboard.provisioning.order.pricing_type.free' | translate }}
             </span>
           </td>
+          <td />
         </tr>
         </tbody>
       </table>
