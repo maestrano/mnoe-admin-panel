@@ -29,44 +29,6 @@
         ctrl.subscriptions.offset = (page  - 1) * nbItems
         fetchSubscriptions(nbItems, ctrl.subscriptions.offset)
 
-      approve: (subscription) ->
-        modalOptions =
-          closeButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.close'
-          actionButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.cancel'
-          headerText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.proceed'
-          bodyText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.perform'
-          bodyTextExtraData: {subscription_name: subscription.product.name}
-          type: 'danger'
-          actionCb: ->
-            MnoeProvisioning.approveSubscription({organization_id: subscription.organization.id, id: subscription.id }).then(
-              (response) ->
-                angular.copy(response.data.subscription, subscription)
-                toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_success', {extraData: {subscription_name: subscription.product.name}})
-              ->
-                toastr.error('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_error', {extraData: {subscription_name: subscription.product.name}})
-            )
-
-        MnoConfirm.showModal(modalOptions)
-
-      cancel: (subscription) ->
-        modalOptions =
-          closeButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.close'
-          actionButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.cancel'
-          headerText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.proceed'
-          bodyText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.perform'
-          bodyTextExtraData: {subscription_name: subscription.product.name}
-          type: 'danger'
-          actionCb: ->
-            MnoeProvisioning.cancelSubscription(subscription).then(
-              (response) ->
-                angular.copy(response.data.subscription, subscription)
-                toastr.success('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_success', {extraData: {subscription_name: subscription.product.name}})
-              ->
-                toastr.error('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_error', {extraData: {subscription_name: subscription.product.name}})
-            )
-
-        MnoConfirm.showModal(modalOptions)
-
     ctrl.$onInit = ->
       ctrl.titleText = "mnoe_admin_panel.dashboard.subscriptions.widget.list.#{ctrl.titleKey || 'title'}"
 

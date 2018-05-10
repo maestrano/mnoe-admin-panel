@@ -130,15 +130,15 @@
         $q.reject(error)
     )
 
-  @cancelSubscription = (s) ->
-    MnoeAdminApiSvc.one('organizations', s.organization_id).one('subscriptions', s.id).post('/cancel').catch(
+  @rejectSubscriptionEvent = (s) ->
+    MnoeAdminApiSvc.one('subscription_events', s.id).post('/reject').catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)
     )
 
-  @approveSubscription = (s) ->
-    MnoeAdminApiSvc.one('organizations', s.organization_id).one('subscriptions', s.id).post('/approve').catch(
+  @approveSubscriptionEvent = (s) ->
+    MnoeAdminApiSvc.one('subscription_events', s.id).post('/approve').catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)

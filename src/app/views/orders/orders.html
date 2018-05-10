@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-lg-10 col-lg-offset-1 col-md-12">
-    <mnoe-subscriptions-list all="true" title-key="title_with_action" filters="{ 'where[status.in]': 'requested,approved' }"></mnoe-subscriptions-list>
+    <mnoe-subscription-events-list all="true" title-key="title_with_action" filters="{ 'where[obsolete]': false }"></mnoe-subscriptions-list>
   </div>
 </div>
 
 <div class="row">
   <div class="col-lg-10 col-lg-offset-1 col-md-12">
-    <mnoe-subscriptions-list all="true" title-key="title_with_history" filters="{ 'where[status.nin]': 'requested,approved' }"></mnoe-subscriptions-list>
+    <mnoe-subscriptions-list all="true" title-key="title_with_history"></mnoe-subscriptions-list>
   </div>
 </div>
