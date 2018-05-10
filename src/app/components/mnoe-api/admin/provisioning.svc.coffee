@@ -120,6 +120,16 @@
         $q.reject(error)
     )
 
+  @getAllSubscriptionEvents = (limit, offset, sort, params = {}) ->
+    params["order_by"] = sort
+    params["limit"] = limit
+    params["offset"] = offset
+    MnoeAdminApiSvc.all('subscription_events').getList(params).catch(
+      (error) ->
+        MnoErrorsHandler.processServerError(error)
+        $q.reject(error)
+    )
+
   @cancelSubscription = (s) ->
     MnoeAdminApiSvc.one('organizations', s.organization_id).one('subscriptions', s.id).post('/cancel').catch(
       (error) ->

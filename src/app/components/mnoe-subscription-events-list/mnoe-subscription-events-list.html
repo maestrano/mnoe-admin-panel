@@ -1,0 +1,70 @@
+<div id="mnoe-subscriptions-list">
+  <mno-widget icon="fa-shopping-basket" heading="{{$ctrl.subscriptions.widgetTitle}}" is-loading="$ctrl.subscriptions.loading">
+    <mno-widget-header>
+      &nbsp;{{ $ctrl.titleText | translate}}
+    </mno-widget-header>
+    <mno-widget-body class="large-auto-height no-padding">
+      <div>
+        <table st-pipe="$ctrl.callServer" st-table="$ctrl.subscriptions.list" class="table table-striped table-responsive" >
+          <thead>
+            <tr>
+              <!--TODO: sub-object attributes sort (eg. st-sort="organization.name")-->
+              <th st-sort="start_date" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.start_date</th>
+              <th ng-if="$ctrl.all" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.organization</th>
+              <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.product</th>
+              <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.subscription</th>
+              <th st-sort="status" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.status</th>
+              <th class="col-lg-2"></th>
+            </tr>
+          </thead>
+          <tbody ng-show="!$ctrl.subscriptions.loading" >
+            <tr ng-repeat="subscription in $ctrl.subscriptions.list">
+              <td>{{subscription.start_date | amDateFormat:'L'}}</td>
+              <td ng-if="$ctrl.all"><a ui-sref="dashboard.order({orderId : subscription.id, orgId: subscription.organization_id})">{{subscription.organization.name}}</a></td>
+              <td><a ui-sref="dashboard.order({orderId : subscription.id, orgId: subscription.organization_id})">{{subscription.product.name}}</a></td>
+              <td>{{subscription.product_pricing.name}}</td>
+              <td>
+                <div>
+                  {{subscription.status}}
+                  <span><a href="" class="tooltip_link" ng-show="$ctrl.displayInfoTooltip(subscription)" ng-click="$ctrl.displayStatusInfo()"><i class="fa fa-info-circle"></i></a></span>
+                </div>
+              </td>
+              <td>
+                <span style="display: flex;" ng-if="subscription.status !== 'cancelled'">
+                  <a ng-click="$ctrl.subscriptions.approve(subscription)" class="btn btn-link btn-link-success" ng-if="subscription.status == 'requested' || subscription.externally_provisioned" uib-tooltip="{{ $ctrl.editToolTip('approve') | translate }}"
+                    tooltip-append-to-body="true">
+                    <i class="fa fa-check"></i>
+                  </a>
+                  <a ng-click="$ctrl.editSubscription(subscription, 'reactivate')" ng-show="$ctrl.showEditAction(subscription, 'reactivate')" class="btn btn-link btn-link-primary subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('reactivate') | translate }}" tooltip-append-to-body="true">
+                    <i class="fa fa-refresh"></i>
+                  </a>
+                  <a ng-click="$ctrl.editSubscription(subscription, 'renew')" ng-show="$ctrl.showEditAction(subscription, 'renew')" class="btn btn-link btn-link-primary subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('renew') | translate }}" tooltip-append-to-body="true">
+                    <i class="fa fa-check-square"></i>
+                  </a>
+                  <a ng-click="$ctrl.editSubscription(subscription, 'change')" ng-show="$ctrl.showEditAction(subscription, 'change')" class="btn btn-link btn-link-warning subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('change') | translate }}" tooltip-append-to-body="true">
+                    <i class="fa fa-pencil-square-o"></i>
+                  </a>
+                  <a ng-click="$ctrl.editSubscription(subscription, 'modify')" ng-show="$ctrl.showEditAction(subscription, 'modify')" class="btn btn-link btn-link-warning subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('modify') | translate }}" tooltip-append-to-body="true">
+                    <i class="fa fa-pencil"></i>
+                  </a>
+                  <a ng-click="$ctrl.subscriptions.cancel(subscription)" ng-show="$ctrl.showEditAction(subscription, 'suspend')" class="btn btn-link btn-link-danger subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('suspend') | translate }}" tooltip-append-to-body="true">
+                    <i class="fa fa-remove"></i>
+                  </a>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mno-widget-body>
+    <mno-widget-footer ng-show="$ctrl.subscriptions.list">
+      <mno-pagination
+        page="$ctrl.subscriptions.page"
+        nb-items="$ctrl.subscriptions.nbItems"
+        total-items="$ctrl.subscriptions.totalItems"
+        on-change-cb="$ctrl.subscriptions.pageChangedCb(nbItems, page)"
+        is-loading="$ctrl.subscriptions.loading">
+      </mno-pagination>
+    </mno-widget-footer>
+  </mno-widget>
+</div>
