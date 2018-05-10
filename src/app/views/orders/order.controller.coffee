@@ -1,4 +1,4 @@
-@App.controller 'OrderController', ($filter, $state, $stateParams, $uibModal, toastr, MnoeProvisioning, MnoeOrganizations, MnoeUsers, MnoConfirm, MnoeCurrentUser) ->
+@App.controller 'OrderController', ($filter, $state, $stateParams, $uibModal, toastr, MnoeProvisioning, MnoeOrganizations, MnoeUsers, MnoConfirm, MnoeProducts, MnoeCurrentUser) ->
   'ngInject'
   vm = this
 
@@ -27,13 +27,12 @@
       vm.order = response.data.plain()
       vm.getInfo()
       if vm.order.custom_data?
-        # Get the product schema
-        MnoeProvisioning.findProduct(id: vm.order.product_id).then(
-          (response) ->
-            vm.schema = if response.custom_schema then JSON.parse(response.custom_schema) else {}
-            vm.form = if response.asf_options then JSON.parse(response.asf_options) else ["*"]
-        )
-  ).finally(-> vm.isLoading = false)
+        MnoeProducts.fetchCustomSchema(vm.order.product.id).then((response) ->
+          schema = JSON.parse(response)
+          vm.schema = if schema.json_schema then schema.json_schema else {}
+          vm.form = if schema.asf_options then schema.asf_options else ["*"]
+      )
+    ).finally(-> vm.isLoading = false)
 
   fetchSubscriptionEvents = () ->
     MnoeProvisioning.getSubscriptionEvents(vm.orderId, vm.orgId).then(
