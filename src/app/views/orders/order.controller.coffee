@@ -23,14 +23,18 @@
     dateFormat: 'yyyy-MM-dd HH:mm:ss'
   }
 
-  # if vm.orderId
+  # If the user is viewing a specific #subscription_event(order), fetch it, otherwise show the user's non-obsolete #subscription_event
+  if vm.orderId
+    MnoeProvisioning.getSubscriptionEvent(vm.subscriptionId, vm.orgId, vm.orderId).then((response) ->
+      vm.order = response.data.subscription_event
+      )
 
   # Get the subscription
   MnoeProvisioning.fetchSubscription(vm.subscriptionId, vm.orgId).then(
     (response) ->
       vm.subscription = response.data.plain()
       vm.getInfo()
-      if vm.subscription.custom_data?
+      if vm.subscription.externally_provisioned?
         MnoeProducts.fetchCustomSchema(vm.subscription.product.id).then((response) ->
           return unless response
           schema = JSON.parse(response)
