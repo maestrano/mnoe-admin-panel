@@ -32,6 +32,7 @@
       vm.getInfo()
       if vm.subscription.custom_data?
         MnoeProducts.fetchCustomSchema(vm.subscription.product.id).then((response) ->
+          return unless response
           schema = JSON.parse(response)
           vm.schema = if schema.json_schema then schema.json_schema else {}
           vm.form = if schema.asf_options then schema.asf_options else ["*"]
@@ -65,34 +66,28 @@
           vm.user = response.data.plain()
       )
 
-  # Display approval if status is 'requested' or if product is not externally provisioned
-  vm.displayApproval = ->
-    return ( vm.order.status == 'requested' || vm.subscription.externally_provisioned )
-
-  # Display fulfill otherwise
-  vm.displayFulfillApproval = ->
-    return !vm.displayApproval()
-
   vm.displayInfoTooltip = ->
-    return vm.order.status == 'aborted'
+    vm.order.status == 'aborted'
 
-  # Make sure Approval is disabled for any other status than 'requested'
+  # Admin can only accept a #subscription_event(i.e. order) when subscription event is requested.
   vm.disableApproval = ->
-    return (vm.order.status != 'requested')
+    (vm.order.status != 'requested')
 
-  # Fulfill disabled if not shown or if shown but status is cancelled
+  # Admin can only fulfill a subscription when subscription is in the provisioning state and is not externally provisioned.
   vm.disableFulfillApproval = ->
-    return !vm.displayFulfillApproval() || (vm.order.status == 'cancelled')  || (vm.order.status == 'fulfilled')
+    vm.subscription.status != 'provisioning' || vm.subscription.externally_provisioned
 
   # Only disabled cancel if status is already cancelled
   vm.disableCancel = ->
-    return (vm.order.status != 'requested')
+    (vm.order.status != 'requested')
 
   vm.orderWorkflowExplanation = ->
-    if vm.displayFulfillApproval() && vm.disableFulfillApproval()
-      return 'mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_disabled'
-    if vm.displayApproval() && vm.disableApproval()
-      return 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_disabled'
+    if vm.disableApproval()
+      'mnoe_admin_panel.dashboard.subscriptions.modal.approve_disabled'
+
+  vm.subscriptionWorkflowExplanation = ->
+    if vm.disableFulfillApproval()
+      'mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_disabled'
 
   vm.approveOrder = ->
     modalOptions =
