@@ -41,19 +41,23 @@
         _.find(productsResponse.products, (a) -> a.id == id || a.nid == nid)
     )
 
+  productPromises = {}
+  @getProduct = (productId, params) ->
+    productPromises["#{productId}/#{params.editAction}"] ?= MnoeAdminApiSvc.one('/products', productId).get(params)
+      .then((response) -> response.data.product)
+
   @setSubscription = (s) ->
     subscription = s
 
-  @getSubscription = () ->
+  @getCachedSubscription = () ->
     subscription
 
   # Return the subscription
   # if productNid: return the default subscription
   # if subscriptionId: return the fetched subscription
   # else: return the subscription in cache (edition mode)
-  @initSubscription = ({productNid = null, subscriptionId = null, orgId = null}) ->
+  @initSubscription = ({productId = null, subscriptionId = null, orgId = null}) ->
     deferred = $q.defer()
-
     # Edit a subscription
     if !_.isEmpty(subscription)
       deferred.resolve(subscription)
@@ -63,7 +67,7 @@
           angular.copy(response.data, subscription)
           deferred.resolve(subscription)
       )
-    else if productNid?
+    else if productId?
       # Create a new subscription to a product
       angular.copy(defaultSubscription, subscription)
       deferred.resolve(subscription)
@@ -99,8 +103,8 @@
           response.data
       )
 
-  @fetchSubscription = (id, orgId) ->
-    MnoeAdminApiSvc.one('/organizations', orgId).one('subscriptions', id).get().catch(
+  @fetchSubscription = (id, orgId, params) ->
+    MnoeAdminApiSvc.one('/organizations', orgId).one('subscriptions', id).get(params).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)

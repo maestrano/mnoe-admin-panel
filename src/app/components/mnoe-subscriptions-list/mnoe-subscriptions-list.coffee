@@ -12,10 +12,6 @@
   controller: ($state, $filter, $log, $uibModal, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning) ->
     ctrl = this
 
-    ctrl.editSubscription = (subscription) ->
-      MnoeProvisioning.setSubscription({})
-      $state.go('dashboard.provisioning.order', {id: subscription.id, orgId: subscription.organization_id})
-
     ctrl.subscriptions =
       list: []
       sort: "created_at.desc"
@@ -112,7 +108,10 @@
       ).finally(-> ctrl.subscriptions.loading = false)
 
     ctrl.displayInfoTooltip = (subscription) ->
-      return subscription.status == 'aborted'
+      subscription.status == 'aborted'
+
+    ctrl.editToolTip = (editAction) ->
+      'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.' + editAction.toLowerCase() + '_tooltip'
 
     ctrl.displayStatusInfo = ->
       modalInstance = $uibModal.open(
@@ -120,6 +119,19 @@
         controller: 'OrderInfoController'
         controllerAs: 'vm'
       )
+
+    ctrl.showEditAction = (subscription, editAction) ->
+      editAction in subscription.available_actions
+
+    ctrl.editSubscription = (subscription, editAction) ->
+      MnoeProvisioning.setSubscription({})
+
+      params = {subscriptionId: subscription.id, orgId: subscription.organization_id, editAction: editAction}
+      switch editAction
+        when 'change'
+          $state.go('dashboard.provisioning.order', params)
+        else
+          $state.go('dashboard.provisioning.additional_details', params)
 
     return
 })

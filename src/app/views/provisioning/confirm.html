@@ -3,7 +3,8 @@
     <mno-widget-header>
       <div class="breadcrumb-info">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item active">- {{ vm.subscription.product.name }}</li>
+          <li class="breadcrumb-item active">- {{ vm.orderTypeText | translate }}</li>
+          <li class="breadcrumb-item active">{{ vm.subscription.product.name }}</li>
           <li class="breadcrumb-item active">{{ vm.subscription.product_pricing.name }}</li>
         </ol>
       </div>
@@ -65,7 +66,7 @@
   </mno-widget>
 
   <span class="pull-right top-buffer-1">
-    <button class="btn btn-primary" ng-click="vm.editOrder()" translate>
+    <button ng-show="vm.orderEditable()" class="btn btn-primary" ng-click="vm.editOrder()" translate>
       mnoe_admin_panel.dashboard.provisioning.confirm.edit_order
     </button>
     <button class="btn btn-warning" ng-click="vm.validate()" ng-disabled="vm.isLoading">
