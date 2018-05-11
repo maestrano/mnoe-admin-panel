@@ -6,6 +6,7 @@
   vm.orgId = $stateParams.orgId
   vm.orderId = $stateParams.orderId
   vm.order = {}
+  vm.subscription = {}
   vm.rootName = $filter('translate')('mnoe_admin_panel.dashboard.order.root_name')
   vm.organization = {}
   vm.user = {}
@@ -44,7 +45,6 @@
         # If the user is not viewing a specific order, show the non-obsolete subscription event.
         unless vm.orderId
           vm.order = _.find(response.data.subscription_events, (s) -> !s.obsolete)
-
     )
 
   fetchSubscriptionEvents()
@@ -67,7 +67,7 @@
 
   # Display approval if status is 'requested' or if product is not externally provisioned
   vm.displayApproval = ->
-    return ( vm.order.status == 'requested' || vm.order.externally_provisioned )
+    return ( vm.order.status == 'requested' || vm.subscription.externally_provisioned )
 
   # Display fulfill otherwise
   vm.displayFulfillApproval = ->
@@ -101,16 +101,14 @@
       headerText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.proceed'
       bodyText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.perform'
       bodyTextExtraData: {subscription_name: vm.subscription.product.name}
-      type: 'danger'
       actionCb: ->
-        MnoeProvisioning.approveSubscription({organization_id: vm.orgId, id: vm.subscriptionId }).then(
-          (response) ->
-            angular.copy(response.data.subscription, vm.subscription)
+        MnoeProvisioning.approveSubscriptionEvent({id: vm.order.id}).then(() ->
+          fetchSubscriptionEvents()
+          ).then(() ->
             toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_success', {extraData: {subscription_name: vm.subscription.product.name}})
-          ->
+          ).catch(() ->
             toastr.error('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_error', {extraData: {subscription_name: vm.subscription.product.name}})
-        ).finally(() -> fetchSubscriptionEvents())
-
+          )
     MnoConfirm.showModal(modalOptions)
 
   vm.fulfillOrder = ->
@@ -120,7 +118,6 @@
       headerText: 'mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.proceed'
       bodyText: 'mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.perform'
       bodyTextExtraData: {subscription_name: vm.subscription.product.name}
-      type: 'danger'
       actionCb: ->
         MnoeProvisioning.fulfillSubscription({organization_id: vm.orgId, id: vm.subscriptionId }).then(
           (response) ->
@@ -141,14 +138,13 @@
       bodyTextExtraData: {subscription_name: vm.subscription.product.name}
       type: 'danger'
       actionCb: ->
-        MnoeProvisioning.cancelSubscription({organization_id: vm.orgId, id: vm.subscriptionId }).then(
-          (response) ->
-            angular.copy(response.data.subscription, vm.subscription)
+        MnoeProvisioning.rejectSubscriptionEvent({id: vm.order.id}).then(
+          fetchSubscriptionEvents()
+          ).then(() ->
             toastr.success('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_success', {extraData: {subscription_name: vm.subscription.product.name}})
-          ->
+          ).catch(() ->
             toastr.error('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_error', {extraData: {subscription_name: vm.subscription.product.name}})
-        ).finally(() -> fetchSubscriptionEvents())
-
+          )
     MnoConfirm.showModal(modalOptions)
 
   vm.displayStatusInfo = ->
