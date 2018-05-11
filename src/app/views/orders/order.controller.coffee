@@ -2,8 +2,9 @@
   'ngInject'
   vm = this
 
-  vm.orderId = $stateParams.orderId
+  vm.subscriptionId = $stateParams.subscriptionId
   vm.orgId = $stateParams.orgId
+  vm.orderId = $stateParams.orderId
   vm.order = {}
   vm.rootName = $filter('translate')('mnoe_admin_panel.dashboard.order.root_name')
   vm.organization = {}
@@ -21,13 +22,15 @@
     dateFormat: 'yyyy-MM-dd HH:mm:ss'
   }
 
+  # if vm.orderId
+
   # Get the subscription
-  MnoeProvisioning.fetchSubscription(vm.orderId, vm.orgId).then(
+  MnoeProvisioning.fetchSubscription(vm.subscriptionId, vm.orgId).then(
     (response) ->
-      vm.order = response.data.plain()
+      vm.subscription = response.data.plain()
       vm.getInfo()
-      if vm.order.custom_data?
-        MnoeProducts.fetchCustomSchema(vm.order.product.id).then((response) ->
+      if vm.subscription.custom_data?
+        MnoeProducts.fetchCustomSchema(vm.subscription.product.id).then((response) ->
           schema = JSON.parse(response)
           vm.schema = if schema.json_schema then schema.json_schema else {}
           vm.form = if schema.asf_options then schema.asf_options else ["*"]
@@ -35,9 +38,13 @@
     ).finally(-> vm.isLoading = false)
 
   fetchSubscriptionEvents = () ->
-    MnoeProvisioning.getSubscriptionEvents(vm.orderId, vm.orgId).then(
+    MnoeProvisioning.getSubscriptionEvents(vm.subscriptionId, vm.orgId).then(
       (response) ->
-        vm.subscriptionEvents = response.data
+        vm.subscriptionEvents = response.data.subscription_events
+        # If the user is not viewing a specific order, show the non-obsolete subscription event.
+        unless vm.orderId
+          vm.order = _.find(response.data.subscription_events, (s) -> !s.obsolete)
+
     )
 
   fetchSubscriptionEvents()
@@ -52,8 +59,8 @@
       (response) ->
         vm.organization = response.data.plain()
     )
-    if vm.order.user_id?
-      MnoeUsers.get(vm.order.user_id).then(
+    if vm.subscription.user_id?
+      MnoeUsers.get(vm.subscription.user_id).then(
         (response) ->
           vm.user = response.data.plain()
       )
@@ -93,15 +100,15 @@
       actionButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.cancel'
       headerText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.proceed'
       bodyText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.perform'
-      bodyTextExtraData: {subscription_name: vm.order.product.name}
+      bodyTextExtraData: {subscription_name: vm.subscription.product.name}
       type: 'danger'
       actionCb: ->
-        MnoeProvisioning.approveSubscription({organization_id: vm.orgId, id: vm.orderId }).then(
+        MnoeProvisioning.approveSubscription({organization_id: vm.orgId, id: vm.subscriptionId }).then(
           (response) ->
-            angular.copy(response.data.subscription, vm.order)
-            toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_success', {extraData: {subscription_name: vm.order.product.name}})
+            angular.copy(response.data.subscription, vm.subscription)
+            toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_success', {extraData: {subscription_name: vm.subscription.product.name}})
           ->
-            toastr.error('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_error', {extraData: {subscription_name: vm.order.product.name}})
+            toastr.error('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_error', {extraData: {subscription_name: vm.subscription.product.name}})
         ).finally(() -> fetchSubscriptionEvents())
 
     MnoConfirm.showModal(modalOptions)
@@ -112,15 +119,15 @@
       actionButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.cancel'
       headerText: 'mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.proceed'
       bodyText: 'mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.perform'
-      bodyTextExtraData: {subscription_name: vm.order.product.name}
+      bodyTextExtraData: {subscription_name: vm.subscription.product.name}
       type: 'danger'
       actionCb: ->
-        MnoeProvisioning.fulfillSubscription({organization_id: vm.orgId, id: vm.orderId }).then(
+        MnoeProvisioning.fulfillSubscription({organization_id: vm.orgId, id: vm.subscriptionId }).then(
           (response) ->
-            angular.copy(response.data.subscription, vm.order)
-            toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.toastr_success', {extraData: {subscription_name: vm.order.product.name}})
+            angular.copy(response.data.subscription, vm.subscription)
+            toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.toastr_success', {extraData: {subscription_name: vm.subscription.product.name}})
           ->
-            toastr.error('mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.toastr_error', {extraData: {subscription_name: vm.order.product.name}})
+            toastr.error('mnoe_admin_panel.dashboard.subscriptions.modal.fulfill_subscriptions.toastr_error', {extraData: {subscription_name: vm.subscription.product.name}})
         ).finally(() -> fetchSubscriptionEvents())
 
     MnoConfirm.showModal(modalOptions)
@@ -131,15 +138,15 @@
       actionButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.cancel'
       headerText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.proceed'
       bodyText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.perform'
-      bodyTextExtraData: {subscription_name: vm.order.product.name}
+      bodyTextExtraData: {subscription_name: vm.subscription.product.name}
       type: 'danger'
       actionCb: ->
-        MnoeProvisioning.cancelSubscription({organization_id: vm.orgId, id: vm.orderId }).then(
+        MnoeProvisioning.cancelSubscription({organization_id: vm.orgId, id: vm.subscriptionId }).then(
           (response) ->
-            angular.copy(response.data.subscription, vm.order)
-            toastr.success('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_success', {extraData: {subscription_name: vm.order.product.name}})
+            angular.copy(response.data.subscription, vm.subscription)
+            toastr.success('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_success', {extraData: {subscription_name: vm.subscription.product.name}})
           ->
-            toastr.error('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_error', {extraData: {subscription_name: vm.order.product.name}})
+            toastr.error('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_error', {extraData: {subscription_name: vm.subscription.product.name}})
         ).finally(() -> fetchSubscriptionEvents())
 
     MnoConfirm.showModal(modalOptions)

@@ -4,47 +4,80 @@
   </a>
   <div class="row">
     <div class="col-xs-6">
-      <mno-widget icon="fa-shopping-basket" heading="{{'mnoe_admin_panel.dashboard.order.order_info' | translate}}" is-loading="vm.isLoading">
+      <mno-widget icon="fa-shopping-basket" heading="{{'mnoe_admin_panel.dashboard.subscription.subscription_info' | translate}}" is-loading="vm.isLoading">
         <mno-widget-header></mno-widget-header>
         <mno-widget-body class="medium">
           <div class="row">
             <div class="col-xs-6">
-              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.reference</div>
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.subscription.reference</div>
             </div>
             <div class="col-xs-6">
-              {{vm.order.external_id}}
+              {{vm.subscription.external_id}}
             </div>
           </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.subscription.start_date</div>
+            </div>
+            <div class="col-xs-6">
+              {{vm.subscription.start_date | date: 'dd/MM/yyyy'}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.subscription.end_date</div>
+            </div>
+            <div class="col-xs-6">
+              {{vm.subscription.end_date | date: 'dd/MM/yyyy'}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.subscription.product</div>
+            </div>
+            <div class="col-xs-6">
+              {{vm.subscription.product.name}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.subscription.pricing_plan</div>
+            </div>
+            <div class="col-xs-6">
+              {{vm.subscription.product_pricing.name}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.subscription.status</div>
+            </div>
+            <div class="col-xs-6">
+              {{vm.subscription.status}}
+              <a class="label-cell" href="" ng-hide="!vm.displayInfoTooltip()" ng-click="vm.displayStatusInfo()"><i class="fa fa-info-circle"></i></a>
+            </div>
+          </div>
+        </mno-widget-body>
+      </mno-widget>
+    </div>
+    <div class="col-xs-6">
+      <mno-widget icon="fa-shopping-basket" heading="{{'mnoe_admin_panel.dashboard.subscription.order_info' | translate}}" is-loading="vm.isLoading">
+        <mno-widget-header></mno-widget-header>
+        <mno-widget-body class="medium">
+
           <div class="row">
             <div class="col-xs-6">
               <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.date</div>
             </div>
             <div class="col-xs-6">
-              {{vm.order.start_date | date: 'dd/MM/yyyy'}}
+              {{vm.order.created_at | date: 'dd/MM/yyyy'}}
             </div>
           </div>
           <div class="row">
             <div class="col-xs-6">
-              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.end_date</div>
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.order_type</div>
             </div>
             <div class="col-xs-6">
-              {{vm.order.end_date | date: 'dd/MM/yyyy'}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-6">
-              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.product</div>
-            </div>
-            <div class="col-xs-6">
-              {{vm.order.product.name}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-6">
-              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.pricing_plan</div>
-            </div>
-            <div class="col-xs-6">
-              {{vm.order.product_pricing.name}}
+              {{vm.order.event_type}}
             </div>
           </div>
           <div class="row">
@@ -54,6 +87,15 @@
             <div class="col-xs-6">
               {{vm.order.status}}
               <a class="label-cell" href="" ng-hide="!vm.displayInfoTooltip()" ng-click="vm.displayStatusInfo()"><i class="fa fa-info-circle"></i></a>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.message</div>
+            </div>
+            <div class="col-xs-6">
+              {{vm.order.message}}
             </div>
           </div>
           <div class="row">
@@ -80,12 +122,14 @@
             <div class="col-xs-6">
             </div>
             <div class="col-xs-6">
-              {{vm.orderWorkflowExplanation() | translate}}
+              {{vm.subscriptionWorkflowExplanation() | translate}}
             </div>
           </div>
         </mno-widget-body>
       </mno-widget>
     </div>
+  </div>
+  <div class='row'>
     <div class="col-xs-6">
       <mno-widget icon="fa-user-o" heading="{{'mnoe_admin_panel.dashboard.order.customer' | translate}}" is-loading="vm.isLoading">
         <mno-widget-header></mno-widget-header>
@@ -117,28 +161,6 @@
         </mno-widget-body>
       </mno-widget>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6">
-      <mno-widget icon="fa-info-circle" heading="{{'mnoe_admin_panel.dashboard.order.provisioning_data' | translate}}" is-loading="vm.isLoading">
-        <mno-widget-header></mno-widget-header>
-        <mno-widget-body>
-          <span ng-if="!vm.order.provisioning_data" translate>mnoe_admin_panel.dashboard.order.no_provisioning_data</span>
-          <user-friendly-json-tree ng-if="vm.order.provisioning_data" start-expanded="true" object="vm.order.provisioning_data" options="vm.jsonTreeSettings" root-name="vm.rootName"></user-friendly-json-tree>
-        </mno-widget-body>
-      </mno-widget>
-    </div>
-    <div class="col-xs-6">
-      <mno-widget icon="fa-info-circle" heading="{{'mnoe_admin_panel.dashboard.order.custom_data' | translate}}" is-loading="vm.isLoading">
-        <mno-widget-header></mno-widget-header>
-        <mno-widget-body>
-          <span ng-show="!vm.order.custom_data" translate>mnoe_admin_panel.dashboard.order.no_custom_data</span>
-          <form ng-show="vm.order.custom_data" name="vm.detailsForm" sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.order.custom_data" sf-options="{ formDefaults: { readonly: { true } }}"></form>
-        </mno-widget-body>
-      </mno-widget>
-    </div>
-  </div>
-  <div class='row'>
     <div class='col-xs-6'>
       <mno-widget icon="fa-info-circle" heading="{{'mnoe_admin_panel.dashboard.orders.provision.subscription.events' | translate}}" is-loading="vm.isLoading">
         <mno-widget-header></mno-widget-header>
@@ -160,6 +182,26 @@
               </div>
             </div>
           </div>
+        </mno-widget-body>
+      </mno-widget>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <mno-widget icon="fa-info-circle" heading="{{'mnoe_admin_panel.dashboard.order.provisioning_data' | translate}}" is-loading="vm.isLoading">
+        <mno-widget-header></mno-widget-header>
+        <mno-widget-body>
+          <span ng-if="!vm.subscription.provisioning_data" translate>mnoe_admin_panel.dashboard.order.no_provisioning_data</span>
+          <user-friendly-json-tree ng-if="vm.subscription.provisioning_data" start-expanded="true" object="vm.subscription.provisioning_data" options="vm.jsonTreeSettings" root-name="vm.rootName"></user-friendly-json-tree>
+        </mno-widget-body>
+      </mno-widget>
+    </div>
+    <div class="col-xs-6">
+      <mno-widget icon="fa-info-circle" heading="{{'mnoe_admin_panel.dashboard.order.custom_data' | translate}}" is-loading="vm.isLoading">
+        <mno-widget-header></mno-widget-header>
+        <mno-widget-body>
+          <span ng-show="!vm.subscription.custom_data" translate>mnoe_admin_panel.dashboard.order.no_custom_data</span>
+          <form ng-show="vm.subscription.custom_data" name="vm.detailsForm" sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.subscription.custom_data" sf-options="{ formDefaults: { readonly: { true } }}"></form>
         </mno-widget-body>
       </mno-widget>
     </div>

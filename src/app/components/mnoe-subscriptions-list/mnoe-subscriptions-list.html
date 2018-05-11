@@ -20,8 +20,8 @@
           <tbody ng-show="!$ctrl.subscriptions.loading" >
             <tr ng-repeat="subscription in $ctrl.subscriptions.list">
               <td>{{subscription.start_date | amDateFormat:'L'}}</td>
-              <td ng-if="$ctrl.all"><a ui-sref="dashboard.order({orderId : subscription.id, orgId: subscription.organization_id})">{{subscription.organization.name}}</a></td>
-              <td><a ui-sref="dashboard.order({orderId : subscription.id, orgId: subscription.organization_id})">{{subscription.product.name}}</a></td>
+              <td ng-if="$ctrl.all"><a ui-sref="dashboard.order({subscriptionId: subscription.id, orgId: subscription.organization_id})">{{subscription.organization.name}}</a></td>
+              <td><a ui-sref="dashboard.order({subscriptionId : subscription.id, orgId: subscription.organization_id})">{{subscription.product.name}}</a></td>
               <td>{{subscription.product_pricing.name}}</td>
               <td>
                 <div>

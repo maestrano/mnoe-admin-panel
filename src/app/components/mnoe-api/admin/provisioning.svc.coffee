@@ -158,4 +158,11 @@
         $q.reject(error)
     )
 
+  @getSubscriptionEvent = (subscriptionId, orgId, id) ->
+    MnoeAdminApiSvc.one('organizations', orgId).one('subscriptions', subscriptionId).customGET("/subscription_events/#{id}").catch(
+      (error) ->
+        MnoErrorsHandler.processServerError(error)
+        $q.reject(error)
+    )
+
   return
