@@ -86,7 +86,7 @@
   "mnoe_admin_panel.dashboard.customers.create_customer.create": "Create",
   "mnoe_admin_panel.dashboard.customers.create_customer.app_logo": "{app} logo",
   "mnoe_admin_panel.dashboard.customers.create_customer.toastr_success": "Organisation {organization_name} has been successfully created.",
-  "mnoe_admin_panel.dashboard.customers.create_customer.toastr_error": "An error occurred while creating organisation {vm.organization_name}.",
+  "mnoe_admin_panel.dashboard.customers.create_customer.toastr_error": "An error occurred while creating organisation {organization_name}.",
   "mnoe_admin_panel.dashboard.customers.main.batch_upload": "Import Customers",
   "mnoe_admin_panel.dashboard.customers.batch_upload.back": "Back",
   "mnoe_admin_panel.dashboard.customers.batch_upload.title": "Import Customers",
