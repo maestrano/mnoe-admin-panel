@@ -10,7 +10,8 @@
       productId: $stateParams.productId,
       orgId: $stateParams.orgId
       subscriptionId: $stateParams.subscriptionId,
-      editAction: $stateParams.editAction
+      editAction: $stateParams.editAction,
+      cart: $stateParams.cart
     }
 
     switch $stateParams.editAction.toLowerCase()
@@ -45,10 +46,19 @@
 
   vm.validate = () ->
     vm.isLoading = true
+    vm.subscription.cart_entry = true if $stateParams.cart
     MnoeProvisioning.saveSubscription(vm.subscription).then(
       (subscription) ->
         $state.go('dashboard.provisioning.order_summary', {orgId: $stateParams.orgId, subscriptionId: subscription.id, editAction: $stateParams.editAction})
     ).finally(-> vm.isLoading = false)
+
+  vm.addToCart = ->
+    vm.isLoading = true
+    vm.subscription.cart_entry = true
+    MnoeProvisioning.saveSubscription(vm.subscription).then(
+      (response) ->
+        $state.go('dashboard.customers.organization', {orgId: $stateParams.orgId})
+     ).finally(-> vm.isLoading = false)
 
   # Return true if the plan has a dollar value
   vm.pricedPlan = ProvisioningHelper.pricedPlan

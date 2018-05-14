@@ -7,12 +7,13 @@
     productId: $stateParams.productId,
     orgId: $stateParams.orgId,
     subscriptionId: $stateParams.subscriptionId,
-    editAction: $stateParams.editAction
+    editAction: $stateParams.editAction,
+    cart: $stateParams.cart
   }
 
   fetchSubscription = () ->
     orgPromise = MnoeOrganizations.get($stateParams.orgId)
-    initPromise = MnoeProvisioning.initSubscription({productId: $stateParams.productId, subscriptionId: $stateParams.subscriptionId, orgId: $stateParams.orgId})
+    initPromise = MnoeProvisioning.initSubscription({productId: $stateParams.productId, subscriptionId: $stateParams.subscriptionId, orgId: $stateParams.orgId, cart: urlParams.cart})
 
     $q.all({organization: orgPromise, subscription: initPromise}).then((response) ->
       vm.orgCurrency = response.organization.data.billing_currency || MnoeAdminConfig.marketplaceCurrency()

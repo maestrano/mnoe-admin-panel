@@ -56,13 +56,13 @@
   # if productNid: return the default subscription
   # if subscriptionId: return the fetched subscription
   # else: return the subscription in cache (edition mode)
-  @initSubscription = ({productId = null, subscriptionId = null, orgId = null}) ->
+  @initSubscription = ({productId = null, subscriptionId = null, orgId = null, cart = null}) ->
     deferred = $q.defer()
     # Edit a subscription
     if !_.isEmpty(subscription)
       deferred.resolve(subscription)
     else if subscriptionId?
-      _self.fetchSubscription(subscriptionId, orgId).then(
+      _self.fetchSubscription(subscriptionId, orgId, cart).then(
         (response) ->
           angular.copy(response.data, subscription)
           deferred.resolve(subscription)
@@ -77,13 +77,13 @@
     return deferred.promise
 
   createSubscription = (s) ->
-    subscriptionsApi(s.organization_id).post({subscription: {product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data}}).catch(
+    subscriptionsApi(s.organization_id).post({subscription: {product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data, cart_entry: s.cart_entry}}).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
     )
 
   updateSubscription = (s) ->
-    subscription.patch({subscription: {product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data}}).catch(
+    subscription.patch({subscription: {product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data, cart_entry: s.cart_entry}}).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
     )
@@ -103,6 +103,7 @@
           response.data
       )
 
+  # Note: See how params are done
   @fetchSubscription = (id, orgId, params) ->
     MnoeAdminApiSvc.one('/organizations', orgId).one('subscriptions', id).get(params).catch(
       (error) ->
@@ -121,7 +122,8 @@
     )
 
   @cancelSubscription = (s) ->
-    MnoeAdminApiSvc.one('organizations', s.organization_id).one('subscriptions', s.id).post('/cancel').catch(
+    subscription_params = { cart_entry: s.cart_entry }
+    MnoeAdminApiSvc.one('organizations', s.organization_id).one('subscriptions', s.id).post('/cancel', {subscription: subscription_params}).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)

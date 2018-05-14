@@ -6,6 +6,7 @@
   bindings: {
     all: '<'
     organization: '<',
+    companyCart: '<',
     filters: '<'
     titleKey: '@'
   }
@@ -44,17 +45,30 @@
         MnoConfirm.showModal(modalOptions)
 
       cancel: (subscription) ->
+        if ctrl.companyCart
+          subscription.cart_entry = true
+          actionButtonText = 'mnoe_admin_panel.dashboard.subscriptions.modal.cart_cancel_subscriptions.cancel'
+          headerText = 'mnoe_admin_panel.dashboard.subscriptions.modal.cart_cancel_subscriptions.proceed'
+          bodyText = 'mnoe_admin_panel.dashboard.subscriptions.modal.cart_cancel_subscriptions.perform'
+        else
+          actionButtonText = 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.cancel'
+          headerText = 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.proceed'
+          bodyText = 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.perform'
+
         modalOptions =
-          closeButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.close'
-          actionButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.cancel'
-          headerText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.proceed'
+          closeButtonText: actionButtonText
+          actionButtonText: headerText
+          headerText: bodyText
           bodyText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.perform'
           bodyTextExtraData: {subscription_name: subscription.product.name}
           type: 'danger'
           actionCb: ->
             MnoeProvisioning.cancelSubscription(subscription).then(
               (response) ->
-                angular.copy(response.data.subscription, subscription)
+                if ctrl.companyCart
+                  ctrl.subscriptions.list = _.reject(ctrl.subscriptions.list, (sub) -> sub.id == subscription.id)
+                else
+                  angular.copy(response.data.subscription, subscription)
                 toastr.success('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_success', {extraData: {subscription_name: subscription.product.name}})
               ->
                 toastr.error('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_error', {extraData: {subscription_name: subscription.product.name}})
@@ -126,7 +140,7 @@
     ctrl.editSubscription = (subscription, editAction) ->
       MnoeProvisioning.setSubscription({})
 
-      params = {subscriptionId: subscription.id, orgId: subscription.organization_id, editAction: editAction}
+      params = {subscriptionId: subscription.id, orgId: subscription.organization_id, editAction: editAction, cart: ctrl.companyCart}
       switch editAction
         when 'change'
           $state.go('dashboard.provisioning.order', params)

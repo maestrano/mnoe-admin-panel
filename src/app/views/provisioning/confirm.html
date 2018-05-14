@@ -73,5 +73,11 @@
       <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
       <span translate>mnoe_admin_panel.dashboard.provisioning.confirm.validate</span>
     </button>
+    <button class='btn btn-warning add-to-cart' ng-click="vm.addToCart()" ng-disabled="vm.isLoading" ng-if="!vm.subscription.id">
+      <span ng-show="vm.isLoading"><i class='fa fa-spinner fa-pulse fa-fw'></i></span>
+      <span uib-tooltip="{{ 'mnoe_admin_panel.dashboard.provisioning.subscriptions.cart.add_to_cart' | translate}}">
+        <i class='fa fa-cart-plus'></i>
+      </span>
+    </button>
   </span>
 </div>
