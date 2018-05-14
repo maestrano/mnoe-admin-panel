@@ -17,4 +17,7 @@
   @addSSLCerts = (params) ->
     MnoeAdminApiSvc.one('tenant').all('ssl_certificates').post(tenant: params)
 
+  @getRestartStatus = ->
+    MnoeAdminApiSvc.one('tenant').doGET('/restart_status')
+
   return @

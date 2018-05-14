@@ -1,10 +1,13 @@
-@App.controller 'SettingsGeneralController', ($translate, $scope, $window, $q, toastr, MnoConfirm, MnoeTenant, MnoeMarketplace) ->
+@App.controller 'SettingsGeneralController', ($translate, $scope, $window, $q, $timeout, toastr, MnoConfirm, MnoeTenant, MnoeMarketplace) ->
   'ngInject'
   vm = this
 
   vm.settingsModel = {}
   vm.originalSettings = {}
   vm.settingsSchema = {}
+
+  vm.loadTime = 1000
+  vm.errorCount = 0
 
   $translate([
     'mnoe_admin_panel.dashboard.settings.general.tabs.system',
@@ -60,7 +63,7 @@
     form.$setPristine()
     loadConfig()
 
-  vm.saveSettings = () ->
+  vm.saveSettings = ->
     MnoConfirm.showModal(
       headerText: 'mnoe_admin_panel.dashboard.settings.modal.confirm.proceed'
       bodyText: 'mnoe_admin_panel.dashboard.settings.modal.confirm.perform'
@@ -70,11 +73,36 @@
       MnoeTenant.update(vm.settingsModel).then(
         ->
           vm.originalSettings = angular.copy(vm.settingsModel)
-          toastr.success('mnoe_admin_panel.dashboard.settings.save.toastr_success')
+          vm.pollStatus().then( ->
+            if vm.restartStatus == 'success'
+              location.reload()
+            else
+              toastr.success('mnoe_admin_panel.dashboard.settings.save.toastr_success')
+          )
         ->
           toastr.error('mnoe_admin_panel.dashboard.settings.save.toastr_error')
       ).finally(-> vm.isLoading = false)
     )
+
+  vm.pollStatus = ->
+    MnoeTenant.getRestartStatus().then(
+      (response) ->
+        vm.restartStatus = response.data.status
+        vm.errorCount = 0
+        nextLoad() unless vm.restartStatus == 'success' || vm.restartStatus == 'failed'
+    ).catch(
+      (error) ->
+        vm.restartStatus = "Server Error"
+        nextLoad(++vm.errorCount * 2 * vm.loadTime)
+    )
+
+  cancelNextLoad = ->
+    $timeout.cancel(vm.loadPromise)
+
+  nextLoad = (mill) ->
+    mill = mill || vm.loadTime
+    cancelNextLoad()
+    vm.loadPromise = $timeout(vm.pollStatus, mill)
 
   # Handle unsaved changes notifications
   changedForm = () ->
@@ -95,6 +123,7 @@
   $scope.$on('$destroy', () ->
     $window.onbeforeunload = undefined
     locationChangeStartUnbind()
+    cancelNextLoad()
   )
 
   return
