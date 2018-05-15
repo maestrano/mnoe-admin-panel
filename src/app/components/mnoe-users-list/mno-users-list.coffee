@@ -4,6 +4,7 @@
 @App.directive('mnoeUsersList', ($filter, $translate, MnoeAdminConfig, MnoeUsers, MnoeCurrentUser) ->
   restrict: 'E'
   scope: {
+    filterParams: '='
   }
   templateUrl: 'app/components/mnoe-users-list/mno-users-list.html'
   link: (scope, elem) ->
@@ -82,10 +83,7 @@
     fetchUsers = (limit, offset, sort = 'surname') ->
       scope.users.loading = true
       MnoeCurrentUser.getUser().then( ->
-        params = if MnoeAdminConfig.isAccountManagerEnabled()
-          {sub_tenant_id: MnoeCurrentUser.user.mnoe_sub_tenant_id, account_manager_id: MnoeCurrentUser.user.id}
-        else
-          {}
+        params = scope.filterParams || {}
         return MnoeUsers.list(limit, offset, sort, params).then(
           (response) ->
             scope.users.totalItems = response.headers('x-total-count')
@@ -119,7 +117,8 @@
       delete scope.users.switchLinkTitle
       search = scope.users.search.toLowerCase()
       terms = {'surname.like': "#{search}%", 'name.like': "#{search}%", 'email.like': "%#{search}%" }
-      MnoeUsers.search(terms).then(
+      params = scope.filterParams || {}
+      MnoeUsers.search(terms, params).then(
         (response) ->
           scope.users.totalItems = response.headers('x-total-count')
           scope.users.list = $filter('orderBy')(response.data, 'email')
