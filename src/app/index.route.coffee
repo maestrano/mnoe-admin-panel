@@ -128,7 +128,7 @@
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.settings.apps.title'
         resolve:
-          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdmin()
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdminRole(['admin', 'staff'])
       .state 'dashboard.settings-plugins',
         data:
           pageTitle: 'Plugins Settings'

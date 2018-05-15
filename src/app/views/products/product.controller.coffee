@@ -1,4 +1,4 @@
-@App.controller 'ProductController', ($stateParams, $state, $timeout, $document, Upload, MnoeProducts, toastr, MnoErrorsHandler, CURRENCIES) ->
+@App.controller 'ProductController', ($stateParams, $state, $timeout, $document, Upload, MnoeProducts, toastr, MnoErrorsHandler, CURRENCIES, MnoeCurrentUser) ->
   'ngInject'
 
   vm = this
@@ -6,6 +6,11 @@
   vm.product = {}
   vm.product.pricing_plans = []
   vm.currencies = _.clone(CURRENCIES.values)
+
+  MnoeCurrentUser.getUser().then(
+    (response) ->
+      vm.isAccountManager = (response.admin_role == 'staff')
+  )
 
   # Get the product
   vm.isLoading = true
