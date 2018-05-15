@@ -154,13 +154,6 @@
         $q.reject(error)
     )
 
-  @fulfillSubscription = (s) ->
-    MnoeAdminApiSvc.one('organizations', s.organization_id).one('subscriptions', s.id).post('/fulfill').catch(
-      (error) ->
-        MnoErrorsHandler.processServerError(error)
-        $q.reject(error)
-    )
-
   @getSubscriptionEvents = (subscriptionId, orgId, limit, offset, sort, params = {}) ->
     params["order_by"] = sort
     params["limit"] = limit
