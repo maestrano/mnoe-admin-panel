@@ -13,7 +13,7 @@
 
     ctrl.subscriptionEvents =
       list: []
-      sort: "created_at.asc"
+      sort: "created_at.desc"
       nbItems: 10
       offset: 0
       page: 1
@@ -64,21 +64,26 @@
 
       # Add extra filtering
       extra_params = ctrl.filters || {}
-
-      return MnoeProvisioning.getAllSubscriptionEvents(limit, offset, sort, extra_params).then(
-        (response) ->
-          ctrl.subscriptionEvents.totalItems = response.headers('x-total-count')
-          ctrl.subscriptionEvents.list = response.data
-          ctrl.subscriptionEvents.oneAdminLeft = _.filter(response.data, {'admin_role': 'admin'}).length == 1
-      ).finally(-> ctrl.subscriptionEvents.loading = false)
+      # Either get all the subscription events of a tenant, or just the subscription events of an organization.
+      if ctrl.organization
+        return MnoeProvisioning.getOrganizationsSubscriptionEvents(limit, offset, sort, ctrl.organization.id, extra_params).then(
+          (response) ->
+            ctrl.subscriptionEvents.totalItems = response.headers('x-total-count')
+            ctrl.subscriptionEvents.list = response.data
+            ctrl.subscriptionEvents.oneAdminLeft = _.filter(response.data, {'admin_role': 'admin'}).length == 1
+        ).finally(->
+          ctrl.subscriptionEvents.loading = false
+          )
+      else
+        return MnoeProvisioning.getAllSubscriptionEvents(limit, offset, sort, extra_params).then(
+          (response) ->
+            ctrl.subscriptionEvents.totalItems = response.headers('x-total-count')
+            ctrl.subscriptionEvents.list = response.data
+            ctrl.subscriptionEvents.oneAdminLeft = _.filter(response.data, {'admin_role': 'admin'}).length == 1
+        ).finally(-> ctrl.subscriptionEvents.loading = false)
 
     ctrl.$onInit = ->
       ctrl.titleText = "mnoe_admin_panel.dashboard.subscriptions.widget.list.#{ctrl.titleKey || 'title'}"
-
-    ctrl.$onChanges = () ->
-      # Call the server when ready
-      return unless (ctrl.all || angular.isDefined(ctrl.organization))
-      fetchSubscriptionEvents(ctrl.subscriptionEvents.nbItems, ctrl.subscriptionEvents.offset)
 
     # Manage sorting and server call
     ctrl.callServer = (tableState) ->

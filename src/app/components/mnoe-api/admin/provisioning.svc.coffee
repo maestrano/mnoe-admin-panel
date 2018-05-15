@@ -120,6 +120,16 @@
         $q.reject(error)
     )
 
+  @getOrganizationsSubscriptionEvents = (limit, offset, sort, orgId = null, params = {}) ->
+    params["order_by"] = sort
+    params["limit"] = limit
+    params["offset"] = offset
+    MnoeAdminApiSvc.one('organizations', orgId).all('subscription_events').getList(params).catch(
+      (error) ->
+        MnoErrorsHandler.processServerError(error)
+        $q.reject(error)
+      )
+
   @getAllSubscriptionEvents = (limit, offset, sort, params = {}) ->
     params["order_by"] = sort
     params["limit"] = limit
@@ -151,8 +161,11 @@
         $q.reject(error)
     )
 
-  @getSubscriptionEvents = (subscriptionId, orgId) ->
-    MnoeAdminApiSvc.one('organizations', orgId).one('subscriptions', subscriptionId).customGETLIST('subscription_events').catch(
+  @getSubscriptionEvents = (subscriptionId, orgId, limit, offset, sort, params = {}) ->
+    params["order_by"] = sort
+    params["limit"] = limit
+    params["offset"] = offset
+    MnoeAdminApiSvc.one('organizations', orgId).one('subscriptions', subscriptionId).all('subscription_events').getList(params).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)

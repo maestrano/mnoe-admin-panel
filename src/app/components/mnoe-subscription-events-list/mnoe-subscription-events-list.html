@@ -9,7 +9,7 @@
           <thead>
             <tr>
               <!--TODO: sub-object attributes sort (eg. st-sort="organization.name")-->
-              <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.start_date</th>
+              <th st-sort="created_at" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.date_requested</th>
               <th ng-if="$ctrl.all" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.organization</th>
               <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.product</th>
               <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.subscription</th>

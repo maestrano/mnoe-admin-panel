@@ -124,9 +124,14 @@
           </mno-widget>
         </div>
         <div class="col-md-6" ng-if="::vm.managementAndProvisioningEnabled">
-          <mnoe-subscriptions-list organization="vm.organization"></mnoe-subscriptions-list>
+          <mnoe-subscription-events-list title-key="title_with_action" filters="{ 'where[obsolete]': false }" organization="vm.organization"></mnoe-subscription-events-list>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" ng-if="::vm.managementAndProvisioningEnabled">
+      <mnoe-subscriptions-list organization="vm.organization" title-key="title_with_history"></mnoe-subscriptions-list>
     </div>
   </div>
   <div class="row">
