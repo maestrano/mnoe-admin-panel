@@ -17,8 +17,9 @@
     params['where[admin_role.not]'] = '' unless params['where[admin_role.in]']
     return _getStaffs(limit, offset, sort, params)
 
-  @search = (terms) ->
-    MnoeAdminApiSvc.all('users').getList({terms: terms})
+  @search = (terms, params = {}) ->
+    params['terms'] = terms
+    MnoeAdminApiSvc.all('users').getList(params)
 
   @get = (id) ->
     MnoeAdminApiSvc.one('users', id).get()
@@ -44,6 +45,14 @@
     promise = MnoeAdminApiSvc.one('users', user.id).patch({user: user}).then(
       (response) ->
         MnoeObservables.notifyObservers(OBS_KEYS.staffChanged, promise)
+        response
+    )
+
+  @updateStaffClients = (user, changes) ->
+    data = {user: changes}
+    promise = MnoeAdminApiSvc.one('users', user.id).customPATCH(data, 'update_clients').then(
+      (response) ->
+        MnoeObservables.notifyObservers(OBS_KEYS.organizationChanged, promise)
         response
     )
 

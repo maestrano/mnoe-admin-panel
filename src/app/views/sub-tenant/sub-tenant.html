@@ -23,11 +23,11 @@
       <div class="col-sm-6">
         <h2 translate><i class="fa fa-users"></i>mnoe_admin_panel.dashboard.sub_tenant.clients</h2>
         <button class="btn btn-primary center-block" ng-show="vm.subTenant" ng-click="vm.updateClientsModal()" translate>mnoe_admin_panel.dashboard.sub_tenant.add_remove_clients</button>
-        <mnoe-organizations-local-list list="vm.subTenant.clients" view="all"></mnoe-organizations-local-list>
+        <mnoe-organizations-list filter-params="vm.clientsFilterParams" view="all"></mnoe-organizations-list>
       </div>
       <div class="col-sm-6"><h2 translate><i class="fa fa-users"></i> mnoe_admin_panel.dashboard.sub_tenant.account_managers</h2>
         <button class="btn btn-primary center-block" ng-show="vm.subTenant" ng-click="vm.updateAccountManagerModal()" translate>mnoe_admin_panel.dashboard.sub_tenant.add_remove_account_managers</button>
-        <mnoe-staffs-local-list list="vm.subTenant.account_managers" view="all"></mnoe-staffs-local-list>
+        <mnoe-staffs-list filter-params="vm.accountManagersFilterParams" view="all"></mnoe-staffs-list>
       </div>
     </div>
 

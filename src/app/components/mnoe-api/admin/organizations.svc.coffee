@@ -29,8 +29,9 @@
     params["offset"] = offset
     return MnoeAdminApiSvc.all("organizations").getList(params)
 
-  @search = (terms) ->
-    MnoeAdminApiSvc.all("organizations").getList({terms: terms})
+  @search = (terms, params = {}) ->
+    params['terms'] = terms
+    MnoeAdminApiSvc.all("organizations").getList(params)
 
   @inArrears = () ->
     MnoeAdminApiSvc.all('organizations').all('in_arrears').getList()
