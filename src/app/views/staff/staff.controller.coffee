@@ -19,7 +19,8 @@
       if vm.staff.sub_tenant_id
         MnoeSubTenants.get(vm.staff.sub_tenant_id).then(
           (result) ->
-            vm.staff.subTenantName = result.data.name
+            vm.subTenant = result.data
+            vm.staff.subTenantName = vm.subTenant.name
             # Linking initial-value to vm.staff.subTenantName is not working
             # Setting value on the selector
             $scope.$broadcast('angucomplete-alt:changeInput', 'sub-tenant-selector', result.data.name)

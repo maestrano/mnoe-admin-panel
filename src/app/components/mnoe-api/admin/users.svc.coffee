@@ -18,7 +18,7 @@
     return _getStaffs(limit, offset, sort, params)
 
   @search = (terms, params = {}) ->
-    params[terms] = terms
+    params['terms'] = terms
     MnoeAdminApiSvc.all('users').getList(params)
 
   @get = (id) ->
