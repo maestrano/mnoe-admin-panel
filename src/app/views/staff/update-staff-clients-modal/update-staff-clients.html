@@ -27,6 +27,15 @@
           </tbody>
         </table>
       </mno-widget-body>
+      <mno-widget-footer ng-show="vm.organizations && !vm.organizations.loading">
+        <mno-pagination
+          page="vm.organizations.page"
+          nb-items="vm.organizations.nbItems"
+          total-items="vm.organizations.totalItems"
+          on-change-cb="vm.organizations.pageChangedCb(nbItems, page)"
+          is-loading="vm.organizations.loading">
+        </mno-pagination>
+      </mno-widget-footer>
     </mno-widget>
   </div>
   <div class="modal-footer">

@@ -30,7 +30,7 @@
                 </div>
               </td>
               <td>
-                <span style="display: flex;" ng-if="subscription.status !== 'cancelled'">
+                <span style="display: flex;" ng-if="subscription.status !== 'cancelled' && !$ctrl.isAccountManager">
                   <a ng-click="$ctrl.subscriptions.approve(subscription)" class="btn btn-link btn-link-success" ng-if="subscription.status == 'requested' || subscription.externally_provisioned" uib-tooltip="{{ $ctrl.editToolTip('approve') | translate }}"
                     tooltip-append-to-body="true">
                     <i class="fa fa-check"></i>
