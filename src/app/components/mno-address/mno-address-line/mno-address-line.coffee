@@ -8,7 +8,7 @@
 
     controller: ($scope) ->
       displayAttrs = ['street', 'city', 'state_code', 'postal_code', 'country_code']
-      $scope.displayAddress = _.map(displayAttrs, (attr) -> $scope.address[attr]).join(', ')
+      $scope.displayAddress = ($scope.address[attr] for attr in displayAttrs).join(', ')
       return
   }
 )

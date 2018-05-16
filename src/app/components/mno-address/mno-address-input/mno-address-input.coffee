@@ -6,8 +6,8 @@
       address: '='
     }
 
-    controller: ($scope, AddressHelper) ->
-      $scope.validCountries = AddressHelper.countries
+    controller: ($scope, VALID_COUNTRIES) ->
+      $scope.validCountries = VALID_COUNTRIES
       return
   }
 )

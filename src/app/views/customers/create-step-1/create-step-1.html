@@ -11,7 +11,7 @@
               <div class="form-group flex-50">
                 <label class="control-label" for="organization-name" translate>mnoe_admin_panel.dashboard.customers.create_customer.organization_name</label>
                 <input id="organization-name" name="{{'mnoe_admin_panel.dashboard.customers.create_customer.name' | translate}}" type="text" ng-model="vm.organization.name" class="form-control" required>
-                <div ng-messages="vm.form.name.$error" role="alertw" ng-if="vm.form.name.$dirty || vm.form.$submitted">
+                <div ng-messages="vm.form.name.$error" role="alert" ng-if="vm.form.name.$dirty || vm.form.$submitted">
                   <p ng-message="required" class="text-danger" translate>mnoe_admin_panel.dashboard.customers.create_customer.required.name</p>
                   <p ng-message="server" class="help-block" translate-value-error="{{ main.errorHandler.errorMessage('name') }}" translate>mnoe_admin_panel.dashboard.customers.create_customer.error.name</p>
                 </div>

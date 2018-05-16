@@ -30,7 +30,7 @@
     return MnoeAdminApiSvc.all("organizations").getList(params)
 
   @mainAddressRequired = ->
-    _.includes(ORG_REQUIREMENTS, 'Main Address')
+    'main_address' in ORG_REQUIREMENTS
 
   @search = (terms) ->
     MnoeAdminApiSvc.all("organizations").getList({terms: terms})
