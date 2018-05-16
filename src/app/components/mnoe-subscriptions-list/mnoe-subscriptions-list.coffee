@@ -9,8 +9,9 @@
     filters: '<'
     titleKey: '@'
   }
-  controller: ($state, $filter, $log, $uibModal, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning) ->
+  controller: ($state, $filter, $log, $uibModal,  $stateParams, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning) ->
     ctrl = this
+    ctrl.organizationId = $stateParams.orgId
 
     MnoeCurrentUser.getUser().then(
       (response) ->
@@ -32,15 +33,8 @@
     ctrl.$onInit = ->
       ctrl.titleText = "mnoe_admin_panel.dashboard.subscriptions.widget.list.#{ctrl.titleKey || 'title'}"
 
-    ctrl.$onChanges = () ->
-      # Call the server when ready
-      return unless (ctrl.all || angular.isDefined(ctrl.organization))
-      fetchSubscriptions(ctrl.subscriptions.nbItems, ctrl.subscriptions.offset)
-
     # Manage sorting and server call
     ctrl.callServer = (tableState) ->
-      # Do not call if not ready
-      return unless (ctrl.all || angular.isDefined(ctrl.organization))
       # Update the sort parameter
       sort = updateSort(tableState.sort)
       # Call the server
@@ -67,7 +61,7 @@
       # Add extra filtering
       extra_params = ctrl.filters || {}
 
-      return MnoeProvisioning.getSubscriptions(limit, offset, sort, ctrl.organization?.id, extra_params).then(
+      return MnoeProvisioning.getSubscriptions(limit, offset, sort, ctrl.organizationId, extra_params).then(
         (response) ->
           ctrl.subscriptions.totalItems = response.headers('x-total-count')
           ctrl.subscriptions.list = response.data

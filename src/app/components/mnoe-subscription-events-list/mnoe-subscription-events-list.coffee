@@ -5,11 +5,11 @@
   templateUrl: 'app/components/mnoe-subscription-events-list/mnoe-subscription-events-list.html',
   bindings: {
     all: '<'
-    organization: '<',
     filters: '<'
   }
-  controller: ($state, $filter, $log, $uibModal, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning) ->
+  controller: ($state, $filter, $log, $uibModal, $stateParams, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning) ->
     ctrl = this
+    ctrl.organizationId = $stateParams.orgId
 
     ctrl.subscriptionEvents =
       list: []
@@ -65,8 +65,8 @@
       # Add extra filtering
       extra_params = ctrl.filters || {}
       # Either get all the subscription events of a tenant, or just the subscription events of an organization.
-      if ctrl.organization
-        return MnoeProvisioning.getOrganizationsSubscriptionEvents(limit, offset, sort, ctrl.organization.id, extra_params).then(
+      if ctrl.organizationId
+        return MnoeProvisioning.getOrganizationsSubscriptionEvents(limit, offset, sort, ctrl.organizationId, extra_params).then(
           (response) ->
             ctrl.subscriptionEvents.totalItems = response.headers('x-total-count')
             ctrl.subscriptionEvents.list = response.data
@@ -87,8 +87,6 @@
 
     # Manage sorting and server call
     ctrl.callServer = (tableState) ->
-      # Do not call if not ready
-      return unless (ctrl.all || angular.isDefined(ctrl.organization))
       # Update the sort parameter
       sort = updateSort(tableState.sort)
       # Call the server
