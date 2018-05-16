@@ -107,8 +107,8 @@
       ctrl.subscriptionEvents.sort = sort
       return sort
 
-    ctrl.displayInfoTooltip = (subscription) ->
-      subscription.status == 'aborted'
+    ctrl.displayInfoTooltip = (subscriptionEvent) ->
+      subscriptionEvent.status == 'error'
 
     ctrl.editToolTip = (editAction) ->
       'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.' + editAction.toLowerCase() + '_tooltip'

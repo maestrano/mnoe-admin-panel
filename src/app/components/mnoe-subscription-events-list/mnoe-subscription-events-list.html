@@ -27,7 +27,7 @@
               <td>
                 <div>
                   {{subscriptionEvent.status}}
-                  <span><a href="" class="tooltip_link" ng-show="subscriptionEvent.status == 'error'" ng-click="$ctrl.displayStatusInfo()"><i class="fa fa-info-circle"></i></a></span>
+                  <span><a href="" class="tooltip_link" ng-show="$ctrl.displayInfoTooltip(subscriptionEvent)" ng-click="$ctrl.displayStatusInfo()"><i class="fa fa-info-circle"></i></a></span>
                 </div>
               </td>
               <td>

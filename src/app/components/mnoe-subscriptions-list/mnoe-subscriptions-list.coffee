@@ -68,18 +68,8 @@
           ctrl.subscriptions.oneAdminLeft = _.filter(response.data, {'admin_role': 'admin'}).length == 1
       ).finally(-> ctrl.subscriptions.loading = false)
 
-    ctrl.displayInfoTooltip = (subscription) ->
-      subscription.status == 'aborted'
-
     ctrl.editToolTip = (editAction) ->
       'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.' + editAction.toLowerCase() + '_tooltip'
-
-    ctrl.displayStatusInfo = ->
-      modalInstance = $uibModal.open(
-        templateUrl: 'app/views/orders/order-status-info-modal/order-status-info.html'
-        controller: 'OrderInfoController'
-        controllerAs: 'vm'
-      )
 
     ctrl.showEditAction = (subscription, editAction) ->
       editAction in subscription.available_actions
