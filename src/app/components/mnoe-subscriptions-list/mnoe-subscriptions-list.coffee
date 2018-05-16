@@ -42,7 +42,7 @@
 
     # Update sorting parameters
     updateSort = (sortState = {}) ->
-      sort = "created_at"
+      sort = "created_at.desc"
       if sortState.predicate
         sort = sortState.predicate
         if sortState.reverse
