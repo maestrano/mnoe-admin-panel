@@ -15,7 +15,7 @@
     if ADMIN_PANEL_CONFIG.account_manager?
       ADMIN_PANEL_CONFIG.account_manager.enabled
     else
-      false
+      true
 
   @isAppManagementEnabled = () ->
     if ADMIN_PANEL_CONFIG.apps_management?.enabled?

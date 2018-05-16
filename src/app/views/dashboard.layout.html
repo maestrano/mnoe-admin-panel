@@ -51,7 +51,7 @@
       <a ui-sref="dashboard.orders">{{'mnoe_admin_panel.dashboard.layout.sidebar.orders' | translate}}<span class="menu-icon fa fa-shopping-basket"></span></a>
     </li>
     <li class="sidebar-title" ng-if="main.showProductManagement"><span>{{'mnoe_admin_panel.dashboard.layout.sidebar.product-management' | translate}}</span></li>
-    <div ng-if="::main.adminConfig.areSettingsEnabled()" ng-show="main.user.admin_role == 'admin'">
+    <div ng-if="::main.adminConfig.areSettingsEnabled()" ng-show="['admin', 'staff'].includes(main.user.admin_role)">
       <li class="sidebar-list" ui-sref-active="active">
         <a ui-sref="dashboard.settings-apps">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings-apps' | translate}}<span class="menu-icon fa fa-th-large"></span></a>
       </li>

@@ -144,7 +144,7 @@
     )
 
   @getSubscriptionEvents = (subscriptionId, orgId) ->
-    MnoeAdminApiSvc.one('organizations', orgId).one('subscriptions', subscriptionId).customGET('/subscription_events').catch(
+    MnoeAdminApiSvc.one('organizations', orgId).one('subscriptions', subscriptionId).customGETLIST('subscription_events').catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)

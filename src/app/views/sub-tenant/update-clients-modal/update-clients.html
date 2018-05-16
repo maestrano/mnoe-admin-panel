@@ -20,8 +20,8 @@
           <tbody>
           <tr ng-repeat="organization in vm.organizations.list">
             <td>{{::organization.uid}}</td>
-            <td>{{organization.name}}</td>
-            <td><input type="checkbox" ng-model="vm.selectedOrganizations[organization.id]"></td>
+            <td>{{::organization.name}}</td>
+            <td><input type="checkbox" ng-model="organization.belong_to_sub_tenant" ng-change="vm.checkBoxChanged(organization)"></td>
           </tr>
           </tbody>
         </table>
@@ -32,7 +32,7 @@
   <div class="modal-footer">
     <div class="row actions">
       <div class="col-xs-12">
-        <button type="button" ng-click="vm.onSubmit()" ng-disabled="vm.isLoading" class="btn btn-primary">
+        <button type="button" ng-click="vm.onSubmit()" ng-disabled="vm.isDisabled()" class="btn btn-primary">
           <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           Save
         </button>
