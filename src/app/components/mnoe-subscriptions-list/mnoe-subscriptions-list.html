@@ -45,6 +45,9 @@
                   <a ng-click="$ctrl.editSubscription(subscription, 'suspend')" ng-show="$ctrl.showEditAction(subscription, 'suspend')" class="btn btn-link btn-link-warning subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('suspend') | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-remove"></i>
                   </a>
+                  <a ng-click="$ctrl.editSubscription(subscription, 'cancel')" ng-show="$ctrl.showEditAction(subscription, 'cancel')" class="btn btn-link btn-link-warning subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('cancel') | translate }}" tooltip-append-to-body="true">
+                    <i class="fa fa-ban"></i>
+                  </a>
                 </span>
               </td>
             </tr>
