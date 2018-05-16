@@ -466,6 +466,7 @@
   "mnoe_admin_panel.dashboard.provisioning.summary.manage_subscriptions": "You can manage your subscriptions and view its status in <a href=\"#!/subscriptions\">your subscriptions page</a>.",
   "mnoe_admin_panel.dashboard.provisioning.summary.subscriptions": "Subscriptions",
   "mnoe_admin_panel.dashboard.provisioning.summary.name": "Name",
+  "mnoe_admin_panel.dashboard.provisioning.summary.order_type": "Order type",
   "mnoe_admin_panel.dashboard.provisioning.summary.description": "Description",
   "mnoe_admin_panel.dashboard.provisioning.summary.price": "Price",
   "mnoe_admin_panel.dashboard.provisioning.summary.back_to_organization": "Go to organization",
