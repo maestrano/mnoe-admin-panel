@@ -3,8 +3,7 @@
     <mno-widget-header>
       <div class="breadcrumb-info">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item active">- {{ vm.orderTypeText | translate }}</li>
-          <li class="breadcrumb-item active">{{ vm.subscription.product.name }}</li>
+          <li class="breadcrumb-item active">- {{ vm.subscription.product.name }}</li>
           <li class="breadcrumb-item active">{{ vm.subscription.product_pricing.name }}</li>
         </ol>
       </div>
@@ -14,6 +13,7 @@
         <thead>
         <tr>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.name' | translate }}</th>
+          <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.order_type' | translate }}</th>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.description' | translate }}</th>
           <th style="width: 25%">{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.price' | translate }}</th>
         </tr>
@@ -21,6 +21,7 @@
         <tbody>
         <tr>
           <td>{{ vm.subscription.product_pricing.name }}</td>
+          <td>{{ vm.orderTypeText | translate }}</td>
           <td>{{ vm.subscription.product_pricing.description }}</td>
           <td>
             <span ng-show="vm.pricedPlan(vm.subscription.product_pricing)" ng-repeat="price in vm.subscription.product_pricing.prices | filterBy: ['currency']: vm.orgCurrency" class="badge">
