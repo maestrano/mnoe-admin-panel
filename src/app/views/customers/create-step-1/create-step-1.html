@@ -20,7 +20,7 @@
           </mno-widget-body>
         </mno-widget>
 
-        <mno-widget ng-if="::main.adminConfig.isAppManagementEnabled()" class="top-buffer-2" is-loading="!vm.marketplace" icon="fa-rocket" heading="{{'mnoe_admin_panel.dashboard.customers.create_customer.select_your_app' | translate}}">
+        <mno-widget ng-if="::vm.showAppsSelection" class="top-buffer-2" is-loading="!vm.marketplace" icon="fa-rocket" heading="{{'mnoe_admin_panel.dashboard.customers.create_customer.select_your_app' | translate}}">
           <mno-widget-header>
             <input type="text" ng-model="vm.appSearch" placeholder="{{'mnoe_admin_panel.dashboard.customers.create_customer.search' | translate}}" class="form-control input-sm search-bar">
           </mno-widget-header>
