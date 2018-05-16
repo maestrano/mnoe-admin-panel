@@ -54,6 +54,7 @@
       search: {}
       sort: "surname"
       nbItems: 10
+      offset: 0
       page: 1
       roles: MnoeAdminConfig.adminRoles()
       pageChangedCb: (nbItems, page) ->
