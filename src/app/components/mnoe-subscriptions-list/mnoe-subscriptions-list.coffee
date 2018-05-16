@@ -41,6 +41,7 @@
             MnoeProvisioning.approveSubscription({organization_id: subscription.organization.id, id: subscription.id }).then(
               (response) ->
                 angular.copy(response.data.subscription, subscription)
+                ctrl.$onChanges()
                 toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_success', {extraData: {subscription_name: subscription.product.name}})
               ->
                 toastr.error('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_error', {extraData: {subscription_name: subscription.product.name}})
