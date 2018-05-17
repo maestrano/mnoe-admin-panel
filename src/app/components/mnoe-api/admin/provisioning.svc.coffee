@@ -85,20 +85,14 @@
         MnoErrorsHandler.processServerError(error)
     )
 
-<<<<<<< HEAD
   updateSubscription = (s, c) ->
-    subscription.patch({subscription: {currency: c, product_pricing_id: s.product_pricing.id, custom_data: s.custom_data}}).catch(
-=======
-  updateSubscription = (s) ->
-    subscription.patch({subscription: {product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data}}).catch(
->>>>>>> 67defa0d8aa00834c06d2c0f195e1bb39fe68ca1
+    subscription.patch({subscription: {currency: c,product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data}}).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
     )
 
   # Detect if the subscription should be a POST or A PUT and call corresponding method
   @saveSubscription = (subscription, currency) ->
-    console.log("Saving: ", subscription, currency)
     if subscription.id
       updateSubscription(subscription, currency).then(
         (response) ->
