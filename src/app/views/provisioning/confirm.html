@@ -9,7 +9,7 @@
       </div>
     </mno-widget-header>
     <mno-widget-body class="no-padding">
-      <table class="table table-striped">
+      <table class="table table-striped" ng-show="(vm.singleBilling && vm.billedLocally) || vm.subscription.product.product_type != 'application'">
         <thead>
         <tr>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.name' | translate }}</th>
@@ -33,6 +33,29 @@
             </span>
             <span ng-show="vm.subscription.product_pricing.pricing_type == 'free'">
               {{ 'mnoe_admin_panel.dashboard.provisioning.order.pricing_type.free' | translate }}
+            </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <table class="table table-striped" ng-show="vm.subscription.product.product_type == 'application'">
+        <thead>
+        <tr>
+          <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.pricing_info.title' | translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <span ng-hide="vm.singleBilling">
+              {{ 'mnoe_admin_panel.dashboard.provisioning.confirm.pricing_info.single_billing_disabled' | translate }}
+            </span>
+            <span ng-show="vm.singleBilling && !vm.billedLocally">
+              {{ 'mnoe_admin_panel.dashboard.provisioning.confirm.pricing_info.externally_managed' | translate }}
+            </span>
+            <span ng-show="vm.singleBilling && vm.billedLocally">
+              {{ 'mnoe_admin_panel.dashboard.provisioning.confirm.pricing_info.billed_locally' | translate }}
             </span>
           </td>
         </tr>

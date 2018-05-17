@@ -24,6 +24,8 @@
         (response) ->
           vm.subscription.product = response
 
+          vm.next(vm.subscription) if vm.skipPriceSelection(vm.subscription.product)
+
           # Get all the possible currencies
           currenciesArray = []
           _.forEach(vm.subscription.product.product_pricings,
@@ -47,7 +49,6 @@
     )
 
   vm.next = (subscription, selectedCurrency) ->
-    console.log(subscription)
     MnoeProvisioning.setSubscription(subscription)
     MnoeProvisioning.setSelectedCurrency(selectedCurrency)
     if vm.subscription.product.custom_schema?
@@ -63,6 +64,11 @@
       else
         MnoeProvisioning.setSubscription({})
   )
+
+  # Skip pricing selection for products with product_type 'application' if
+  # single billing is disabled or if single billing is enabled but externally managed
+  vm.skipPriceSelection = (product) ->
+    product.product_type == 'application' && (!product.single_billing_enabled || !product.billed_locally)
 
   return
 )

@@ -5,6 +5,9 @@
   orgPromise = MnoeOrganizations.get($stateParams.orgId)
   vm.subscription = MnoeProvisioning.getSubscription()
   vm.selectedCurrency = MnoeProvisioning.getSelectedCurrency()
+  vm.singleBilling = vm.subscription.product.single_billing_enabled
+  vm.billedLocally = vm.subscription.product.billed_locally
+
   # Happen when the user reload the browser during the provisioning
   if _.isEmpty(vm.subscription)
     # Redirect the user to the first provisioning screen
