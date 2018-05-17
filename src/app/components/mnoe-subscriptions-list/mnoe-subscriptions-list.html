@@ -20,21 +20,16 @@
           <tbody ng-show="!$ctrl.subscriptions.loading" >
             <tr ng-repeat="subscription in $ctrl.subscriptions.list">
               <td>{{subscription.start_date | amDateFormat:'L'}}</td>
-              <td ng-if="$ctrl.all"><a ui-sref="dashboard.order({orderId : subscription.id, orgId: subscription.organization_id})">{{subscription.organization.name}}</a></td>
-              <td><a ui-sref="dashboard.order({orderId : subscription.id, orgId: subscription.organization_id})">{{subscription.product.name}}</a></td>
+              <td ng-if="$ctrl.all"><a ui-sref="dashboard.order({subscriptionId: subscription.id, orgId: subscription.organization_id})">{{subscription.organization.name}}</a></td>
+              <td><a ui-sref="dashboard.order({subscriptionId : subscription.id, orgId: subscription.organization_id})">{{subscription.product.name}}</a></td>
               <td>{{subscription.product_pricing.name}}</td>
               <td ng-if="!$ctrl.companyCart" >
                 <div>
                   {{subscription.status}}
-                  <span><a href="" class="tooltip_link" ng-show="$ctrl.displayInfoTooltip(subscription)" ng-click="$ctrl.displayStatusInfo()"><i class="fa fa-info-circle"></i></a></span>
                 </div>
               </td>
               <td>
                 <span style="display: flex;" ng-if="subscription.status !== 'cancelled' && !$ctrl.isAccountManager">
-                  <a ng-click="$ctrl.subscriptions.approve(subscription)" class="btn btn-link btn-link-success" ng-if="subscription.status == 'requested' || subscription.externally_provisioned && !$ctrl.companyCart" uib-tooltip="{{ $ctrl.editToolTip('approve') | translate }}"
-                    tooltip-append-to-body="true">
-                    <i class="fa fa-check"></i>
-                  </a>
                   <a ng-click="$ctrl.editSubscription(subscription, 'reactivate')" ng-show="$ctrl.showEditAction(subscription, 'reactivate') && !$ctrl.companyCart" class="btn btn-link btn-link-primary subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('reactivate') | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-refresh"></i>
                   </a>
@@ -47,8 +42,11 @@
                   <a ng-click="$ctrl.editSubscription(subscription, 'modify')" ng-show="$ctrl.showEditAction(subscription, 'modify')" class="btn btn-link btn-link-warning subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('modify') | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-pencil"></i>
                   </a>
-                  <a ng-click="$ctrl.subscriptions.cancel(subscription)" ng-show="$ctrl.showEditAction(subscription, 'suspend')" class="btn btn-link btn-link-danger subscription-btn" uib-tooltip="{{ $ctrl.companyCart ? 'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.cart_cancel_tooltip' : $ctrl.editToolTip('suspend') | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.editSubscription(subscription, 'suspend')" ng-show="$ctrl.showEditAction(subscription, 'suspend')" class="btn btn-link btn-link-warning subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('suspend') | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-remove"></i>
+                  </a>
+                  <a ng-click="$ctrl.editSubscription(subscription, 'cancel')" ng-show="$ctrl.showEditAction(subscription, 'cancel')" class="btn btn-link btn-link-warning subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('cancel') | translate }}" tooltip-append-to-body="true">
+                    <i class="fa fa-ban"></i>
                   </a>
                 </span>
               </td>

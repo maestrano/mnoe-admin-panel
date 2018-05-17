@@ -47,6 +47,7 @@
   vm.validate = () ->
     vm.isLoading = true
     vm.subscription.cart_entry = true if $stateParams.cart
+    vm.subscription.edit_action = $stateParams.editAction
     MnoeProvisioning.saveSubscription(vm.subscription).then(
       (subscription) ->
         $state.go('dashboard.provisioning.order_summary', {orgId: $stateParams.orgId, subscriptionId: subscription.id, editAction: $stateParams.editAction})

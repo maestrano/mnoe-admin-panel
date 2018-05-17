@@ -124,9 +124,14 @@
           </mno-widget>
         </div>
         <div class="col-md-6" ng-if="::vm.managementAndProvisioningEnabled">
-          <mnoe-subscriptions-list organization="vm.organization" filters="{ 'where[subscription_status_in]': 'non_staged' }"></mnoe-subscriptions-list>
+          <mnoe-subscription-events-list title-key="title_with_action" filters="{ 'where[obsolete]': false, 'where[subscription_status_in]': 'non_staged' }" organization="vm.organization"></mnoe-subscription-events-list>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" ng-if="::vm.managementAndProvisioningEnabled">
+      <mnoe-subscriptions-list title-key="title_with_history"></mnoe-subscriptions-list>
     </div>
   </div>
   <div class="row">
@@ -186,6 +191,6 @@
 
 <div class='row'>
   <div class="col-md-6" ng-if="::vm.managementAndProvisioningEnabled">
-    <mnoe-subscriptions-list company-cart='true' organization="vm.organization" filters="{ 'where[subscription_status_in]': 'staged' }" title-key='cart_title'></mnoe-subscriptions-list>
+    <mnoe-subscriptions-list company-cart='true' organization="vm.organization" filters="{ 'where[obsolete]': false, 'where[subscription_status_in]': 'staged' }" title-key='cart_title'></mnoe-subscriptions-list>
   </div>
 </div>

@@ -83,7 +83,7 @@
     )
 
   updateSubscription = (s) ->
-    subscription.patch({subscription: {product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data, cart_entry: s.cart_entry}}).catch(
+    subscription.patch({subscription: {product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data, edit_action: s.edit_action, cart_entry: s.cart_entry}}).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
     )
@@ -121,30 +121,52 @@
         $q.reject(error)
     )
 
-  @cancelSubscription = (s) ->
-    subscription_params = { cart_entry: s.cart_entry }
-    MnoeAdminApiSvc.one('organizations', s.organization_id).one('subscriptions', s.id).post('/cancel', {subscription: subscription_params}).catch(
+  @getOrganizationsSubscriptionEvents = (limit, offset, sort, orgId = null, params = {}) ->
+    params["order_by"] = sort
+    params["limit"] = limit
+    params["offset"] = offset
+    MnoeAdminApiSvc.one('organizations', orgId).all('subscription_events').getList(params).catch(
+      (error) ->
+        MnoErrorsHandler.processServerError(error)
+        $q.reject(error)
+      )
+
+  @getAllSubscriptionEvents = (limit, offset, sort, params = {}) ->
+    params["order_by"] = sort
+    params["limit"] = limit
+    params["offset"] = offset
+    MnoeAdminApiSvc.all('subscription_events').getList(params).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)
     )
 
-  @approveSubscription = (s) ->
-    MnoeAdminApiSvc.one('organizations', s.organization_id).one('subscriptions', s.id).post('/approve').catch(
+  @rejectSubscriptionEvent = (s) ->
+    MnoeAdminApiSvc.one('subscription_events', s.id).post('/reject').catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)
     )
 
-  @fulfillSubscription = (s) ->
-    MnoeAdminApiSvc.one('organizations', s.organization_id).one('subscriptions', s.id).post('/fulfill').catch(
+  @approveSubscriptionEvent = (s) ->
+    MnoeAdminApiSvc.one('subscription_events', s.id).post('/approve').catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)
     )
 
-  @getSubscriptionEvents = (subscriptionId, orgId) ->
-    MnoeAdminApiSvc.one('organizations', orgId).one('subscriptions', subscriptionId).customGETLIST('subscription_events').catch(
+  @getSubscriptionEvents = (subscriptionId, orgId, limit, offset, sort, params = {}) ->
+    params["order_by"] = sort
+    params["limit"] = limit
+    params["offset"] = offset
+    MnoeAdminApiSvc.one('organizations', orgId).one('subscriptions', subscriptionId).all('subscription_events').getList(params).catch(
+      (error) ->
+        MnoErrorsHandler.processServerError(error)
+        $q.reject(error)
+    )
+
+  @getSubscriptionEvent = (subscriptionId, orgId, id) ->
+    MnoeAdminApiSvc.one('organizations', orgId).one('subscriptions', subscriptionId).customGET("/subscription_events/#{id}").catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)

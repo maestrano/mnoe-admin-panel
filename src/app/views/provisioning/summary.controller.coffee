@@ -9,6 +9,7 @@
     $q.resolve(subscription)
 
   vm.pricedPlan = ProvisioningHelper.pricedPlan
+  vm.orderTypeText = 'mnoe_admin_panel.dashboard.provisioning.subscriptions.' + $stateParams.editAction.toLowerCase()
 
   vm.isLoading = true
   $q.all({organization: orgPromise, subscription: subPromise}).then(

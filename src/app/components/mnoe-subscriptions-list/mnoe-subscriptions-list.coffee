@@ -10,8 +10,9 @@
     filters: '<'
     titleKey: '@'
   }
-  controller: ($state, $filter, $log, $uibModal, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning) ->
+  controller: ($state, $filter, $log, $uibModal,  $stateParams, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning) ->
     ctrl = this
+    ctrl.organizationId = $stateParams.orgId
 
     MnoeCurrentUser.getUser().then(
       (response) ->
@@ -30,69 +31,11 @@
         ctrl.subscriptions.offset = (page  - 1) * nbItems
         fetchSubscriptions(nbItems, ctrl.subscriptions.offset)
 
-      approve: (subscription) ->
-        modalOptions =
-          closeButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.close'
-          actionButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.cancel'
-          headerText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.proceed'
-          bodyText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.perform'
-          bodyTextExtraData: {subscription_name: subscription.product.name}
-          type: 'danger'
-          actionCb: ->
-            MnoeProvisioning.approveSubscription({organization_id: subscription.organization.id, id: subscription.id }).then(
-              (response) ->
-                angular.copy(response.data.subscription, subscription)
-                toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_success', {extraData: {subscription_name: subscription.product.name}})
-              ->
-                toastr.error('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_error', {extraData: {subscription_name: subscription.product.name}})
-            )
-
-        MnoConfirm.showModal(modalOptions)
-
-      cancel: (subscription) ->
-        if ctrl.companyCart
-          subscription.cart_entry = true
-          actionButtonText = 'mnoe_admin_panel.dashboard.subscriptions.modal.cart_cancel_subscriptions.cancel'
-          headerText = 'mnoe_admin_panel.dashboard.subscriptions.modal.cart_cancel_subscriptions.proceed'
-          bodyText = 'mnoe_admin_panel.dashboard.subscriptions.modal.cart_cancel_subscriptions.perform'
-        else
-          actionButtonText = 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.cancel'
-          headerText = 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.proceed'
-          bodyText = 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.perform'
-
-        modalOptions =
-          closeButtonText: actionButtonText
-          actionButtonText: headerText
-          headerText: bodyText
-          bodyText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.perform'
-          bodyTextExtraData: {subscription_name: subscription.product.name}
-          type: 'danger'
-          actionCb: ->
-            MnoeProvisioning.cancelSubscription(subscription).then(
-              (response) ->
-                if ctrl.companyCart
-                  ctrl.subscriptions.list = _.reject(ctrl.subscriptions.list, (sub) -> sub.id == subscription.id)
-                else
-                  angular.copy(response.data.subscription, subscription)
-                toastr.success('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_success', {extraData: {subscription_name: subscription.product.name}})
-              ->
-                toastr.error('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_error', {extraData: {subscription_name: subscription.product.name}})
-            )
-
-        MnoConfirm.showModal(modalOptions)
-
     ctrl.$onInit = ->
       ctrl.titleText = "mnoe_admin_panel.dashboard.subscriptions.widget.list.#{ctrl.titleKey || 'title'}"
 
-    ctrl.$onChanges = () ->
-      # Call the server when ready
-      return unless (ctrl.all || angular.isDefined(ctrl.organization))
-      fetchSubscriptions(ctrl.subscriptions.nbItems, ctrl.subscriptions.offset)
-
     # Manage sorting and server call
     ctrl.callServer = (tableState) ->
-      # Do not call if not ready
-      return unless (ctrl.all || angular.isDefined(ctrl.organization))
       # Update the sort parameter
       sort = updateSort(tableState.sort)
       # Call the server
@@ -100,7 +43,7 @@
 
     # Update sorting parameters
     updateSort = (sortState = {}) ->
-      sort = "created_at"
+      sort = "created_at.desc"
       if sortState.predicate
         sort = sortState.predicate
         if sortState.reverse
@@ -119,25 +62,15 @@
       # Add extra filtering
       extra_params = ctrl.filters || {}
 
-      return MnoeProvisioning.getSubscriptions(limit, offset, sort, ctrl.organization?.id, extra_params).then(
+      return MnoeProvisioning.getSubscriptions(limit, offset, sort, ctrl.organizationId, extra_params).then(
         (response) ->
           ctrl.subscriptions.totalItems = response.headers('x-total-count')
           ctrl.subscriptions.list = response.data
           ctrl.subscriptions.oneAdminLeft = _.filter(response.data, {'admin_role': 'admin'}).length == 1
       ).finally(-> ctrl.subscriptions.loading = false)
 
-    ctrl.displayInfoTooltip = (subscription) ->
-      subscription.status == 'aborted'
-
     ctrl.editToolTip = (editAction) ->
       'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.' + editAction.toLowerCase() + '_tooltip'
-
-    ctrl.displayStatusInfo = ->
-      modalInstance = $uibModal.open(
-        templateUrl: 'app/views/orders/order-status-info-modal/order-status-info.html'
-        controller: 'OrderInfoController'
-        controllerAs: 'vm'
-      )
 
     ctrl.showEditAction = (subscription, editAction) ->
       editAction in subscription.available_actions
