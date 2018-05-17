@@ -50,7 +50,10 @@
     vm.subscription.edit_action = $stateParams.editAction
     MnoeProvisioning.saveSubscription(vm.subscription).then(
       (subscription) ->
-        $state.go('dashboard.provisioning.order_summary', {orgId: $stateParams.orgId, subscriptionId: subscription.id, editAction: $stateParams.editAction})
+        if $stateParams.cart == 'true' && $stateParams.editAction == 'cancel'
+          $state.go("dashboard.customers.organization", {orgId: $stateParams.orgId})
+        else
+          $state.go('dashboard.provisioning.order_summary', {orgId: $stateParams.orgId, subscriptionId: subscription.id, editAction: $stateParams.editAction})
     ).finally(-> vm.isLoading = false)
 
   vm.addToCart = ->

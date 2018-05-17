@@ -93,8 +93,8 @@
     if subscription.id
       updateSubscription(subscription).then(
         (response) ->
-          _self.setSubscription(response.data.subscription)
-          response.data.subscription
+          _self.setSubscription(response.data?.subscription)
+          response.data?.subscription
       )
     else
       createSubscription(subscription).then(
@@ -103,8 +103,8 @@
           response.data
       )
 
-  # Note: See how params are done
-  @fetchSubscription = (id, orgId, params) ->
+  @fetchSubscription = (id, orgId, cart = false) ->
+    params = if cart then { 'subscription[cart_entry]': 'true' } else {}
     MnoeAdminApiSvc.one('/organizations', orgId).one('subscriptions', id).get(params).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
