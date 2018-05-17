@@ -124,7 +124,7 @@
           </mno-widget>
         </div>
         <div class="col-md-6" ng-if="::vm.managementAndProvisioningEnabled">
-          <mnoe-subscriptions-list organization="vm.organization" filters="{ 'where[status_for]': 'non_staged' }"></mnoe-subscriptions-list>
+          <mnoe-subscriptions-list organization="vm.organization" filters="{ 'where[subscription_status_in]': 'non_staged' }"></mnoe-subscriptions-list>
         </div>
       </div>
     </div>
@@ -186,6 +186,6 @@
 
 <div class='row'>
   <div class="col-md-6" ng-if="::vm.managementAndProvisioningEnabled">
-    <mnoe-subscriptions-list company-cart='true' organization="vm.organization" filters="{ 'where[status_for]': 'staged' }" title-key='cart_title'></mnoe-subscriptions-list>
+    <mnoe-subscriptions-list company-cart='true' organization="vm.organization" filters="{ 'where[subscription_status_in]': 'staged' }" title-key='cart_title'></mnoe-subscriptions-list>
   </div>
 </div>
