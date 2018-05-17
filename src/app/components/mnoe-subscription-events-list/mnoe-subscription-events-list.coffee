@@ -49,7 +49,7 @@
           bodyTextExtraData: {subscription_name: subscriptionEvent.subscription.product_name}
           type: 'danger'
           actionCb: ->
-            MnoeProvisioning.rejectSubscriptionEvent({id: subscriptionEvent.id}).then(
+            MnoeProvisioning.rejectSubscriptionEvent({id: subscriptionEvent.id}).then(() ->
               fetchSubscriptionEvents(ctrl.subscriptionEvents.nbItems, ctrl.subscriptionEvents.offset)
               ).then(() ->
                 toastr.success('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_success', {extraData: {subscription_name: subscriptionEvent.subscription.product_name}})
