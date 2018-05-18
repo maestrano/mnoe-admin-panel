@@ -1,0 +1,64 @@
+<div id="mnoe-subscriptions-list">
+  <mno-widget icon="fa-shopping-basket" heading="{{$ctrl.subscriptionEvents.widgetTitle}}" is-loading="$ctrl.subscriptionEvents.loading">
+    <mno-widget-header>
+      &nbsp;{{ $ctrl.titleText | translate}}
+    </mno-widget-header>
+    <mno-widget-body class="large-auto-height no-padding">
+      <div>
+        <table st-pipe="$ctrl.callServer" st-table="$ctrl.subscriptionEvents.list" class="table table-striped table-responsive" >
+          <thead>
+            <tr>
+              <!--TODO: sub-object attributes sort (eg. st-sort="organization.name")-->
+              <th st-sort="created_at" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.date_requested</th>
+              <th ng-if="$ctrl.all" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.organization</th>
+              <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.product</th>
+              <th class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.subscription</th>
+              <th st-sort="status" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.status</th>
+              <th st-sort="event_type" class="col-lg-2" translate>mnoe_admin_panel.dashboard.subscriptions.widget.list.table.order_type</th>
+              <th class="col-lg-2"></th>
+            </tr>
+          </thead>
+          <tbody ng-show="!$ctrl.subscriptionEvents.loading" >
+            <tr ng-repeat="subscriptionEvent in $ctrl.subscriptionEvents.list">
+              <td>{{subscriptionEvent.created_at | amDateFormat:'L'}}</td>
+              <td ng-if="$ctrl.all"><a ui-sref="dashboard.order({orderId : subscriptionEvent.id, orgId: subscriptionEvent.subscription.organization_id, subscriptionId: subscriptionEvent.subscription.id})">{{subscriptionEvent.subscription.organization_name}}</a></td>
+              <td><a ui-sref="dashboard.order({orderId : subscriptionEvent.id, orgId: subscriptionEvent.subscription.organization_id, subscriptionId: subscriptionEvent.subscription.id})">{{subscriptionEvent.subscription.product_name}}</a></td>
+              <td>{{subscriptionEvent.subscription.product_pricing_name}}</td>
+              <td>
+                <div>
+                  {{subscriptionEvent.status}}
+                  <span><a href="" class="tooltip_link" ng-show="$ctrl.displayInfoTooltip(subscriptionEvent)" ng-click="$ctrl.displayStatusInfo()"><i class="fa fa-info-circle"></i></a></span>
+                </div>
+              </td>
+              <td>
+                <div>
+                  {{subscriptionEvent.event_type}}
+                </div>
+              </td>
+              <td>
+                <span style="display: flex;" ng-if="subscription.status !== 'cancelled'">
+                  <a ng-click="$ctrl.subscriptionEvents.approve(subscriptionEvent)" class="btn btn-link btn-link-success" ng-show="subscriptionEvent.status == 'requested'" uib-tooltip="{{ $ctrl.editToolTip('approve') | translate }}"
+                    tooltip-append-to-body="true">
+                    <i class="fa fa-check"></i>
+                  </a>
+                  <a ng-click="$ctrl.subscriptionEvents.reject(subscriptionEvent)" ng-show="subscriptionEvent.status == 'requested'" class="btn btn-link btn-link-danger subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('reject') | translate }}" tooltip-append-to-body="true">
+                    <i class="fa fa-remove"></i>
+                  </a>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mno-widget-body>
+    <mno-widget-footer ng-show="$ctrl.subscriptionEvents.list">
+      <mno-pagination
+        page="$ctrl.subscriptionEvents.page"
+        nb-items="$ctrl.subscriptionEvents.nbItems"
+        total-items="$ctrl.subscriptionEvents.totalItems"
+        on-change-cb="$ctrl.subscriptionEvents.pageChangedCb(nbItems, page)"
+        is-loading="$ctrl.subscriptionEvents.loading">
+      </mno-pagination>
+    </mno-widget-footer>
+  </mno-widget>
+</div>

@@ -13,7 +13,7 @@
     </mno-widget-body>
   </mno-widget>
 
-  <button ng-click="vm.submit(vm.detailsForm)" ng-disabled="(vm.detailsForm.$pristine && !vm.isEditMode) || vm.detailsForm.$invalid" class="btn btn-primary pull-right top-buffer-1 bottom-buffer-1" translate>
+  <button ng-click="vm.submit(vm.detailsForm)" ng-disabled="vm.isLoading || vm.detailsForm.$invalid" class="btn btn-primary pull-right top-buffer-1 bottom-buffer-1" translate>
     mnoe_admin_panel.dashboard.provisioning.details.next
   </button>
 </div>
