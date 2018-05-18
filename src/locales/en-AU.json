@@ -496,6 +496,8 @@
   "mnoe_admin_panel.dashboard.provisioning.subscriptions.cancel_error": "An error occurred while canceling this subscription. Please contact your administrator.",
   "mnoe_admin_panel.dashboard.provisioning.subscriptions.product_error": "Unable to fetch your product at this time, please contact support.",
   "mnoe_admin_panel.dashboard.provisioning.subscriptions.empty_list": "You don't have any subscriptions",
+  "mnoe_admin_panel.dashboard.subscriptions.not_available": "N/A",
+  "mnoe_admin_panel.dashboard.subscriptions.tooltip.external_billing": "This product is billed externally",
   "mnoe_admin_panel.dashboard.provisioning.subscriptions.new": "New install",
   "mnoe_admin_panel.dashboard.provisioning.subscriptions.edit": "Modify",
   "mnoe_admin_panel.dashboard.provisioning.subscriptions.change": "Change plan",
