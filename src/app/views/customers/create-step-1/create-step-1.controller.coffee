@@ -4,6 +4,7 @@
 
   vm.organization = {}
   vm.appSearch = ""
+  vm.mainAddressRequired = MnoeOrganizations.mainAddressRequired()
 
   vm.toggleApp = (app) ->
     app.checked = !app.checked

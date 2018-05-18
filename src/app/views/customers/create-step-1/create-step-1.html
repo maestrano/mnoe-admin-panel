@@ -15,6 +15,11 @@
                   <p ng-message="required" class="text-danger" translate>mnoe_admin_panel.dashboard.customers.create_customer.required.name</p>
                   <p ng-message="server" class="help-block" translate-value-error="{{ main.errorHandler.errorMessage('name') }}" translate>mnoe_admin_panel.dashboard.customers.create_customer.error.name</p>
                 </div>
+                <div ng-show="vm.mainAddressRequired">
+                  <hr/>
+                  <label class="control-label" for="organization-address" translate>mnoe_admin_panel.dashboard.customers.create_customer.main_address</label>
+                  <mno-address-input class="create-customer-address" address="vm.organization.main_address_attributes"></mno-address-input>
+                </div>
               </div>
             </div>
           </mno-widget-body>

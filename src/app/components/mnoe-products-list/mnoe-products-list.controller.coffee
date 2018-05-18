@@ -17,6 +17,7 @@
       sort: "name"
       nbItems: 10
       page: 1
+      offset: 0
       pageChangedCb: (nbItems, page) ->
         vm.products.nbItems = nbItems
         vm.products.page = page

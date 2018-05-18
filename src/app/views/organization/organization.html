@@ -34,6 +34,14 @@
                   {{vm.organization.external_id}}
                 </div>
               </div>
+              <div class="row" ng-if="vm.organization.main_address_attributes">
+                <div class="col-xs-6">
+                  <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.main_address</div>
+                </div>
+                <div class="col-xs-6">
+                  <mno-address-line address="vm.organization.main_address_attributes"></mno-address-line>
+                </div>
+              </div>
               <!-- <div class="row">
                 <div class="col-xs-6">
                   <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.account_frozen</div>
