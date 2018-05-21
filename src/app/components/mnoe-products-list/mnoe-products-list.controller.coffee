@@ -4,12 +4,12 @@
 @App.component('mnoeProductsList', {
   templateUrl: 'app/components/mnoe-products-list/mnoe-products-list.html',
   bindings: {}
-  controller: ($state, $uibModal, MnoeProducts, MnoeProvisioning, toastr, MnoeCurrentUser) ->
+  controller: ($state, $uibModal, MnoeProducts, MnoeProvisioning, toastr, MnoeCurrentUser, UserRoles) ->
     vm = this
 
     MnoeCurrentUser.getUser().then(
       (response) ->
-        vm.isAccountManager = (response.admin_role == 'staff')
+        vm.isAccountManager = UserRoles.isAccountManager(response)
     )
 
     vm.products =
