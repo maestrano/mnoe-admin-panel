@@ -9,7 +9,7 @@
     filters: '<'
     titleKey: '@'
   }
-  controller: ($state, $filter, $log, $uibModal,  $stateParams, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning, UserRoles) ->
+  controller: ($state, $uibModal, $stateParams, MnoeCurrentUser, MnoeProvisioning, UserRoles) ->
     ctrl = this
     ctrl.organizationId = $stateParams.orgId
 
