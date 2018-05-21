@@ -7,7 +7,11 @@
     }
 
     controller: ($scope, VALID_COUNTRIES) ->
-      $scope.validCountries = VALID_COUNTRIES
+      $scope.validCountries = ->
+        countries = VALID_COUNTRIES
+        c.phone_prefix = "(#{c.alpha2}) +#{c.country_code}" for c in countries
+        countries
+
       return
   }
 )

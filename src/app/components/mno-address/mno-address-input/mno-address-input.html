@@ -26,7 +26,7 @@
   <div class="form-group">
     <div class="col-sm-6 address-field">
       <label class="address-sub-label">{{ 'mnoe_admin_panel.components.mno-address-input.country' | translate }}</label>
-      <select class="form-control" ng-model="address.country_code" ng-options="country.alpha2 as country.name for country in validCountries">
+      <select class="form-control" ng-model="address.country_code" ng-options="country.alpha2 as country.name for country in validCountries()">
         <option value='' disabled selected class="country-select">{{ 'mnoe_admin_panel.components.mno-address-input.select' | translate}}</option>
       </select>
     </div>
@@ -34,7 +34,12 @@
   <div class="form-group">
     <div class="col-sm-6 address-field">
       <label class="address-sub-label">{{ 'mnoe_admin_panel.components.mno-address-input.phone' | translate }}</label>
-      <input type="text" class="form-control" ng-model="address.phone"/>
+      <div class="input-group">
+        <div class="input-group-addon select">
+          <select ng-options="country.alpha2 as country.phone_prefix for country in validCountries()" ng-model='address.phone_country_code'></select>
+        </div>
+        <input type="text" class="form-control" ng-model="address.phone"/>
+      </div>
     </div>
   </div>
 </div>
