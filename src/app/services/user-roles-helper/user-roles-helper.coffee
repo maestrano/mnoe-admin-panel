@@ -11,4 +11,7 @@
   @keyFromRole = (role) ->
     _.find(USER_ROLES, 'value', role).label
 
+  @isAccountManager = (user) ->
+    (user.admin_role == 'staff')
+
   return @
