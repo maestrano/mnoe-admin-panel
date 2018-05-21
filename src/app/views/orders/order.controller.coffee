@@ -1,4 +1,4 @@
-@App.controller 'OrderController', ($filter, $state, $stateParams, $uibModal, toastr, MnoeProvisioning, MnoeOrganizations, MnoeUsers, MnoConfirm, MnoeProducts, MnoeCurrentUser) ->
+@App.controller 'OrderController', ($filter, $state, $stateParams, $uibModal, toastr, MnoeProvisioning, MnoeOrganizations, MnoeUsers, MnoConfirm, MnoeProducts, MnoeCurrentUser, UserRoles) ->
   'ngInject'
   vm = this
 
@@ -61,7 +61,7 @@
 
   MnoeCurrentUser.getUser().then(
     (response) ->
-      vm.isAccountManager = (response.admin_role == 'staff')
+      vm.isAccountManager = UserRoles.isAccountManager(response)
   )
 
   vm.getInfo = ->
