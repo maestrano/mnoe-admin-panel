@@ -7,6 +7,7 @@
   # -----------------------------------------------------------------
   vm.isPaymentEnabled = MnoeAdminConfig.isPaymentEnabled()
   vm.isLoading = true
+  vm.editableTaxRate = false
   vm.invoice = {}
 
   MnoeInvoices.get($stateParams.invoiceId).then(
@@ -30,6 +31,17 @@
 
   vm.changeInvoiceStatus = () ->
     vm.invoice.paid_at = moment().toISOString()
+
+  vm.editTaxRate = () ->
+    vm.invoice_tax_rate = vm.invoice.tax_pips_applied / 100
+    vm.editableTaxRate = true
+
+  vm.updateTaxRate = () ->
+    vm.invoice.tax_pips_applied = vm.invoice_tax_rate * 100
+    vm.editableTaxRate = false
+
+  vm.cancelTaxRateUpdate = () ->
+    vm.editableTaxRate = false
 
   vm.update = () ->
     vm.isLoading = true
