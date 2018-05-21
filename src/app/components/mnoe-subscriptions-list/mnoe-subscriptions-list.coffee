@@ -9,13 +9,13 @@
     filters: '<'
     titleKey: '@'
   }
-  controller: ($state, $filter, $log, $uibModal,  $stateParams, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning) ->
+  controller: ($state, $uibModal, $stateParams, MnoeCurrentUser, MnoeProvisioning, UserRoles) ->
     ctrl = this
     ctrl.organizationId = $stateParams.orgId
 
     MnoeCurrentUser.getUser().then(
       (response) ->
-        ctrl.isAccountManager = (response.admin_role == 'staff')
+        ctrl.isAccountManager = UserRoles.isAccountManager(response)
       )
 
     ctrl.subscriptions =

@@ -1,4 +1,4 @@
-@App.controller 'ProductsController', ($state, $translate, MnoeProducts, MnoeProvisioning, MnoConfirm, MnoeCurrentUser, URL_CONFIG) ->
+@App.controller 'ProductsController', ($state, $translate, MnoeProducts, MnoeProvisioning, MnoConfirm, MnoeCurrentUser, URL_CONFIG, UserRoles) ->
   'ngInject'
 
   vm = this
@@ -7,7 +7,7 @@
 
   MnoeCurrentUser.getUser().then(
     (response) ->
-      vm.isAccountManager = (response.admin_role == 'staff')
+      vm.isAccountManager = UserRoles.isAccountManager(response)
   )
 
   vm.createProduct = () ->
