@@ -23,11 +23,15 @@
     dateFormat: 'yyyy-MM-dd HH:mm:ss'
   }
 
-  # If the user is viewing a specific #subscription_event(order), fetch it, otherwise show the user's non-obsolete #subscription_event
-  if vm.orderId
+  fetchSubscriptionEvent = () ->
+    return unless vm.orderId
     MnoeProvisioning.getSubscriptionEvent(vm.subscriptionId, vm.orgId, vm.orderId).then((response) ->
       vm.order = response.data.subscription_event
       )
+
+  # If the user is viewing a specific #subscription_event(order), fetch it, otherwise show the user's non-obsolete #subscription_event
+  if vm.orderId
+    fetchSubscriptionEvent()
 
   # Get the subscription
   MnoeProvisioning.fetchSubscription(vm.subscriptionId, vm.orgId).then(
@@ -46,7 +50,8 @@
   fetchSubscriptionEvents = () ->
     MnoeProvisioning.getSubscriptionEvents(vm.subscriptionId, vm.orgId).then(
       (response) ->
-        vm.subscriptionEvents = response.data.subscription_events
+        vm.subscriptionEvents = response.data.plain()
+
         # If the user is not viewing a specific order, show the non-obsolete subscription event.
         unless vm.orderId
           vm.order = _.find(response.data.subscription_events, (s) -> !s.obsolete)
@@ -75,11 +80,11 @@
 
   # Admin can only accept a #subscription_event(i.e. order) when subscription event is requested.
   vm.disableApproval = ->
-    (vm.order.status != 'requested')
+    vm.order && (vm.order.status != 'requested')
 
   # Only disabled cancel if status is already cancelled
   vm.disableCancel = ->
-    (vm.order.status != 'requested')
+    vm.order && (vm.order.status != 'requested')
 
   vm.orderWorkflowExplanation = ->
     if vm.disableApproval()
@@ -95,6 +100,7 @@
       actionCb: ->
         MnoeProvisioning.approveSubscriptionEvent({id: vm.order.id}).then(() ->
           fetchSubscriptionEvents()
+          fetchSubscriptionEvent()
           ).then(() ->
             toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_success', {extraData: {subscription_name: vm.subscription.product.name}})
           ).catch(() ->
@@ -111,8 +117,9 @@
       bodyTextExtraData: {subscription_name: vm.subscription.product.name}
       type: 'danger'
       actionCb: ->
-        MnoeProvisioning.rejectSubscriptionEvent({id: vm.order.id}).then(
+        MnoeProvisioning.rejectSubscriptionEvent({id: vm.order.id}).then(() ->
           fetchSubscriptionEvents()
+          fetchSubscriptionEvent()
           ).then(() ->
             toastr.success('mnoe_admin_panel.dashboard.subscriptions.widget.list.toastr_success', {extraData: {subscription_name: vm.subscription.product.name}})
           ).catch(() ->

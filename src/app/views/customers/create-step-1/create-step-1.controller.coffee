@@ -4,6 +4,10 @@
 
   vm.organization = {}
   vm.appSearch = ""
+  vm.mainAddressRequired = MnoeOrganizations.mainAddressRequired()
+
+  # The app selection is not compatible with the subscription workflow
+  vm.showAppsSelection = MnoeAdminConfig.isAppManagementEnabled() && !MnoeAdminConfig.isProvisioningEnabled()
 
   vm.toggleApp = (app) ->
     app.checked = !app.checked
@@ -27,7 +31,7 @@
     MnoErrorsHandler.resetErrors(vm.form)
 
     # List of checked apps
-    vm.organization.app_nids = _.map(_.filter(vm.marketplace.apps, {checked: true}), 'nid') if MnoeAdminConfig.isAppManagementEnabled()
+    vm.organization.app_nids = _.map(_.filter(vm.marketplace.apps, {checked: true}), 'nid') if vm.showAppsSelection
 
     MnoeOrganizations.create(vm.organization).then(
       (response) ->
@@ -50,6 +54,6 @@
     (response) ->
       # Copy the marketplace as we will work on the cached object
       vm.marketplace = angular.copy(response.data)
-  ) if MnoeAdminConfig.isAppManagementEnabled()
+  ) if vm.showAppsSelection
 
   return

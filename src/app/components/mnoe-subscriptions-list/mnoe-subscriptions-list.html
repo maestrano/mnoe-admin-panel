@@ -20,10 +20,18 @@
           <tbody ng-show="!$ctrl.subscriptions.loading" >
             <tr ng-repeat="subscription in $ctrl.subscriptions.list">
               <td>{{subscription.start_date | amDateFormat:'L'}}</td>
-              <td ng-if="$ctrl.all"><a ui-sref="dashboard.order({subscriptionId: subscription.id, orgId: subscription.organization_id})">{{subscription.organization.name}}</a></td>
+              <td ng-if="$ctrl.all"><a ui-sref="dashboard.order({subscriptionId : subscription.id, orgId: subscription.organization_id})">{{subscription.organization.name}}</a></td>
               <td><a ui-sref="dashboard.order({subscriptionId : subscription.id, orgId: subscription.organization_id})">{{subscription.product.name}}</a></td>
-              <td>{{subscription.product_pricing.name}}</td>
-              <td ng-if="!$ctrl.companyCart" >
+              <td ng-show="subscription.product_pricing">{{subscription.product_pricing.name}}</td>
+              <td ng-hide="subscription.product_pricing">
+                <span translate>mnoe_admin_panel.dashboard.subscriptions.not_available</span>
+                <span>
+                  <a class="tooltip_link" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.tooltip.external_billing' | translate }}" tooltip-append-to-body="true">
+                    <i class="fa fa-question-circle"></i>
+                  </a>
+                </span>
+              </td>
+              <td ng-if="!$ctrl.companyCart">
                 <div>
                   {{subscription.status}}
                 </div>
