@@ -34,6 +34,14 @@
                   {{vm.organization.external_id}}
                 </div>
               </div>
+              <div class="row" ng-if="vm.organization.main_address_attributes">
+                <div class="col-xs-6">
+                  <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.main_address</div>
+                </div>
+                <div class="col-xs-6">
+                  <mno-address-line address="vm.organization.main_address_attributes"></mno-address-line>
+                </div>
+              </div>
               <!-- <div class="row">
                 <div class="col-xs-6">
                   <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.account_frozen</div>
@@ -124,9 +132,14 @@
           </mno-widget>
         </div>
         <div class="col-md-6" ng-if="::vm.managementAndProvisioningEnabled">
-          <mnoe-subscriptions-list organization="vm.organization"></mnoe-subscriptions-list>
+          <mnoe-subscription-events-list title-key="title_with_action" filters="{ 'where[obsolete]': false }" organization="vm.organization"></mnoe-subscription-events-list>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" ng-if="::vm.managementAndProvisioningEnabled">
+      <mnoe-subscriptions-list title-key="title_with_history"></mnoe-subscriptions-list>
     </div>
   </div>
   <div class="row">
@@ -173,6 +186,12 @@
   <div class="row">
     <div class="col-md-12">
       <mnoe-teams-list organization="vm.organization" ></mnoe-teams-list>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class="col-md-12 bottom-buffer-1">
+      <mnoe-product-markups-list ng-if="!vm.isLoading" customer-org="vm.organization" view="all"></mnoe-product-markups-list>
     </div>
   </div>
 </div>

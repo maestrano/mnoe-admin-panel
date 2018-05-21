@@ -9,6 +9,8 @@
   vm.companies = []
   vm.markup.product_id = null
   vm.markup.organization_id = null
+  vm.selectedProdPricing = null
+  vm.isPricing = false
 
   vm.onSubmit = () ->
     vm.isLoading = true
@@ -40,7 +42,12 @@
     return MnoeOrganizations.organizations(vm.nbItems, 0, 'name', {'where[name.like]' : search + '%'})
 
   vm.toggleProductFilter = (product) ->
-    vm.markup.product_id = product.originalObject.id
+    vm.markup.product_id = null
+    vm.isPricing = false
+    if product && product.originalObject
+      vm.markup.product_id = product.originalObject.id
+      vm.selectedProdPricings = product.originalObject.product_pricings
+      vm.isPricing = true if vm.selectedProdPricings
 
   vm.toggleCompanyFilter = (company) ->
     vm.markup.organization_id = company.originalObject.id
@@ -59,10 +66,10 @@
           # Looping on each product markup retrieved
           _.each(success.data, (pm) ->
             # if product is not specified, product should not exists in response but organization should match
-            if !vm.markup.product_id? && !pm.product && pm.organization.id == vm.markup.organization_id
+            if !vm.markup.product_id? && !pm.product && pm.organization?.id == vm.markup.organization_id
               exists = true
             # if organization is not specified, organization should not exists in response but product should match
-            if !vm.markup.organization_id? && !pm.organization && pm.product.id == vm.markup.product_id
+            if !vm.markup.organization_id? && !pm.organization && pm.product?.id == vm.markup.product_id
               exists = true
             # if neither organization not product are specified, none should exist in the response
             if !vm.markup.product_id? && !vm.markup.organization_id? && !pm.product && !pm.organization

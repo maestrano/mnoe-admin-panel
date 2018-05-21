@@ -2,14 +2,15 @@
   vm = this
 
   orgPromise = MnoeOrganizations.get($stateParams.orgId)
-  subscription = MnoeProvisioning.getSubscription()
+  subscription = MnoeProvisioning.getCachedSubscription()
   vm.selectedCurrency = MnoeProvisioning.getSelectedCurrency()
   subPromise = if _.isEmpty(vm.subscription)
-    MnoeProvisioning.initSubscription({orgId: $stateParams.orgId, subscriptionId: $stateParams.subscriptionId})
+    MnoeProvisioning.initSubscription({productId: $stateParams.productId, orgId: $stateParams.orgId, subscriptionId: $stateParams.subscriptionId})
   else
     $q.resolve(subscription)
 
   vm.pricedPlan = ProvisioningHelper.pricedPlan
+  vm.orderTypeText = 'mnoe_admin_panel.dashboard.provisioning.subscriptions.' + $stateParams.editAction.toLowerCase()
 
   vm.isLoading = true
   $q.all({organization: orgPromise, subscription: subPromise}).then(

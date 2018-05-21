@@ -5,6 +5,7 @@
 <div class="modal-body">
   <p translate translate-values="::modalOptions.bodyTextExtraData">{{modalOptions.bodyText}}</p>
   <input ng-if="modalOptions.inputTextEnabled" ng-model="modalOptions.inputTextValue" type="text" class="form-control" placeholder="{{modalOptions.inputTextPlaceholder}}">
+  <div class="top-buffer-1" ng-if="modalOptions.additionalBodyHtml" ng-bind-html="modalOptions.additionalBodyHtml"></div>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" ng-click="modalOptions.close()">{{modalOptions.closeButtonText | translate:modalOptions.closeButtonTextExtraData}}</button>

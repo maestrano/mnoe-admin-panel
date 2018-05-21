@@ -4,14 +4,20 @@
 @App.component('mnoeProductsList', {
   templateUrl: 'app/components/mnoe-products-list/mnoe-products-list.html',
   bindings: {}
-  controller: ($state, $uibModal, MnoeProducts, MnoeProvisioning, toastr) ->
+  controller: ($state, $uibModal, MnoeProducts, MnoeProvisioning, toastr, MnoeCurrentUser) ->
     vm = this
+
+    MnoeCurrentUser.getUser().then(
+      (response) ->
+        vm.isAccountManager = (response.admin_role == 'staff')
+    )
 
     vm.products =
       search: {}
       sort: "name"
       nbItems: 10
       page: 1
+      offset: 0
       pageChangedCb: (nbItems, page) ->
         vm.products.nbItems = nbItems
         vm.products.page = page

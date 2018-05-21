@@ -4,9 +4,10 @@
 @App.component('mnoeProductMarkupsList', {
   templateUrl: 'app/components/mnoe-product-markups-list/mnoe-product-markups-list.html',
   bindings: {
-    view: '@',
+    view: '@'
+    customerOrg: '<'
   }
-  controller: ($filter, $log, MnoeProductMarkups, MnoeCurrentUser, MnoConfirm, MnoeObservables, OBS_KEYS, toastr) ->
+  controller: ($filter, $log, $translate, MnoeProductMarkups, MnoeCurrentUser, MnoConfirm, MnoeObservables, OBS_KEYS, toastr) ->
     vm = this
 
     vm.markups =
@@ -23,12 +24,12 @@
         vm.markups.page = page
         offset = (page  - 1) * nbItems
         fetchProductMarkups(nbItems, offset)
+    vm.readOnlyView = false
 
     # Manage sorting, search and pagination
     vm.callServer = (tableState) ->
       sort   = updateSort (tableState.sort)
       search = updateSearch (tableState.search)
-
       fetchProductMarkups(vm.markups.nbItems, vm.markups.offset, sort, search)
 
     # Update sorting parameters
@@ -59,31 +60,22 @@
 
       # Update markups sort
       vm.markups.search = search
-      vm.markups.pageChangedCb(vm.markups.nbItems, 1)
       return search
 
     # Fetch markups
     fetchProductMarkups = (limit, offset, sort = vm.markups.sort, search = vm.markups.search) ->
       vm.markups.loading = true
+      if vm.customerOrg
+        vm.readOnlyView = true
+        search[ 'where[for_organization]' ] = vm.customerOrg.id
       return MnoeProductMarkups.markups(limit, offset, sort, search).then(
         (response) ->
           vm.markups.totalItems = response.headers('x-total-count')
           vm.markups.list = response.data
       ).finally(-> vm.markups.loading = false)
 
-    # Initial call and start the listeners
-    fetchProductMarkups(vm.markups.nbItems, 0).then( ->
-    # Notify me if a user is added
-      MnoeObservables.registerCb(OBS_KEYS.markupAdded, ->
-        fetchProductMarkups(vm.markups.nbItems, vm.markups.offset)
-      )
-      # Notify me if the list changes
-      MnoeObservables.registerCb(OBS_KEYS.markupChanged, ->
-        fetchProductMarkups(vm.markups.nbItems, vm.markups.offset)
-      )
-    )
-
     vm.update = (pm) ->
+      pm.isSaving = true
       MnoeProductMarkups.updateProductMarkup(pm).then(
         (response) ->
           updateSort()
@@ -94,7 +86,7 @@
           # Display an error
           $log.error('Error while saving product markup', error)
           toastr.error('mnoe_admin_panel.dashboard.product_markups.add_markup.modal.toastr_error')
-      )
+      ).finally(-> pm.isSaving = false)
 
     vm.remove = (pm) ->
       modalOptions =
@@ -104,12 +96,27 @@
         bodyText: 'mnoe_admin_panel.dashboard.product_markups.modal.remove_product_markup.perform'
 
       MnoConfirm.showModal(modalOptions).then( ->
+        pm.isSaving = true
         MnoeProductMarkups.deleteProductMarkup(pm).then( ->
           updateSort()
           updateSearch()
           toastr.success('mnoe_admin_panel.dashboard.product_markups.modal.remove_product_markup.toastr_success')
-        )
+        ).finally(-> pm.isSaving = false)
       )
+
+    vm.showOrgName = (name) ->
+      return $translate.instant("mnoe_admin_panel.dashboard.product_markups.add_markup.modal.all_companies") unless name
+
+      if vm.readOnlyView
+        $translate.instant("mnoe_admin_panel.dashboard.product_markups.add_markup.modal.customer_specific")
+      else
+        name
+
+    vm.customerHeader = ->
+      if vm.readOnlyView
+        "mnoe_admin_panel.dashboard.product_markups.widget.list.table.markup_type"
+      else
+        "mnoe_admin_panel.dashboard.product_markups.widget.list.table.customer"
 
     onMarkupAdded = ->
       fetchProductMarkups(vm.markups.nbItems, vm.markups.offset)

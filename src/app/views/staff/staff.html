@@ -11,13 +11,13 @@
         <div class="row">
           <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.name</div></div>
           <div class="col-md-3">
-            <input type="text" class="form-control input-sm" ng-model="vm.staff.name" required>
+            <input class="form-control input-sm" ng-model="vm.staff.name" required>
           </div>
         </div>
         <div class="row">
           <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.surname</div></div>
           <div class="col-md-3">
-            <input type="text" class="form-control input-sm" ng-model="vm.staff.surname" required>
+            <input class="form-control input-sm" ng-model="vm.staff.surname" required>
           </div>
         </div>
         <div class="row">
@@ -43,13 +43,23 @@
         </div>
         <div class="row" ng-if="vm.isSubTenantEnabled">
           <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.sub_tenant</div></div>
-          <div class="col-sm-3" ng-show="vm.subTenants">
-            <span ng-if="!vm.isAdmin">{{vm.staff.subTenantName()}}</span>
+          <div class="col-sm-3" ng-if="!vm.isAdmin">{{vm.staff.subTenantName}}</div>
 
-            <select ng-if="vm.isAdmin" ng-options="subtenant.id as subtenant.name for subtenant in vm.subTenants"  class="form-control input-sm" ng-model="vm.staff.mnoe_sub_tenant_id">
-              <option value=""></option>
-            </select>
+          <div class="col-sm-3" ng-if="vm.isAdmin">
+              <angucomplete-alt id="sub-tenant-selector"
+                                placeholder="{{'mnoe_admin_panel.dashboard.staff.search_sub_tenant' | translate}}"
+                                pause="200"
+                                text-searching="{{'mnoe_admin_panel.dashboard.staff.search_loading' | translate}}"
+                                selected-object="vm.subTenantSelected"
+                                remote-api-handler="vm.searchSubTenants"
+                                search-fields="name"
+                                title-field="name"
+                                minlength="0"
+                                input-class="form-control">
+              </angucomplete-alt>
           </div>
+          <a class="clear-sub-tenant" href="" ng-show="vm.staff.sub_tenant_id" ng-click="vm.clearSubTenantInput()"><i class="fa fa-times"></i></a>
+
         </div>
         <div class="row">
           <div class="col-sm-3">
@@ -66,7 +76,7 @@
       <div class="col-sm-12">
         <h2><i class="fa fa-users"></i> Clients</h2>
         <button class="btn btn-primary center-block" ng-show="vm.staff"  ng-click="vm.updateClientsModal()" translate>mnoe_admin_panel.dashboard.staff.add_remove_clients</button>
-        <mnoe-organizations-local-list list="vm.staff.clients" view="all"></mnoe-organizations-local-list>
+        <mnoe-organizations-list filter-params="vm.clientsFilterParams" view="all"></mnoe-organizations-list>
       </div>
     </div>
   </div>

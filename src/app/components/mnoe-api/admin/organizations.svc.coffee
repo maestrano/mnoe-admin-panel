@@ -1,5 +1,5 @@
 # Service for managing the users.
-@App.service 'MnoeOrganizations', (MnoeAdminApiSvc) ->
+@App.service 'MnoeOrganizations', (MnoeAdminApiSvc, ORG_REQUIREMENTS) ->
   _self = @
 
   @list = (limit, offset, sort, params = {}) ->
@@ -28,6 +28,9 @@
     params["limit"] = limit
     params["offset"] = offset
     return MnoeAdminApiSvc.all("organizations").getList(params)
+
+  @mainAddressRequired = ->
+    'main_address' in ORG_REQUIREMENTS
 
   @search = (terms) ->
     MnoeAdminApiSvc.all("organizations").getList({terms: terms})

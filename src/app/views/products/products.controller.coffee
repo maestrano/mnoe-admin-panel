@@ -1,8 +1,14 @@
-@App.controller 'ProductsController', ($state, MnoeProducts, MnoeProvisioning, MnoConfirm) ->
+@App.controller 'ProductsController', ($state, $translate, MnoeProducts, MnoeProvisioning, MnoConfirm, MnoeCurrentUser, URL_CONFIG) ->
   'ngInject'
 
   vm = this
   vm.product = {}
+  vm.developerOnboardingURL = URL_CONFIG.developer_onboarding_url
+
+  MnoeCurrentUser.getUser().then(
+    (response) ->
+      vm.isAccountManager = (response.admin_role == 'staff')
+  )
 
   vm.createProduct = () ->
     modalOptions =
@@ -23,6 +29,11 @@
             toastr.error('mnoe_admin_panel.dashboard.product.create_product_modal.create_error')
       )
       type: 'primary'
+
+    if vm.developerOnboardingURL
+      modalOptions.additionalBodyHtml = "<a href='#{vm.developerOnboardingURL}' target='_blank'>" \
+      + $translate.instant('mnoe_admin_panel.dashboard.product.create_product_modal.developer_onboarding_link_text') \
+      + "</a>"
 
     MnoConfirm.showModal(modalOptions)
 

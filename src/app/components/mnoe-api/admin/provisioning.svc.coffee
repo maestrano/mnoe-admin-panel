@@ -42,10 +42,15 @@
         _.find(productsResponse.products, (a) -> a.id == id || a.nid == nid)
     )
 
+  productPromises = {}
+  @getProduct = (productId, params) ->
+    productPromises["#{productId}/#{params.editAction}"] ?= MnoeAdminApiSvc.one('/products', productId).get(params)
+      .then((response) -> response.data.product)
+
   @setSubscription = (s) ->
     subscription = s
 
-  @getSubscription = () ->
+  @getCachedSubscription = () ->
     subscription
 
   @setSelectedCurrency = (c) ->
@@ -58,9 +63,8 @@
   # if productNid: return the default subscription
   # if subscriptionId: return the fetched subscription
   # else: return the subscription in cache (edition mode)
-  @initSubscription = ({productNid = null, subscriptionId = null, orgId = null}) ->
+  @initSubscription = ({productId = null, subscriptionId = null, orgId = null}) ->
     deferred = $q.defer()
-
     # Edit a subscription
     if !_.isEmpty(subscription)
       deferred.resolve(subscription)
@@ -70,7 +74,7 @@
           angular.copy(response.data, subscription)
           deferred.resolve(subscription)
       )
-    else if productNid?
+    else if productId?
       # Create a new subscription to a product
       angular.copy(defaultSubscription, subscription)
       deferred.resolve(subscription)
@@ -86,7 +90,7 @@
     )
 
   updateSubscription = (s, c) ->
-    subscription.patch({subscription: {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data}}).catch(
+    subscription.patch({subscription: {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data, edit_action: s.edit_action}}).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
     )
@@ -106,8 +110,8 @@
           response.data
       )
 
-  @fetchSubscription = (id, orgId) ->
-    MnoeAdminApiSvc.one('/organizations', orgId).one('subscriptions', id).get().catch(
+  @fetchSubscription = (id, orgId, params) ->
+    MnoeAdminApiSvc.one('/organizations', orgId).one('subscriptions', id).get(params).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)
@@ -123,29 +127,52 @@
         $q.reject(error)
     )
 
-  @cancelSubscription = (s) ->
-    MnoeAdminApiSvc.one('organizations', s.organization_id).one('subscriptions', s.id).post('/cancel').catch(
+  @getOrganizationsSubscriptionEvents = (limit, offset, sort, orgId = null, params = {}) ->
+    params["order_by"] = sort
+    params["limit"] = limit
+    params["offset"] = offset
+    MnoeAdminApiSvc.one('organizations', orgId).all('subscription_events').getList(params).catch(
+      (error) ->
+        MnoErrorsHandler.processServerError(error)
+        $q.reject(error)
+      )
+
+  @getAllSubscriptionEvents = (limit, offset, sort, params = {}) ->
+    params["order_by"] = sort
+    params["limit"] = limit
+    params["offset"] = offset
+    MnoeAdminApiSvc.all('subscription_events').getList(params).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)
     )
 
-  @approveSubscription = (s) ->
-    MnoeAdminApiSvc.one('organizations', s.organization_id).one('subscriptions', s.id).post('/approve').catch(
+  @rejectSubscriptionEvent = (s) ->
+    MnoeAdminApiSvc.one('subscription_events', s.id).post('/reject').catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)
     )
 
-  @fulfillSubscription = (s) ->
-    MnoeAdminApiSvc.one('organizations', s.organization_id).one('subscriptions', s.id).post('/fulfill').catch(
+  @approveSubscriptionEvent = (s) ->
+    MnoeAdminApiSvc.one('subscription_events', s.id).post('/approve').catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)
     )
 
-  @getSubscriptionEvents = (subscriptionId, orgId) ->
-    MnoeAdminApiSvc.one('organizations', orgId).one('subscriptions', subscriptionId).customGET('/subscription_events').catch(
+  @getSubscriptionEvents = (subscriptionId, orgId, limit, offset, sort, params = {}) ->
+    params["order_by"] = sort
+    params["limit"] = limit
+    params["offset"] = offset
+    MnoeAdminApiSvc.one('organizations', orgId).one('subscriptions', subscriptionId).all('subscription_events').getList(params).catch(
+      (error) ->
+        MnoErrorsHandler.processServerError(error)
+        $q.reject(error)
+    )
+
+  @getSubscriptionEvent = (subscriptionId, orgId, id) ->
+    MnoeAdminApiSvc.one('organizations', orgId).one('subscriptions', subscriptionId).customGET("/subscription_events/#{id}").catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)

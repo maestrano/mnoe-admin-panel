@@ -6,6 +6,7 @@
   vm.users = {}
   vm.hasDisconnectedApps = false
   vm.status = {}
+  vm.isLoading = true
 
   vm.availableBillingCurrencies = MnoeAdminConfig.availableBillingCurrencies()
   vm.managementAndProvisioningEnabled = MnoeAdminConfig.isProvisioningEnabled() && MnoeAdminConfig.isAppManagementEnabled()
@@ -31,7 +32,7 @@
       vm.organization = response.data.plain()
       vm.organization.invoices = $filter('orderBy')(vm.organization.invoices, '-started_at')
       vm.updateStatus()
-  )
+  ).finally(-> vm.isLoading = false)
 
   vm.freezeOrganization = ->
     MnoeOrganizations.freeze(vm.organization).then(
@@ -89,7 +90,7 @@
     )
     modalInstance.result.then(
       (product) ->
-        $state.go('dashboard.provisioning.order', {nid: product.nid, orgId: vm.organization.id})
+        $state.go('dashboard.provisioning.order', {productId: product.id, nid: product.nid, orgId: vm.organization.id, editAction: 'new'})
     )
 
   # Remove app modal

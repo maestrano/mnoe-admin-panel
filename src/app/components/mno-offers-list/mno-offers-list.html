@@ -1,0 +1,32 @@
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th class='col-sm-3' translate>
+      mnoe_admin_panel.dashboard.product_markups.offers.modal.table_headers.offer</th>
+      <th class='col-sm-3' translate>
+      mnoe_admin_panel.dashboard.product_markups.offers.modal.table_headers.pricing_type</th>
+      <th class='col-sm-3' translate>
+      mnoe_admin_panel.dashboard.product_markups.offers.modal.table_headers.original_prices</th>
+      <th class='col-sm-3' translate>
+      mnoe_admin_panel.dashboard.product_markups.offers.modal.table_headers.final_prices</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="offer in offers">
+      <td>{{offer.name}}</td>
+      <td>{{pricingType(offer)}}</td>
+      <td ng-if="offer.prices">
+        <div ng-repeat="priceHash in offer.prices">
+          {{formatPrice(priceHash)}}
+        </div>
+      </td>
+      <td ng-if="!offer.prices">-</td>
+      <td ng-if="offer.prices">
+        <div ng-repeat="priceHash in offer.prices">
+          {{formatFinalPrice(priceHash)}}
+        </div>
+      </td>
+      <td ng-if="!offer.prices">-</td>
+    </tr>
+  </tbody>
+</table>

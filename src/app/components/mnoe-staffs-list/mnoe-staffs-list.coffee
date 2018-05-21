@@ -5,6 +5,7 @@
   templateUrl: 'app/components/mnoe-staffs-list/mnoe-staffs-list.html',
   bindings: {
     view: '@',
+    filterParams: '='
   }
   controller: ($filter, $log, MnoeAdminConfig, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeObservables, OBS_KEYS, toastr) ->
     vm = this
@@ -33,7 +34,7 @@
 
     # Update searching parameters
     updateSearch = (searchingState = {}) ->
-      search = {}
+      search = vm.filterParams || {}
       if searchingState.predicateObject
         for attr, value of searchingState.predicateObject
           if attr == "admin_role"
@@ -53,6 +54,7 @@
       search: {}
       sort: "surname"
       nbItems: 10
+      offset: 0
       page: 1
       roles: MnoeAdminConfig.adminRoles()
       pageChangedCb: (nbItems, page) ->
@@ -95,7 +97,7 @@
     fetchStaffs = (limit, offset, sort = vm.staff.sort, search = vm.staff.search) ->
       vm.staff.loading = true
       if MnoeCurrentUser.user.admin_role == 'sub_tenant_admin'
-        search[ 'where[mnoe_sub_tenant_id]' ] = MnoeCurrentUser.user.mnoe_sub_tenant_id
+        search[ 'where[sub_tenant.id]' ] = MnoeCurrentUser.user.sub_tenant_id
       return MnoeUsers.staffs(limit, offset, sort, search).then(
         (response) ->
           vm.staff.totalItems = response.headers('x-total-count')
