@@ -66,6 +66,9 @@
             MnoeMarketplace.getApps().then(
               (response) ->
                 vm.enabledApps = angular.copy(response.data.apps)
+                vm.filteredApps = vm.enabledApps
+                vm.selectedCategory = ''
+                vm.searchTerm = ''
             )
         )
     )
