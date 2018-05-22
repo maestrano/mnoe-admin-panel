@@ -134,4 +134,14 @@
       controllerAs: 'vm'
     )
 
+  vm.openSubscriptionEventInfoModal = (subscriptionEvent, subscription) ->
+    $uibModal.open(
+      templateUrl: 'app/views/orders/subscription-event-info-modal/subscription-event-info.html'
+      controller: 'subscriptionEventInfoCtrl'
+      controllerAs: 'vm',
+      resolve:
+        event: subscriptionEvent
+        subscription: subscription
+    )
+
   return vm
