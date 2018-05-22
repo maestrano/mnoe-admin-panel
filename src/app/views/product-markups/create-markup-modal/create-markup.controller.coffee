@@ -36,7 +36,7 @@
     $uibModalInstance.dismiss('cancel')
 
   vm.searchProducts = (search, timeoutPromise) ->
-    return MnoeProducts.products(vm.nbItems, 0, 'name', {'where[name.like]' : search + '%'})
+    return MnoeProducts.singleBillingEnabledProducts(vm.nbItems, 0, 'name', {'where[name.like]' : search + '%'})
 
   vm.searchCompanies = (search, timeoutPromise) ->
     return MnoeOrganizations.organizations(vm.nbItems, 0, 'name', {'where[name.like]' : search + '%'})
