@@ -84,15 +84,19 @@
     return deferred.promise
 
   createSubscription = (s, c) ->
-    subscriptionsApi(s.organization_id).post({subscription: {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data, cart_entry: s.cart_entry}}).catch(
-      (error) ->
-        MnoErrorsHandler.processServerError(error)
+    subscriptionsApi(s.organization_id).post({subscription:
+      {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data, cart_entry: s.cart_entry
+      }}).catch(
+        (error) ->
+          MnoErrorsHandler.processServerError(error)
     )
 
   updateSubscription = (s, c) ->
-    subscription.patch({subscription: {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data, edit_action: s.edit_action, cart_entry: s.cart_entry}}).catch(
-      (error) ->
-        MnoErrorsHandler.processServerError(error)
+    subscription.patch({subscription:
+      {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data, edit_action: s.edit_action, cart_entry: s.cart_entry
+      }}).catch(
+        (error) ->
+          MnoErrorsHandler.processServerError(error)
     )
 
   # Detect if the subscription should be a POST or A PUT and call corresponding method
