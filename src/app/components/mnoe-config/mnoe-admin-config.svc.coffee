@@ -29,6 +29,12 @@
     else
       true
 
+  @isCurrencySelectionEnabled = () ->
+    if DASHBOARD_CONFIG.marketplace?.pricing?.currency_selection?
+      DASHBOARD_CONFIG.marketplace.pricing.currency_selection
+    else
+      true
+
   @isCustomerBatchImportEnabled = () ->
     if ADMIN_PANEL_CONFIG.customer_batch_import?.enabled?
       ADMIN_PANEL_CONFIG.customer_batch_import.enabled
