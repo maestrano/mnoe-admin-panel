@@ -22,6 +22,15 @@
     else
       vm.filteredApps = vm.enabledApps
 
+  resetFilteredApps = () ->
+    MnoeMarketplace.getApps().then(
+      (response) ->
+        vm.enabledApps = angular.copy(response.data.apps)
+        vm.selectedCategory = ''
+        vm.searchTerm = ''
+        vm.filteredApps = vm.enabledApps
+    )
+
   vm.openRemoveAppModal = (app, $index)->
     MnoConfirm.showModal(
       headerText: 'mnoe_admin_panel.dashboard.settings.apps.modal.remove_app.proceed'
@@ -30,7 +39,8 @@
       type: 'danger'
       actionCb: ->
         MnoeApps.disable(app.id).then(
-          -> vm.enabledApps.splice($index, 1)
+          ->
+            resetFilteredApps()
         )
     )
 
@@ -63,13 +73,7 @@
       (apps) ->
         MnoeApps.enableMultiple(_.map(apps, 'id')).then(
           ->
-            MnoeMarketplace.getApps().then(
-              (response) ->
-                vm.enabledApps = angular.copy(response.data.apps)
-                vm.filteredApps = vm.enabledApps
-                vm.selectedCategory = ''
-                vm.searchTerm = ''
-            )
+            resetFilteredApps()
         )
     )
 
