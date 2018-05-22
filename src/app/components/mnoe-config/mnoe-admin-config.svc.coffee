@@ -76,6 +76,12 @@
       $log.debug("DASHBOARD_CONFIG.marketplace.local_products")
       false
 
+  @isCurrencySelectionEnabled = () ->
+    if DASHBOARD_CONFIG.marketplace?.pricing?.currency_selection?
+      DASHBOARD_CONFIG.marketplace.pricing.currency_selection
+    else
+      true
+
   @isProductMarkupEnabled = () ->
     if DASHBOARD_CONFIG.marketplace?.product_markup?
       DASHBOARD_CONFIG.marketplace.product_markup

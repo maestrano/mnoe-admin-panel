@@ -38,6 +38,13 @@
     (response) ->
       vm.subscription = response.data.plain()
       vm.getInfo()
+      if vm.order.custom_data?
+        # Get the product schema
+        MnoeProvisioning.findProduct(id: vm.order.product_id).then(
+          (response) ->
+            vm.schema = if response.custom_schema then JSON.parse(response.custom_schema) else {}
+            vm.form = if response.asf_options then JSON.parse(response.asf_options) else ["*"]
+        )
       if vm.subscription.externally_provisioned?
         MnoeProducts.fetchCustomSchema(vm.subscription.product.id).then((response) ->
           return unless response
@@ -45,7 +52,7 @@
           vm.schema = if schema.json_schema then schema.json_schema else {}
           vm.form = if schema.asf_options then schema.asf_options else ["*"]
       )
-    ).finally(-> vm.isLoading = false)
+  ).finally(-> vm.isLoading = false)
 
   fetchSubscriptionEvents = () ->
     MnoeProvisioning.getSubscriptionEvents(vm.subscriptionId, vm.orgId).then(

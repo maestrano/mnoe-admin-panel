@@ -90,7 +90,7 @@
     )
     modalInstance.result.then(
       (product) ->
-        $state.go('dashboard.provisioning.order', {productId: product.id, orgId: vm.organization.id, editAction: 'new'})
+        $state.go('dashboard.provisioning.order', {productId: product.id, nid: product.nid, orgId: vm.organization.id, editAction: 'new'})
     )
 
   # Remove app modal
