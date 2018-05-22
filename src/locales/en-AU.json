@@ -426,6 +426,7 @@
   "mnoe_admin_panel.components.mno-address-input.postal_code": "Postal code",
   "mnoe_admin_panel.components.mno-address-input.country": "Country",
   "mnoe_admin_panel.components.mno-address-input.select": "--SELECT--",
+  "mnoe_admin_panel.components.mno-address-input.phone": "Phone",
   "mnoe_admin_panel.components.mno-file-uploader.file_too_large": "File is too large",
   "mnoe_admin_panel.components.mno-file-uploader.submit": "Submit",
   "mnoe_admin_panel.components.mno-file-uploader.upload_successful": "Upload Successful",
