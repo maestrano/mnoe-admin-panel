@@ -7,9 +7,14 @@
     all: '<'
     filters: '<'
   }
-  controller: ($state, $filter, $log, $uibModal, $stateParams, toastr, MnoeUsers, MnoeCurrentUser, MnoConfirm, MnoeProvisioning) ->
+  controller: ($uibModal, $stateParams, toastr, MnoeCurrentUser, MnoConfirm, MnoeProvisioning, UserRoles) ->
     ctrl = this
     ctrl.organizationId = $stateParams.orgId
+
+    MnoeCurrentUser.getUser().then(
+      (response) ->
+        ctrl.isAccountManager = UserRoles.isAccountManager(response)
+      )
 
     ctrl.subscriptionEvents =
       list: []

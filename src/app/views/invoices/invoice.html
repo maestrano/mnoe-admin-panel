@@ -16,6 +16,7 @@
             <th translate>mnoe_admin_panel.dashboard.invoice.period</th>
             <th ng-if="vm.isPaymentEnabled" translate>mnoe_admin_panel.dashboard.invoice.expected_payment_date</th>
             <th translate>mnoe_admin_panel.dashboard.invoice.amount</th>
+            <th translate>mnoe_admin_panel.dashboard.invoice.tax_rate</th>
             <th translate>mnoe_admin_panel.dashboard.invoice.status</th>
             <th></th>
           </tr>
@@ -27,6 +28,23 @@
             <td>{{vm.invoice.started_at | amCalendar}} - {{vm.invoice.ended_at | amCalendar}}</td>
             <td ng-if="vm.isPaymentEnabled">{{vm.expectedPaymentDate(vm.invoice.ended_at) | amCalendar }}</td>
             <td>{{vm.invoice.price.currency.iso_code}} {{vm.invoice.price.fractional / 100}}</td>
+            <td>
+              <span ng-if="vm.invoice.tax_pips_applied && !vm.editableTaxRate">{{vm.invoice.tax_pips_applied / 100}}%</span>
+              <span ng-if="!vm.invoice.paid_at && !vm.editableTaxRate">
+                <a ng-click="vm.editTaxRate()" class="btn btn-link btn-link-warning">
+                  <i class="fa fa-edit"></i>
+                </a>
+              </span>
+              <span ng-if="!vm.invoice.paid_at && vm.editableTaxRate">
+                <input ng-model="vm.invoice_tax_rate" class="form-control inline-input" placeholder="%" type="number">
+                <a ng-click="vm.updateTaxRate()" class="btn btn-link btn-link-success">
+                  <i class="fa fa-check"></i>
+                </a>
+                <a ng-click="vm.cancelTaxRateUpdate()" class="btn btn-link btn-link-danger">
+                  <i class="fa fa-remove"></i>
+                </a>
+              </span>
+            </td>
             <td>
               <span ng-if="vm.invoice.paid_at" translate>mnoe_admin_panel.dashboard.invoices.paid</span>
               <div class="btn-group" ng-if="!vm.invoice.paid_at" uib-dropdown dropdown-append-to-body>

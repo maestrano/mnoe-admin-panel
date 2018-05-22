@@ -2,6 +2,9 @@
 
   vm = this
   vm.subscription = MnoeProvisioning.getCachedSubscription()
+  vm.currencies = []
+  vm.selectedCurrency = ""
+  vm.filteredPricingPlans = []
   vm.pricedPlan = ProvisioningHelper.pricedPlan
   urlParams = {
     productId: $stateParams.productId,
@@ -21,9 +24,9 @@
       vm.subscription.organization_id = response.organization.data.id
     )
 
-  filterCurrencies = (productPricings) ->
-    _.filter(productPricings,
-      (pp) -> !vm.pricedPlan(pp) || _.some(pp.prices, (p) -> p.currency == vm.orgCurrency)
+  vm.filterCurrencies = () ->
+    vm.filteredPricingPlans = _.filter(vm.subscription.product.product_pricings,
+      (pp) -> !vm.pricedPlan(pp) || _.some(pp.prices, (p) -> p.currency == vm.selectedCurrency)
     )
 
   fetchProduct = () ->
@@ -33,8 +36,20 @@
       (response) ->
         vm.subscription.product = response
 
+        # Get all the possible currencies
+        currenciesArray = []
+        _.forEach(vm.subscription.product.product_pricings,
+          (pp) -> _.forEach(pp.prices, (p) -> currenciesArray.push(p.currency)))
+        vm.currencies = _.uniq(currenciesArray)
+
+        # Set a default currency
+        if vm.currencies.includes(vm.orgCurrency)
+          vm.selectedCurrency = vm.orgCurrency
+        else
+          vm.selectedCurrency = vm.currencies[0]
+
         # Filters the pricing plans not containing current currency
-        vm.subscription.product.product_pricings = filterCurrencies(vm.subscription.product.product_pricings)
+        vm.filterCurrencies()
         MnoeProvisioning.setSubscription(vm.subscription)
     )
 
@@ -62,8 +77,9 @@
     when 'change'
       'mnoe_admin_panel.dashboard.provisioning.order.change_title'
 
-  vm.next = (subscription) ->
+  vm.next = (subscription, selectedCurrency) ->
     MnoeProvisioning.setSubscription(subscription)
+    MnoeProvisioning.setSelectedCurrency(selectedCurrency)
     if vm.subscription.product.custom_schema?
       $state.go('dashboard.provisioning.additional_details', urlParams)
     else
