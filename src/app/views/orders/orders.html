@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-lg-10 col-lg-offset-1 col-md-12">
-    <mnoe-subscription-events-list all="true" title-key="title_with_action" filters="{ 'where[obsolete]': false, 'where[status]': 'requested,pending,success,error' }"></mnoe-subscription-events-list>
+    <mnoe-subscription-events-list all="true" title-key="title_with_action" filters="{ 'where[obsolete]': false, 'where[status.nin]': 'rejected' }"></mnoe-subscription-events-list>
   </div>
 </div>
 
