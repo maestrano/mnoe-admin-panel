@@ -54,7 +54,7 @@
 
         # If the user is not viewing a specific order, show the non-obsolete subscription event.
         unless vm.orderId
-          vm.order = _.find(response.data.subscription_events, (s) -> !s.obsolete)
+          vm.order = _.find(vm.subscriptionEvents, (s) -> !s.obsolete)
     )
 
   fetchSubscriptionEvents()
