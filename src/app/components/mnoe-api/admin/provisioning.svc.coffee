@@ -63,13 +63,13 @@
   # if productNid: return the default subscription
   # if subscriptionId: return the fetched subscription
   # else: return the subscription in cache (edition mode)
-  @initSubscription = ({productId = null, subscriptionId = null, orgId = null}) ->
+  @initSubscription = ({productId = null, subscriptionId = null, orgId = null, cart = null}) ->
     deferred = $q.defer()
     # Edit a subscription
     if !_.isEmpty(subscription)
       deferred.resolve(subscription)
     else if subscriptionId?
-      _self.fetchSubscription(subscriptionId, orgId).then(
+      _self.fetchSubscription(subscriptionId, orgId, cart).then(
         (response) ->
           angular.copy(response.data, subscription)
           deferred.resolve(subscription)
@@ -84,15 +84,19 @@
     return deferred.promise
 
   createSubscription = (s, c) ->
-    subscriptionsApi(s.organization_id).post({subscription: {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data}}).catch(
-      (error) ->
-        MnoErrorsHandler.processServerError(error)
+    subscriptionsApi(s.organization_id).post({subscription:
+      {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data, cart_entry: s.cart_entry
+      }}).catch(
+        (error) ->
+          MnoErrorsHandler.processServerError(error)
     )
 
   updateSubscription = (s, c) ->
-    subscription.patch({subscription: {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data, edit_action: s.edit_action}}).catch(
-      (error) ->
-        MnoErrorsHandler.processServerError(error)
+    subscription.patch({subscription:
+      {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data, edit_action: s.edit_action, cart_entry: s.cart_entry
+      }}).catch(
+        (error) ->
+          MnoErrorsHandler.processServerError(error)
     )
 
   # Detect if the subscription should be a POST or A PUT and call corresponding method
@@ -100,8 +104,8 @@
     if subscription.id
       updateSubscription(subscription, currency).then(
         (response) ->
-          _self.setSubscription(response.data.subscription)
-          response.data.subscription
+          _self.setSubscription(response.data?.subscription)
+          response.data?.subscription
       )
     else
       createSubscription(subscription, currency).then(
@@ -110,7 +114,8 @@
           response.data
       )
 
-  @fetchSubscription = (id, orgId, params) ->
+  @fetchSubscription = (id, orgId, cart = false) ->
+    params = if cart then { 'subscription[cart_entry]': 'true' } else {}
     MnoeAdminApiSvc.one('/organizations', orgId).one('subscriptions', id).get(params).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)

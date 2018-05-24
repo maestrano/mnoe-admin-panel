@@ -139,7 +139,7 @@
   </div>
   <div class="row">
     <div class="col-md-12" ng-if="::vm.managementAndProvisioningEnabled">
-      <mnoe-subscriptions-list title-key="title_with_history"></mnoe-subscriptions-list>
+      <mnoe-subscriptions-list filters="{ 'where[subscription_status_in]': 'visible' }" title-key="title_with_history"></mnoe-subscriptions-list>
     </div>
   </div>
   <div class="row">
@@ -193,5 +193,11 @@
     <div class="col-md-12 bottom-buffer-1">
       <mnoe-product-markups-list ng-if="!vm.isLoading" customer-org="vm.organization" view="all"></mnoe-product-markups-list>
     </div>
+  </div>
+</div>
+
+<div class='row'>
+  <div class="col-md-6" ng-if="::vm.managementAndProvisioningEnabled">
+    <mnoe-subscriptions-list company-cart='true' filters="{ 'where[subscription_status_in]': 'staged' }" title-key='cart_title'></mnoe-subscriptions-list>
   </div>
 </div>

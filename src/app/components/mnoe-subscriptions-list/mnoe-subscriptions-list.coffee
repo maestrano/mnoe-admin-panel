@@ -6,6 +6,7 @@
   bindings: {
     all: '<'
     organization: '<',
+    companyCart: '<',
     filters: '<'
     titleKey: '@'
   }
@@ -77,7 +78,7 @@
     ctrl.editSubscription = (subscription, editAction) ->
       MnoeProvisioning.setSubscription({})
 
-      params = {subscriptionId: subscription.id, orgId: subscription.organization_id, editAction: editAction}
+      params = {subscriptionId: subscription.id, orgId: subscription.organization_id, editAction: editAction, cart: ctrl.companyCart}
       switch editAction
         when 'change'
           $state.go('dashboard.provisioning.order', params)

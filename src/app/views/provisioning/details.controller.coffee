@@ -17,7 +17,8 @@
     orgId: $stateParams.orgId,
     subscriptionId: $stateParams.subscriptionId,
     productId: $stateParams.productId,
-    editAction: $stateParams.editAction
+    editAction: $stateParams.editAction,
+    cart: $stateParams.cart
 
   # The schema is contained in field vm.product.custom_schema
   #
@@ -38,7 +39,7 @@
 
   fetchSubscription = () ->
     orgPromise = MnoeOrganizations.get(urlParams.orgId)
-    initPromise = MnoeProvisioning.initSubscription({productId: urlParams.productId, subscriptionId: urlParams.subscriptionId, orgId: urlParams.orgId})
+    initPromise = MnoeProvisioning.initSubscription({productId: urlParams.productId, subscriptionId: urlParams.subscriptionId, orgId: urlParams.orgId, cart: urlParams.cart})
     $q.all({organization: orgPromise, subscription: initPromise}).then((response) ->
       vm.orgCurrency = response.organization.data.billing_currency || MnoeAdminConfig.marketplaceCurrency()
       vm.subscription = response.subscription
