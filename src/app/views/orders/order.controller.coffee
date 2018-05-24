@@ -48,7 +48,7 @@
     ).finally(-> vm.isLoading = false)
 
   fetchSubscriptionEvents = () ->
-    MnoeProvisioning.getSubscriptionEvents(vm.subscriptionId, vm.orgId).then(
+    MnoeProvisioning.getSubscriptionEvents(vm.subscriptionId, vm.orgId, null, null, 'created_at.desc').then(
       (response) ->
         vm.subscriptionEvents = response.data.plain()
 
