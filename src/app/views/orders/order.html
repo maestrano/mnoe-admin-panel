@@ -64,60 +64,65 @@
         <mno-widget-header></mno-widget-header>
         <mno-widget-body class="medium">
 
-          <div class="row">
-            <div class="col-xs-6">
-              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.date</div>
-            </div>
-            <div class="col-xs-6">
-              {{vm.order.created_at | date: 'dd/MM/yyyy'}}
-            </div>
+          <div ng-if="!vm.order" translate>
+            mnoe_admin_panel.dashboard.order.no_order
           </div>
-          <div class="row">
-            <div class="col-xs-6">
-              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.order_type</div>
+          <div ng-if="vm.order">
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.date</div>
+              </div>
+              <div class="col-xs-6">
+                {{vm.order.created_at | date: 'dd/MM/yyyy'}}
+              </div>
             </div>
-            <div class="col-xs-6">
-              {{vm.order.event_type}}
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.order_type</div>
+              </div>
+              <div class="col-xs-6">
+                {{vm.order.event_type}}
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-6">
-              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.status</div>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.status</div>
+              </div>
+              <div class="col-xs-6">
+                {{vm.order.status}}
+                <a class="label-cell" href="" ng-hide="!vm.displayInfoTooltip()" ng-click="vm.displayStatusInfo()"><i class="fa fa-info-circle"></i></a>
+              </div>
             </div>
-            <div class="col-xs-6">
-              {{vm.order.status}}
-              <a class="label-cell" href="" ng-hide="!vm.displayInfoTooltip()" ng-click="vm.displayStatusInfo()"><i class="fa fa-info-circle"></i></a>
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="col-xs-6">
-              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.message</div>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.message</div>
+              </div>
+              <div class="col-xs-6">
+                {{vm.order.message}}
+              </div>
             </div>
-            <div class="col-xs-6">
-              {{vm.order.message}}
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.approval</div>
+              </div>
+              <div class="col-xs-3">
+                <button role="button" ng-click="vm.approveOrder()" ng-disabled="vm.disableApproval() || vm.isAccountManager" class="btn btn-primary btn-xs" translate>
+                  mnoe_admin_panel.dashboard.order.approve
+                </button>
+              </div>
+              <div class="col-xs-3">
+                <button role="button" ng-click="vm.cancelOrder()" ng-disabled="vm.disableCancel() || vm.isAccountManager" class="btn btn-primary btn-xs" translate>
+                  mnoe_admin_panel.dashboard.order.reject
+                </button>
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-6">
-              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.approval</div>
-            </div>
-            <div class="col-xs-3">
-              <button role="button" ng-click="vm.approveOrder()" ng-disabled="vm.disableApproval() || vm.isAccountManager" class="btn btn-primary btn-xs" translate>
-                mnoe_admin_panel.dashboard.order.approve
-              </button>
-            </div>
-            <div class="col-xs-3">
-              <button role="button" ng-click="vm.cancelOrder()" ng-disabled="vm.disableCancel() || vm.isAccountManager" class="btn btn-primary btn-xs" translate>
-                mnoe_admin_panel.dashboard.order.reject
-              </button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-6">
-            </div>
-            <div class="col-xs-6">
-              {{vm.orderWorkflowExplanation() | translate}}
+            <div class="row">
+              <div class="col-xs-6">
+              </div>
+              <div class="col-xs-6">
+                {{vm.orderWorkflowExplanation() | translate}}
+              </div>
             </div>
           </div>
         </mno-widget-body>

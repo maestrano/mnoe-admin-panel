@@ -76,7 +76,7 @@
       )
 
   vm.displayInfoTooltip = ->
-    vm.order.status == 'aborted'
+    vm.order.status == 'aborted' if vm.order
 
   # Admin can only accept a #subscription_event(i.e. order) when subscription event is requested.
   vm.disableApproval = ->
