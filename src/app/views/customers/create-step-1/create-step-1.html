@@ -9,7 +9,7 @@
           <mno-widget-body>
             <div class="flex-container flex-center">
               <div class="form-group flex-50">
-                <label class="control-label" for="organization-name" translate>mnoe_admin_panel.dashboard.customers.create_customer.organization_name</label>
+                <label class="control-label" for="organization-name" translate>mnoe_admin_panel.dashboard.customers.create_customer.organization_name</label>*
                 <input id="organization-name" name="{{'mnoe_admin_panel.dashboard.customers.create_customer.name' | translate}}" type="text" ng-model="vm.organization.name" class="form-control" required>
                 <div ng-messages="vm.form.name.$error" role="alert" ng-if="vm.form.name.$dirty || vm.form.$submitted">
                   <p ng-message="required" class="text-danger" translate>mnoe_admin_panel.dashboard.customers.create_customer.required.name</p>
@@ -46,7 +46,7 @@
           </mno-widget-body>
         </mno-widget>
 
-        <button type="submit" class="btn btn-danger pull-right top-buffer-2" ng-click="vm.submitOrganisation()" ng-disabled="vm.isLoading">
+        <button type="submit" class="btn btn-danger pull-right top-buffer-2" ng-click="vm.submitOrganisation()" ng-disabled="vm.isLoading || vm.form.$invalid">
           <span ng-show="vm.isLoading">
             <i class="fa fa-spinner fa-pulse fa-fw"></i>
           </span>
