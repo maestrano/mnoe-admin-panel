@@ -5,6 +5,7 @@
   orgPromise = MnoeOrganizations.get($stateParams.orgId)
   vm.subscription = MnoeProvisioning.getCachedSubscription()
   vm.selectedCurrency = MnoeProvisioning.getSelectedCurrency()
+  vm.cartItem = $stateParams.cart == 'true'
 
   vm.editOrder = (reload = false) ->
     params = {
@@ -47,11 +48,11 @@
 
   vm.validate = () ->
     vm.isLoading = true
-    vm.subscription.cart_entry = true if $stateParams.cart
+    vm.subscription.cart_entry = true if vm.cartItem
     vm.subscription.edit_action = $stateParams.editAction
     MnoeProvisioning.saveSubscription(vm.subscription, vm.selectedCurrency).then(
       (subscription) ->
-        if $stateParams.cart == 'true' && $stateParams.editAction == 'cancel'
+        if vm.cartItem
           $state.go("dashboard.customers.organization", {orgId: $stateParams.orgId})
         else
           $state.go('dashboard.provisioning.order_summary', {orgId: $stateParams.orgId, subscriptionId: subscription.id, editAction: $stateParams.editAction})
