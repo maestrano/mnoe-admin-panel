@@ -79,6 +79,12 @@
     vm.organization.billing_currency = null
     vm.updateOrganization()
 
+  vm.isCreditShown = () ->
+    b = vm.organization.billing
+    b &&
+    b.credit &&
+    b.credit.value > 0
+
   vm.openSelectProductModal = () ->
     modalInstance = $uibModal.open(
       component: 'mnoProductSelectorModal'

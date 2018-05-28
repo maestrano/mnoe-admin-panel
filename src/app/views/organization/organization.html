@@ -103,6 +103,17 @@
                   {{(vm.organization.credit_card.updated_at | date: 'dd/MM/yyyy') || ('mnoe_admin_panel.dashboard.organization.credit_card_updated.never' | translate)}}
                 </div>
               </div>
+              <div class='row' ng-show="isCreditShown()">
+                <div class='col-xs-6'>
+                  <div class='label-cell' translate>
+                    mnoe_admin_panel.dashboard.organization.current_credit
+                  </div>
+                </div>
+                <div class='col-xs-6'>
+                  {{ vm.organization.billing.credit.value | currency: vm.organization.billing.credit.options.symbol }}
+                  ({{ vm.organization.billing.credit.options.iso_code }})
+                </div>
+              </div>
               <div class="row">
                 <div class="col-sm-6">
                   <div class="label-cell">{{'mnoe_admin_panel.dashboard.organization.active_apps' | translate}}
