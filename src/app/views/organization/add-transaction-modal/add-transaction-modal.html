@@ -1,0 +1,51 @@
+<div id='add-transaction-modal'>
+  <div class='modal-header'>
+    <h3 class='modal-title' translate>
+      mnoe_admin_panel.dashboard.organization.accounting_transaction.add
+    </h3>
+  </div>
+
+  <form name="vm.form.account_transaction" novalidate>
+    <div class='modal-body'>
+      <div class='row'>
+        <div class='col-sm-6'>
+          <select class='form-control' name='currency' ng-model="vm.account_transaction.currency" ng-options="v for v in vm.currencies" required>
+            <option value selected translate>
+              mnoe_admin_panel.dashboard.pricing.pricing_plans.edition.prices.currency_placeholder
+            </option>
+          </select>
+        </div>
+        <div class='col-sm-6'>
+          <input type='number' class='form-control' id='transaction-amount' ng-model="vm.account_transaction.amount"
+          placeholder="{{'mnoe_admin_panel.dashboard.organization.accounting_transaction.form.amount' | translate}}" required>
+        </div>
+      </div>
+
+      <div class='row top-buffer-2'>
+        <div class='col-sm-6'>
+          <select ng-model="vm.account_transaction.side" class='form-control' ng-options="side.value as side.label | translate for side in vm.TRANSACTION_TYPES" required>
+            <option value selected translate>
+              mnoe_admin_panel.dashboard.organization.accounting_transaction.form.transaction_type
+            </option>
+          </select>
+        </div>
+        <div class='col-sm-6'>
+          <input type='text' class='form-control' id='transaction-description' ng-model="vm.account_transaction.description"
+          placeholder="{{'mnoe_admin_panel.dashboard.organization.accounting_transaction.form.description' | translate}}" required>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class='modal-footer'>
+    <div class='row actions'>
+      <div class='col-xs-12'>
+        <button type='button' ng-click="vm.onSubmit()" ng-disabled="vm.isLoading || vm.form.account_transaction.$invalid" class='btn btn-primary'>
+          <span ng-show="vm.isLoading"><i class='fa fa-spinner fa-pulse fa-fw'></i></span>
+          {{'mnoe_admin_panel.dashboard.organization.create_user.save' | translate}}
+        </button>
+        <a ng-click="vm.onCancel()"><i class='fa fa-times'></i>{{'mnoe_admin_panel.dashboard.organization.create_user.cancel' | translate}}</a>
+      </div>
+    </div>
+  </div>
+</div>
