@@ -23,13 +23,14 @@
       vm.filteredApps = vm.enabledApps
 
   resetFilteredApps = () ->
+    vm.isLoading = true
     MnoeMarketplace.getApps().then(
       (response) ->
         vm.enabledApps = angular.copy(response.data.apps)
         vm.selectedCategory = ''
         vm.searchTerm = ''
         vm.filteredApps = vm.enabledApps
-    )
+    ).finally(-> vm.isLoading = false)
 
   vm.openRemoveAppModal = (app, $index)->
     MnoConfirm.showModal(
@@ -79,6 +80,7 @@
 
   # Load config from the Tenant
   init = ->
+    vm.isLoading = true
     MnoeMarketplace.getApps().then(
       (response) ->
         # Copy the marketplace as we will work on the cached object
@@ -86,7 +88,7 @@
         vm.filteredApps = vm.enabledApps
         vm.categories = angular.copy(response.data.categories)
         vm.displayCategories = vm.categories.length > 0
-    )
+    ).finally(-> vm.isLoading = false)
     MnoeTenant.get().then(
       (response) ->
         vm.tenantManagement = response.data.app_management == "tenant")
