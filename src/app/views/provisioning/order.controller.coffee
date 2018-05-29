@@ -64,7 +64,9 @@
     fetchSubscription()
       .then(fetchProduct)
       .then(fetchCustomSchema)
-      .then(() -> vm.next(vm.subscription) if vm.skipPriceSelection(vm.subscription.product))
+      .then(() ->
+        vm.next(vm.subscription) if ProvisioningHelper.skipPriceSelection(vm.subscription.product)
+        )
       .catch((error) ->
         toastr.error('mnoe_admin_panel.dashboard.provisioning.subscriptions.product_error')
         $state.go('dashboard.customers.organization', {orgId: $stateParams.orgId})
@@ -93,11 +95,6 @@
       else
         MnoeProvisioning.setSubscription({})
   )
-
-  # Skip pricing selection for products with product_type 'application' if
-  # single billing is disabled or if single billing is enabled but externally managed
-  vm.skipPriceSelection = (product) ->
-    product.product_type == 'application' && (!product.single_billing_enabled || !product.billed_locally)
 
   return
 )
