@@ -2,12 +2,12 @@
 
   vm = this
   vm.subscription = MnoeProvisioning.getCachedSubscription()
-  # vm.currencies = []
   vm.isLoading = true
   vm.selectedCurrency = ""
   vm.filteredPricingPlans = []
-
   vm.pricedPlan = ProvisioningHelper.pricedPlan
+  vm.skipPriceSelection = ProvisioningHelper.skipPricingPlans
+
   urlParams = {
     productId: $stateParams.productId,
     orgId: $stateParams.orgId,
@@ -15,8 +15,6 @@
     editAction: $stateParams.editAction,
     cart: $stateParams.cart
   }
-
-  vm.skipPriceSelection = ProvisioningHelper.skipPricingPlans
 
   vm.next = (subscription, currency) ->
     MnoeProvisioning.setSubscription(subscription)
@@ -52,7 +50,6 @@
       vm.selectedCurrency = vm.orgCurrency
     else
       vm.selectedCurrency = vm.currencies[0]
-
 
 
   fetchProduct = () ->
