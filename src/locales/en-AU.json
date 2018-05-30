@@ -710,6 +710,7 @@
   "mnoe_admin_panel.dashboard.subscription.status": "Status",
   "mnoe_admin_panel.dashboard.subscription.reference": "Subscription #",
   "mnoe_admin_panel.dashboard.subscription.fulfill": "Fulfill subscription",
+  "mnoe_admin_panel.dashboard.order.no_order": "There are no pending orders for this subscription",
   "mnoe_admin_panel.dashboard.order.date": "Date Placed",
   "mnoe_admin_panel.dashboard.order.order_type": "Order type",
   "mnoe_admin_panel.dashboard.order.status": "Status",

@@ -54,7 +54,7 @@
 
         # If the user is not viewing a specific order, show the non-obsolete subscription event.
         unless vm.orderId
-          vm.order = _.find(response.data.subscription_events, (s) -> !s.obsolete)
+          vm.order = _.find(vm.subscriptionEvents, (s) -> !s.obsolete)
     )
 
   fetchSubscriptionEvents()
@@ -76,7 +76,7 @@
       )
 
   vm.displayInfoTooltip = ->
-    vm.order.status == 'aborted'
+    vm.order.status == 'aborted' if vm.order
 
   # Admin can only accept a #subscription_event(i.e. order) when subscription event is requested.
   vm.disableApproval = ->
