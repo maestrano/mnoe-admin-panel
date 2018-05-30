@@ -20,6 +20,20 @@
     editAction: $stateParams.editAction,
     cart: $stateParams.cart
 
+  # Pricing does not need to be chosen if pricing can be skipped, or if you have already chosen a pricing.
+  skipPricing = () ->
+    vm.subscription.product_pricing || ProvisioningHelper.skipPriceSelection(vm.subscription.product)
+
+  handleRedirect = (product) ->
+    # If there is a custom schema and we can skip pricing, stay on this page.
+    return if product.custom_schema && skipPricing()
+    # If there is no custom schema and pricings are skipped -- go directly to the confirm page.
+    if skipPricing()
+      $state.go('dashboard.provisioning.confirm', urlParams, {reload: true})
+    # Default: If we can't skip pricings, we must go back to the order page to choose a price. Happens when we reload page on a new order.
+    else
+      $state.go('dashboard.provisioning.order', urlParams, {reload: true})
+
   # The schema is contained in field vm.product.custom_schema
   #
   # jsonref is used to resolve $ref references
@@ -27,14 +41,17 @@
   # reasonable number of passes (2 below + 1 in the sf-schema directive)
   # to resolve cyclic references
   setCustomSchema = (product) ->
+    # Handle redirects.
+    handleRedirect(product)
     vm.model = vm.subscription.custom_data || {}
-    return $state.go('dashboard.provisioning.confirm', urlParams, {reload: true}) unless product.custom_schema
-    schemaForm.jsonref(JSON.parse(product.custom_schema))
+    parsedSchema = JSON.parse(product.custom_schema)
+    schema = parsedSchema.json_schema || parsedSchema
+    vm.form = parsedSchema.asf_options || ["*"]
+    schemaForm.jsonref(schema)
       .then((schema) -> schemaForm.jsonref(schema))
       .then((schema) -> schemaForm.jsonref(schema))
       .then((schema) ->
-        vm.schema = if schema.json_schema then schema.json_schema else schema
-        vm.form = if schema.asf_options then schema.asf_options else ["*"]
+        vm.schema = schema
         )
 
   fetchSubscription = () ->
@@ -69,7 +86,6 @@
       )
 
   if _.isEmpty(vm.subscription)
-    $state.go('home.provisioning.order', urlParams, {reload: true}) if urlParams.editAction == 'new'
     vm.isLoading = true
     fetchSubscription().then(fetchProduct).then(fetchCustomSchema)
       .then(() -> setCustomSchema(vm.subscription.product))
@@ -78,11 +94,8 @@
         $state.go('dashboard.customers.organization', {orgId: urlParams.orgId})
         )
       .finally(() -> vm.isLoading = false)
-  # Ensure that the subscription has a product_pricing and custom schema, otherwise redirect to order page.
-  else if vm.subscription.product?.custom_schema && vm.subscription.product_pricing
-    setCustomSchema(vm.subscription.product)
   else
-    $state.go('dashboard.provisioning.order', urlParams, {reload: true})
+    setCustomSchema(vm.subscription.product)
 
   vm.submit = (form) ->
     $scope.$broadcast('schemaFormValidate')
