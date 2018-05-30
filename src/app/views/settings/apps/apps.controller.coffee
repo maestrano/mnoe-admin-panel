@@ -6,6 +6,7 @@
   vm.filteredApps = []
   vm.selectedCategory = ''
   vm.searchTerm = ''
+  vm.isLoading = true
 
   vm.tenantManagement = false
 
@@ -80,7 +81,6 @@
 
   # Load config from the Tenant
   init = ->
-    vm.isLoading = true
     MnoeMarketplace.getApps().then(
       (response) ->
         # Copy the marketplace as we will work on the cached object
