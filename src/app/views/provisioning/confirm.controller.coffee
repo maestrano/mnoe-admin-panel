@@ -22,15 +22,15 @@
         $state.go('dashboard.provisioning.additional_details', params, {reload: reload})
 
   setCustomSchema = () ->
-    vm.model = vm.subscription.custom_data || {}
-    schemaForm.jsonref(JSON.parse(vm.subscription.product.custom_schema))
+    parsedSchema = JSON.parse(product.custom_schema)
+    schema = parsedSchema.json_schema || parsedSchema
+    vm.form = parsedSchema.asf_options || ["*"]
+    schemaForm.jsonref(schema)
       .then((schema) -> schemaForm.jsonref(schema))
       .then((schema) -> schemaForm.jsonref(schema))
       .then((schema) ->
-        vm.schema = schema.json_schema || schema
-        vm.form = schema.asf_options || ["*"]
+        vm.schema = schema
       )
-
   # Happen when the user reload the browser during the provisioning
   if _.isEmpty(vm.subscription)
     # Redirect the user to the first provisioning screen
