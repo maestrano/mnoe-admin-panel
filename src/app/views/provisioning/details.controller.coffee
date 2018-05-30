@@ -46,7 +46,7 @@
     vm.model = vm.subscription.custom_data || {}
     parsedSchema = JSON.parse(product.custom_schema)
     schema = parsedSchema.json_schema || parsedSchema
-    vm.form = schema.asf_options || ["*"]
+    vm.form = parsedSchema.asf_options || ["*"]
     schemaForm.jsonref(schema)
       .then((schema) -> schemaForm.jsonref(schema))
       .then((schema) -> schemaForm.jsonref(schema))
