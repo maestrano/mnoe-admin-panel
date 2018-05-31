@@ -22,7 +22,7 @@
         $state.go('dashboard.provisioning.additional_details', params, {reload: reload})
 
   setCustomSchema = () ->
-    parsedSchema = JSON.parse(product.custom_schema)
+    parsedSchema = JSON.parse(vm.subscription.product.custom_schema)
     schema = parsedSchema.json_schema || parsedSchema
     vm.form = parsedSchema.asf_options || ["*"]
     schemaForm.jsonref(schema)

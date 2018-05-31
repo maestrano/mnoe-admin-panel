@@ -67,7 +67,7 @@
   </mno-widget>
 
   <!-- Display Read-Only Custom Form Data If It Exists -->
-  <div ng-show="vm.subscription.custom_data && vm.subscription.product.custom_schema">
+  <div ng-if="vm.subscription.custom_data && vm.subscription.product.custom_schema">
     <mno-widget is-loading="vm.isLoading">
       <mno-widget-header></mno-widget-header>
       <mno-widget-body>
