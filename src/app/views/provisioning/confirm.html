@@ -9,11 +9,35 @@
       </div>
     </mno-widget-header>
     <mno-widget-body class="no-padding">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th style="width: 33%">{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.order_type' | translate }}</th>
+          <th ng-show="vm.subscription.product.product_type == 'application'">{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.pricing_info.title' | translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{ vm.orderTypeText | translate }}</td>
+          <td ng-show="vm.subscription.product.product_type == 'application'">
+            <span ng-hide="vm.singleBilling">
+              {{ 'mnoe_admin_panel.dashboard.provisioning.confirm.pricing_info.single_billing_disabled' | translate }}
+            </span>
+            <span ng-show="vm.singleBilling && !vm.billedLocally">
+              {{ 'mnoe_admin_panel.dashboard.provisioning.confirm.pricing_info.externally_managed' | translate }}
+            </span>
+            <span ng-show="vm.singleBilling && vm.billedLocally">
+              {{ 'mnoe_admin_panel.dashboard.provisioning.confirm.pricing_info.billed_locally' | translate }}
+            </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
       <table class="table table-striped" ng-show="(vm.singleBilling && vm.billedLocally) || vm.subscription.product.product_type != 'application'">
         <thead>
         <tr>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.name' | translate }}</th>
-          <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.order_type' | translate }}</th>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.description' | translate }}</th>
           <th style="width: 25%">{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.price' | translate }}</th>
         </tr>
@@ -21,7 +45,6 @@
         <tbody>
         <tr>
           <td>{{ vm.subscription.product_pricing.name }}</td>
-          <td>{{ vm.orderTypeText | translate }}</td>
           <td>{{ vm.subscription.product_pricing.description }}</td>
           <td>
             <span ng-show="vm.pricedPlan(vm.subscription.product_pricing)" ng-repeat="price in vm.subscription.product_pricing.prices | filterBy: ['currency']: vm.selectedCurrency" class="badge">
@@ -35,29 +58,6 @@
             </span>
             <span ng-show="vm.subscription.product_pricing.pricing_type == 'free'">
               {{ 'mnoe_admin_panel.dashboard.provisioning.order.pricing_type.free' | translate }}
-            </span>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-
-      <table class="table table-striped" ng-show="vm.subscription.product.product_type == 'application'">
-        <thead>
-        <tr>
-          <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.pricing_info.title' | translate }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>
-            <span ng-hide="vm.singleBilling">
-              {{ 'mnoe_admin_panel.dashboard.provisioning.confirm.pricing_info.single_billing_disabled' | translate }}
-            </span>
-            <span ng-show="vm.singleBilling && !vm.billedLocally">
-              {{ 'mnoe_admin_panel.dashboard.provisioning.confirm.pricing_info.externally_managed' | translate }}
-            </span>
-            <span ng-show="vm.singleBilling && vm.billedLocally">
-              {{ 'mnoe_admin_panel.dashboard.provisioning.confirm.pricing_info.billed_locally' | translate }}
             </span>
           </td>
         </tr>
