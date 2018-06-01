@@ -37,3 +37,7 @@
   .constant('PRICING_TYPES', {
     'unpriced': ['free', 'payg']
   })
+  .constant('TRANSACTION_TYPES', [
+    {value: 'credit', label: 'mnoe_admin_panel.constants.transaction_types.credit'},
+    {value: 'debit', label: 'mnoe_admin_panel.constants.transaction_types.debit'}
+  ])

@@ -1,4 +1,4 @@
-@App.controller 'OrganizationController', ($filter, $state, $stateParams, $uibModal, toastr, MnoeAdminConfig, MnoeOrganizations, MnoeUsers, MnoAppsInstances) ->
+@App.controller 'OrganizationController', ($filter, $state, $stateParams, $uibModal, toastr, MnoeAdminConfig, MnoeOrganizations, MnoeUsers, MnoAppsInstances, MnoeTenant) ->
   'ngInject'
   vm = this
 
@@ -26,13 +26,20 @@
         vm.organization.members.push(user)
     )
 
-  # Get the organization
-  MnoeOrganizations.get($stateParams.orgId).then(
+  initOrganization = ->
+    # Get the organization
+    MnoeOrganizations.get($stateParams.orgId).then(
+      (response) ->
+        vm.organization = response.data.plain()
+        vm.organization.invoices = $filter('orderBy')(vm.organization.invoices, '-started_at')
+        vm.updateStatus()
+    ).finally(-> vm.isLoading = false)
+  initOrganization()
+
+  MnoeTenant.get().then(
     (response) ->
-      vm.organization = response.data.plain()
-      vm.organization.invoices = $filter('orderBy')(vm.organization.invoices, '-started_at')
-      vm.updateStatus()
-  ).finally(-> vm.isLoading = false)
+      vm.orgCreditManagement = response.data.organization_credit_management
+  )
 
   vm.freezeOrganization = ->
     MnoeOrganizations.freeze(vm.organization).then(
@@ -111,6 +118,23 @@
         if result
           vm.organization.active_apps.splice(index, 1)
           vm.updateStatus()
+    )
+
+  vm.openTransactionModal = ->
+    modalInstance = $uibModal.open(
+      templateUrl: 'app/views/organization/add-transaction-modal/add-transaction-modal.html'
+      controller: 'AddTransactionModalCtrl'
+      controllerAs: 'vm'
+      backdrop: 'static'
+      windowClass: 'add-transaction-modal'
+      size: 'md'
+      resolve:
+        organization: vm.organization
+    )
+    modalInstance.result.then(
+      (result) ->
+        vm.isLoading = true
+        initOrganization()
     )
 
   return vm
