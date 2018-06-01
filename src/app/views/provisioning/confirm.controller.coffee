@@ -1,4 +1,4 @@
-@App.controller('ProvisioningConfirmCtrl', ($scope, $q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, ProvisioningHelper) ->
+@App.controller('ProvisioningConfirmCtrl', ($scope, $q, $state, $stateParams, MnoeOrganizations, MnoeProvisioning, MnoeAdminConfig, ProvisioningHelper, schemaForm) ->
   vm = this
 
   vm.isLoading = true
@@ -22,6 +22,16 @@
       else
         $state.go('dashboard.provisioning.additional_details', params, {reload: reload})
 
+  setCustomSchema = () ->
+    parsedSchema = JSON.parse(vm.subscription.product.custom_schema)
+    schema = parsedSchema.json_schema || parsedSchema
+    vm.form = parsedSchema.asf_options || ["*"]
+    schemaForm.jsonref(schema)
+      .then((schema) -> schemaForm.jsonref(schema))
+      .then((schema) -> schemaForm.jsonref(schema))
+      .then((schema) ->
+        vm.schema = schema
+      )
   # Happen when the user reload the browser during the provisioning
   if _.isEmpty(vm.subscription)
     # Redirect the user to the first provisioning screen
@@ -30,6 +40,8 @@
     vm.singleBilling = vm.subscription.product.single_billing_enabled
     vm.billedLocally = vm.subscription.product.billed_locally
     vm.subscription.edit_action = $stateParams.editAction
+    # Render custom Schema if it exists
+    setCustomSchema() if vm.subscription.custom_data && vm.subscription.product.custom_schema
 
   vm.orderTypeText = 'mnoe_admin_panel.dashboard.provisioning.subscriptions.' + $stateParams.editAction.toLowerCase()
 
