@@ -14,7 +14,7 @@
           <th></th>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.order.name' | translate }}</th>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.order.description' | translate }}</th>
-          <th style="width: 25%">{{ 'mnoe_admin_panel.dashboard.provisioning.order.price' | translate }}</th>
+          <th id="order-price">{{ 'mnoe_admin_panel.dashboard.provisioning.order.price' | translate }}</th>
           <th><select class="form-control" ng-if="::main.adminConfig.isCurrencySelectionEnabled()" ng-model="vm.selectedCurrency" ng-options="c for c in vm.currencies" ng-change="vm.filterCurrencies()">
           </select></th>
         </tr>

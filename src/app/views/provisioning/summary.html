@@ -12,7 +12,7 @@
       <table class="table table-striped">
         <thead>
         <tr>
-          <th style="width: 33%">{{ 'mnoe_admin_panel.dashboard.provisioning.summary.order_type' | translate }}</th>
+          <th id="order-type">{{ 'mnoe_admin_panel.dashboard.provisioning.summary.order_type' | translate }}</th>
           <th ng-show="vm.subscription.product.product_type == 'application'">{{ 'mnoe_admin_panel.dashboard.provisioning.summary.pricing_info.title' | translate }}</th>
         </tr>
         </thead>
@@ -39,7 +39,7 @@
         <tr>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.summary.name' | translate }}</th>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.summary.description' | translate }}</th>
-          <th style="width: 25%">{{ 'mnoe_admin_panel.dashboard.provisioning.summary.price' | translate }}</th>
+          <th id="summary-price">{{ 'mnoe_admin_panel.dashboard.provisioning.summary.price' | translate }}</th>
         </tr>
         </thead>
         <tbody>
