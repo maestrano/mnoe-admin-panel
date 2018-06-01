@@ -1,5 +1,5 @@
 #
-# Mnoe organizations List
+# Mnoe Subscriptions List
 #
 @App.component('mnoeSubscriptionsList', {
   templateUrl: 'app/components/mnoe-subscriptions-list/mnoe-subscriptions-list.html',
@@ -10,7 +10,7 @@
     filters: '<'
     titleKey: '@'
   }
-  controller: ($state, $uibModal, $stateParams, MnoeCurrentUser, MnoeProvisioning, UserRoles) ->
+  controller: ($state, $uibModal, $stateParams, MnoeCurrentUser, MnoeProvisioning, UserRoles, MnoeObservables, OBS_KEYS) ->
     ctrl = this
     ctrl.organizationId = $stateParams.orgId
 
@@ -84,6 +84,11 @@
           $state.go('dashboard.provisioning.order', params)
         else
           $state.go('dashboard.provisioning.additional_details', params)
+
+    onSubscriptionEventUpdate = () ->
+      fetchSubscriptions(ctrl.subscriptions.nbItems, ctrl.subscriptions.offset)
+
+    MnoeObservables.registerCb(OBS_KEYS.subscriptionEventChanged, onSubscriptionEventUpdate)
 
     return
 })

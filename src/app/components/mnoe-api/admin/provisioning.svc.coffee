@@ -1,5 +1,5 @@
 # Service for managing the users.
-@App.service 'MnoeProvisioning', ($q, $log, MnoeAdminApiSvc, MnoeOrganizations, MnoErrorsHandler) ->
+@App.service 'MnoeProvisioning', ($q, $log, MnoeAdminApiSvc, MnoeOrganizations, MnoErrorsHandler, MnoeObservables, OBS_KEYS) ->
   _self = @
 
   subscriptionsApi = (id) ->
@@ -153,14 +153,20 @@
     )
 
   @rejectSubscriptionEvent = (s) ->
-    MnoeAdminApiSvc.one('subscription_events', s.id).post('/reject').catch(
+    MnoeAdminApiSvc.one('subscription_events', s.id).post('/reject').then(
+      (success) ->
+        MnoeObservables.notifyObservers(OBS_KEYS.subscriptionEventChanged, s.id)
+    ).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)
     )
 
   @approveSubscriptionEvent = (s) ->
-    MnoeAdminApiSvc.one('subscription_events', s.id).post('/approve').catch(
+    MnoeAdminApiSvc.one('subscription_events', s.id).post('/approve').then(
+      (success) ->
+        MnoeObservables.notifyObservers(OBS_KEYS.subscriptionEventChanged, s.id)
+    ).catch(
       (error) ->
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)
