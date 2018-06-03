@@ -72,6 +72,12 @@
 
     # Pipe for the sortable-table
     scope.pipe = (tableState) ->
+      # MonkeyPatch to prevent pipes from reloading data till
+      # first call is complete
+      if !scope.firstLoadIsDone
+        scope.firstLoadIsDone = true
+        return
+
       # The order has changed - reset pagination
       scope.users.page = 1
       scope.users.sortAttr = tableState.sort.predicate
@@ -93,7 +99,7 @@
 
     displayCurrentState = () ->
       setAllUsersList()
-      fetchUsers(scope.users.nbItems, 0, scope.users.sortAttr)
+      # fetchUsers(scope.users.nbItems, 0, scope.users.sortAttr)
 
     # Display all the users
     setAllUsersList = () ->
