@@ -70,7 +70,9 @@
       ).finally(-> ctrl.subscriptions.loading = false)
 
     ctrl.editToolTip = (editAction) ->
-      'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.' + editAction.toLowerCase() + '_tooltip'
+      cartText = if ctrl.companyCart && editAction == 'cancel' then 'cart.' else ''
+
+      'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.' + cartText + editAction.toLowerCase() + '_tooltip'
 
     ctrl.showEditAction = (subscription, editAction) ->
       editAction in subscription.available_actions
