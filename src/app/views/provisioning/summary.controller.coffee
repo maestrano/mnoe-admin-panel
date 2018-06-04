@@ -21,6 +21,14 @@
       vm.billedLocally = vm.subscription.product.billed_locally
   ).finally(-> vm.isLoading = false)
 
+  vm.pricingText = () ->
+    if !vm.singleBilling
+      'mnoe_admin_panel.dashboard.provisioning.summary.pricing_info.single_billing_disabled'
+    else if vm.billedLocally
+      'mnoe_admin_panel.dashboard.provisioning.summary.pricing_info.billed_locally'
+    else
+      'mnoe_admin_panel.dashboard.provisioning.summary.pricing_info.externally_managed'
+
   # Delete the cached subscription.
   $scope.$on('$stateChangeStart', (event, toState) ->
     MnoeProvisioning.setSubscription({})

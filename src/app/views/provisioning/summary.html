@@ -20,14 +20,8 @@
         <tr>
           <td>{{ vm.orderTypeText | translate }}</td>
           <td ng-show="vm.subscription.product.product_type == 'application'">
-            <span ng-hide="vm.singleBilling">
-              {{ 'mnoe_admin_panel.dashboard.provisioning.summary.pricing_info.single_billing_disabled' | translate }}
-            </span>
-            <span ng-show="vm.singleBilling && !vm.billedLocally">
-              {{ 'mnoe_admin_panel.dashboard.provisioning.summary.pricing_info.externally_managed' | translate }}
-            </span>
-            <span ng-show="vm.singleBilling && vm.billedLocally">
-              {{ 'mnoe_admin_panel.dashboard.provisioning.summary.pricing_info.billed_locally' | translate }}
+            <span>
+              {{ vm.pricingText() | translate }}
             </span>
           </td>
         </tr>
