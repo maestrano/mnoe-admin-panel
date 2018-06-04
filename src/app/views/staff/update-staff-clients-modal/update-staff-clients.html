@@ -27,7 +27,7 @@
           </tbody>
         </table>
       </mno-widget-body>
-      <mno-widget-footer ng-show="vm.organizations && !vm.organizations.loading">
+      <mno-widget-footer ng-show="vm.organizations && !vm.organizations.loading && !vm.searchMode">
         <mno-pagination
           page="vm.organizations.page"
           nb-items="vm.organizations.nbItems"
