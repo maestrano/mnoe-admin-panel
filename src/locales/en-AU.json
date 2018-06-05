@@ -472,6 +472,7 @@
   "mnoe_admin_panel.dashboard.provisioning.details.cancel_title": "Cancel your plan",
   "mnoe_admin_panel.dashboard.provisioning.details.next": "Next",
   "mnoe_admin_panel.dashboard.provisioning.confirm.title": "Confirm this subscription",
+  "mnoe_admin_panel.dashboard.provisioning.confirm.details_header": "Subscription details",
   "mnoe_admin_panel.dashboard.provisioning.confirm.name": "Name",
   "mnoe_admin_panel.dashboard.provisioning.confirm.description": "Description",
   "mnoe_admin_panel.dashboard.provisioning.confirm.licenses": "Licenses",

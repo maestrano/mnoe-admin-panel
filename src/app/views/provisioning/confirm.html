@@ -74,7 +74,7 @@
 
   <!-- Display Read-Only Custom Form Data If It Exists -->
   <div ng-if="vm.subscription.custom_data && vm.subscription.product.custom_schema">
-    <mno-widget is-loading="vm.isLoading">
+    <mno-widget icon="fa-info" heading="{{'mnoe_admin_panel.dashboard.provisioning.confirm.details_header' | translate}}" is-loading="vm.isLoading">
       <mno-widget-header></mno-widget-header>
       <mno-widget-body>
         <form name="vm.detailsForm" sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.subscription.custom_data" sf-options="{ formDefaults: { readonly: { true } } }"></form>
