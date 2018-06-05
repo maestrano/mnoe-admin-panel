@@ -6,7 +6,7 @@
     <div class="col-xs-6">
       <mno-widget icon="fa-shopping-basket" heading="{{'mnoe_admin_panel.dashboard.subscription.subscription_info' | translate}}" is-loading="vm.isLoading">
         <mno-widget-header></mno-widget-header>
-        <mno-widget-body class="medium">
+        <mno-widget-body>
           <div class="row">
             <div class="col-xs-6">
               <div class="label-cell" translate>mnoe_admin_panel.dashboard.subscription.reference</div>
@@ -45,6 +45,22 @@
             </div>
             <div class="col-xs-6">
               {{vm.subscription.product_pricing.name}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.subscription.price</div>
+            </div>
+            <div class="col-xs-6">
+              <mnoe-product-pricing-price subscription="vm.subscription" selected-currency="vm.subscription.currency">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.subscription.licenses</div>
+            </div>
+            <div class="col-xs-6">
+              {{vm.subscription.max_licenses}}
             </div>
           </div>
           <div class="row">

@@ -726,6 +726,8 @@
   "mnoe_admin_panel.dashboard.subscription.end_date": "End date",
   "mnoe_admin_panel.dashboard.subscription.product": "Product",
   "mnoe_admin_panel.dashboard.subscription.pricing_plan": "Pricing plan",
+  "mnoe_admin_panel.dashboard.subscription.price": "Price",
+  "mnoe_admin_panel.dashboard.subscription.licenses": "Licenses",
   "mnoe_admin_panel.dashboard.subscription.status": "Status",
   "mnoe_admin_panel.dashboard.subscription.reference": "Subscription #",
   "mnoe_admin_panel.dashboard.subscription.fulfill": "Fulfill subscription",
