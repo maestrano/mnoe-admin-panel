@@ -99,6 +99,7 @@
 
     displayCurrentState = () ->
       setAllUsersList()
+      fetchUsers(scope.users.nbItems, 0, scope.users.sortAttr)
 
     # Display all the users
     setAllUsersList = () ->
@@ -130,5 +131,5 @@
       ).finally(-> scope.users.loading = false)
 
     # Initial call
-    displayCurrentState()
+    setAllUsersList()
 )

@@ -102,6 +102,7 @@
 
     displayCurrentState = () ->
       setAllOrganizationsList()
+      fetchOrganizations(scope.organizations.nbItems, 0, scope.organizations.sortAttr)
 
     # Display all the organisations
     setAllOrganizationsList = () ->
@@ -142,5 +143,5 @@
       MnoeObservables.unsubscribe(OBS_KEYS.organizationChanged, onOrganizationChanged)
 
     # Initial call
-    displayCurrentState()
+    setAllOrganizationsList()
 )
