@@ -32,19 +32,19 @@
         <thead>
         <tr>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.name' | translate }}</th>
-          <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.description' | translate }}</th>
-          <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.licenses' | translate }}</th>
+          <th ng-show="vm.subscription.product_pricing.license_based">{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.licenses' | translate }}</th>
           <th id="confirm-price">{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.price' | translate }}</th>
+          <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.description' | translate }}</th>
         </tr>
         </thead>
         <tbody>
         <tr>
           <td>{{ vm.subscription.product_pricing.name }}</td>
-          <td>{{ vm.subscription.product_pricing.description }}</td>
-          <td>{{ vm.subscription.max_licenses }}</td>
+          <td ng-show="vm.subscription.product_pricing.license_based">{{ vm.subscription.max_licenses }}</td>
           <td>
             <mnoe-product-pricing-price subscription="vm.subscription" selected-currency="vm.selectedCurrency">
           </td>
+          <td>{{ vm.subscription.product_pricing.description }}</td>
         </tr>
         </tbody>
       </table>
