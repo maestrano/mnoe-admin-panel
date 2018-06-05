@@ -43,28 +43,7 @@
           <td>{{ vm.subscription.product_pricing.description }}</td>
           <td>{{ vm.subscription.max_licenses }}</td>
           <td>
-            <span ng-hide="vm.subscription.product_pricing.pricing_type == 'payg'">
-              <div ng-repeat="price in vm.subscription.product_pricing.prices | filterBy: ['currency']: vm.selectedCurrency" class="badge">
-                <span ng-hide="vm.subscription.product_pricing.license_based">
-                  {{ price.currency }} {{ price.price_cents / 100 | number:2 }}
-                  <span ng-show="vm.subscription.product_pricing.pricing_type == 'recurring'">
-                    / {{ vm.subscription.product_pricing.per_unit }} / {{ vm.subscription.product_pricing.per_duration }}
-                  </span>
-                </span>
-                <span ng-show="vm.subscription.product_pricing.license_based">
-                  {{ price.currency }} {{ price.price_cents / 100 * vm.subscription.max_licenses | number:2 }}
-                  <span ng-show="vm.subscription.product_pricing.pricing_type == 'recurring'">
-                    / {{ vm.subscription.product_pricing.per_duration }}
-                  </span>
-                </span>
-              </div>
-            </span>
-            <span ng-show="vm.subscription.product_pricing.pricing_type == 'payg'">
-              {{ 'mnoe_admin_panel.dashboard.provisioning.order.pricing_type.payg' | translate }}
-            </span>
-            <span ng-show="vm.subscription.product_pricing.pricing_type == 'free'">
-              {{ 'mnoe_admin_panel.dashboard.provisioning.order.pricing_type.free' | translate }}
-            </span>
+            <mnoe-product-pricing-price subscription="vm.subscription" selected-currency="vm.selectedCurrency">
           </td>
         </tr>
         </tbody>
