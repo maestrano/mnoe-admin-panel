@@ -7,7 +7,7 @@
     <mno-widget icon="fa-sitemap" heading="{{$ctrl.events.widgetTitle}}" is-loading="vm.organizations.loading">
       <mno-widget-header>
         {{ 'mnoe_admin_panel.dashboard.staff.update_staff_clients.title' | translate}}
-        <input ng-model="vm.organizations.search" ng-change="vm.searchChange()" placeholder="Search all"
+        <input ng-model="vm.organizations.search" ng-change="vm.searchChange()" ng-model-options='{ debounce: 1000 }' placeholder="Search all"
                class="form-control input-sm search-bar"/>
       </mno-widget-header>
       <mno-widget-body class="no-padding">
