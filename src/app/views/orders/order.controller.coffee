@@ -42,8 +42,8 @@
         MnoeProducts.fetchCustomSchema(vm.subscription.product.id).then((response) ->
           return unless response
           schema = JSON.parse(response)
-          vm.schema = if schema.json_schema then schema.json_schema else {}
-          vm.form = if schema.asf_options then schema.asf_options else ["*"]
+          vm.schema = schema.json_schema || schema
+          vm.form = schema.asf_options || ["*"]
       )
     ).finally(-> vm.isLoading = false)
 
