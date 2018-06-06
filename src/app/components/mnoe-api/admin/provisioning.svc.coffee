@@ -90,9 +90,10 @@
     return deferred.promise
 
   createSubscription = (s, c) ->
-    subscriptionsApi(s.organization_id).post({subscription:
-      {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, max_licenses: s.max_licenses, custom_data: s.custom_data, cart_entry: s.cart_entry
-      }}).catch(
+    subscriptionsApi(s.organization_id).post({
+      subscription: { product_id: s.product.id, cart_entry: s.cart_entry},
+      subscription_event_attributes: { currency: c, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data }
+      }).catch(
         (error) ->
           MnoErrorsHandler.processServerError(error)
     )
