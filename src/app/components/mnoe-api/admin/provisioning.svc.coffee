@@ -89,13 +89,28 @@
 
     return deferred.promise
 
+  subscriptionParams = (s, c) ->
+    {
+      subscription: {
+        product_id: s.product.id,
+        cart_entry: s.cart_entry,
+        subscription_events_attributes: [{
+          event_type: s.event_type,
+          product_pricing_id: s.product_pricing?.id,
+          subscription_details: {
+            start_date: s.start_date,
+            custom_data: s.custom_data,
+            currency: c,
+            max_licenses: s.max_licenses
+          }
+        }]
+      }
+    }
+
   createSubscription = (s, c) ->
-    subscriptionsApi(s.organization_id).post({
-      subscription: { product_id: s.product.id, cart_entry: s.cart_entry},
-      subscription_event_attributes: { currency: c, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data }
-      }).catch(
-        (error) ->
-          MnoErrorsHandler.processServerError(error)
+    subscriptionsApi(s.organization_id).post(subscriptionParams(s,c)).catch(
+      (error) ->
+        MnoErrorsHandler.processServerError(error)
     )
 
   updateSubscription = (s, c) ->
