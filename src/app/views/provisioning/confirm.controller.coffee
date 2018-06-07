@@ -93,5 +93,13 @@
         MnoeProvisioning.setSubscription({})
   )
 
+  vm.pricingText = () ->
+    if !vm.singleBilling
+      'mnoe_admin_panel.dashboard.provisioning.confirm.pricing_info.single_billing_disabled'
+    else if vm.billedLocally
+      'mnoe_admin_panel.dashboard.provisioning.confirm.pricing_info.billed_locally'
+    else
+      'mnoe_admin_panel.dashboard.provisioning.confirm.pricing_info.externally_managed'
+
   return
 )

@@ -9,19 +9,36 @@
       </div>
     </mno-widget-header>
     <mno-widget-body class="no-padding">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th id="order-type">{{ 'mnoe_admin_panel.dashboard.provisioning.summary.order_type' | translate }}</th>
+          <th ng-show="vm.subscription.product.product_type == 'application'">{{ 'mnoe_admin_panel.dashboard.provisioning.summary.pricing_info.title' | translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{ vm.orderTypeText | translate }}</td>
+          <td ng-show="vm.subscription.product.product_type == 'application'">
+            <span>
+              {{ vm.pricingText() | translate }}
+            </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
       <table class="table table-striped" ng-show="vm.subscription.product_pricing">
         <thead>
         <tr>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.summary.name' | translate }}</th>
-          <th>{{ 'mnoe_admin_panel.dashboard.provisioning.summary.order_type' | translate }}</th>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.summary.description' | translate }}</th>
-          <th style="width: 25%">{{ 'mnoe_admin_panel.dashboard.provisioning.summary.price' | translate }}</th>
+          <th id="summary-price">{{ 'mnoe_admin_panel.dashboard.provisioning.summary.price' | translate }}</th>
         </tr>
         </thead>
         <tbody>
         <tr>
           <td>{{ vm.subscription.product_pricing.name }}</td>
-          <td>{{ vm.orderTypeText | translate }}</td>
           <td>{{ vm.subscription.product_pricing.description }}</td>
           <td>
             <span ng-show="vm.pricedPlan(vm.subscription.product_pricing)" ng-repeat="price in vm.subscription.product_pricing.prices | filterBy: ['currency']: vm.selectedCurrency" class="badge">
