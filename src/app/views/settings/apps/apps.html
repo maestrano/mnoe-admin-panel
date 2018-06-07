@@ -16,7 +16,8 @@
           </div>
         </mno-widget-header>
         <mno-widget-body>
-          <div class="row">
+          <mno-loading-ellipsis ng-show="vm.isLoading"></mno-loading-ellipsis>
+          <div class="row" ng-show="!vm.isLoading">
             <div class="col-sm-12">
               <div class="row apps-box">
                 <div class="app-wrapper col-xs-3 col-sm-2 col-md-2" ng-repeat="app in vm.filteredApps">
