@@ -6,6 +6,8 @@
   vm.subscription = MnoeProvisioning.getCachedSubscription()
   vm.selectedCurrency = MnoeProvisioning.getSelectedCurrency()
   vm.cartItem = $stateParams.cart == 'true'
+  vm.quoteFetched = true
+  vm.quoteBased = false
 
   vm.editOrder = (reload = false) ->
     params = {
@@ -32,6 +34,17 @@
       .then((schema) ->
         vm.schema = schema
       )
+
+  if vm.subscription.product_pricing?.quote_based
+    vm.quoteBased = true
+    vm.quoteFetched = false
+    MnoeProvisioning.getQuote(vm.subscription).then(
+      (response) ->
+        vm.quotedPrice = response.data.totalContractValue?.quote
+        vm.quotedCurrency = response.data.totalContractValue?.currency
+        vm.quoteFetched = true
+    )
+
   # Happen when the user reload the browser during the provisioning
   if _.isEmpty(vm.subscription)
     # Redirect the user to the first provisioning screen
