@@ -104,7 +104,7 @@
 
   vm.subscriptionPlanText = switch $stateParams.editAction.toLowerCase()
     when 'provision'
-      'mnoe_admin_panel.dashboard.provisioning.order.new_title'
+      'mnoe_admin_panel.dashboard.provisioning.order.provision_title'
     when 'change'
       'mnoe_admin_panel.dashboard.provisioning.order.change_title'
 
