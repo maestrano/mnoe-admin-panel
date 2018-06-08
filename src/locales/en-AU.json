@@ -483,7 +483,6 @@
   "mnoe_admin_panel.dashboard.provisioning.confirm.pricing_info.billed_locally": "Billing is operated via Maestrano",
   "mnoe_admin_panel.dashboard.provisioning.summary.title": "Order summary",
   "mnoe_admin_panel.dashboard.provisioning.summary.order_being_processed": "Your order is being processed by the provider.",
-  "mnoe_admin_panel.dashboard.provisioning.summary.manage_subscriptions": "You can manage your subscriptions and view its status in <a href=\"#!/subscriptions\">your subscriptions page</a>.",
   "mnoe_admin_panel.dashboard.provisioning.summary.subscriptions": "Subscriptions",
   "mnoe_admin_panel.dashboard.provisioning.summary.name": "Name",
   "mnoe_admin_panel.dashboard.provisioning.summary.order_type": "Order type",
