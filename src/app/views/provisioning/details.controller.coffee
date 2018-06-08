@@ -25,8 +25,6 @@
     vm.subscription.product_pricing || ProvisioningHelper.skipPriceSelection(vm.subscription.product)
 
   handleRedirect = (product) ->
-    # If there is a custom schema and we can skip pricing, stay on this page.
-    return if product.custom_schema && skipPricing()
     # If there is no custom schema and pricings are skipped -- go directly to the confirm page.
     if skipPricing()
       $state.go('dashboard.provisioning.confirm', urlParams, {reload: true})
@@ -41,8 +39,8 @@
   # reasonable number of passes (2 below + 1 in the sf-schema directive)
   # to resolve cyclic references
   setCustomSchema = (product) ->
-    # Handle redirects.
-    handleRedirect(product)
+    # If there is a custom schema and we can skip pricing, stay on this page.
+    return handleRedirect(product) unless product.custom_schema && skipPricing()
     vm.model = vm.subscription.custom_data || {}
     parsedSchema = JSON.parse(product.custom_schema)
     schema = parsedSchema.json_schema || parsedSchema
