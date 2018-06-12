@@ -58,7 +58,7 @@
         <tr>
           <td>
             <label>{{ 'mnoe_admin_panel.dashboard.provisioning.order.total' | translate }}:
-              <span ng-hide="vm.subscription.product_pricing.pricing_type == 'payg'" ng-repeat="price in vm.subscription.product_pricing.prices | filterBy: ['currency']: vm.orgCurrency" class="badge">
+              <span ng-show="vm.pricedPlan(vm.subscription.product_pricing.pricing_type)" ng-repeat="price in vm.subscription.product_pricing.prices | filterBy: ['currency']: vm.orgCurrency" class="badge">
                 {{ price.currency }} {{ price.price_cents / 100 * vm.subscription.max_licenses | number:2 }}
               </span>
               <span ng-show="vm.subscription.product_pricing.pricing_type == 'recurring'">
