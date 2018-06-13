@@ -1,4 +1,4 @@
-@App.controller 'OrganizationController', ($filter, $state, $stateParams, $uibModal, toastr, MnoeAdminConfig, MnoeOrganizations, MnoeUsers, MnoAppsInstances, MnoeTenant) ->
+@App.controller 'OrganizationController', ($log, $filter, $state, $stateParams, $uibModal, toastr, MnoeAdminConfig, MnoeOrganizations, MnoeUsers, MnoAppsInstances, MnoeTenant) ->
   'ngInject'
   vm = this
 
