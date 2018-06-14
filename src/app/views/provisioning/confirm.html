@@ -28,11 +28,11 @@
         </tbody>
       </table>
 
-      <table class="table table-striped" ng-show="(vm.singleBilling && vm.billedLocally) || vm.subscription.product.product_type != 'application'">
+      <table class="table table-striped" ng-show="vm.subscription.product_pricing">
         <thead>
         <tr>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.name' | translate }}</th>
-          <th ng-show="vm.subscription.product_pricing.license_based">{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.licenses' | translate }}</th>
+          <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.licenses' | translate }}</th>
           <th id="confirm-price">{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.price' | translate }}</th>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.description' | translate }}</th>
         </tr>
@@ -40,7 +40,17 @@
         <tbody>
         <tr>
           <td>{{ vm.subscription.product_pricing.name }}</td>
-          <td ng-show="vm.subscription.product_pricing.license_based">{{ vm.subscription.max_licenses }}</td>
+          <td>
+            <div ng-show="vm.subscription.max_licenses">
+              {{ vm.subscription.max_licenses }}
+            </div>
+            <div ng-hide="vm.subscription.max_licenses">
+              {{ 'mnoe_admin_panel.dashboard.provisioning.confirm.no_licenses.message' | translate }}
+              <span tooltip-append-to-body="true" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.provisioning.confirm.no_licenses.tooltip' | translate}}">
+                <i class='fa fa-question'></i>
+              </span>
+            </div>
+          </td>
           <td>
             <mnoe-product-pricing-prices subscription="vm.subscription" selected-currency="vm.selectedCurrency">
           </td>
