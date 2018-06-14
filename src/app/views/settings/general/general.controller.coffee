@@ -48,7 +48,8 @@
   # Load config from the Tenant
   loadConfig = ->
     vm.isLoading = true
-    $q.all(tenant: MnoeTenant.get(), marketplace: MnoeMarketplace.getApps()).then(
+    vm.tenantPurchaseable = "tenant_purchasable"
+    $q.all(tenant: MnoeTenant.get(), marketplace: MnoeMarketplace.getApps(vm.tenantPurchaseable)).then(
       (response) ->
         vm.settingsModel = response.tenant.data.frontend_config
         vm.originalSettings = angular.copy(vm.settingsModel)

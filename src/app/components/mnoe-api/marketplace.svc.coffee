@@ -10,7 +10,6 @@
 
   # Using this syntax will not trigger the data extraction in MnoeApiSvc
   # as the /marketplace payload isn't encapsulated in "{ marketplace: categories {...}, apps {...} }"
-  marketplaceApi = MnoeApiSvc.oneUrl('/marketplace')
 
   marketplacePromise = null
 
@@ -18,8 +17,10 @@
     marketplacePromise = null
     _self.getApps()
 
-  @getApps = () ->
-    return marketplacePromise if marketplacePromise?
+  @getApps = (tenant_purchasable) ->
+    purchasable = tenant_purchasable || 'user_purchasable'
+    marketplaceApi = MnoeApiSvc.oneUrl('/marketplace?purchasables='+purchasable)
+    return marketplacePromise if marketplacePromise? && !tenant_purchasable
     marketplacePromise = marketplaceApi.get()
 
   MnoeObservables.registerCb(OBS_KEYS.marketplaceChanged, refreshApps)

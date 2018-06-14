@@ -1,15 +1,26 @@
 # Service for managing the App catalogue.
-@App.service 'MnoeApps', ($q, toastr, MnoeAdminApiSvc, MnoeObservables, OBS_KEYS) ->
+@App.service 'MnoeApps', ($q, toastr, MnoeAdminApiSvc, MnoeObservables, OBS_KEYS, MnoErrorsHandler) ->
   _self = @
 
   appsPromise = null
+  subscribedTenantAppsPromise = null
 
-  @list = ->
+  @list = (params = {})->
     return appsPromise if appsPromise?
-    appsPromise = MnoeAdminApiSvc.all('apps').getList().catch(
+    appsPromise = MnoeAdminApiSvc.all('apps').getList(params).catch(
       (error) ->
         # Something went wrong
         toastr.error('mnoe_admin_panel.dashboard.settings.apps.retrieve.error')
+        MnoErrorsHandler.processServerError(error)
+        $q.reject(error)
+    )
+
+  @subscribedTenantAppsList = (params = {})->
+    return subscribedTenantAppsPromise if subscribedTenantAppsPromise?
+    subscribedTenantAppsPromise = MnoeAdminApiSvc.all('products').all('subscribed_tenant_products').getList(params).catch(
+      (error) ->
+        # Something went wrong
+        toastr.error('mnoe_admin_panel.dashboard.my-tools.apps.retrieve.error')
         MnoErrorsHandler.processServerError(error)
         $q.reject(error)
     )

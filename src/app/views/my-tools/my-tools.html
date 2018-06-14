@@ -1,4 +1,4 @@
-<div id="settings-apps">
+<div id="my-tools">
   <div class="row">
     <div class="col-xs-12">
       <!--<mno-widget icon="fa-th-large" heading="{{'mnoe_admin_panel.dashboard.settings.apps.available_apps' | translate}}">-->
@@ -12,7 +12,7 @@
                 <!--<option value=''>{{ 'mnoe_admin_panel.dashboard.settings.apps.select_all' | translate }}</option>-->
               <!--</select>-->
             <!--</div>-->
-            <!---->
+
           <!--</div>-->
         <!--</mno-widget-header>-->
         <!--<mno-widget-body>-->
@@ -27,7 +27,7 @@
                   <!--</div>-->
                 <!--</div>-->
                 <!--<div ng-if="vm.tenantManagement && !vm.isAccountManager" class="app-wrapper col-xs-3 col-sm-2 col-md-2">-->
-                  <!--<div class="small-app-card ellipsis add-app" ng-click="vm.openAddAppModal()">-->
+                  <!--<div class="small-app-card ellipsis add-app" ng-click="vm.openSelectProductModal()">-->
                     <!--<span>{{'mnoe_admin_panel.dashboard.organization.add_an_app' | translate}}<i class="fa fa-plus"></i></span>-->
                   <!--</div>-->
                 <!--</div>-->
@@ -36,7 +36,7 @@
           <!--</div>-->
         <!--</mno-widget-body>-->
       <!--</mno-widget>-->
-      <mnoe-purchasable-products-list purchasable="'user_purchasable'"></mnoe-purchasable-products-list>
+      <mnoe-purchasable-products-list purchasable="'tenant_purchasable'"></mnoe-purchasable-products-list>
     </div>
   </div>
 </div>

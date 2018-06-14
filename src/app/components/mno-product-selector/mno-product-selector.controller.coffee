@@ -10,7 +10,7 @@
     dismiss: '&'
   },
   templateUrl: 'app/components/mno-product-selector/mno-product-selector.html',
-  controller: ($window, $q, orderByFilter, MnoeProducts, MnoeApps, MnoeProvisioning) ->
+  controller: ($window, $q, orderByFilter, MnoeProducts, MnoeMarketplace, MnoeApps, MnoeProvisioning) ->
     'ngInject'
 
     $ctrl = this
@@ -25,11 +25,14 @@
               deferred.resolve response.data
           )
         when 'settings-add-new-app'
+          $ctrl.selectedProducts = if $ctrl.purchasableType == 'user_purchasable' then $ctrl.selectedProducts else $ctrl.selectedProducts[0]
           deferred.resolve $ctrl.selectedProducts
       deferred.promise
 
     $ctrl.$onInit = ->
       $ctrl.flag = $ctrl.resolve.dataFlag
+      $ctrl.isTenantPurchasableFlag = $ctrl.resolve.isTenantPurchasable || false
+      $ctrl.purchasableType = $ctrl.resolve.purchasableType || 'user_purchasable'
       $ctrl.resolveProducts()
       $ctrl.multiple = $ctrl.resolve.multiple
       $ctrl.modalHeight = ($window.innerHeight - 200) + "px"
@@ -58,14 +61,17 @@
           when 'organization-create-order'
             MnoeProducts.products(_, _, _, params)
           when 'settings-add-new-app'
-            MnoeApps.list().then(
+            params = { 'where[purchasables]': $ctrl.purchasableType }
+            MnoeApps.list(params).then(
               (response) ->
+                debuggerx
                 apps = $ctrl.resolve.enabledApps
                 # Copy the response, we're are modifying the response in place and
                 # don't want to modify the cached version in MnoeApps
                 resp = angular.copy(response)
                 enabledIds = _.map(apps, 'id')
-                _.remove(resp.data, (app)-> _.includes(enabledIds, app.id))
+                # TODO: We need to remove this check once we create the query structure for subscription based products
+                _.remove(resp.data, (app)-> _.includes(enabledIds, app.id)) unless $ctrl.purchasableType == 'tenant_purchasable'
                 resp
             )
 

@@ -15,6 +15,17 @@
       controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.home.title'
+    .state 'dashboard.tools',
+      data:
+        pageTitle: 'My Tools Selection'
+      url: '/my-tools'
+      templateUrl: 'app/views/my-tools/my-tools.html'
+      controller: 'MyToolsController'
+      controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.my-tools.title'
+      resolve:
+        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdminRole(['admin', 'staff'])
     .state 'dashboard.reviews',
       data:
         pageTitle:'Reviews'
