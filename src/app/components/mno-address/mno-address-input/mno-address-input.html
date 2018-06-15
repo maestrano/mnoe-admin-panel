@@ -1,44 +1,44 @@
 <div id="address">
   <div class="form-group">
     <div class="col-sm-6 address-field">
-      <label class="address-sub-label control-label">{{ 'mnoe_admin_panel.components.mno-address-input.street' | translate }}</label>
-      <input type="text" class="form-control" ng-model="address.street"/>
+      <label class="address-sub-label control-label">{{ 'mnoe_admin_panel.components.mno-address-input.street' | translate }}*</label>
+      <input type="text" class="form-control" ng-model="address.street" required/>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-6 address-field">
-      <label class="address-sub-label">{{ 'mnoe_admin_panel.components.mno-address-input.city' | translate }}</label>
-      <input type="text" class="form-control" ng-model="address.city"/>
+      <label class="address-sub-label">{{ 'mnoe_admin_panel.components.mno-address-input.city' | translate }}*</label>
+      <input type="text" class="form-control" ng-model="address.city" required/>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-6 address-field">
-      <label class="address-sub-label">{{ 'mnoe_admin_panel.components.mno-address-input.state' | translate }}</label>
-      <input type="text" class="form-control" ng-model="address.state_code"/>
+      <label class="address-sub-label">{{ 'mnoe_admin_panel.components.mno-address-input.state' | translate }}*</label>
+      <input type="text" class="form-control" ng-model="address.state_code" required/>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-6 address-field">
-      <label class="address-sub-label">{{ 'mnoe_admin_panel.components.mno-address-input.postal_code' | translate }}</label>
-      <input type="text" class="form-control" ng-model="address.postal_code"/>
+      <label class="address-sub-label">{{ 'mnoe_admin_panel.components.mno-address-input.postal_code' | translate }}*</label>
+      <input type="text" class="form-control" ng-model="address.postal_code" required/>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-6 address-field">
-      <label class="address-sub-label">{{ 'mnoe_admin_panel.components.mno-address-input.country' | translate }}</label>
-      <select class="form-control" ng-model="address.country_code" ng-options="country.alpha2 as country.name for country in validCountries()">
+      <label class="address-sub-label">{{ 'mnoe_admin_panel.components.mno-address-input.country' | translate }}*</label>
+      <select class="form-control" ng-model="address.country_code" ng-options="country.alpha2 as country.name for country in validCountries()" required>
         <option value='' disabled selected class="country-select">{{ 'mnoe_admin_panel.components.mno-address-input.select' | translate}}</option>
       </select>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-6 address-field">
-      <label class="address-sub-label">{{ 'mnoe_admin_panel.components.mno-address-input.phone' | translate }}</label>
+      <label class="address-sub-label">{{ 'mnoe_admin_panel.components.mno-address-input.phone' | translate }}*</label>
       <div class="input-group">
         <div class="input-group-addon select">
-          <select ng-options="country.alpha2 as country.phone_prefix for country in validCountries()" ng-model='address.phone_country_code'></select>
+          <select ng-options="country.alpha2 as country.phone_prefix for country in validCountries()" ng-model='address.phone_country_code' required></select>
         </div>
-        <input type="text" class="form-control" ng-model="address.phone"/>
+        <input type="text" class="form-control" ng-model="address.phone" required/>
       </div>
     </div>
   </div>
