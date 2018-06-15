@@ -23,7 +23,7 @@
         <tr ng-if="vm.subscription.product.product_pricings.length === 0">
           <td colspan="4" class="text-center">{{ 'mnoe_admin_panel.dashboard.provisioning.order.no_pricing_found' | translate:{'currency': vm.orgCurrency} }}</td>
         </tr>
-        <tr ng-repeat="pricingPlan in vm.filteredPricingPlans" ng-click="vm.subscription.product_pricing = pricingPlan">
+        <tr ng-repeat="pricingPlan in vm.filteredPricingPlans" ng-click="vm.selectPlan(pricingPlan)">
           <td><input type="radio" name="optradio" ng-model="vm.subscription.product_pricing.id" ng-value="pricingPlan.id"></td>
           <td>{{ pricingPlan.name }}</td>
           <td>{{ pricingPlan.description }}</td>
@@ -44,6 +44,29 @@
           <td />
         </tr>
         </tbody>
+      </table>
+
+      <table class="table table-striped" id="license-table" ng-show="vm.subscription.product_pricing.license_based">
+        <tr>
+          <td>
+            <label>{{ 'mnoe_admin_panel.dashboard.provisioning.order.licenses' | translate }}:
+              <input type="number" name="input" ng-model="vm.subscription.max_licenses" min="1" ng-required="vm.subscription.product_pricing.license_based">
+            </label>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label>{{ 'mnoe_admin_panel.dashboard.provisioning.order.total' | translate }}:
+              <span ng-show="vm.pricedPlan(vm.subscription.product_pricing.pricing_type)" ng-repeat="price in vm.subscription.product_pricing.prices | filterBy: ['currency']: vm.orgCurrency" class="badge">
+                {{ price.currency }} {{ price.price_cents / 100 * vm.subscription.max_licenses | number:2 }}
+              </span>
+              <span ng-show="vm.subscription.product_pricing.pricing_type == 'recurring'">
+                / {{ vm.subscription.product_pricing.per_unit }} / {{ vm.subscription.product_pricing.per_duration }}
+              </span>
+            </label>
+          </div>
+        </tr>
       </table>
     </mno-widget-body>
   </mno-widget>

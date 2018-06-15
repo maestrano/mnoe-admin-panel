@@ -15,6 +15,13 @@
     cart: $stateParams.cart
   }
 
+  vm.selectPlan = (pricingPlan) ->
+    vm.subscription.product_pricing = pricingPlan
+    if vm.subscription.product_pricing.license_based
+      vm.subscription.max_licenses ||= 1
+    else
+      vm.subscription.max_licenses = null
+
   vm.next = (subscription, currency) ->
     MnoeProvisioning.setSubscription(subscription)
     MnoeProvisioning.setSelectedCurrency(currency)

@@ -85,7 +85,7 @@
 
   createSubscription = (s, c) ->
     subscriptionsApi(s.organization_id).post({subscription:
-      {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data, cart_entry: s.cart_entry
+      {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, max_licenses: s.max_licenses, custom_data: s.custom_data, cart_entry: s.cart_entry
       }}).catch(
         (error) ->
           MnoErrorsHandler.processServerError(error)
@@ -93,7 +93,7 @@
 
   updateSubscription = (s, c) ->
     subscription.patch({subscription:
-      {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data, edit_action: s.edit_action, cart_entry: s.cart_entry
+      {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, max_licenses: s.max_licenses, custom_data: s.custom_data, edit_action: s.edit_action, cart_entry: s.cart_entry
       }}).catch(
         (error) ->
           MnoErrorsHandler.processServerError(error)

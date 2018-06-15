@@ -81,9 +81,6 @@
         $state.go('dashboard.customers.organization', {orgId: $stateParams.orgId})
      ).finally(-> vm.isLoading = false)
 
-  # Return true if the plan has a dollar value
-  vm.pricedPlan = ProvisioningHelper.pricedPlan
-
   # Delete the cached subscription when we are leaving the subscription workflow.
   $scope.$on('$stateChangeStart', (event, toState) ->
     switch toState.name
