@@ -20,14 +20,3 @@
 <span ng-show="subscription.product_pricing.pricing_type == 'free'">
   {{ 'mnoe_admin_panel.dashboard.provisioning.order.pricing_type.free' | translate }}
 </span>
-<div ng-show="vm.quoteBased">
-  <span ng-hide="vm.quoteFetched"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
-  <div ng-show="vm.quoteFetched">
-    <span ng-show="vm.quotedPrice">
-      {{ vm.quotedCurrency }} {{ vm.quotedPrice }}
-    </span>
-    <span ng-hide="vm.quotedPrice">
-      {{ 'mnoe_admin_panel.dashboard.provisioning.order.quote_error' | translate }}
-    </span>
-  </div>
-</div>

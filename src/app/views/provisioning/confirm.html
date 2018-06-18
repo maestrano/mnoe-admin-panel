@@ -52,8 +52,19 @@
               </span>
             </div>
           </td>
-          <td>
+          <td ng-hide="vm.quoteBased">
             <mnoe-product-pricing-prices subscription="vm.subscription" selected-currency="vm.selectedCurrency">
+          </td>
+          <td ng-show="vm.quoteBased">
+            <span ng-hide="vm.quoteFetched"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+            <div ng-show="vm.quoteFetched">
+              <span ng-show="vm.quotedPrice">
+                {{ vm.quotedCurrency }} {{ vm.quotedPrice }}
+              </span>
+              <span ng-hide="vm.quotedPrice">
+                {{ 'mnoe_admin_panel.dashboard.provisioning.order.quote_error' | translate }}
+              </span>
+            </div>
           </td>
           <td>{{ vm.subscription.product_pricing.description }}</td>
         </tr>
