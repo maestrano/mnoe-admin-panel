@@ -94,16 +94,19 @@
       subscription: {
         product_id: s.product.id,
         cart_entry: s.cart_entry,
-        subscription_events_attributes: [{
-          event_type: s.event_type,
-          product_pricing_id: s.product_pricing?.id,
-          subscription_details: {
-            start_date: s.start_date,
-            custom_data: s.custom_data,
-            currency: c,
-            max_licenses: s.max_licenses
-          }
-        }]
+        subscription_events_attributes: [subscriptionEventParams(s, c)]
+      }
+    }
+
+  subscriptionEventParams = (s, c) ->
+    {
+      event_type: s.event_type,
+      product_pricing_id: s.product_pricing?.id,
+      subscription_details: {
+        start_date: s.start_date,
+        custom_data: s.custom_data,
+        currency: c,
+        max_licenses: s.max_licenses
       }
     }
 
@@ -119,16 +122,23 @@
       }}).catch(
         (error) ->
           MnoErrorsHandler.processServerError(error)
+
+  createSubscriptionEvent = (s, c, orgId) ->
+    MnoeAdminApiSvc.one('organizations', orgId).one('subscriptions', s.id).all('subscription_events')
+      .post({subscription_event: subscriptionEventParams(s,c)}).catch((error) ->
+        MnoErrorsHandler.processServerError(error)
+        $q.reject(error)
     )
 
   # Detect if the subscription should be a POST or A PUT and call corresponding method
-  @saveSubscription = (subscription, currency) ->
+  @saveSubscription = (subscription, currency, orgId) ->
+    # If subscription already exists, create a subscription event for the subscription.
     if subscription.id
-      updateSubscription(subscription, currency).then(
-        (response) ->
-          _self.setSubscription(response.data?.subscription)
-          response.data?.subscription
+      createSubscriptionEvent(subscription, currency, orgId).catch(
+        (error) ->
+          MnoErrorsHandler.processServerError(error)
       )
+    # Otherwise create the subscription.
     else
       createSubscription(subscription, currency).then(
         (response) ->

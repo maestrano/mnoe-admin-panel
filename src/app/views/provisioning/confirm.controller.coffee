@@ -82,7 +82,7 @@
     vm.isLoading = true
     vm.subscription.cart_entry = true if vm.cartItem
     vm.subscription.event_type = $stateParams.editAction
-    MnoeProvisioning.saveSubscription(vm.subscription, vm.selectedCurrency).then(
+    MnoeProvisioning.saveSubscription(vm.subscription, vm.selectedCurrency, $stateParams.orgId).then(
       (subscription) ->
         if vm.cartItem
           $state.go("dashboard.customers.organization", {orgId: $stateParams.orgId})
