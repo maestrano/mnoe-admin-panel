@@ -55,7 +55,7 @@
           $log.error("An error occurred while updating staff:", error)
       ).finally(-> vm.isSaving = false)
 
-    if vm.staff.admin_role_was == 'staff' &&  vm.staff.admin_role != 'staff' && vm.staff.client_ids.length
+    if vm.staff.admin_role_was == 'staff' &&  vm.staff.admin_role != 'staff' && vm.staff.organizations.length
       # Ask for confirmation if the user is updated to admin or division admin as his clients will be cleared
       modalOptions =
         closeButtonText: 'mnoe_admin_panel.dashboard.staff.update_staff_role.cancel'
