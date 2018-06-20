@@ -95,7 +95,13 @@
         )
       .finally(() -> vm.isLoading = false)
   else
+    vm.isLoading = true
     setCustomSchema(vm.subscription.product)
+      .catch((error) ->
+        toastr.error('mnoe_admin_panel.dashboard.provisioning.subscriptions.product_error')
+        $state.go('dashboard.customers.organization', {orgId: urlParams.orgId})
+        )
+      .finally(() -> vm.isLoading = false)
 
   vm.submit = (form) ->
     $scope.$broadcast('schemaFormValidate')
