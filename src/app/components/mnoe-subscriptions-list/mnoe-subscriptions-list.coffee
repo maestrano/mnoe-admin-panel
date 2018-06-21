@@ -78,6 +78,9 @@
     ctrl.showEditAction = (subscription, editAction) ->
       editAction in subscription.available_actions
 
+    ctrl.pendingSubscription = (subscription) ->
+      subscription.status in ['pending', 'provisioning']
+
     ctrl.editSubscription = (subscription, editAction) ->
       MnoeProvisioning.setSubscription({})
 

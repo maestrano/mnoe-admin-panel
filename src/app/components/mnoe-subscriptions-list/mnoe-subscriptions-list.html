@@ -26,10 +26,7 @@
                 <div ng-hide="subscription.start_date">
                   <span translate>mnoe_admin_panel.dashboard.subscriptions.not_available</span>
                   <span>
-                    <a ng-show="$ctrl.skipPriceSelection(subscription.product)" class="tooltip_link" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.tooltip.external_billing' | translate }}" tooltip-append-to-body="true">
-                      <i class="fa fa-question-circle"></i>
-                    </a>
-                    <a ng-show="subscription.status == 'pending'" class="tooltip_link" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.tooltip.pending_subscription' | translate }}" tooltip-append-to-body="true">
+                    <a ng-show="$ctrl.pendingSubscription(subscription)" class="tooltip_link" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.tooltip.pending_subscription' | translate }}" tooltip-append-to-body="true">
                       <i class="fa fa-question-circle"></i>
                     </a>
                   </span>
@@ -41,10 +38,10 @@
               <td ng-hide="subscription.product_pricing">
                 <span translate>mnoe_admin_panel.dashboard.subscriptions.not_available</span>
                 <span>
-                  <a ng-show="$ctrl.skipPriceSelection(subscription.product)" class="tooltip_link" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.tooltip.external_billing' | translate }}" tooltip-append-to-body="true">
+                  <a ng-show="$ctrl.skipPriceSelection(subscription.product) && !$ctrl.pendingSubscription(subscription)" class="tooltip_link" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.tooltip.external_billing' | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-question-circle"></i>
                   </a>
-                  <a ng-show="subscription.status == 'pending'" class="tooltip_link" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.tooltip.pending_subscription' | translate }}" tooltip-append-to-body="true">
+                  <a ng-show="$ctrl.pendingSubscription(subscription)" class="tooltip_link" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.subscriptions.tooltip.pending_subscription' | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-question-circle"></i>
                   </a>
                 </span>
