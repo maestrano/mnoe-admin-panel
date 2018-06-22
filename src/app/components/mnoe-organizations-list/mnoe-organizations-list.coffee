@@ -75,6 +75,12 @@
 
     # Smart table callback
     scope.pipe = (tableState) ->
+      # MonkeyPatch to prevent pipes from reloading data till
+      # first call is complete
+      if !scope.firstLoadIsDone
+        scope.firstLoadIsDone = true
+        return
+
       # The order has changed - reset pagination
       scope.organizations.page = 1
       scope.organizations.sortAttr = tableState.sort.predicate
@@ -137,5 +143,5 @@
       MnoeObservables.unsubscribe(OBS_KEYS.organizationChanged, onOrganizationChanged)
 
     # Initial call
-    displayCurrentState()
+    setAllOrganizationsList()
 )
