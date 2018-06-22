@@ -47,6 +47,9 @@
   vm.saveFreeTrial = -> update(['free_trial_enabled', 'free_trial_duration', 'free_trial_unit'])
 
   # Add a new pricing plan to edit to the list
+  # Note: Since language cannot be selected for local products
+  # it is set to 'en-GB' which is the default language for product pricings.
+  # This ensures all of the pricings will be returned to the frontend for local products.
   vm.addPricingPlan = ->
     vm.pricingPlan = {
       name: '',
@@ -56,7 +59,8 @@
       pricing_type: 'recurring',
       per_duration: '',
       per_unit: '',
-      prices: []
+      prices: [],
+      language: 'en-GB'
     }
     vm.currencies = _.clone(CURRENCIES.values)
     vm.product.product_pricings.push(vm.pricingPlan)
