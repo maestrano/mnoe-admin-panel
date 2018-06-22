@@ -63,7 +63,7 @@
         offset = (page  - 1) * nbItems
         fetchStaffs(nbItems, offset)
 
-      update: (staff) ->
+      _updateStaffAction: (staff) ->
         MnoeUsers.updateStaff(staff).then(
           (response) ->
             updateSort()
@@ -75,6 +75,20 @@
             $log.error('Error while saving user', error)
             toastr.error('mnoe_admin_panel.dashboard.staffs.widget.list.toastr_error')
         )
+
+      update: (staff)->
+        # Ask for confirmation if the user is updated to admin or division admin as their clients will be cleared
+        if staff.admin_role_was == 'staff' && staff.admin_role != 'staff'
+          modalOptions =
+            closeButtonText: 'mnoe_admin_panel.dashboard.staff.update_staff_role.cancel'
+            actionButtonText: 'mnoe_admin_panel.dashboard.staff.update_staff_role.action'
+            headerText: 'mnoe_admin_panel.dashboard.staff.update_staff_role.proceed'
+            bodyText: 'mnoe_admin_panel.dashboard.staff.update_staff_role.perform'
+          MnoConfirm.showModal(modalOptions).then(
+            => @_updateStaffAction(staff),
+            -> )
+        else
+          @_updateStaffAction(staff)
 
       remove: (staff) ->
         modalOptions =
@@ -102,6 +116,8 @@
         (response) ->
           vm.staff.totalItems = response.headers('x-total-count')
           vm.listOfStaff = response.data
+          # Track role change
+          staff.admin_role_was = staff.admin_role for staff in vm.listOfStaff
           vm.staff.oneAdminLeft = _.filter(response.data, {'admin_role': 'admin'}).length == 1
       ).finally(-> vm.staff.loading = false)
 
