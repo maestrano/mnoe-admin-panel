@@ -904,7 +904,7 @@
   "mnoe_admin_panel.dashboard.staff.update_staff_role.cancel": "Cancel",
   "mnoe_admin_panel.dashboard.staff.update_staff_role.action": "Update Staff Role",
   "mnoe_admin_panel.dashboard.staff.update_staff_role.proceed": "Update Staff Role",
-  "mnoe_admin_panel.dashboard.staff.update_staff_role.perform": "Are you sure you want to change this staff role ? It will clear his clients.",
+  "mnoe_admin_panel.dashboard.staff.update_staff_role.perform": "Are you sure you want to change this staff role? This will clear their clients.",
   "mnoe_admin_panel.dashboard.sub_tenants.title": "Divisions",
   "mnoe_admin_panel.dashboard.sub_tenants.widget.list.loading": "Loading Divisions...",
   "mnoe_admin_panel.dashboard.sub_tenants.widget.list.title": "Divisions",

@@ -1,5 +1,5 @@
 # Service for managing the users.
-@App.service 'MnoeUsers', ($q, $log, MnoeAdminApiSvc, MnoeObservables, OBS_KEYS) ->
+@App.service 'MnoeUsers', ($q, $log, MnoConfirm, MnoeAdminApiSvc, MnoeObservables, OBS_KEYS) ->
   _self = @
 
   @list = (limit, offset, sort, params = {}) ->
