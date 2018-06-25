@@ -80,20 +80,24 @@
 
   vm.validate = () ->
     vm.isLoading = true
-    vm.subscription.cart_entry = true if vm.cartItem
     vm.subscription.event_type = $stateParams.editAction
-    MnoeProvisioning.saveSubscription(vm.subscription, vm.selectedCurrency, $stateParams.orgId).then(
-      (subscription) ->
-        if vm.cartItem
-          $state.go("dashboard.customers.organization", {orgId: $stateParams.orgId})
-        else
-          $state.go('dashboard.provisioning.order_summary', {orgId: $stateParams.orgId, subscriptionId: subscription.id, editAction: $stateParams.editAction})
+    if vm.cartItem
+      vm.subscription.cart_entry = true
+      provisioningPromise = MnoeProvisioning.saveSubscriptionCart(vm.subscription, vm.selectedCurrency, $stateParams.orgId)
+    else
+      provisioningPromise = MnoeProvisioning.saveSubscription(vm.subscription, vm.selectedCurrency, $stateParams.orgId)
+
+    provisioningPromise.then((subscription) ->
+      if vm.cartItem
+        $state.go("dashboard.customers.organization", {orgId: $stateParams.orgId})
+      else
+        $state.go('dashboard.provisioning.order_summary', {orgId: $stateParams.orgId, subscriptionId: subscription.id, editAction: $stateParams.editAction})
     ).finally(-> vm.isLoading = false)
 
   vm.addToCart = ->
     vm.isLoading = true
     vm.subscription.cart_entry = true
-    MnoeProvisioning.saveSubscription(vm.subscription).then(
+    MnoeProvisioning.saveSubscriptionCart(vm.subscription, vm.selectedCurrency, $stateParams.orgId).then(
       (response) ->
         $state.go('dashboard.customers.organization', {orgId: $stateParams.orgId})
      ).finally(-> vm.isLoading = false)
