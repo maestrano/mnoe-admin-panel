@@ -70,8 +70,8 @@
       vm.subscription.product.custom_schema = response
     )
 
+  vm.isLoading = true
   if _.isEmpty(vm.subscription)
-    vm.isLoading = true
     fetchSubscription()
       .then(fetchProduct)
       .then(fetchCustomSchema)
@@ -84,7 +84,6 @@
         )
       .finally(() -> vm.isLoading = false)
   else
-    vm.isLoading = true
     # Skip this view when subscription plan is not editable
     vm.next(vm.subscription, vm.subscription.currency) if ProvisioningHelper.skipPriceSelection(vm.subscription.product)
 
