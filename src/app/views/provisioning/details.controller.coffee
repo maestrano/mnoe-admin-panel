@@ -19,7 +19,7 @@
   # Workaround. You can only specify defaults in the schema, and not the vm.form section.
   # Since we are getting the schemas remotely, we must find a way to set defaults using vm.form.
   vm.model.defaultContractLength = () ->
-    'monthly'
+    'Monthly'
 
   urlParams =
     orgId: $stateParams.orgId,
