@@ -84,6 +84,7 @@
         )
       .finally(() -> vm.isLoading = false)
   else
+    vm.isLoading = true
     # Skip this view when subscription plan is not editable
     vm.next(vm.subscription, vm.subscription.currency) if ProvisioningHelper.skipPriceSelection(vm.subscription.product)
 
