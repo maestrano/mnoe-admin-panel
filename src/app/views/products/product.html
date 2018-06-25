@@ -221,5 +221,32 @@
         </mno-section>
       </mno-widget-body>
     </mno-widget>
+
+    <!-- Notification section  -->
+    <mno-widget icon="fa-tag" heading="{{'mnoe_admin_panel.dashboard.product.notification_settings' | translate}}" is-loading="vm.isLoading">
+      <mno-widget-header></mno-widget-header>
+      <mno-widget-body>
+        <form name="vm.form.product.notification_settings">
+          <mno-section heading="{{'mnoe_admin_panel.dashboard.product.notification_on_success' | translate}}">
+            <input type="checkbox" ng-model="vm.product.notification_on_success">
+          </mno-section>
+
+          <mno-section heading="{{'mnoe_admin_panel.dashboard.product.notification_on_failure' | translate}}">
+            <input type="checkbox" ng-model="vm.product.notification_on_failure">
+          </mno-section>
+
+          <mno-section heading="{{'mnoe_admin_panel.dashboard.product.notification_on_approval' | translate}}">
+            <input type="checkbox" ng-model="vm.product.notification_on_approval">
+          </mno-section>
+
+          <mno-section class="btn-box">
+            <button class="btn btn-primary top-buffer-1" ng-click="vm.updateNotificationSettings()" ng-disabled="vm.isLoadingNotificationSettings" translate>
+              mnoe_admin_panel.dashboard.product.submit
+            </button>
+          </mno-section>
+        </form>
+
+      </mno-widget-body>
+    </mno-widget>
   </div>
 </fieldset>

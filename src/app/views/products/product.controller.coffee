@@ -158,6 +158,12 @@
   vm.deleteLogo = (asset) ->
     MnoeProducts.deleteAsset(asset)
 
+  #------------------------------------------------
+  # Notification Settings
+  #------------------------------------------------
+
+  vm.updateNotificationSettings = -> update(['notification_on_success', 'notification_on_failure', 'notification_on_approval'])
+
   # Private
   update = (params) ->
     vm.product.values_attributes = _.map(_.keys(vm.product.values_display), (k) -> {name: k, data: vm.product.values_display[k]})
