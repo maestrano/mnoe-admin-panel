@@ -1,5 +1,5 @@
 # Service for managing the users.
-@App.service 'MnoeProvisioning', ($q, $log, MnoeAdminApiSvc, MnoeApiSvc, MnoeOrganizations, MnoErrorsHandler, MnoeObservables, OBS_KEYS) ->
+@App.service 'MnoeProvisioning', ($q, $log, MnoeAdminApiSvc, MnoeOrganizations, MnoErrorsHandler, MnoeObservables, OBS_KEYS) ->
   _self = @
 
   subscriptionsApi = (id) ->
@@ -162,13 +162,9 @@
         $q.reject(error)
     )
 
-  @getQuote = (s) ->
-    quoteParams = {product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data, organization_id: s.organization_id}
-    MnoeApiSvc.one('organizations', s.organization_id).all('quotes').post(quote: quoteParams).catch(
-      (error) ->
-        MnoErrorsHandler.processServerError(error)
-        $q.reject(error)
-    )
+  @getQuote = (s, currency) ->
+    quoteParams = {product_id: s.product.id, product_pricing_id: s.product_pricing?.id, custom_data: s.custom_data, organization_id: s.organization_id, selected_currency: currency}
+    MnoeAdminApiSvc.one('organizations', s.organization_id).all('quotes').post(quote: quoteParams)
 
   @approveSubscriptionEvent = (s) ->
     MnoeAdminApiSvc.one('subscription_events', s.id).post('/approve').then(

@@ -38,11 +38,14 @@
   if vm.subscription.product_pricing?.quote_based
     vm.quoteBased = true
     vm.quoteFetched = false
-    MnoeProvisioning.getQuote(vm.subscription).then(
+    MnoeProvisioning.getQuote(vm.subscription, vm.selectedCurrency).then(
       (response) ->
         vm.quotedPrice = response.data.totalContractValue?.quote
         vm.quotedCurrency = response.data.totalContractValue?.currency
         vm.quoteFetched = true
+      (error) ->
+        vm.quoteFetched = true
+        $log.error('Error while fetching quote', error)
     )
 
   # Happen when the user reload the browser during the provisioning
