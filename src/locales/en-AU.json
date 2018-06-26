@@ -5,6 +5,7 @@
   "mnoe_admin_panel.constants.admin_roles.admin": "owner",
   "mnoe_admin_panel.constants.admin_roles.staff": "user",
   "mnoe_admin_panel.constants.admin_roles.sub_tenant_admin": "division admin",
+  "mnoe_admin_panel.constants.admin_roles.support": "support",
   "mnoe_admin_panel.constants.countries.australia": "Australia",
   "mnoe_admin_panel.constants.countries.usa": "USA",
   "mnoe_admin_panel.constants.transaction_types.credit": "Credit",
