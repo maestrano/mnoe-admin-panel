@@ -15,18 +15,18 @@
     <tr ng-repeat="offer in offers">
       <td>{{offer.name}}</td>
       <td>{{pricingType(offer)}}</td>
-      <td ng-if="offer.prices && !offer.quote_based">
+      <td ng-if="displayPricing(offer)">
         <div ng-repeat="priceHash in offer.prices">
           {{formatPrice(priceHash)}}
         </div>
       </td>
-      <td ng-if="!offer.prices || offer.quote_based">-</td>
-      <td ng-if="offer.prices && !offer.quote_based">
+      <td ng-if="!displayPricing(offer)">-</td>
+      <td ng-if="displayPricing(offer)">
         <div ng-repeat="priceHash in offer.prices">
           {{formatFinalPrice(priceHash)}}
         </div>
       </td>
-      <td ng-if="!offer.prices || offer.quote_based">-</td>
+      <td ng-if="!displayPricing(offer)">-</td>
     </tr>
   </tbody>
 </table>

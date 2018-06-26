@@ -16,6 +16,9 @@
     scope.formatFinalPrice = (priceHash) ->
       PricingHelper.formatFinalPrice(priceHash.price_cents, priceHash.currency, scope.markup)
 
+    scope.displayPricing = (offer) ->
+      offer.prices && !offer.quote_based
+      
     scope.pricingType = (offer) ->
       switch offer.pricing_type
         when 'recurring'
