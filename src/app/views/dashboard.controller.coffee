@@ -25,12 +25,14 @@
   # Marketplace is cached
   # MnoeMarketplace.getApps()
 
+  main.isLoading = true
   MnoeCurrentUser.getUser().then(
     # Display the layout
     (user) ->
       main.user = user
       main.organizationAvailable = user.organizations? && user.organizations.length > 0
       main.showSupportScreen = !$cookies["organization_external_id"] && user.admin_role == 'support'
+      main.isLoading = false
   )
 
   main.exit = ->
