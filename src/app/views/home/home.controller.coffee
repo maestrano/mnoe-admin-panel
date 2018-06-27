@@ -1,11 +1,15 @@
-@App.controller 'HomeController', ($cookies, moment, MnoeUsers, MnoeOrganizations, MnoeCurrentUser, MnoeInvoices, MnoeAdminConfig) ->
+@App.controller 'HomeController', ($cookies, moment, MnoeUsers, MnoeOrganizations, MnoeCurrentUser, MnoeInvoices, MnoeAdminConfig, UserRoles) ->
   'ngInject'
   vm = this
+
+  vm.users = {}
+  vm.organizations = {}
+  vm.invoices = {}
 
   MnoeCurrentUser.getUser().then(
     (user) ->
       vm.user = user
-      vm.showSupportScreen = !$cookies["organization_external_id"] && user.admin_role == 'support'
+      vm.showSupportScreen = UserRoles.supportRoleForUser(user)
       vm.findMetrics() unless vm.showSupportScreen
       vm.isLoading = false
   )

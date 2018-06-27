@@ -1,4 +1,4 @@
-@App.controller 'DashboardController', ($scope, $cookies, $sce, MnoeMarketplace, MnoErrorsHandler, MnoeCurrentUser, MnoeAdminConfig, STAFF_PAGE_AUTH) ->
+@App.controller 'DashboardController', ($scope, $cookies, $sce, MnoeMarketplace, MnoErrorsHandler, MnoeCurrentUser, MnoeAdminConfig, UserRoles, STAFF_PAGE_AUTH) ->
   'ngInject'
   main = this
 
@@ -31,7 +31,7 @@
     (user) ->
       main.user = user
       main.organizationAvailable = user.organizations? && user.organizations.length > 0
-      main.showSupportScreen = !$cookies["organization_external_id"] && user.admin_role == 'support'
+      main.showSupportScreen = UserRoles.supportRoleForUser(user)
       main.isLoading = false
   )
 

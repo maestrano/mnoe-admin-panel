@@ -1,0 +1,34 @@
+<mno-widget icon="fa-sitemap" heading="{{'mnoe_admin_panel.dashboard.organization.widget.list.support.last_organizations.title' | translate}}" is-loading="organizations.loading">
+  <mno-widget-header>
+    <input type="text" ng-model="organizations.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }'
+    placeholder="{{'mnoe_admin_panel.dashboard.organization.widget.list.suport.search_users.placeholder.search_all' | translate}}"
+    class="form-control input-sm search-bar" />
+  </mno-widget-header>
+  <mno-widget-body class="large-auto-height no-padding">
+    <table class="table table-layout-fixed">
+      <thead>
+        <tr>
+          <th translate>mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.name</th>
+          <th style="width: 100px;" translate>mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.created_at</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-show="noResultsFound()">
+          <td id="no-results" class="text-center">
+            <span>No results</span>
+          </td>
+        </tr>
+        <tr ng-repeat="organization in organizations.list">
+          <td>
+            <a ui-sref="dashboard.customers.organization({orgId: organization.id})">
+              {{::organization.name}}
+              <em ng-show="organization.account_frozen" class="text-muted" translate>mnoe_admin_panel.dashboard.organization.account_frozen_state</em>
+              <em ng-show="organization.demo_account" class="text-muted" translate>mnoe_admin_panel.dashboard.organization.demo_account_state</em>
+            </a>
+          </td>
+          <td>{{organization.created_at | date: 'dd/MM/yyyy'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </mno-widget-body>
+</mno-widget>

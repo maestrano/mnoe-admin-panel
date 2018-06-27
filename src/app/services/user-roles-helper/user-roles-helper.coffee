@@ -1,4 +1,4 @@
-@App.service 'UserRoles', (USER_ROLES, $translate) ->
+@App.service 'UserRoles', ($translate, $cookies, USER_ROLES, MnoeAdminConfig) ->
   _self = @
 
   @availableRoles = _.map(USER_ROLES, 'value')
@@ -13,5 +13,8 @@
 
   @isAccountManager = (user) ->
     (user.admin_role == 'staff')
+
+  @supportRoleForUser = (user) ->
+    MnoeAdminConfig.isSupportRoleEnabled() && user.admin_role == 'support'
 
   return @
