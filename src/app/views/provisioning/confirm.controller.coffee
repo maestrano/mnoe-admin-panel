@@ -42,6 +42,8 @@
       (response) ->
         vm.quotedPrice = response.data.totalContractValue?.quote
         vm.quotedCurrency = response.data.totalContractValue?.currency
+        # To be passed to the order summary screen.
+        MnoeProvisioning.setQuote(response.data.totalContractValue)
         vm.quoteFetched = true
       (error) ->
         vm.quoteFetched = true

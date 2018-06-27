@@ -496,6 +496,8 @@
   "mnoe_admin_panel.dashboard.provisioning.summary.order_type": "Order type",
   "mnoe_admin_panel.dashboard.provisioning.summary.description": "Description",
   "mnoe_admin_panel.dashboard.provisioning.summary.price": "Price",
+  "mnoe_admin_panel.dashboard.provisioning.summary.quoted_price": "Quoted Total Price",
+  "mnoe_admin_panel.dashboard.provisioning.summary.quote_error": "Quoted Price Currently Unavailable",
   "mnoe_admin_panel.dashboard.provisioning.summary.licenses": "Licenses",
   "mnoe_admin_panel.dashboard.provisioning.summary.no_licenses.message": "N/A",
   "mnoe_admin_panel.dashboard.provisioning.summary.no_licenses.tooltip": "This is not a licensed plan",

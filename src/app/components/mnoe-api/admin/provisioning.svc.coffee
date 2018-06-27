@@ -11,7 +11,7 @@
   productsApi = MnoeAdminApiSvc.oneUrl('/products')
   productsPromise = null
   productsResponse = null
-
+  quote = {}
   subscription = {}
   selectedCurrency = ""
 
@@ -58,6 +58,12 @@
 
   @getSelectedCurrency = () ->
     selectedCurrency
+
+  @setQuote = (q) ->
+    quote = q
+
+  @getCachedQuote = () ->
+    { price: quote?.quote, currency: quote?.currency }
 
   # Return the subscription
   # if productNid: return the default subscription
