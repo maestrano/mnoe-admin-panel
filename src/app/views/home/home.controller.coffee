@@ -1,10 +1,16 @@
-@App.controller 'HomeController', (moment, MnoeUsers, MnoeOrganizations, MnoeInvoices, MnoeAdminConfig) ->
+@App.controller 'HomeController', (moment, MnoeUsers, MnoeOrganizations, MnoeCurrentUser, MnoeInvoices, MnoeAdminConfig) ->
   'ngInject'
   vm = this
 
   vm.users = {}
   vm.organizations = {}
   vm.invoices = {}
+  MnoeCurrentUser.getUser().then(
+    (user) ->
+      vm.user = user
+      vm.showSupportScreen = !$cookies["organization_external_id"] && user.admin_role == 'support'
+  )
+
 
   # If finance is activated display the number of org with cc
   if MnoeAdminConfig.isPaymentEnabled()

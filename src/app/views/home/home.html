@@ -1,53 +1,67 @@
-<div id="home" class="row">
-  <div class="col-lg-3 col-md-6 col-xs-12">
-    <mno-kpi class="kpi-color-1" description="{{'mnoe_admin_panel.dashboard.home.kpi.users' | translate}}" icon="fa-users"
-             value="{{vm.users.metrics.total_count}}"
-             loading="!vm.users.metrics" mno-ui-sref="dashboard.customers" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.users.link_text' | translate:{'quantity': vm.users.metrics.new_month_count} }}"></mno-kpi>
-  </div>
+<div ng-if="!vm.showSupportScreen">
+  <div id="support-home">
 
-  <div class="col-lg-3 col-md-6 col-xs-12">
-    <mno-kpi class="kpi-color-1" description="{{'mnoe_admin_panel.dashboard.home.kpi.active_users' | translate}}" icon="fa-users"
-             value="{{vm.users.metrics.active_users_count}}"
-             loading="!vm.users.metrics" mno-ui-sref="dashboard.customers" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.active_users.link_text' | translate }}"></mno-kpi>
   </div>
+</div>
+<div ng-if="vm.showSupportScreen">
+  <div id="home" class="row">
+    <div class="col-lg-3 col-md-6 col-xs-12">
+      <mno-kpi class="kpi-color-1" description="{{'mnoe_admin_panel.dashboard.home.kpi.users' | translate}}" icon="fa-users"
+               value="{{vm.users.metrics.total_count}}"
+               loading="!vm.users.metrics" mno-ui-sref="dashboard.customers" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.users.link_text' | translate:{'quantity': vm.users.metrics.new_month_count} }}"></mno-kpi>
+    </div>
 
-  <div class="col-lg-3 col-md-6 col-xs-12">
-    <mno-kpi class="kpi-color-1" description="{{'mnoe_admin_panel.dashboard.home.kpi.user_churn' | translate}}" icon="fa-users"
-             value="{{(vm.users.metrics.monthly_churn_rate*100) | number:0}}% "
-             loading="!vm.users.metrics" mno-ui-sref="dashboard.customers" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.user_churn.link_text' | translate }}"></mno-kpi>
-  </div>
+    <div class="col-lg-3 col-md-6 col-xs-12">
+      <mno-kpi class="kpi-color-1" description="{{'mnoe_admin_panel.dashboard.home.kpi.active_users' | translate}}" icon="fa-users"
+               value="{{vm.users.metrics.active_users_count}}"
+               loading="!vm.users.metrics" mno-ui-sref="dashboard.customers" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.active_users.link_text' | translate }}"></mno-kpi>
+    </div>
 
   <div class="col-lg-3 col-md-6 col-xs-12">
     <mno-kpi class="kpi-color-2" description="{{'mnoe_admin_panel.dashboard.home.kpi.organizations' | translate}}" icon="fa-sitemap"
              value="{{vm.organizations.kpi.non_demo_count}}"
              loading="!vm.organizations.kpi" mno-ui-sref="dashboard.customers" link-text="{{vm.organisationKpiLocale | translate:{'quantity': vm.organizations.kpi.with_cc_count} }}"></mno-kpi>
   </div>
-
-  <div class="col-lg-3 col-md-6 col-xs-12" ng-if="::main.adminConfig.isFinanceEnabled()">
-    <mno-kpi class="kpi-color-3" description="{{'mnoe_admin_panel.dashboard.home.kpi.last_customer_invoicing' | translate}}" icon="fa-file-text-o"
-             value="{{vm.invoices.lastInvoicingAmount.amount}}" unit="{{vm.invoices.lastInvoicingAmount.currency}}"
-             loading="!vm.invoices.lastInvoicingAmount" mno-ui-sref="dashboard.finance" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.last_customer_invoicing.link_text' | translate}}"></mno-kpi>
+  <div class
+  ="col-lg-3 col-md-6 col-xs-12">
+    <mno-kpi class="kpi-color-1" description="{{'mnoe_admin_panel.dashboard.home.kpi.user_churn' | translate}}" icon="fa-users"
+             value="{{(vm.users.metrics.monthly_churn_rate*100) | number:0}}% "
+             loading="!vm.users.metrics" mno-ui-sref="dashboard.customers" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.user_churn.link_text' | translate }}"></mno-kpi>
   </div>
 
-  <div class="col-lg-3 col-md-6 col-xs-12" ng-if="::main.adminConfig.isFinanceEnabled()">
-    <mno-kpi class="kpi-color-4" description="{{'mnoe_admin_panel.dashboard.home.kpi.to_be_paid' | translate}}" icon="fa-money"
-             value="{{vm.invoices.outstandingAmount.amount}}" unit="{{vm.invoices.outstandingAmount.currency}}"
-             loading="!vm.invoices.outstandingAmount" mno-ui-sref="dashboard.finance" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.to_be_paid.link_text' | translate}}"></mno-kpi>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-md-12">
-    <mnoe-organizations-list></mnoe-organizations-list>
+    <div class="col-lg-3 col-md-6 col-xs-12">
+      <mno-kpi class="kpi-color-2" description="{{'mnoe_admin_panel.dashboard.home.kpi.organizations' | translate}}" icon="fa-sitemap"
+               value="{{vm.organizations.kpi.total_count}}"
+               loading="!vm.organizations.kpi" mno-ui-sref="dashboard.customers" link-text="{{vm.organisationKpiLocale | translate:{'quantity': vm.organizations.kpi.with_cc_count} }}"></mno-kpi>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-xs-12" ng-if="::main.adminConfig.isFinanceEnabled()">
+      <mno-kpi class="kpi-color-3" description="{{'mnoe_admin_panel.dashboard.home.kpi.last_customer_invoicing' | translate}}" icon="fa-file-text-o"
+               value="{{vm.invoices.lastInvoicingAmount.amount}}" unit="{{vm.invoices.lastInvoicingAmount.currency}}"
+               loading="!vm.invoices.lastInvoicingAmount" mno-ui-sref="dashboard.finance" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.last_customer_invoicing.link_text' | translate}}"></mno-kpi>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-xs-12" ng-if="::main.adminConfig.isFinanceEnabled()">
+      <mno-kpi class="kpi-color-4" description="{{'mnoe_admin_panel.dashboard.home.kpi.to_be_paid' | translate}}" icon="fa-money"
+               value="{{vm.invoices.outstandingAmount.amount}}" unit="{{vm.invoices.outstandingAmount.currency}}"
+               loading="!vm.invoices.outstandingAmount" mno-ui-sref="dashboard.finance" link-text="{{'mnoe_admin_panel.dashboard.home.kpi.to_be_paid.link_text' | translate}}"></mno-kpi>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <mnoe-app-metrics-list view="last"></mnoe-app-metrics-list>
+
+  <div class="row">
+    <div class="col-md-12">
+      <mnoe-organizations-list></mnoe-organizations-list>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <mnoe-users-list></mnoe-users-list>
+  <div class="row">
+    <div class="col-md-12">
+      <mnoe-app-metrics-list view="last"></mnoe-app-metrics-list>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mnoe-users-list></mnoe-users-list>
+    </div>
   </div>
 </div>
