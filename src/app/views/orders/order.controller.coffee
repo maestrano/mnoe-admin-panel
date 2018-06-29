@@ -23,6 +23,9 @@
     dateFormat: 'yyyy-MM-dd HH:mm:ss'
   }
 
+  vm.showNoDetailsProvied = (custom_data) ->
+    _.isEmpty(custom_data)
+
   fetchSubscriptionEvent = () ->
     return unless vm.orderId
     MnoeProvisioning.getSubscriptionEvent(vm.subscriptionId, vm.orgId, vm.orderId).then((response) ->
