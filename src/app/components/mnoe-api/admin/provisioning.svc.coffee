@@ -43,7 +43,8 @@
     )
 
   productPromises = {}
-  @getProduct = (productId, params) ->
+  @getProduct = (productId, orgId, params = {}) ->
+    params['organization_id'] = orgId
     productPromises["#{productId}/#{params.editAction}"] ?= MnoeAdminApiSvc.one('/products', productId).get(params)
       .then((response) -> response.data.product)
 
