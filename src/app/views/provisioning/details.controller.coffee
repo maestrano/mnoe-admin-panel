@@ -91,8 +91,8 @@
       vm.subscription.product.custom_schema = response
       )
 
+  vm.isLoading = true
   if _.isEmpty(vm.subscription)
-    vm.isLoading = true
     fetchSubscription().then(fetchProduct).then(fetchCustomSchema)
       .then(() -> setCustomSchema(vm.subscription.product))
       .catch((error) ->
@@ -102,6 +102,11 @@
       .finally(() -> vm.isLoading = false)
   else
     setCustomSchema(vm.subscription.product)
+      .catch((error) ->
+        toastr.error('mnoe_admin_panel.dashboard.provisioning.subscriptions.product_error')
+        $state.go('dashboard.customers.organization', {orgId: urlParams.orgId})
+        )
+      .finally(() -> vm.isLoading = false)
 
   vm.submit = (form) ->
     $scope.$broadcast('schemaFormValidate')

@@ -77,8 +77,8 @@
       vm.subscription.product.custom_schema = response
     )
 
+  vm.isLoading = true
   if _.isEmpty(vm.subscription)
-    vm.isLoading = true
     fetchSubscription()
       .then(fetchProduct)
       .then(fetchCustomSchema)
