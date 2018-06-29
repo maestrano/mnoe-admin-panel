@@ -52,7 +52,9 @@
     )
 
   selectDefaultCurrency = () ->
-    vm.selectedCurrency = if vm.subscription.currency
+    vm.selectedCurrency = if MnoeProvisioning.getSelectedCurrency()
+      MnoeProvisioning.getSelectedCurrency()
+    else if vm.subscription.currency
       vm.subscription.currency
     else if vm.currencies.includes(vm.orgCurrency)
       vm.orgCurrency
@@ -63,7 +65,7 @@
   fetchProduct = () ->
     # When in edit mode, we will be getting the product ID from the subscription, otherwise from the url.
     vm.productId = vm.subscription.product?.id || $stateParams.productId
-    MnoeProvisioning.getProduct(vm.productId, { editAction: $stateParams.editAction }).then(
+    MnoeProvisioning.getProduct(vm.productId, urlParams.orgId, { editAction: $stateParams.editAction }).then(
       (response) ->
         vm.subscription.product = response
         populateCurrencies()
