@@ -52,10 +52,12 @@
     )
 
   selectDefaultCurrency = () ->
-    if vm.currencies.includes(vm.orgCurrency)
-      vm.selectedCurrency = vm.orgCurrency
+    vm.selectedCurrency = if vm.subscription.currency
+      vm.subscription.currency
+    else if vm.currencies.includes(vm.orgCurrency)
+      vm.orgCurrency
     else
-      vm.selectedCurrency = vm.currencies[0]
+      vm.currencies[0]
 
 
   fetchProduct = () ->
