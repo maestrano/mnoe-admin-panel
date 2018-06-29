@@ -141,7 +141,6 @@
     else
       createSubscription(subscription, currency).then(
         (response) ->
-          _self.setSubscription(response.data)
           response.data
       )
 
