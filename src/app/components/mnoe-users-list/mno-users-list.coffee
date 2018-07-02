@@ -25,6 +25,9 @@
     $translate([
       "mnoe_admin_panel.dashboard.users.widget.list.table.created_at",
       'mnoe_admin_panel.dashboard.users.widget.list.table.username',
+      "mnoe_admin_panel.dashboard.users.widget.list.table.uid",
+      "mnoe_admin_panel.dashboard.users.widget.list.table.external_id",
+      "mnoe_admin_panel.dashboard.users.widget.list.table.last_active_at",
       'mnoe_admin_panel.dashboard.users.widget.list.never',
       'mnoe_admin_panel.dashboard.users.widget.list.table.last_login'])
       .then((locale) ->
@@ -46,6 +49,36 @@
             """,
             scope: { user: user }
           skip_natural: true}
+          # User uid
+          { header: locale["mnoe_admin_panel.dashboard.users.widget.list.table.uid"]
+          style: {width: '130px'}
+          attr:'uid'
+          render: (user) ->
+            template:
+              "<span>{{::user.uid}}</span>"
+            scope: {user: user}
+          skip_natural: true}
+          # User external_id
+          { header: locale["mnoe_admin_panel.dashboard.users.widget.list.table.external_id"]
+          style: {width: '130px'}
+          attr:'external_id'
+          render: (user) ->
+            template:
+              "<span>{{::user.external_id}}</span>"
+            scope: {user: user}
+          skip_natural: true}
+          # User last_active_at
+          { header: locale["mnoe_admin_panel.dashboard.users.widget.list.table.last_active_at"],
+          style: {width: '130px'},
+          attr:'last_active_at'
+          render: (user) ->
+            template: """
+            <span data-toggle="tooltip" title="{{::user.last_active_at | date: 'H:m - dd/MM/yyyy'}}">
+              {{(user.last_active_at | amTimeAgo) || ('mnoe_admin_panel.dashboard.users.widget.list.never' | translate)}}
+            </span>
+            """,
+            scope: {user: user}
+          skip_natural: true}
           # User last login date
           { header: locale['mnoe_admin_panel.dashboard.users.widget.list.table.last_login']
           attr: "last_sign_in_at"
@@ -63,11 +96,11 @@
           style: {width: '130px'},
           attr:'created_at',
           sort_default: "reverse"
-          skip_natural: true
           render: (user) ->
             template:
               "<span>{{::user.created_at | date: 'dd/MM/yyyy'}}</span>"
-            scope: {user: user}}]
+            scope: {user: user}
+          skip_natural: true}]
       )
 
     # Pipe for the sortable-table
@@ -107,8 +140,8 @@
       scope.users.switchLinkTitle = 'mnoe_admin_panel.dashboard.users.widget.list.all_users.switch_link_title'
 
     scope.searchChange = () ->
-      # Only search if the string is >= than 3 characters
-      if scope.users.search.length >= 3
+      # After adding external_id in the search term update the minimum string length in the search from >= 3 to >=0
+      if scope.users.search.length >= 0
         scope.searchMode = true
         setSearchUsersList(scope.users.search)
       # No search string, so display current state
@@ -122,7 +155,7 @@
       scope.users.widgetTitle = 'mnoe_admin_panel.dashboard.users.widget.list.search_users.title'
       delete scope.users.switchLinkTitle
       search = scope.users.search.toLowerCase()
-      terms = {'surname.like': "#{search}%", 'name.like': "#{search}%", 'email.like': "%#{search}%" }
+      terms = {'surname.like': "#{search}%", 'name.like': "#{search}%", 'email.like': "%#{search}%", 'uid.like': "%#{search}%", 'external_id.like': "%#{search}%"}
       params = scope.filterParams || {}
       MnoeUsers.search(terms, params).then(
         (response) ->
