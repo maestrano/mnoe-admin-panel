@@ -4,6 +4,7 @@
   orgPromise = MnoeOrganizations.get($stateParams.orgId)
   vm.subscription = MnoeProvisioning.getCachedSubscription()
   vm.selectedCurrency = MnoeProvisioning.getSelectedCurrency()
+  vm.quoteBased = false
   subPromise = if _.isEmpty(vm.subscription)
     MnoeProvisioning.initSubscription({productId: $stateParams.productId, orgId: $stateParams.orgId, subscriptionId: $stateParams.subscriptionId})
   else
@@ -19,6 +20,8 @@
       vm.subscription = response.subscription
       vm.singleBilling = vm.subscription.product.single_billing_enabled
       vm.billedLocally = vm.subscription.product.billed_locally
+      vm.quoteBased = vm.subscription.product_pricing.quote_based
+      vm.quote = MnoeProvisioning.getCachedQuote() if vm.quoteBased
   ).finally(-> vm.isLoading = false)
 
   vm.pricingText = () ->

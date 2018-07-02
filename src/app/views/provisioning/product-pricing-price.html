@@ -1,4 +1,4 @@
-<span ng-show="pricedPlan(subscription.product_pricing.pricing_type)">
+<span ng-show="pricedPlan(subscription.product_pricing.pricing_type) && !vm.quoteBased">
   <div ng-repeat="price in subscription.product_pricing.prices | filterBy: ['currency']: selectedCurrency" class="badge">
     <span ng-hide="subscription.product_pricing.license_based">
       {{ price.currency }} {{ price.price_cents / 100 | number:2 }}

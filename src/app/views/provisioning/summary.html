@@ -33,7 +33,8 @@
         <tr>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.summary.name' | translate }}</th>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.summary.licenses' | translate }}</th>
-          <th id="summary-price">{{ 'mnoe_admin_panel.dashboard.provisioning.summary.price' | translate }}</th>
+          <th ng-hide="vm.quoteBased" id="summary-price">{{ 'mnoe_admin_panel.dashboard.provisioning.summary.price' | translate }}</th>
+          <th ng-show="vm.quoteBased">{{ 'mnoe_admin_panel.dashboard.provisioning.summary.quoted_price' | translate }}</th>
           <th>{{ 'mnoe_admin_panel.dashboard.provisioning.summary.description' | translate }}</th>
         </tr>
         </thead>
@@ -51,8 +52,16 @@
               </span>
             </div>
           </td>
-          <td>
+          <td ng-hide="vm.quoteBased">
             <mnoe-product-pricing-prices subscription="vm.subscription" selected-currency="vm.selectedCurrency">
+          </td>
+          <td ng-show="vm.quoteBased">
+            <span ng-show="vm.quote.price">
+              {{ vm.quote.currency }} {{ vm.quote.price }}
+            </span>
+            <span ng-hide="vm.quote.price">
+              {{ 'mnoe_admin_panel.dashboard.provisioning.summary.quote_error' | translate }}
+            </span>
           </td>
           <td>{{ vm.subscription.product_pricing.description }}</td>
         </tr>

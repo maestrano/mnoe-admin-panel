@@ -6,6 +6,8 @@
   vm.subscription = MnoeProvisioning.getCachedSubscription()
   vm.selectedCurrency = MnoeProvisioning.getSelectedCurrency()
   vm.cartItem = $stateParams.cart == 'true'
+  vm.quoteFetched = true
+  vm.quoteBased = false
 
   vm.editOrder = (reload = false) ->
     params = {
@@ -32,6 +34,22 @@
       .then((schema) ->
         vm.schema = schema
       )
+
+  if vm.subscription.product_pricing?.quote_based
+    vm.quoteBased = true
+    vm.quoteFetched = false
+    MnoeProvisioning.getQuote(vm.subscription, vm.selectedCurrency).then(
+      (response) ->
+        vm.quotedPrice = response.data.totalContractValue?.quote
+        vm.quotedCurrency = response.data.totalContractValue?.currency
+        # To be passed to the order summary screen.
+        MnoeProvisioning.setQuote(response.data.totalContractValue)
+        vm.quoteFetched = true
+      (error) ->
+        vm.quoteFetched = true
+        $log.error('Error while fetching quote', error)
+    )
+
   # Happen when the user reload the browser during the provisioning
   if _.isEmpty(vm.subscription)
     # Redirect the user to the first provisioning screen
