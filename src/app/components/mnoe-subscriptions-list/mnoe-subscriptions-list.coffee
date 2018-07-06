@@ -18,6 +18,8 @@
     MnoeCurrentUser.getUser().then(
       (response) ->
         ctrl.isAccountManager = UserRoles.isAccountManager(response)
+        ctrl.isSupportManager = UserRoles.isSupportManager(response)
+        ctrl.supportDisabledClass = UserRoles.supportDisabledClass(response)
       )
 
     ctrl.subscriptions =
@@ -82,6 +84,7 @@
       subscription.status in ['pending', 'provisioning']
 
     ctrl.editSubscription = (subscription, editAction) ->
+      return if ctrl.isSupportManager
       MnoeProvisioning.setSubscription({})
 
       params = {subscriptionId: subscription.id, orgId: subscription.organization_id, editAction: editAction, cart: ctrl.companyCart}

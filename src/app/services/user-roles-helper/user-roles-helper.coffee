@@ -14,7 +14,16 @@
   @isAccountManager = (user) ->
     (user.admin_role == 'staff')
 
+  @isSupportManager = (user) ->
+    (user.admin_role == 'support')
+
   @supportRoleForUser = (user) ->
     MnoeAdminConfig.isSupportRoleEnabled() && user.admin_role == 'support'
+
+  @supportDisabledClass = (user) ->
+    if @isSupportManager(user) then 'support' else ''
+
+  @supportRoleLoggedIn = (user) ->
+    @isSupportManager(user) && $cookies.get("support_org_id")
 
   return @

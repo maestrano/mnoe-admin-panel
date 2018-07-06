@@ -2,7 +2,7 @@
 @App.factory 'MnoeAdminConfig', ($log, ADMIN_ROLES, ADMIN_PANEL_CONFIG, DASHBOARD_CONFIG, INTERCOM_ID) ->
   _self = @
 
-  # Only expose subtenant_admin when subtenants are enabled
+  # Only expose subtenant_admin/support when subtenants/support are enabled
   @adminRoles = () ->
     admin_roles = ADMIN_ROLES
     _.remove(admin_roles, (role) -> role.value == 'sub_tenant_admin') unless _self.isSubTenantEnabled()

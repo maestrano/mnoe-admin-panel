@@ -15,6 +15,13 @@
       controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.home.title'
+    .state 'dashboard.support',
+      data:
+        pageTitle:'Support'
+      url: '/support'
+      templateUrl: 'app/views/support/support.html'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.home.support'
     .state 'dashboard.reviews',
       data:
         pageTitle:'Reviews'

@@ -8,9 +8,15 @@
     user: '<',
   }
   controllerAs: 'vm'
-  controller: ($window, toastr, MnoErrorsHandler, MnoeAdminConfig, MnoeUsers, MnoConfirm) ->
+  controller: ($window, toastr, MnoErrorsHandler, MnoeAdminConfig, MnoeUsers, MnoeCurrentUser, MnoConfirm, UserRoles) ->
     vm = this
     vm.isImpersonationEnabled = MnoeAdminConfig.isImpersonationEnabled()
+
+    MnoeCurrentUser.getUser().then(
+      (response) ->
+        vm.isSupportManager = UserRoles.isSupportManager(response)
+        vm.supportDisabledClass = UserRoles.supportDisabledClass(response)
+    )
 
     vm.impersonationStatus = ->
       if vm.user.admin_role
