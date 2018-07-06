@@ -14,6 +14,7 @@
   "mnoe_admin_panel.dashboard.layout.company_view": "Access company view",
   "mnoe_admin_panel.dashboard.layout.logout": "Logout",
   "mnoe_admin_panel.dashboard.layout.sidebar.title": "Dashboard",
+  "mnoe_admin_panel.dashboard.layout.sidebar.organization": "Organization",
   "mnoe_admin_panel.dashboard.layout.sidebar.navigation": "Navigation",
   "mnoe_admin_panel.dashboard.layout.sidebar.customer-management": "Customer Management",
   "mnoe_admin_panel.dashboard.layout.sidebar.product-management": "Product Management",
