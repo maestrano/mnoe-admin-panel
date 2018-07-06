@@ -37,10 +37,16 @@
   </mno-admin-header>
 
   <mno-admin-nav>
+    <!-- Sidebard for Support Managers -->
     <div ng-if="main.showSupportScreen">
       <li class="sidebar-list" ui-sref-active="active">
         <a ui-sref="dashboard.home">{{'mnoe_admin_panel.dashboard.layout.sidebar.support' | translate}}<span class="menu-icon fa fa-question-circle"></span></a>
       </li>
+      <div ng-if="main.supportLoggedIn(main.user)">
+        <li class="sidebar-list" ui-sref-active="active">
+          <a ui-sref="dashboard.customers">{{'mnoe_admin_panel.dashboard.layout.sidebar.customers' | translate}}<span class="menu-icon fa fa-users"></span></a>
+        </li>
+      </div>
     </div>
     <div ng-if="!main.showSupportScreen">
       <li class="sidebar-list" ui-sref-active="active">

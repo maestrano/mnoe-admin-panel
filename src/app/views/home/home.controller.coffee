@@ -9,7 +9,7 @@
   MnoeCurrentUser.getUser().then(
     (user) ->
       vm.user = user
-      vm.showSupportScreen = UserRoles.supportRoleForUser(user)
+      vm.showSupportScreen = UserRoles.isSupportManager(user)
       vm.findMetrics() unless vm.showSupportScreen
       vm.isLoading = false
   )

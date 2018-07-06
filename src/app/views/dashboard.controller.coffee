@@ -31,9 +31,12 @@
     (user) ->
       main.user = user
       main.organizationAvailable = user.organizations? && user.organizations.length > 0
-      main.showSupportScreen = UserRoles.supportRoleForUser(user)
+      main.showSupportScreen = UserRoles.isSupportManager(user)
       main.isLoading = false
   )
+
+  main.supportLoggedIn = (user) ->
+    UserRoles.supportRoleLoggedIn(user)
 
   main.exit = ->
     MnoeCurrentUser.logout()
