@@ -44,7 +44,7 @@
       </li>
       <div ng-if="main.supportLoggedIn(main.user)">
         <li class="sidebar-list" ui-sref-active="active">
-          <a ui-sref="dashboard.customers.organization({ orgId: main.currentSupportOrganization })">{{'mnoe_admin_panel.dashboard.layout.sidebar.organization' | translate}}<span class="menu-icon fa fa-users"></span></a>
+          <a ui-sref="dashboard.customers.organization({orgId: main.currentSupportOrganization()})">{{'mnoe_admin_panel.dashboard.layout.sidebar.organization' | translate}}<span class="menu-icon fa fa-users"></span></a>
         </li>
       </div>
     </div>

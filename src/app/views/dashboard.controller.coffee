@@ -32,9 +32,11 @@
       main.user = user
       main.organizationAvailable = user.organizations? && user.organizations.length > 0
       main.showSupportScreen = UserRoles.isSupportManager(user)
-      main.currentSupportOrganization = $cookies.get("support_org_id")
       main.isLoading = false
   )
+
+  main.currentSupportOrganization = () ->
+    $cookies.get("support_org_id")
 
   main.supportLoggedIn = (user) ->
     UserRoles.supportRoleLoggedIn(user)
