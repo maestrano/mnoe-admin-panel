@@ -8,12 +8,14 @@
     # Initialize
     # -----------------------------------------------------------------
     ctrl.isPaymentEnabled = MnoeAdminConfig.isPaymentEnabled()
+
     ctrl.invoices =
       list: []
       nbItems: 10
       search: {}
       offset: 0
       page: 1
+      status: MnoeAdminConfig.invoicesStatus()
       pageChangedCb: (nbItems, page) ->
         ctrl.invoices.nbItems = nbItems
         ctrl.invoices.page = page
@@ -42,7 +44,16 @@
       search = {}
       if searchingState.predicateObject
         for attr, value of searchingState.predicateObject
-          search[ 'where[' + attr + '.like]' ] = value + '%'
+          switch attr
+            when 'paid_at'
+              switch value 
+                when 'Paid' then search[ 'where[' + attr + '.not]' ] = 'null'
+                when 'Pending' then search[ 'where[' + attr + '.none]' ] = 'true'
+            else
+              if _.isObject(value)
+                search[ 'where[' + attr + '.' + _.keys(value)[0] + '.like]' ] = '%' + _.values(value)[0] + '%'
+              else
+                search[ 'where[' + attr + '.like]' ] = '%' + value + '%'
       ctrl.invoices.search = search
       return search
 
