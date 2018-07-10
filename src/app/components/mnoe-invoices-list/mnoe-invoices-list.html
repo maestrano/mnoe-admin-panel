@@ -27,8 +27,8 @@
         </thead>
         <tbody ng-show="!$ctrl.invoices.loading">
           <tr ng-repeat="invoice in $ctrl.invoices.list" ng-click="$ctrl.goToInvoice(invoice.id)">
-            <td>{{invoice.slug}}</td>
-            <td><a href="">{{invoice.organization.name}}</a></td>
+            <td><a href="">{{invoice.slug}}</a></td>
+            <td><a ui-sref="dashboard.customers.organization({orgId: invoice.organization.id})">{{invoice.organization.name}}</a></td>
             <td>{{invoice.started_at | amCalendar}} - {{invoice.ended_at | amCalendar}}</td>
             <td ng-if="$ctrl.isPaymentEnabled">{{$ctrl.expectedPaymentDate(invoice.ended_at) | amCalendar }}</td>
             <td>{{invoice.price.currency.iso_code}} {{invoice.price.fractional/100}}</td>
