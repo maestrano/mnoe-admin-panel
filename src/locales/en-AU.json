@@ -601,6 +601,7 @@
   "mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.created_at": "Created At",
   "mnoe_admin_panel.dashboard.organization.widget.local_list.search_organizations.table.role": "Role",
   "mnoe_admin_panel.dashboard.reviews.title": "Reviews",
+  "mnoe_admin_panel.dashboard.home.support": "Support",
   "mnoe_admin_panel.dashboard.reviews_list.title": "All reviews",
   "mnoe_admin_panel.dashboard.reviews_list.author": "Author",
   "mnoe_admin_panel.dashboard.reviews_list.company": "Company",

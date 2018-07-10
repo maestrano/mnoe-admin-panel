@@ -7,7 +7,7 @@
 # fork of the upstream library
 
 
-@App.service 'MnoeCurrentUser', ($window, $state, $q, $timeout, IntercomSvc, MnoeApiSvc) ->
+@App.service 'MnoeCurrentUser', ($window, $state, $q, $timeout, IntercomSvc, MnoeApiSvc, UserRoles) ->
   _self = @
 
   # Store the current_user promise
@@ -26,7 +26,12 @@
         response.data
     )
   @skipIfNotAdmin = () ->
-    @skipIfNotAdminRole(['admin'])
+    _self.getUser().then(=>
+      if UserRoles.isSupportManager(_self.user)
+        @skipIfSupportManager()
+      else
+        @skipIfNotAdminRole(['admin'])
+    )
 
   @skipIfNotAdminRole = (admin_roles) ->
     deferred = $q.defer()
@@ -39,6 +44,20 @@
           $state.go('dashboard.home')
         )
         deferred.reject()
+    )
+    return deferred
+
+  @skipIfSupportManager = () ->
+    deferred = $q.defer()
+    _self.getUser().then(->
+      if UserRoles.isSupportManager(_self.user)
+        $timeout(->
+          # Runs after the authentication promise has been rejected.
+          $state.go('dashboard.support')
+        )
+        deferred.reject()
+      else
+        deferred.resolve()
     )
     return deferred
 
