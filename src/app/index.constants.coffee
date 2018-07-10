@@ -9,6 +9,10 @@
     {value: 'sub_tenant_admin', label: 'mnoe_admin_panel.constants.admin_roles.sub_tenant_admin'},
     {value: 'staff', label: 'mnoe_admin_panel.constants.admin_roles.staff'}
   ])  # Must be lower case
+  .constant('STATUS', [
+    {value: 'Paid', label: 'mnoe_admin_panel.constants.status.paid'},
+    {value: 'Pending', label: 'mnoe_admin_panel.constants.status.pending'}
+  ])
   .constant('STAFF_PAGE_AUTH', ['admin', 'sub_tenant_admin'])
   .constant('OBS_KEYS', {
     organizationChanged: 'organizationListChanged',

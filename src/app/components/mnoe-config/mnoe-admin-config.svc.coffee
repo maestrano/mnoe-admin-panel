@@ -1,5 +1,5 @@
 # This service is a wrapper around the config we fetch from the backend
-@App.factory 'MnoeAdminConfig', ($log, ADMIN_ROLES, ADMIN_PANEL_CONFIG, DASHBOARD_CONFIG, INTERCOM_ID) ->
+@App.factory 'MnoeAdminConfig', ($log, ADMIN_ROLES, STATUS, ADMIN_PANEL_CONFIG, DASHBOARD_CONFIG, INTERCOM_ID) ->
   _self = @
 
   # Only expose subtenant_admin when subtenants are enabled
@@ -8,6 +8,10 @@
       ADMIN_ROLES
     else
       _.reject(ADMIN_ROLES, (role) -> role.value == 'sub_tenant_admin')
+
+  #Get list of statuses for invoices
+  @invoicesStatus = () ->
+    STATUS
 
   # If the feature is enabled a "staff" user can be assigned to customers and can only see those ones
   # If the feature is disabled, the screen to assign customers is not showing and a staff can see all customers (only difference with "admin" in this case is some screens are limited)
