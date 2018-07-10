@@ -38,11 +38,23 @@
     # Invoice Management
     # -----------------------------------------------------------------
     # Update searching parameters
+
     updateSearch = (searchingState = {}) ->
       search = {}
       if searchingState.predicateObject
         for attr, value of searchingState.predicateObject
-          search[ 'where[' + attr + '.like]' ] = value + '%'
+          if _.isObject(value)
+            # Workaround to allow 'relation.field' type of search
+            # 'organization.name' search for 'a' is interpreted by Smart Table as {organization: {name: 'a'}
+            search[ 'where[' + attr + '.' + _.keys(value)[0] + '.like]' ] = _.values(value)[0] + '%'
+          else if attr == 'paid_at'
+            switch value
+              when 'paid' then search[ 'where[' + attr + '.not]' ] = 'null'
+              when 'awaiting' then search[ 'where[' + attr + '.none]' ] = 'true'
+          else
+            search[ 'where[' + attr + '.like]' ] = value + '%'
+
+      # Update sort
       ctrl.invoices.search = search
       return search
 
