@@ -1,4 +1,4 @@
-@App.controller 'OrganizationController', ($log, $filter, $state, $stateParams, $uibModal, toastr, MnoeAdminConfig, MnoeOrganizations, MnoeCurrentUser, MnoAppsInstances, MnoeTenant, UserRoles) ->
+@App.controller 'OrganizationController', ($log, $filter, $state, $stateParams, $uibModal, $q, toastr, MnoeAdminConfig, MnoeOrganizations, MnoeCurrentUser, MnoAppsInstances, MnoeTenant, UserRoles) ->
   'ngInject'
   vm = this
 
@@ -42,7 +42,11 @@
         vm.organization = response.data.plain()
         vm.organization.invoices = $filter('orderBy')(vm.organization.invoices, '-started_at')
         vm.updateStatus()
+    ).catch(->
+      $state.go('dashboard.home')
+      $q.reject()
     ).finally(-> vm.isLoading = false)
+
   initOrganization()
 
   MnoeTenant.get().then(
