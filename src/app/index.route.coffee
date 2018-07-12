@@ -336,7 +336,7 @@
       .state 'dashboard.order',
         data:
           pageTitle:'Order'
-        url: '^/orders/:subscriptionId?:orgId?orderId'
+        url: '^/orders/:subscriptionId?:orgId&orderId&cart'
         views: '@dashboard':
           templateUrl: 'app/views/orders/order.html'
           controller: 'OrderController'
