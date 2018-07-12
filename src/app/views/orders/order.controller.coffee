@@ -5,6 +5,7 @@
   vm.subscriptionId = $stateParams.subscriptionId
   vm.orgId = $stateParams.orgId
   vm.orderId = $stateParams.orderId
+  vm.cart = $stateParams.cart
   vm.order = {}
   vm.subscription = {}
   vm.rootName = $filter('translate')('mnoe_admin_panel.dashboard.order.root_name')
@@ -34,7 +35,7 @@
     fetchSubscriptionEvent()
 
   # Get the subscription
-  MnoeProvisioning.fetchSubscription(vm.subscriptionId, vm.orgId).then(
+  MnoeProvisioning.fetchSubscription(vm.subscriptionId, vm.orgId, vm.cart).then(
     (response) ->
       vm.subscription = response.data.plain()
       vm.getInfo()
