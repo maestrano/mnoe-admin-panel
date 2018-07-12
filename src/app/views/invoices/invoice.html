@@ -37,7 +37,7 @@
               </span>
               <span ng-if="!vm.invoice.paid_at && vm.editableTaxRate">
                 <input ng-model="vm.invoice_tax_rate" class="form-control inline-input" placeholder="%" type="number">
-                <a ng-click="vm.updateTaxRate()" class="btn btn-link btn-link-success">
+                <a ng-click="vm.updateTaxRate()" ng-class="{ 'disabled': vm.invoice_tax_rate < 0 }" class="btn btn-link btn-link-success">
                   <i class="fa fa-check"></i>
                 </a>
                 <a ng-click="vm.cancelTaxRateUpdate()" class="btn btn-link btn-link-danger">
