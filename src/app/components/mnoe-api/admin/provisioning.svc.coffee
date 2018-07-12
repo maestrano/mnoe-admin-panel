@@ -43,7 +43,8 @@
     )
 
   productPromises = {}
-  @getProduct = (productId, params) ->
+  @getProduct = (productId, orgId, params = {}) ->
+    params['organization_id'] = orgId
     productPromises["#{productId}/#{params.editAction}"] ?= MnoeAdminApiSvc.one('/products', productId).get(params)
       .then((response) -> response.data.product)
 
@@ -89,36 +90,76 @@
 
     return deferred.promise
 
+  subscriptionParams = (s, c) ->
+    {
+      subscription: {
+        product_id: s.product.id,
+        subscription_events_attributes: [subscriptionEventParams(s, c)]
+      }
+    }
+
+  subscriptionEventParams = (s, c) ->
+    {
+      event_type: s.event_type,
+      product_pricing_id: s.product_pricing?.id,
+      subscription_details: {
+        start_date: s.start_date,
+        custom_data: s.custom_data,
+        currency: c,
+        max_licenses: s.max_licenses
+      }
+    }
+
   createSubscription = (s, c) ->
-    subscriptionsApi(s.organization_id).post({subscription:
-      {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, max_licenses: s.max_licenses, custom_data: s.custom_data, cart_entry: s.cart_entry
-      }}).catch(
-        (error) ->
-          MnoErrorsHandler.processServerError(error)
+    subscriptionsApi(s.organization_id).post(subscriptionParams(s,c)).catch(
+      (error) ->
+        MnoErrorsHandler.processServerError(error)
     )
 
   updateSubscription = (s, c) ->
     subscription.patch({subscription:
       {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, max_licenses: s.max_licenses, custom_data: s.custom_data, edit_action: s.edit_action, cart_entry: s.cart_entry
-      }}).catch(
-        (error) ->
-          MnoErrorsHandler.processServerError(error)
+      }}).catch((error) ->
+        MnoErrorsHandler.processServerError(error)
+      )
+
+  createSubscriptionEvent = (s, c, orgId) ->
+    MnoeAdminApiSvc.one('organizations', orgId).one('subscriptions', s.id).all('subscription_events')
+      .post({subscription_event: subscriptionEventParams(s,c)}).catch((error) ->
+        MnoErrorsHandler.processServerError(error)
+        $q.reject(error)
     )
 
   # Detect if the subscription should be a POST or A PUT and call corresponding method
-  @saveSubscription = (subscription, currency) ->
+  @saveSubscription = (subscription, currency, orgId) ->
+    # If subscription already exists, create a subscription event for the subscription.
     if subscription.id
-      updateSubscription(subscription, currency).then(
-        (response) ->
-          _self.setSubscription(response.data?.subscription)
-          response.data?.subscription
+      createSubscriptionEvent(subscription, currency, orgId).catch(
+        (error) ->
+          MnoErrorsHandler.processServerError(error)
       )
+    # Otherwise create the subscription.
     else
       createSubscription(subscription, currency).then(
         (response) ->
-          _self.setSubscription(response.data)
           response.data
       )
+
+  @saveSubscriptionCart = (s, c) ->
+    if s.id
+      subscription.patch({subscription:
+        {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, max_licenses: s.max_licenses, custom_data: s.custom_data, edit_action: s.event_type, cart_entry: s.cart_entry
+        }}).catch(
+          (error) ->
+            MnoErrorsHandler.processServerError(error)
+      )
+    else
+      subscriptionsApi(s.organization_id).post({subscription:
+        {currency: c, product_id: s.product.id, product_pricing_id: s.product_pricing?.id, max_licenses: s.max_licenses, custom_data: s.custom_data, cart_entry: s.cart_entry
+        }}).catch(
+          (error) ->
+            MnoErrorsHandler.processServerError(error)
+    )
 
   @fetchSubscription = (id, orgId, cart = false) ->
     params = if cart then { 'subscription[cart_entry]': 'true' } else {}

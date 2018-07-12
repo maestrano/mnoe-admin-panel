@@ -19,7 +19,7 @@
     }
 
     switch $stateParams.editAction.toLowerCase()
-      when 'change', 'new', null
+      when 'change', 'provision', null
         $state.go('dashboard.provisioning.order', params, {reload: reload})
       else
         $state.go('dashboard.provisioning.additional_details', params, {reload: reload})
@@ -57,7 +57,6 @@
   else
     vm.singleBilling = vm.subscription.product.single_billing_enabled
     vm.billedLocally = vm.subscription.product.billed_locally
-    vm.subscription.edit_action = $stateParams.editAction
     # Render custom Schema if it exists
     setCustomSchema() if vm.subscription.custom_data && vm.subscription.product.custom_schema
 
@@ -69,7 +68,7 @@
     # Disable editing if unable to initially select a pricing plan.
     return false if ProvisioningHelper.skipPriceSelection(vm.subscription.product)
     switch $stateParams.editAction.toLowerCase()
-      when 'change', 'new'
+      when 'change', 'provision'
         true
       else
         false
@@ -81,20 +80,24 @@
 
   vm.validate = () ->
     vm.isLoading = true
-    vm.subscription.cart_entry = true if vm.cartItem
-    vm.subscription.edit_action = $stateParams.editAction
-    MnoeProvisioning.saveSubscription(vm.subscription, vm.selectedCurrency).then(
-      (subscription) ->
-        if vm.cartItem
-          $state.go("dashboard.customers.organization", {orgId: $stateParams.orgId})
-        else
-          $state.go('dashboard.provisioning.order_summary', {orgId: $stateParams.orgId, subscriptionId: subscription.id, editAction: $stateParams.editAction})
+    vm.subscription.event_type = $stateParams.editAction
+    if vm.cartItem
+      vm.subscription.cart_entry = true
+      provisioningPromise = MnoeProvisioning.saveSubscriptionCart(vm.subscription, vm.selectedCurrency, $stateParams.orgId)
+    else
+      provisioningPromise = MnoeProvisioning.saveSubscription(vm.subscription, vm.selectedCurrency, $stateParams.orgId)
+
+    provisioningPromise.then((subscription) ->
+      if vm.cartItem
+        $state.go("dashboard.customers.organization", {orgId: $stateParams.orgId})
+      else
+        $state.go('dashboard.provisioning.order_summary', {orgId: $stateParams.orgId, subscriptionId: subscription.id, editAction: $stateParams.editAction})
     ).finally(-> vm.isLoading = false)
 
   vm.addToCart = ->
     vm.isLoading = true
     vm.subscription.cart_entry = true
-    MnoeProvisioning.saveSubscription(vm.subscription).then(
+    MnoeProvisioning.saveSubscriptionCart(vm.subscription, vm.selectedCurrency, $stateParams.orgId).then(
       (response) ->
         $state.go('dashboard.customers.organization', {orgId: $stateParams.orgId})
      ).finally(-> vm.isLoading = false)

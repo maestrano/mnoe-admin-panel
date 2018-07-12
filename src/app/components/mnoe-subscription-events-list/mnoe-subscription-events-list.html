@@ -23,7 +23,7 @@
               <td>{{subscriptionEvent.created_at | amDateFormat:'L'}}</td>
               <td ng-if="$ctrl.all"><a ui-sref="dashboard.order({orderId : subscriptionEvent.id, orgId: subscriptionEvent.subscription.organization_id, subscriptionId: subscriptionEvent.subscription.id})">{{subscriptionEvent.subscription.organization_name}}</a></td>
               <td><a ui-sref="dashboard.order({orderId : subscriptionEvent.id, orgId: subscriptionEvent.subscription.organization_id, subscriptionId: subscriptionEvent.subscription.id})">{{subscriptionEvent.subscription.product_name}}</a></td>
-              <td>{{subscriptionEvent.subscription.product_pricing_name}}</td>
+              <td>{{subscriptionEvent.product_pricing.name}}</td>
               <td>
                 <div>
                   {{subscriptionEvent.status}}

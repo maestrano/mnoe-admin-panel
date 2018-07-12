@@ -10,9 +10,10 @@
     filters: '<'
     titleKey: '@'
   }
-  controller: ($state, $uibModal, $stateParams, MnoeCurrentUser, MnoeProvisioning, UserRoles, MnoeObservables, OBS_KEYS) ->
+  controller: ($state, $uibModal, $stateParams, MnoeCurrentUser, MnoeProvisioning, UserRoles, MnoeObservables, ProvisioningHelper, OBS_KEYS) ->
     ctrl = this
     ctrl.organizationId = $stateParams.orgId
+    ctrl.skipPriceSelection = ProvisioningHelper.skipPriceSelection
 
     MnoeCurrentUser.getUser().then(
       (response) ->
@@ -76,6 +77,9 @@
 
     ctrl.showEditAction = (subscription, editAction) ->
       editAction in subscription.available_actions
+
+    ctrl.pendingSubscription = (subscription) ->
+      subscription.status in ['pending', 'provisioning']
 
     ctrl.editSubscription = (subscription, editAction) ->
       MnoeProvisioning.setSubscription({})

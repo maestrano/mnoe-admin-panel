@@ -23,6 +23,9 @@
     dateFormat: 'yyyy-MM-dd HH:mm:ss'
   }
 
+  vm.showNoDetailsProvied = (custom_data) ->
+    _.isEmpty(custom_data)
+
   fetchSubscriptionEvent = () ->
     return unless vm.orderId
     MnoeProvisioning.getSubscriptionEvent(vm.subscriptionId, vm.orgId, vm.orderId).then((response) ->
@@ -33,19 +36,22 @@
   if vm.orderId
     fetchSubscriptionEvent()
 
-  # Get the subscription
-  MnoeProvisioning.fetchSubscription(vm.subscriptionId, vm.orgId).then(
-    (response) ->
-      vm.subscription = response.data.plain()
-      vm.getInfo()
-      if vm.subscription.externally_provisioned?
-        MnoeProducts.fetchCustomSchema(vm.subscription.product.id).then((response) ->
-          return unless response
-          schema = JSON.parse(response)
-          vm.schema = schema.json_schema || schema
-          vm.form = schema.asf_options || ["*"]
-      )
-    ).finally(-> vm.isLoading = false)
+  fetchSubscription = () ->
+    # Get the subscription
+    MnoeProvisioning.fetchSubscription(vm.subscriptionId, vm.orgId).then(
+      (response) ->
+        vm.subscription = response.data.plain()
+        vm.getInfo()
+        if vm.subscription.externally_provisioned?
+          MnoeProducts.fetchCustomSchema(vm.subscription.product.id).then((response) ->
+            return unless response
+            schema = JSON.parse(response)
+            vm.schema = schema.json_schema || schema
+            vm.form = schema.asf_options || ["*"]
+        )
+      ).finally(-> vm.isLoading = false)
+
+  fetchSubscription()
 
   fetchSubscriptionEvents = () ->
     MnoeProvisioning.getSubscriptionEvents(vm.subscriptionId, vm.orgId, null, null, 'created_at.desc').then(
@@ -101,6 +107,7 @@
         MnoeProvisioning.approveSubscriptionEvent({id: vm.order.id}).then(() ->
           fetchSubscriptionEvents()
           fetchSubscriptionEvent()
+          fetchSubscription()
           ).then(() ->
             toastr.success('mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.toastr_success', {extraData: {subscription_name: vm.subscription.product.name}})
           ).catch(() ->

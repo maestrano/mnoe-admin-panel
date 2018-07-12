@@ -78,7 +78,7 @@
     # When in edit mode, we will be getting the product ID from the subscription, otherwise from the url.
     vm.productId = vm.subscription.product?.id || urlParams.productId
 
-    MnoeProvisioning.getProduct(vm.productId, { editAction: urlParams.editAction }).then(
+    MnoeProvisioning.getProduct(vm.productId, urlParams.orgId, { editAction: urlParams.editAction }).then(
       (response) ->
         vm.subscription.product = response
         # Filters the pricing plans not containing current currency

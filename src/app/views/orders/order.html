@@ -3,6 +3,39 @@
     <i class="fa fa-chevron-left"></i>&nbsp;<span translate>mnoe_admin_panel.dashboard.order.back</span>
   </a>
   <div class="row">
+    <div class="col-xs-12">
+      <mno-widget icon="fa-user-o" heading="{{'mnoe_admin_panel.dashboard.order.customer' | translate}}" is-loading="vm.isLoading">
+        <mno-widget-header></mno-widget-header>
+        <mno-widget-body>
+          <div class="row">
+            <div class="col-xs-4">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.name</div>
+            </div>
+            <div class="col-xs-8">
+              {{vm.user.name}} {{vm.user.surname}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.email</div>
+            </div>
+            <div class="col-xs-8">
+              {{vm.user.email}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4">
+              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.organization</div>
+            </div>
+            <div class="col-xs-8">
+              {{vm.organization.name}}
+            </div>
+          </div>
+        </mno-widget-body>
+      </mno-widget>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-xs-6">
       <mno-widget icon="fa-shopping-basket" heading="{{'mnoe_admin_panel.dashboard.subscription.subscription_info' | translate}}" is-loading="vm.isLoading">
         <mno-widget-header></mno-widget-header>
@@ -79,7 +112,6 @@
       <mno-widget icon="fa-shopping-basket" heading="{{'mnoe_admin_panel.dashboard.subscription.order_info' | translate}}" is-loading="vm.isLoading">
         <mno-widget-header></mno-widget-header>
         <mno-widget-body class="medium">
-
           <div ng-if="!vm.order" translate>
             mnoe_admin_panel.dashboard.order.no_order
           </div>
@@ -102,6 +134,30 @@
             </div>
             <div class="row">
               <div class="col-xs-6">
+                <div class="label-cell" translate>mnoe_admin_panel.dashboard.subscription.pricing_plan</div>
+              </div>
+              <div class="col-xs-6">
+                {{vm.order.product_pricing.name}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="label-cell" translate>mnoe_admin_panel.dashboard.subscription.price</div>
+              </div>
+              <div class="col-xs-6">
+                <mnoe-product-pricing-prices subscription="vm.order" selected-currency="vm.order.subscription_details.currency">
+              </div>
+            </div>
+            <div class="row" ng-show="vm.subscription.product_pricing.license_based">
+              <div class="col-xs-6">
+                <div class="label-cell" translate>mnoe_admin_panel.dashboard.subscription.licenses</div>
+              </div>
+              <div class="col-xs-6">
+                {{vm.order.subscription_details.max_licenses}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">
                 <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.status</div>
               </div>
               <div class="col-xs-6">
@@ -109,7 +165,6 @@
                 <a class="label-cell" href="" ng-hide="!vm.displayInfoTooltip()" ng-click="vm.displayStatusInfo()"><i class="fa fa-info-circle"></i></a>
               </div>
             </div>
-
             <div class="row">
               <div class="col-xs-6">
                 <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.message</div>
@@ -147,33 +202,11 @@
   </div>
   <div class='row'>
     <div class="col-xs-6">
-      <mno-widget icon="fa-user-o" heading="{{'mnoe_admin_panel.dashboard.order.customer' | translate}}" is-loading="vm.isLoading">
+      <mno-widget icon="fa-info-circle" heading="{{'mnoe_admin_panel.dashboard.subscription.custom_data' | translate}}" is-loading="vm.isLoading">
         <mno-widget-header></mno-widget-header>
-        <mno-widget-body class="medium">
-          <div class="row">
-            <div class="col-xs-4">
-              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.name</div>
-            </div>
-            <div class="col-xs-6">
-              {{vm.user.name}} {{vm.user.surname}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-4">
-              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.email</div>
-            </div>
-            <div class="col-xs-6">
-              {{vm.user.email}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-4">
-              <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.organization</div>
-            </div>
-            <div class="col-xs-6">
-              {{vm.organization.name}}
-            </div>
-          </div>
+        <mno-widget-body>
+          <span ng-show="vm.showNoDetailsProvied(vm.subscription.custom_data)" translate>mnoe_admin_panel.dashboard.order.no_custom_data</span>
+          <form ng-show="vm.subscription.custom_data" name="vm.detailsForm" sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.subscription.custom_data" sf-options="{ formDefaults: { readonly: { true } }}"></form>
         </mno-widget-body>
       </mno-widget>
     </div>
@@ -181,8 +214,8 @@
       <mno-widget icon="fa-info-circle" heading="{{'mnoe_admin_panel.dashboard.order.custom_data' | translate}}" is-loading="vm.isLoading">
         <mno-widget-header></mno-widget-header>
         <mno-widget-body>
-          <span ng-show="!vm.subscription.custom_data" translate>mnoe_admin_panel.dashboard.order.no_custom_data</span>
-          <form ng-show="vm.subscription.custom_data" name="vm.detailsForm" sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.subscription.custom_data" sf-options="{ formDefaults: { readonly: { true } }}"></form>
+          <span ng-show="vm.showNoDetailsProvied(vm.order.subscription_details.custom_data)" translate>mnoe_admin_panel.dashboard.order.no_custom_data</span>
+          <form ng-show="vm.order.subscription_details.custom_data" name="vm.detailsForm" sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.order.subscription_details.custom_data" sf-options="{ formDefaults: { readonly: { true } }}"></form>
         </mno-widget-body>
       </mno-widget>
     </div>

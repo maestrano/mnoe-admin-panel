@@ -52,16 +52,20 @@
     )
 
   selectDefaultCurrency = () ->
-    if vm.currencies.includes(vm.orgCurrency)
-      vm.selectedCurrency = vm.orgCurrency
+    vm.selectedCurrency = if MnoeProvisioning.getSelectedCurrency()
+      MnoeProvisioning.getSelectedCurrency()
+    else if vm.subscription.currency
+      vm.subscription.currency
+    else if vm.currencies.includes(vm.orgCurrency)
+      vm.orgCurrency
     else
-      vm.selectedCurrency = vm.currencies[0]
+      vm.currencies[0]
 
 
   fetchProduct = () ->
     # When in edit mode, we will be getting the product ID from the subscription, otherwise from the url.
     vm.productId = vm.subscription.product?.id || $stateParams.productId
-    MnoeProvisioning.getProduct(vm.productId, { editAction: $stateParams.editAction }).then(
+    MnoeProvisioning.getProduct(vm.productId, urlParams.orgId, { editAction: $stateParams.editAction }).then(
       (response) ->
         vm.subscription.product = response
         populateCurrencies()
@@ -103,8 +107,8 @@
     vm.isLoading = false
 
   vm.subscriptionPlanText = switch $stateParams.editAction.toLowerCase()
-    when 'new'
-      'mnoe_admin_panel.dashboard.provisioning.order.new_title'
+    when 'provision'
+      'mnoe_admin_panel.dashboard.provisioning.order.provision_title'
     when 'change'
       'mnoe_admin_panel.dashboard.provisioning.order.change_title'
 
