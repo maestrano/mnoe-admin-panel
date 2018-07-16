@@ -20,7 +20,7 @@
       vm.subscription = response.subscription
       vm.singleBilling = vm.subscription.product.single_billing_enabled
       vm.billedLocally = vm.subscription.product.billed_locally
-      vm.quoteBased = vm.subscription.product_pricing.quote_based
+      vm.quoteBased = vm.subscription.product_pricing?.quote_based
       vm.quote = MnoeProvisioning.getCachedQuote() if vm.quoteBased
   ).finally(-> vm.isLoading = false)
 
