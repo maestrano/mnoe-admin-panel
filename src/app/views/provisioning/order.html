@@ -20,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-if="vm.subscription.product.product_pricings.length === 0">
+        <tr ng-if="vm.filteredPricingPlans.length === 0">
           <td colspan="4" class="text-center">{{ 'mnoe_admin_panel.dashboard.provisioning.order.no_pricing_found' | translate:{'currency': vm.orgCurrency} }}</td>
         </tr>
         <tr ng-repeat="pricingPlan in vm.filteredPricingPlans" ng-click="vm.selectPlan(pricingPlan)">
