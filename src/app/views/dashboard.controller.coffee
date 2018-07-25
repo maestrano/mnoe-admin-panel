@@ -17,6 +17,7 @@
     MnoeAdminConfig.areQuestionsEnabled() ||
     MnoeAdminConfig.isDashboardTemplatesEnabled() ||
     MnoeAdminConfig.isAuditLogEnabled()
+  main.isSupportRoleEnabled = MnoeAdminConfig.isSupportRoleEnabled()
 
   main.trustSrc = (src) ->
     $sce.trustAsResourceUrl(src)

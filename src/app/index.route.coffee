@@ -23,6 +23,8 @@
         pageTitle:'Support'
       url: '/support'
       templateUrl: 'app/views/support/support.html'
+      controller: 'SupportController'
+      controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.home.support'
       resolve:

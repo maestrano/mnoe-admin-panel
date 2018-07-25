@@ -64,7 +64,6 @@
   @logout = ->
     # Shutdown the Intercom session
     IntercomSvc.logOut()
-
     _self.getUser().then(
       (response) ->
         # Redirect to dashboard if the user has at least one organization

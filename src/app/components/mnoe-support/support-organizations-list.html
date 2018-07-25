@@ -1,6 +1,6 @@
 <mno-widget icon="fa-sitemap" heading="{{'mnoe_admin_panel.dashboard.organization.widget.list.support.last_organizations.title' | translate}}" is-loading="organizations.loading">
   <mno-widget-header>
-    <input type="text" ng-model="organizations.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }'
+    <input type="text" ng-disabled="!isSupportRoleEnabled" ng-model="organizations.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }'
     placeholder="{{'mnoe_admin_panel.dashboard.organization.widget.list.suport.search_users.placeholder.search_all' | translate}}"
     class="form-control input-sm search-bar" />
   </mno-widget-header>
@@ -15,7 +15,7 @@
       <tbody>
         <tr ng-show="noResultsFound()">
           <td id="no-results" class="text-center">
-            <span>No results</span>
+            <span> {{ noResultsText | translate }} </span>
           </td>
         </tr>
         <tr ng-repeat="organization in organizations.list">

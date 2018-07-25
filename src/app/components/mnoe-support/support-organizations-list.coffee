@@ -1,10 +1,12 @@
-@App.directive('mnoeSupportOrganizationsList', ($filter, $translate, $state, MnoeOrganizations, MnoeCurrentUser, MnoeUsers) ->
+@App.directive('mnoeSupportOrganizationsList', ($filter, $translate, $state, MnoeOrganizations, MnoeCurrentUser, MnoeUsers, MnoeAdminConfig) ->
   restrict: 'E',
   scope: {
     filterParams: '='
   },
   templateUrl: 'app/components/mnoe-support/support-organizations-list.html',
   link: (scope, elem) ->
+
+    scope.isSupportRoleEnabled = MnoeAdminConfig.isSupportRoleEnabled()
 
     # Variables initialization
     scope.organizations =
@@ -66,6 +68,11 @@
     scope.searchChange = () ->
       scope.searchMode = true
       setSearchOrganizationsList(scope.organizations.search)
+
+    scope.noResultsText = if scope.isSupportRoleEnabled
+      "mnoe_admin_panel.dashboard.organization.widget.list.suport.search_users.no_results"
+    else
+      "mnoe_admin_panel.dashboard.organization.widget.list.suport.search_users.support_role_disabled"
 
     # Display only the search results
     setSearchOrganizationsList = (search) ->
