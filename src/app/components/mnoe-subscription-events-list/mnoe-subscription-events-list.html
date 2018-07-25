@@ -37,11 +37,11 @@
               </td>
               <td>
                 <span style="display: flex;" ng-if="subscription.status !== 'cancelled' && !$ctrl.isAccountManager">
-                  <a ng-click="$ctrl.subscriptionEvents.approve(subscriptionEvent)" class="{{ 'btn btn-link btn-link-success '.concat($ctrl.supportDisabledClass) }}" ng-show="subscriptionEvent.status == 'requested'" uib-tooltip="{{ $ctrl.editToolTip('approve') | translate }}"
+                  <a ng-click="$ctrl.subscriptionEvents.approve(subscriptionEvent)" class="btn btn-link btn-link-success" ng-class="$ctrl.supportDisabledClass" ng-show="subscriptionEvent.status == 'requested'" uib-tooltip="{{ $ctrl.editToolTip('approve') | translate }}"
                     tooltip-append-to-body="true">
                     <i class="fa fa-check"></i>
                   </a>
-                  <a ng-click="$ctrl.subscriptionEvents.reject(subscriptionEvent)" ng-show="subscriptionEvent.status == 'requested'" class="{{ 'btn btn-link btn-link-danger subscription-btn '.concat($ctrl.supportDisabledClass) }}" uib-tooltip="{{ $ctrl.editToolTip('reject') | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.subscriptionEvents.reject(subscriptionEvent)" ng-show="subscriptionEvent.status == 'requested'" class="btn btn-link btn-link-danger subscription-btn" ng-class="$ctrl.supportDisabledClass" uib-tooltip="{{ $ctrl.editToolTip('reject') | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-remove"></i>
                   </a>
                 </span>

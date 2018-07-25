@@ -24,7 +24,7 @@
               <div ng-show="!user.name && !user.surname">nc</div>
             </a>
             <small editable-text="user.email" onaftersave="updateUserMail(user)" e-form="emailForm">{{user.email}}</small>
-            <a href class="{{ 'email_edit_link '.concat(supportDisabledClass) }}" ng-hide="user.isUpdatingEmail || emailForm.$visible" ng-click="editEmail()"><i class="fa fa-pencil-square-o fa-1"></i></a>
+            <a href class="email_edit_link" ng-class="supportDisabledClass" ng-hide="user.isUpdatingEmail || emailForm.$visible" ng-click="editEmail()"><i class="fa fa-pencil-square-o fa-1"></i></a>
             <span ng-show="user.isUpdatingEmail"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           </td>
           <td>{{user.uid}}</td>
@@ -39,17 +39,17 @@
               <span ng-show="user.isSendingInvite"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
               {{'mnoe_admin_panel.dashboard.users.widget.local_list.resend_invite' | translate}}
             </button>
-            <span class="{{ supportDisabledClass }}" ng-show="user.status === 'active'" translate>mnoe_admin_panel.dashboard.users.widget.local_list.active</span>
-            <span class="{{ supportDisabledClass }}" ng-show="user.status === 'pending'" ng-click="removeUserFromOrganization(user)" uib-tooltip="{{'mnoe_admin_panel.dashboard.users.widget.local_list.cancel_adding_user' | translate}}"><i class="fa fa-close fa-1"></i></span>
-            <span class="{{ supportDisabledClass }}" ng-show="user.status === 'invited'" ng-click="removeUserFromOrganization(user)" uib-tooltip="{{'mnoe_admin_panel.dashboard.users.widget.local_list.cancel_invite' | translate}}"><i class="fa fa-close fa-1"></i></span>
+            <span ng-class="supportDisabledClass" ng-show="user.status === 'active'" translate>mnoe_admin_panel.dashboard.users.widget.local_list.active</span>
+            <span ng-class="supportDisabledClass" ng-show="user.status === 'pending'" ng-click="removeUserFromOrganization(user)" uib-tooltip="{{'mnoe_admin_panel.dashboard.users.widget.local_list.cancel_adding_user' | translate}}"><i class="fa fa-close fa-1"></i></span>
+            <span ng-class="supportDisabledClass" ng-show="user.status === 'invited'" ng-click="removeUserFromOrganization(user)" uib-tooltip="{{'mnoe_admin_panel.dashboard.users.widget.local_list.cancel_invite' | translate}}"><i class="fa fa-close fa-1"></i></span>
           </td>
           <td ng-if="organizationContext">
             <select ng-show="user.editMode" ng-model="user.role" ng-options="role.value as role.translatedLabel for role in userRoles.availableRolesForOptions"></select>
-            <span class="{{ supportDisabledClass }}" ng-show="user.isUpdatingRole"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
-            <span class="{{ supportDisabledClass }}" ng-click="editRole(user)" ng-hide="user.editMode">{{ userRoles.keyFromRole(user.role) | translate }}</span>
-            <a class="{{ 'role_edit_link '.concat(supportDisabledClass) }}" ng-hide="user.editMode" ng-click="editRole(user)"><i class="fa fa-pencil"></i></a>
-            <a class="{{ 'role_edit_link '.concat(supportDisabledClass) }}" ng-show="user.editMode" ng-click="updateUserRole(user, user.role)"><i class="fa fa-check"></i></a>
-            <a class="{{ 'role_edit_link '.concat(supportDisabledClass) }}" ng-show="user.editMode" ng-click="exitEditRole(user)"><i class="fa fa-times"></i></a>
+            <span ng-class="supportDisabledClass" ng-show="user.isUpdatingRole"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+            <span ng-class="supportDisabledClass" ng-click="editRole(user)" ng-hide="user.editMode">{{ userRoles.keyFromRole(user.role) | translate }}</span>
+            <a class="role_edit_link" ng-class="supportDisabledClass" ng-hide="user.editMode" ng-click="editRole(user)"><i class="fa fa-pencil"></i></a>
+            <a class="role_edit_link" ng-class="supportDisabledClass" ng-show="user.editMode" ng-click="updateUserRole(user, user.role)"><i class="fa fa-check"></i></a>
+            <a class="role_edit_link" ng-class="supportDisabledClass" ng-show="user.editMode" ng-click="exitEditRole(user)"><i class="fa fa-times"></i></a>
             <span ng-show="vm.isSaving"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           </td>
           <td ng-if="isImpersonationEnabled && organizationContext">
