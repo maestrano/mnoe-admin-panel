@@ -19,7 +19,7 @@
           <input type="email" class="form-control input-sm" id="user-email" ng-model="vm.user.email" placeholder="{{'mnoe_admin_panel.dashboard.staffs.add_staff.modal.placeholder.email' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.staffs.add_staff.modal.placeholder.email' | translate}}" required>
         </div>
         <div class="col-sm-6">
-          <select ng-model="vm.user.admin_role" class="form-control input-sm"  ng-options="role.value as role.label | translate for role in vm.admin_roles" required>
+          <select ng-model="vm.user.admin_role" class="form-control input-sm"  ng-options="role.value as role.label | translate for role in vm.admin_roles()" required>
             <option value="" disabled selected translate>mnoe_admin_panel.dashboard.staffs.add_staff.modal.placeholder.role</option>
           </select>
         </div>
