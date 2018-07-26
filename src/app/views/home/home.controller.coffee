@@ -5,12 +5,15 @@
   vm.users = {}
   vm.organizations = {}
   vm.invoices = {}
+  # User is a support manager, and thus have limited roles unless proven otherwise below.
+  vm.isSupportManager = true
 
   MnoeCurrentUser.getUser().then(
     (user) ->
       vm.user = user
-      vm.showSupportScreen = UserRoles.isSupportManager(user)
-      vm.findMetrics() unless vm.showSupportScreen
+      vm.isSupportManager = UserRoles.isSupportManager(user)
+      # Upon initial load of the home page, before the resolve redirects, we may hit this function.
+      vm.findMetrics() unless vm.isSupportManager
       vm.isLoading = false
   )
 

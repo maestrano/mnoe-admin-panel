@@ -23,7 +23,4 @@
   @supportDisabledClass = (user) ->
     if @isSupportManager(user) then 'support' else ''
 
-  @supportRoleLoggedIn = (user) ->
-    @isSupportManager(user) && $cookies.get("support_org_id")
-
   return @
