@@ -93,11 +93,13 @@
         skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportManager()
     .state 'logout',
       url: '/logout'
-      controller: ($window, $http, IntercomSvc) ->
+      controller: ($window, $http, $cookies, IntercomSvc) ->
         'ngInject'
 
         # Logout and redirect the user
         $http.delete(URI.logout).then( ->
+          # Expire support_org_id cookie.
+          $cookies.remove('support_org_id', {path: '/'})
           IntercomSvc.logOut()
           $window.location.href = URI.login
         )
