@@ -118,7 +118,7 @@
                 <div class='col-xs-6'>
                   {{ vm.organization.billing.credit.value | currency: vm.organization.billing.credit.options.symbol }}
                   ({{ vm.organization.billing.credit.options.iso_code }})
-                  <a href='' ng-click="vm.openTransactionModal()">
+                  <a href='' ng-click="vm.openTransactionModal()" ng-class="vm.supportDisabledClass">
                     <i class='fa fa-plus'></i>
                   </a>
                 </div>

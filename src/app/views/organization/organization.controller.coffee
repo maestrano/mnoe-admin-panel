@@ -140,6 +140,7 @@
     )
 
   vm.openTransactionModal = ->
+    return if vm.isSupportManager
     modalInstance = $uibModal.open(
       templateUrl: 'app/views/organization/add-transaction-modal/add-transaction-modal.html'
       controller: 'AddTransactionModalCtrl'
