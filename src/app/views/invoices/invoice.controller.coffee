@@ -49,7 +49,7 @@
       ->
         toastr.success('mnoe_admin_panel.dashboard.invoice.details.updated')
     ).finally(-> vm.isLoading = false)
-    $state.go('dashboard.invoices')
+    $state.reload()
 
   # -----------------------------------------------------------------
   #  Adjustment Management
@@ -59,13 +59,16 @@
       templateUrl: 'app/views/invoices/modals/adjustment-modal.html'
       controller: 'CreateAdjustmentController'
       controllerAs: 'vm'
+      backdrop: 'static'
+      keyboard: false
       resolve:
         invoice: vm.invoice
     )
     modalInstance.result.then(
       (result) ->
-        vm.invoice.adjustments.push(result.adjustment)
-        vm.invoice.price = result.invoice.price
+        if result
+          vm.invoice.adjustments.push(result.adjustment)
+          vm.invoice.price = result.invoice.price
 
     )
 
@@ -78,6 +81,7 @@
       type: 'danger'
 
     MnoConfirm.showModal(modalOptions).then( ->
+      vm.isLoading = true
       MnoeInvoices.deleteAdjustment(vm.invoice.id, adjustment.id).then(
         (response) ->
           indexOfAdjustment = vm.invoice.adjustments.indexOf(adjustment)
@@ -85,10 +89,14 @@
           toastr.success('mnoe_admin_panel.dashboard.invoice.delete_adjustments.toastr_success')
           vm.invoice.price = response.data.invoice.price
         (error) ->
-          # Display an error
           $log.error('Error while deleting adjustment', error)
-          toastr.error('mnoe_admin_panel.dashboard.invoice.delete_adjustments.toastr_error')
-      )
+          # Display an error
+          msg = if error?.data?.invoice
+            'mnoe_admin_panel.dashboard.invoice.adjustments.negative_invoice_error'
+          else
+            'mnoe_admin_panel.dashboard.invoice.delete_adjustments.toastr_error'
+          toastr.error(msg)
+      ).finally(-> vm.isLoading = false)
     )
 
   vm.sendInvoiceToCustomer = () ->

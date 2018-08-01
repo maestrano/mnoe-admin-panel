@@ -1,4 +1,4 @@
-@App.controller 'CreateAdjustmentController', ($uibModalInstance, MnoeInvoices, toastr, invoice) ->
+@App.controller 'CreateAdjustmentController', ($uibModalInstance, $log, MnoeInvoices, toastr, invoice) ->
   'ngInject'
   vm = this
 
@@ -7,6 +7,9 @@
     $uibModalInstance.dismiss('cancel')
 
   vm.addAdjustment = () ->
+    return if vm.isLoading
+
+    vm.isLoading = true
     MnoeInvoices.addAdjustment(invoice.id, vm.adjustment).then(
       (success) ->
         # Close the modal returning the item to the parent window
@@ -15,9 +18,13 @@
         toastr.success("mnoe_admin_panel.dashboard.invoice.create_adjustments.toastr_success", {preventDuplicates: false})
         $uibModalInstance.close({adjustment: vm.adjustment, invoice: success.data.invoice})
       (error) ->
-        toastr.error('mnoe_admin_panel.dashboard.invoice.create_adjustments.toastr_error', {preventDuplicates: false})
         $log.error("An error occurred:", error)
-        $uibModalInstance.close(vm.adjustment)
-    )
+        msg = if error?.data?.invoice
+          'mnoe_admin_panel.dashboard.invoice.adjustments.negative_invoice_error'
+        else
+          'mnoe_admin_panel.dashboard.invoice.create_adjustments.toastr_error'
+        toastr.error(msg, {preventDuplicates: false})
+        $uibModalInstance.close()
+    ).finally(-> vm.isLoading = false)
 
   return

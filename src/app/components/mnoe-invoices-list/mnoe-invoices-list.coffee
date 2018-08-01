@@ -11,7 +11,7 @@
     ctrl.invoices =
       list: []
       nbItems: 10
-      search: {}
+      search: ''
       offset: 0
       page: 1
       pageChangedCb: (nbItems, page) ->
@@ -20,31 +20,25 @@
         ctrl.invoices.offset = (page  - 1) * nbItems
         fetchInvoices(nbItems, ctrl.invoices.offset)
 
-    # Server call
-    ctrl.callServer = (tableState) ->
-      search = updateSearch (tableState.search)
-      fetchInvoices(ctrl.invoices.nbItems, ctrl.invoices.offset)
+    ctrl.searchChange = ->
+      if ctrl.invoices.search && ctrl.invoices.search.length > 2
+        fetchInvoices(ctrl.invoices.nbItems, ctrl.invoices.offset)
 
     # Fetch invoices
-    fetchInvoices = (limit, offset, search = ctrl.invoices.search) ->
+    fetchInvoices = (limit, offset, query_param = ctrl.invoices.search) ->
       ctrl.invoices.loading = true
+      search = {}
+      search[ 'where[slug.like]' ] = "#{query_param}%" if query_param
       return MnoeInvoices.list(limit, offset, search).then(
         (response) ->
           ctrl.invoices.totalItems = response.headers('x-total-count')
           ctrl.invoices.list = response.data
       ).finally(-> ctrl.invoices.loading = false)
+    fetchInvoices(ctrl.invoices.nbItems, ctrl.invoices.offset)
 
     # -----------------------------------------------------------------
     # Invoice Management
     # -----------------------------------------------------------------
-    # Update searching parameters
-    updateSearch = (searchingState = {}) ->
-      search = {}
-      if searchingState.predicateObject
-        for attr, value of searchingState.predicateObject
-          search[ 'where[' + attr + '.like]' ] = value + '%'
-      ctrl.invoices.search = search
-      return search
 
     # The expected date is the 2nd of the month following the invoice period
     ctrl.expectedPaymentDate = (endOfInvoiceDate) ->
