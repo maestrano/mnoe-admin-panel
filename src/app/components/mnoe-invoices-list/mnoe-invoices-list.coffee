@@ -21,7 +21,7 @@
         fetchInvoices(nbItems, ctrl.invoices.offset)
 
     ctrl.searchChange = ->
-      if ctrl.invoices.search && ctrl.invoices.search.length > 2
+      if ctrl.invoices.search.length > 2
         fetchInvoices(ctrl.invoices.nbItems, ctrl.invoices.offset)
 
     # Fetch invoices
