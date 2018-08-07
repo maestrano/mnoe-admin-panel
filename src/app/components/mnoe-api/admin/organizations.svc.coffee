@@ -32,8 +32,8 @@
   @mainAddressRequired = ->
     'main_address' in ORG_REQUIREMENTS
 
-  @search = (terms) ->
-    MnoeAdminApiSvc.all("organizations").getList({terms: terms})
+  @search = (params) ->
+    MnoeAdminApiSvc.all("organizations").getList(params)
 
   @inArrears = () ->
     MnoeAdminApiSvc.all('organizations').all('in_arrears').getList()
