@@ -685,6 +685,7 @@
   "mnoe_admin_panel.dashboard.invoice.adjustments.cancel": "Cancel",
   "mnoe_admin_panel.dashboard.invoice.adjustments.update": "Update",
   "mnoe_admin_panel.dashboard.invoice.adjustments.send_to_customer": "Send to customer",
+  "mnoe_admin_panel.dashboard.invoice.adjustments.negative_invoice_error": "Action not allowed: Performing this action will make overall invoice price negative",
   "mnoe_admin_panel.dashboard.invoice.create_adjustments.save": "Save",
   "mnoe_admin_panel.dashboard.invoice.create_adjustments.create_adjustment": "Create adjustment",
   "mnoe_admin_panel.dashboard.invoice.create_adjustments.adjustment_name": "Adjustment name",
