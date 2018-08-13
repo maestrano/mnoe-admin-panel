@@ -37,7 +37,7 @@
   <div class="modal-footer">
     <div class="row actions">
       <div class="col-xs-12">
-        <button type="button" ng-click="vm.onSubmit()" ng-disabled="vm.isLoading || vm.form.user.$invalid" class="btn btn-primary">
+        <button type="button" ng-click="vm.onSubmit()" ng-disabled="vm.isLoading || vm.form.user.$invalid || vm.newOrgUser()" class="btn btn-primary">
           <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           {{'mnoe_admin_panel.dashboard.organization.create_user.save' | translate}}
         </button>

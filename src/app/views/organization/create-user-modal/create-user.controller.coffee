@@ -4,6 +4,9 @@
 
   vm.USER_ROLES = USER_ROLES
 
+  vm.newOrgUser = ->
+    vm.user.email in _.map(organization.members, 'email')
+
   vm.onSubmit = () ->
     vm.isLoading = true
     MnoeUsers.addUser(organization, vm.user).then(
