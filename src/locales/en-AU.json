@@ -456,7 +456,7 @@
   "mnoe_admin_panel.dashboard.provisioning.order.price": "Price",
   "mnoe_admin_panel.dashboard.provisioning.order.quoted_price": "Quoted Total Price",
   "mnoe_admin_panel.dashboard.provisioning.order.quote_error": "Unable to Fetch Quote",
-  "mnoe_admin_panel.dashboard.provisioning.order.no_pricing_found": "There are currently no subscriptions available in this organization's currency, {currency}.",
+  "mnoe_admin_panel.dashboard.provisioning.order.no_pricing_found": "There are currently no price plans available in this organization's billing currency, {currency}.",
   "mnoe_admin_panel.dashboard.provisioning.order.licenses": "Licenses",
   "mnoe_admin_panel.dashboard.provisioning.order.total": "Total price",
   "mnoe_admin_panel.dashboard.provisioning.order.next": "Next",
