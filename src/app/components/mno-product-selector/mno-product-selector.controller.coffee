@@ -43,11 +43,11 @@
       $ctrl.isLoadingProducts = true
 
       params = {
-        skip_dependencies: true,
-        includes: ['categories']
+        includes: ['categories', 'values']
         fields: {
-          products: ['name, logo, categories']
+          products: ['name, logo, categories, values']
           categories: ['name']
+          values: ['field', 'data']
         },
         'where[active]': true
       }

@@ -1,14 +1,35 @@
 # Service for managing the users.
 @App.service 'MnoeProducts', ($q, toastr, MnoeAdminApiSvc, MnoErrorsHandler) ->
 
-  @list = (limit, offset, sort) ->
-    MnoeAdminApiSvc.all('products').getList({order_by: sort, limit: limit, offset: offset}).catch(
-      (error) ->
-        # Something went wrong
-        toastr.error('mnoe_admin_panel.dashboard.product.retrieve.error')
-        MnoErrorsHandler.processServerError(error)
-        $q.reject(error)
+  # Transforms the values_attributes ([name: 'Some string', data: 'Its value'])
+  # to attributes (vm.product.some_string).
+  # Note: duplicate code to MnoeMarketplace in mno-enterprise-angular.
+  _transform_products = (products) ->
+    _.map(products, (product) ->
+      _.each(product.values_attributes, (v) ->
+        try
+          product[_.snakeCase(v.name)] = JSON.parse(v.data)
+        catch
+          product[_.snakeCase(v.name)] = v.data
+      )
+      product.screenshots = _.map(product.assets_attributes, (a) -> a.url)
+      product
     )
+
+  @list = (limit, offset, sort) ->
+    MnoeAdminApiSvc.all('products').getList({order_by: sort, limit: limit, offset: offset})
+      .then(
+        (response) ->
+          response.data = _transform_products(response.data)
+          response
+        )
+      .catch(
+        (error) ->
+          # Something went wrong
+          toastr.error('mnoe_admin_panel.dashboard.product.retrieve.error')
+          MnoErrorsHandler.processServerError(error)
+          $q.reject(error)
+        )
 
   @products = (limit, offset, sort, params = {}) ->
     return _getProducts(limit, offset, sort, params)
@@ -22,11 +43,17 @@
     params['order_by'] = sort
     params['limit'] = limit
     params['offset'] = offset
-    return MnoeAdminApiSvc.all('products').getList(params).catch(
-      (error) ->
-        MnoErrorsHandler.processServerError(error)
-        $q.reject(error)
-    )
+    return MnoeAdminApiSvc.all('products').getList(params)
+      .then(
+        (response) ->
+          response.data = _transform_products(response.data)
+          response
+        )
+      .catch(
+        (error) ->
+          MnoErrorsHandler.processServerError(error)
+          $q.reject(error)
+        )
 
   @fetchCustomSchema = (id, params) ->
     MnoeAdminApiSvc.one("/products/#{id}/custom_schema").get(params)
@@ -35,11 +62,17 @@
         )
 
   @get = (id) ->
-    MnoeAdminApiSvc.one('products', id).get().catch(
-      (error) ->
-        MnoErrorsHandler.processServerError(error)
-        $q.reject(error)
-    )
+    MnoeAdminApiSvc.one('products', id).get()
+      .then(
+        (response) ->
+          response.data = _transform_products([response.data])[0] if response?.data?
+          response
+      )
+      .catch(
+        (error) ->
+          MnoErrorsHandler.processServerError(error)
+          $q.reject(error)
+      )
 
   @create = (product) ->
     MnoeAdminApiSvc.all('/products').post(product).catch(
