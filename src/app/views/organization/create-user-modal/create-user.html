@@ -5,6 +5,10 @@
 
   <form name="vm.form.user" novalidate>
     <div class="modal-body">
+      <div class='alert alert-danger text-center' ng-show="vm.isUserInOrg()">
+        {{ 'mnoe_admin_panel.dashboard.organization.create_user.form.error.email_exists' | translate }}
+      </div>
+
       <div class="row">
         <div class="col-sm-6">
           <input type="text" class="form-control input-sm" id="user-first-name" ng-model="vm.user.name" placeholder="{{'mnoe_admin_panel.dashboard.organization.create_user.form.first_name' | translate}}" aria-label="{{'mnoe_admin_panel.dashboard.organization.create_user.form.first_name' | translate}}" required>
@@ -37,7 +41,7 @@
   <div class="modal-footer">
     <div class="row actions">
       <div class="col-xs-12">
-        <button type="button" ng-click="vm.onSubmit()" ng-disabled="vm.isLoading || vm.form.user.$invalid || vm.newOrgUser()" class="btn btn-primary">
+        <button type="button" ng-click="vm.onSubmit()" ng-disabled="vm.isLoading || vm.form.user.$invalid || vm.isUserInOrg()" class="btn btn-primary">
           <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           {{'mnoe_admin_panel.dashboard.organization.create_user.save' | translate}}
         </button>

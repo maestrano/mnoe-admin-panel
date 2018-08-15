@@ -4,8 +4,8 @@
 
   vm.USER_ROLES = USER_ROLES
 
-  vm.newOrgUser = ->
-    vm.user.email in _.map(organization.members, 'email')
+  vm.isUserInOrg = ->
+    _.some(organization.members, { 'email': vm.user?.email })
 
   vm.onSubmit = () ->
     vm.isLoading = true
