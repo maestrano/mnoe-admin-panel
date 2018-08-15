@@ -314,6 +314,7 @@
   "mnoe_admin_panel.dashboard.users.widget.local_list.active": "Active",
   "mnoe_admin_panel.dashboard.users.widget.local_list.login_as": "Log In as...",
   "mnoe_admin_panel.dashboard.users.widget.local_list.disabled_tooltip": "This user is a staff member",
+  "mnoe_admin_panel.dashboard.users.widget.local_list.disabled_tooltip_unauthorized": "This user has not accepted their invitation",
   "mnoe_admin_panel.dashboard.users.widget.local_list.request_access": "Request Access",
   "mnoe_admin_panel.dashboard.users.widget.local_list.request_access.toastr_success": "{username}'s access has been requested.",
   "mnoe_admin_panel.dashboard.users.widget.local_list.request_access.toastr_error": "An error occurred: {username} access has not been requested.",

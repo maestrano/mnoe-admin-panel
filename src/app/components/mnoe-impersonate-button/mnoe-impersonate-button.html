@@ -5,4 +5,7 @@
   <div ng-switch-when="disabled" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.users.widget.local_list.disabled_tooltip' | translate }}" tooltip-enable="vm.user" style="display:inline-block; cursor: not-allowed;">
     <button disabled class="{{vm.btnClassNames}}" style="pointer-events: none;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.login_as</button>
   </div>
+  <div ng-switch-when="unauthorized" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.users.widget.local_list.disabled_tooltip_unauthorized' | translate }}" tooltip-enable="vm.user" style="display:inline-block; cursor: not-allowed;">
+    <button disabled class="{{vm.btnClassNames}}" style="pointer-events: none;" translate>mnoe_admin_panel.dashboard.users.widget.local_list.login_as</button>
+  </div>
 </div>
