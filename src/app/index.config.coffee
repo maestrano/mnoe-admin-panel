@@ -8,6 +8,7 @@
     toastrConfig.preventDuplicates = false
     toastrConfig.preventOpenDuplicates = true
     toastrConfig.progressBar = true
+    toastrConfig.allowHtml = true
   )
 
   .config(($httpProvider) ->
