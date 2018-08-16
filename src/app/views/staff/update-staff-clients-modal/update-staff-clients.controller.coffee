@@ -48,8 +48,8 @@
     vm.organizations.widgetTitle = 'Search result'
     search = vm.organizations.search.toLowerCase()
     terms = {'name.like': "%#{search}%"}
-    params = {account_manager_id: staff.id}
-    MnoeOrganizations.search(terms, params).then(
+    params = {account_manager_id: staff.id, terms: terms}
+    MnoeOrganizations.search(params).then(
       (response) ->
         vm.organizations.totalItems = response.headers('x-total-count')
         vm.organizations.list = syncOrganizationsWithChanges($filter('orderBy')(response.data, 'name'))

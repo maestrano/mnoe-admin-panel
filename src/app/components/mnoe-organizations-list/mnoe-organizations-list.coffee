@@ -125,9 +125,9 @@
       scope.organizations.widgetTitle = 'mnoe_admin_panel.dashboard.organization.widget.list.search_users.title'
       delete scope.organizations.switchLinkTitle
       search = scope.organizations.search.toLowerCase()
-      terms = {'name.like': "%#{search}%"}
       params = scope.filterParams || {}
-      MnoeOrganizations.search(terms, params).then(
+      params["terms"] = {'name.like': "%#{search}%"}
+      MnoeOrganizations.search(params).then(
         (response) ->
           scope.organizations.totalItems = response.headers('x-total-count')
           scope.organizations.list = $filter('orderBy')(response.data, 'name')

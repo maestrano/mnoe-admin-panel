@@ -48,9 +48,9 @@
     vm.organizations.loading = true
     vm.organizations.widgetTitle = 'Search result'
     search = vm.organizations.search.toLowerCase()
-    params = {sub_tenant_id: subTenant.id}
     terms = {'name.like': "%#{search}%"}
-    MnoeOrganizations.search(terms, params).then(
+    params = {sub_tenant_id: subTenant.id, terms: terms}
+    MnoeOrganizations.search(params).then(
       (response) ->
         vm.organizations.totalItems = response.headers('x-total-count')
         vm.organizations.list = syncOrganizationsWithChanges($filter('orderBy')(response.data, 'name'))
