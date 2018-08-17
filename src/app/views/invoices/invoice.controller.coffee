@@ -13,6 +13,7 @@
   MnoeInvoices.get($stateParams.invoiceId).then(
     (response) ->
       vm.invoice = response.data.plain().invoice
+      vm.totalAmount = parseInt(vm.invoice.price.fractional) + parseInt(vm.invoice.tax_payable?.fractional)
       vm.isInvoiceEditedPaid = angular.copy(vm.invoice.paid_at)
       vm.invoice.adjustments = [] unless vm.invoice.adjustments?
   ).finally(-> vm.isLoading = false)
@@ -69,7 +70,7 @@
         if result
           vm.invoice.adjustments.push(result.adjustment)
           vm.invoice.price = result.invoice.price
-
+          vm.totalAmount = vm.invoice.price.fractional + result.invoice.tax_payable?.fractional
     )
 
   vm.openDeleteAdjustmentModal = (adjustment) ->
