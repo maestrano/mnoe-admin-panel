@@ -143,6 +143,7 @@
   "mnoe_admin_panel.dashboard.settings.apps.available_apps": "Available Products",
   "mnoe_admin_panel.dashboard.settings.apps.modal.add_app.add": "Add products",
   "mnoe_admin_panel.dashboard.settings.apps.modal.add_app.title": "Add additional products",
+  "mnoe_admin_panel.dashboard.settings.apps.modal.add_app.toastr_success": "Additional products added to marketplace",
   "mnoe_admin_panel.dashboard.settings.apps.modal.remove_app.proceed": "Remove a product",
   "mnoe_admin_panel.dashboard.settings.apps.modal.remove_app.perform": "Do you really want to remove the product <b>{app_name}</b>?",
   "mno_enterprise.templates.settings.apps.modal.app_infos.description": "About {name}",

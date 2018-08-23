@@ -51,7 +51,6 @@
         },
         'where[active]': true
       }
-      $ctrl.isLoadingProducts = true
 
       promise =
         switch $ctrl.flag
@@ -103,14 +102,14 @@
 
     # Close the modal and return the selected products
     $ctrl.closeModal = ->
-      $ctrl.isLoadingProducts = true
+      $ctrl.isLoadingSelectedProducts = true
       MnoeProvisioning.setSubscription({})
 
       promise = selectedProductsPromise()
       promise.then(
         (response) ->
           $ctrl.close({$value: response})
-      ).finally(-> $ctrl.isLoadingProducts = false)
+      ).finally(-> $ctrl.isLoadingSelectedProducts = false)
 
     $ctrl.dismissModal = ->
       $ctrl.dismiss()

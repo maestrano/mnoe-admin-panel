@@ -1,4 +1,4 @@
-@App.controller 'SettingsAppsController', ($uibModal, MnoeMarketplace, MnoeApps, MnoeTenant, MnoConfirm, MnoeCurrentUser, UserRoles) ->
+@App.controller 'SettingsAppsController', ($uibModal, MnoeMarketplace, MnoeApps, MnoeTenant, MnoConfirm, MnoeCurrentUser, UserRoles, toastr) ->
   'ngInject'
   vm = this
 
@@ -73,9 +73,10 @@
     )
     modalInstance.result.then(
       (apps) ->
-        MnoeApps.enableMultiple(_.map(apps, 'id')).then(
-          ->
-            resetFilteredApps()
+        vm.isLoading = true
+        MnoeApps.enableMultiple(_.map(apps, 'id')).then(->
+          toastr.success('mnoe_admin_panel.dashboard.settings.apps.modal.add_app.toastr_success')
+          resetFilteredApps()
         )
     )
 
