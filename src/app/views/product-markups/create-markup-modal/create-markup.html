@@ -49,6 +49,10 @@
           </mno-widget-body>
         </mno-widget>
         <div ng-class="{ 'top-buffer-4': vm.isPricing }">
+          <span class="form-control-static pull-left">
+            <i class="fa fa-info-circle"></i>
+            <em>{{'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.single_billing_notice' | translate}}</em>
+          </span>
           <button type="button" class="btn btn-default" ng-click="vm.onCancel()">{{ 'mnoe_admin_panel.dashboard.product_markups.add_markup.modal.cancel' | translate}}</button>
           <button type="button" class="btn btn-primary" ng-click="vm.onSubmit()" ng-disabled="vm.isLoading || vm.form.markup.$invalid" class="btn btn-primary">
             <span ng-show="vm.isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
