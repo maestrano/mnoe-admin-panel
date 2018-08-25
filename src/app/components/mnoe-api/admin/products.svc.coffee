@@ -17,19 +17,7 @@
     )
 
   @list = (limit, offset, sort) ->
-    MnoeAdminApiSvc.all('products').getList({order_by: sort, limit: limit, offset: offset})
-      .then(
-        (response) ->
-          response.data = _transform_products(response.data)
-          response
-        )
-      .catch(
-        (error) ->
-          # Something went wrong
-          toastr.error('mnoe_admin_panel.dashboard.product.retrieve.error')
-          MnoErrorsHandler.processServerError(error)
-          $q.reject(error)
-        )
+    return _getProducts(limit, offset, sort)
 
   @products = (limit, offset, sort, params = {}) ->
     return _getProducts(limit, offset, sort, params)
@@ -51,6 +39,7 @@
         )
       .catch(
         (error) ->
+          toastr.error('mnoe_admin_panel.dashboard.product.retrieve.error')
           MnoErrorsHandler.processServerError(error)
           $q.reject(error)
         )
