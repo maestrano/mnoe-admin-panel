@@ -16,6 +16,7 @@
     scope.organizationContext = attrs.organization?
     scope.userRoles = UserRoles
     scope.editMode = false
+    attrs.view = attrs.view || 'all'
 
     # Variables initialization
     scope.users =
@@ -49,28 +50,23 @@
       )
       scope.users.displayList = $filter('orderBy')(scope.users.displayList, 'email')
 
-    displayNormalState = () ->
+    scope.updateDisplayState = () ->
       # if view="all" is set on the directive, all the users are displayed
       # if view="last" is set on the directive, the last 10 users are displayed
-      if attrs.view == 'all'
+      # if there is a search term, use that
+      if scope.users.search.length > 0
+          setSearchUsersList()
+      else if attrs.view == 'all'
         setAllUsersList()
       else if attrs.view == 'last'
         setLastUsersList()
       else
-        $log.error('Value of attribute view can only be "all" or "last"')
+        $log.error("Value '#{attrs.view}' of attribute view can only be 'all' or 'last'")
 
     scope.switchState = () ->
-      if attrs.view == 'all'
-        attrs.view = 'last'
-      else
-        attrs.view = 'all'
-      displayNormalState()
-
-    scope.searchChange = () ->
-      if scope.users.search == ''
-        displayNormalState()
-      else
-        setSearchUsersList()
+      attrs.view = if attrs.view == 'all' then 'last' else 'all'
+      scope.users.search = ''
+      scope.updateDisplayState()
 
     scope.editRole = (user) ->
       # Keep track of old roles when editing user's roles.
@@ -133,7 +129,8 @@
       MnoConfirm.showModal(modalOptions).then( ->
         MnoeUsers.removeUserFromOrganization(scope.organization, user).then(
           () ->
-            _.remove(scope.users.displayList, user)
+            _.remove(scope.list, user)
+            scope.updateDisplayState()
             toastr.success('mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.success', {extraData: {email: user.email}})
           (error) ->
             toastr.error('mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.error', {extraData: {email: user.email}})
@@ -143,6 +140,6 @@
 
     scope.$watch('list', (newVal) ->
       if newVal
-        displayNormalState()
+        scope.updateDisplayState()
     , true)
 )
