@@ -14,6 +14,7 @@
         </select>
       </div>
     </div>
+    <mno-loading-ellipsis ng-show="$ctrl.isLoadingProducts"></mno-loading-ellipsis>
     <div class="products-container">
       <div class="product-icon" ng-repeat="product in $ctrl.filteredProducts">
         <div class="product-icon-wrapper" ng-click="$ctrl.toggleProduct(product)" uib-tooltip="{{::product.tiny_description}}">
@@ -35,8 +36,8 @@
         <button ng-click="$ctrl.dismissModal()" class="btn btn-default" translate>
           mnoe_admin_panel.components.mno-product-selector.cancel
         </button>
-        <button ng-click="$ctrl.closeModal()" ng-disabled="$ctrl.selectedProducts.length === 0 || $ctrl.isLoadingProducts" class="btn btn-primary arrow">
-          <span ng-show="$ctrl.isLoadingProducts"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+        <button ng-click="$ctrl.closeModal()" ng-disabled="$ctrl.selectedProducts.length === 0 || $ctrl.isLoadingSelectedProducts" class="btn btn-primary arrow">
+          <span ng-show="$ctrl.isLoadingSelectedProducts"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           {{$ctrl.actionButtonText | translate}}
         </button>
       </div>
