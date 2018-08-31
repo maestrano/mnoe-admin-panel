@@ -80,17 +80,22 @@
       ).finally(-> $ctrl.isLoadingProducts = false)
 
     # Filter products by name or category
+    filterProducts = ->
+      if $ctrl.searchTerm?.length > 0
+        term = $ctrl.searchTerm.toLowerCase()
+        $ctrl.filteredProducts = (product for product in $ctrl.products when product.name?.toLowerCase().indexOf(term) > -1)
+      else if $ctrl.selectedCategory?.length > 0
+        $ctrl.filteredProducts = (product for product in $ctrl.products when $ctrl.selectedCategory in (product.categories || []))
+      else
+        $ctrl.filteredProducts = $ctrl.products
+
     $ctrl.onSearchChange = () ->
       $ctrl.selectedCategory = ''
-      term = $ctrl.searchTerm.toLowerCase()
-      $ctrl.filteredProducts = (product for product in $ctrl.products when product.name.toLowerCase().indexOf(term) isnt -1)
+      filterProducts()
 
     $ctrl.onCategoryChange = () ->
       $ctrl.searchTerm = ''
-      if ($ctrl.selectedCategory?.length > 0)
-        $ctrl.filteredProducts = (product for product in $ctrl.products when $ctrl.selectedCategory in product.categories)
-      else
-        $ctrl.filteredProducts = $ctrl.products
+      filterProducts()
 
     # Select or deselect a product
     $ctrl.toggleProduct = (product) ->
