@@ -55,7 +55,7 @@
       # if view="last" is set on the directive, the last 10 users are displayed
       # if there is a search term, use that
       if scope.users.search.length > 0
-          setSearchUsersList()
+        setSearchUsersList()
       else if attrs.view == 'all'
         setAllUsersList()
       else if attrs.view == 'last'
