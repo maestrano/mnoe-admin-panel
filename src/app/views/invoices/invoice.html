@@ -1,6 +1,7 @@
 <h1 translate>mnoe_admin_panel.dashboard.invoice.invoice_info</h1>
 <a ui-sref="dashboard.invoices" class="text-muted">
-  <i class="fa fa-chevron-left"></i><span translate>mnoe_admin_panel.dashboard.invoice.back</span>
+  <i class="fa fa-chevron-left"></i>
+  <span translate>mnoe_admin_panel.dashboard.invoice.back</span>
 </a>
 <!-- invoice summary -->
 <div id="single-invoice">
@@ -145,7 +146,7 @@
           <button ng-click="vm.sendInvoiceToCustomer()" class="btn btn-primary" translate>mnoe_admin_panel.dashboard.invoice.adjustments.send_to_customer</button>
         </div>
         <div class="top-buffer-1" ng-if="vm.isInvoiceEditedPaid">
-          <button ui-sref="dashboard.invoices" class="btn btn-default" translate>back</button>
+          <button ui-sref="dashboard.invoices" class="btn btn-default" translate>mnoe_admin_panel.dashboard.invoice.back</button>
           <button ng-click="vm.sendInvoiceToCustomer()" class="btn btn-primary" translate>mnoe_admin_panel.dashboard.invoice.adjustments.send_to_customer</button>
         </div>
       </div>

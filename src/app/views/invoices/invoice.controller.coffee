@@ -100,7 +100,7 @@
     )
 
   vm.sendInvoiceToCustomer = () ->
-    MnoeInvoices.sendInvoiceToCustomer(vm.invoice.id).then( ->
+    MnoeInvoices.sendInvoiceToCustomer(vm.invoice.id).then(
       (success) ->
         toastr.success('mnoe_admin_panel.dashboard.invoice.send_invoice.toastr_success')
       (error) ->
