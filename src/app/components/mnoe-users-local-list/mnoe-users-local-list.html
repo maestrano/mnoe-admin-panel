@@ -1,7 +1,7 @@
 <mno-widget icon="fa-user" heading="{{users.widgetTitle | translate:{length: list.length} }}" is-loading="!list">
   <mno-widget-header>
     &nbsp;<a href="" ng-click="switchState()" ng-show="list && users.switchLinkTitle" translate>{{users.switchLinkTitle}}</a>
-    <input type="text" ng-model="users.search" ng-change="searchChange()" placeholder="{{ 'mnoe_admin_panel.dashboard.users.widget.local_list.search_users.placeholder.search_all' | translate}}" class="form-control input-sm search-bar" />
+    <input type="text" ng-model="users.search" ng-change="updateDisplayState()" placeholder="{{ 'mnoe_admin_panel.dashboard.users.widget.local_list.search_users.placeholder.search_all' | translate}}" class="form-control input-sm search-bar" />
   </mno-widget-header>
   <mno-widget-body class="large-auto-height no-padding">
     <table class="table table-layout-fixed">
