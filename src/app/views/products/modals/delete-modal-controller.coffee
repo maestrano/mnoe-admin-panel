@@ -1,4 +1,4 @@
-@App.controller 'DeleteProductController', ($uibModalInstance, MnoeProducts, product) ->
+@App.controller 'DeleteProductController', ($uibModalInstance, MnoeProducts, product, MnoeMarketplace) ->
   'ngInject'
   
   vm = this
@@ -12,6 +12,7 @@
     vm.modal.loading = true
     MnoeProducts.remove(vm.product.id).then(
       (success) ->
+        MnoeMarketplace.clearApps()
         $uibModalInstance.close(true)
     ).finally(-> vm.modal.loading = false)
 

@@ -22,6 +22,9 @@
     return marketplacePromise if marketplacePromise?
     marketplacePromise = marketplaceApi.get()
 
+  @clearApps = ->
+    marketplacePromise = null
+
   MnoeObservables.registerCb(OBS_KEYS.marketplaceChanged, refreshApps)
 
   return @

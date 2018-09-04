@@ -1,4 +1,4 @@
-@App.controller 'ProductController', ($stateParams, $state, $timeout, $document, Upload, MnoeProducts, toastr, MnoErrorsHandler, CURRENCIES, MnoeCurrentUser, UserRoles) ->
+@App.controller 'ProductController', ($stateParams, $state, $timeout, $document, Upload, MnoeProducts, toastr, MnoErrorsHandler, CURRENCIES, MnoeCurrentUser, UserRoles, MnoeMarketplace) ->
   'ngInject'
 
   vm = this
@@ -159,6 +159,7 @@
     vm.product.values_attributes = _.map(_.keys(vm.product.values_display), (k) -> {name: k, data: vm.product.values_display[k]})
     vm.product.patch(_.pick(vm.product, params)).then(
       (response) ->
+        MnoeMarketplace.clearApps()
         toastr.success('mnoe_admin_panel.dashboard.product.success', {extraData: {product: vm.product.name}})
         response
       (error) ->
