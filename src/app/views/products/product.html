@@ -70,7 +70,7 @@
         </mno-section>
 
         <mno-section id="plans" heading="{{'mnoe_admin_panel.dashboard.product.pricing_plans' | translate}}">
-          <button class="btn btn-link bottom-buffer-1" ng-click="vm.addPricingPlan()">
+          <button class="btn btn-link bottom-buffer-1" ng-click="vm.addPricingPlan()" ng-disabled="vm.currentPricingPlanId">
             <i class="fa fa-plus"></i> {{'mnoe_admin_panel.dashboard.product.add_pricing_plan' | translate}}
           </button>
           <ul class="list-group" ng-model="vm.product.product_pricings">

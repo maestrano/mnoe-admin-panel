@@ -60,6 +60,9 @@
     }
     vm.currencies = _.clone(CURRENCIES.values)
     vm.product.product_pricings.push(vm.pricingPlan)
+    # Set current plan id to true since there is no id for
+    # a plan that has not been saved.
+    vm.currentPricingPlanId = true
 
   vm.editPricingPlan = (pricingPlan) ->
     # Check that a pricing plan is not already being edited
