@@ -40,7 +40,7 @@
   "mnoe_admin_panel.dashboard.home.kpi.users.link_text": "{quantity} new this current month",
   "mnoe_admin_panel.dashboard.home.kpi.active_users": "Active users (excl. staff)",
   "mnoe_admin_panel.dashboard.home.kpi.active_users.link_text": "View more",
-  "mnoe_admin_panel.dashboard.home.kpi.user_churn": "User churn",
+  "mnoe_admin_panel.dashboard.home.kpi.user_churn": "User churn (excl. staff)",
   "mnoe_admin_panel.dashboard.home.kpi.user_churn.link_text": "View more",
   "mnoe_admin_panel.dashboard.home.kpi.most_used_products": "Most used products",
   "mnoe_admin_panel.dashboard.home.kpi.most_used_products.link_text": "View more",
