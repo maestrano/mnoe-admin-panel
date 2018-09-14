@@ -11,7 +11,9 @@
     vm.isLoading = true
     MnoeUsers.addUser(organization, vm.user).then(
       (success) ->
-        toastr.success('mnoe_admin_panel.dashboard.organization.create_user.toastr_success', {extraData: {username: "#{success.data.user.name || vm.user.name} #{success.data.user.surname || vm.user.surname}"}})
+        toastr.success('mnoe_admin_panel.dashboard.organization.create_user.toastr_success',
+          {extraData: {username: "#{success.data.user.name || vm.user.name} #{success.data.user.surname || vm.user.surname}"}}
+        )
         # Close the modal returning the item to the parent window
         $uibModalInstance.close(success.data.user)
       (error) ->
