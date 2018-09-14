@@ -7,7 +7,7 @@
 # fork of the upstream library
 
 
-@App.service 'MnoeCurrentUser', ($window, $state, $q, $timeout, IntercomSvc, MnoeApiSvc, UserRoles) ->
+@App.service 'MnoeCurrentUser', ($window, $state, $q, $timeout, $cookies, IntercomSvc, MnoeApiSvc, UserRoles) ->
   _self = @
 
   # Store the current_user promise
@@ -62,6 +62,9 @@
     return deferred
 
   @logout = ->
+    # Reset the cookies for the support user.
+    $cookies.remove('support_org_id', {path: '/'})
+
     # Shutdown the Intercom session
     IntercomSvc.logOut()
     _self.getUser().then(
