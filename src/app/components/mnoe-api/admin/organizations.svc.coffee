@@ -1,27 +1,16 @@
 # Service for managing the users.
-@App.service 'MnoeOrganizations', (MnoeAdminApiSvc, ORG_REQUIREMENTS) ->
+@App.service 'MnoeOrganizations', (MnoeAdminApiSvc, MnoeObservables, OBS_KEYS, ORG_REQUIREMENTS) ->
   _self = @
 
   @list = (limit, offset, sort, params = {}) ->
     params["order_by"] = sort
     params["limit"] = limit
     params["offset"] = offset
-    promise = MnoeAdminApiSvc.all("organizations").getList(params).then(
+    MnoeAdminApiSvc.all("organizations").getList(params).then(
       (response) ->
-        notifyListObservers(promise)
+        MnoeObservables.notifyObservers(OBS_KEYS.orgChanged, response)
         response
     )
-
-  observerCallbacks = []
-
-  # Subscribe callback functions to be called if 'list' has been changed
-  @registerListChangeCb = (callback) ->
-    observerCallbacks.push(callback)
-
-  # Call this when you know 'list' has been changed
-  notifyListObservers = (listPromise) ->
-    _.forEach observerCallbacks, (callback) ->
-      callback(listPromise)
 
   @organizations = (limit, offset, sort, params = {}) ->
     params["order_by"] = sort

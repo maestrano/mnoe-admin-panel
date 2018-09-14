@@ -16,32 +16,25 @@
       controllerAs: 'vm'
     )
 
-  updateUsersCounter = (response) ->
-    console.log("Updating users: ", response)
-    vm.users.totalCount = response.headers('x-total-count')
-    return
+  updateUsersCounter = () ->
+    MnoeUsers.metrics().then(
+      (response) ->
+        vm.users.metrics = response.data.metrics
+    )
 
   MnoeObservables.registerCb(OBS_KEYS.userChanged, updateUsersCounter)
 
-  MnoeOrganizations.registerListChangeCb((promise) ->
-    promise.then(
+  updateOrganizationsCounter = () ->
+    MnoeOrganizations.count().then(
       (response) ->
-        vm.organizations.totalCount = response.headers('x-total-count')
-      )
-  )
+        vm.organizations.kpi = response.data
+    )
 
-  MnoeUsers.metrics().then(
-    (response) ->
-      vm.users.metrics = response.data.metrics
-  )
-
-  MnoeOrganizations.count().then(
-    (response) ->
-      vm.organizations.nonDemoCount = response.data.non_demo_count
-  )
+  MnoeObservables.registerCb(OBS_KEYS.orgChanged, updateOrganizationsCounter)
 
   $scope.$on('$destroy', () ->
     MnoeObservables.unsubscribe(OBS_KEYS.userChanged, updateUsersCounter)
+    MnoeObservables.unsubscribe(OBS_KEYS.orgChanged, updateOrganizationsCounter)
   )
 
   return

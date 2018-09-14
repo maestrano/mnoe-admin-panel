@@ -18,7 +18,8 @@
     subTenantAdded: 'subTenantAdded',
     subTenantChanged: 'subTenantListChanged',
     marketplaceChanged: 'marketplaceChanged',
-    subscriptionEventChanged: 'subscriptionEventChanged'
+    subscriptionEventChanged: 'subscriptionEventChanged',
+    orgChanged: 'organizationChanged'
   })
   .constant('LOCALES', {
     locales: [
