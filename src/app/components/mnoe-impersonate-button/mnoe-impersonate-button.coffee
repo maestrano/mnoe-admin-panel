@@ -10,12 +10,11 @@
   controllerAs: 'vm'
   controller: ($window, toastr, MnoErrorsHandler, MnoeAdminConfig, MnoeUsers, MnoeCurrentUser, MnoConfirm, UserRoles) ->
     vm = this
-    vm.isImpersonationEnabled = MnoeAdminConfig.isImpersonationEnabled()
 
     MnoeCurrentUser.getUser().then(
       (response) ->
         vm.isSupportAgent = UserRoles.isSupportAgent(response)
-        vm.supportDisabledClass = UserRoles.supportDisabledClass(response)
+        vm.isImpersonationEnabled = MnoeAdminConfig.isImpersonationEnabled() && !vm.isSupportAgent
     )
 
     vm.impersonationStatus = ->

@@ -7,7 +7,7 @@
 # fork of the upstream library
 
 
-@App.service 'MnoeCurrentUser', ($window, $state, $q, $timeout, $cookies, IntercomSvc, MnoeApiSvc, UserRoles) ->
+@App.service 'MnoeCurrentUser', ($window, $state, $q, $timeout, $cookies, IntercomSvc, MnoeApiSvc, MnoeAdminConfig, UserRoles) ->
   _self = @
 
   # Store the current_user promise
@@ -29,18 +29,18 @@
   @skipIfNotAdmin = () ->
     @skipIfNotAdminRole(['admin'])
 
-  @skipIfSupportManager = () ->
+  @skipIfSupportAgent = () ->
     # Available roles except support
-    roles = MnoeAdminConfig.adminRoles.filter (role) -> role isnt 'support'
+    roles = MnoeAdminConfig.adminRoles().map((roleHash) -> roleHash.value).filter((role) -> role isnt 'support')
     @skipIfNotAdminRole(roles)
 
   @skipIfNotAdminRole = (admin_roles) ->
     deferred = $q.defer()
-    _self.getUser().then(->
+    _self.getUser().then(=>
       if _self.user.admin_role? && _self.user.admin_role in admin_roles
         return deferred.resolve()
       else
-        $timeout(->
+        $timeout(=>
           # Runs after the authentication promise has been rejected.
           @redirectHome()
         )
@@ -50,7 +50,7 @@
 
   @redirectHome = () ->
     state = switch
-      when UserRoles.isSupportManager(_self.user) then 'dashboard.support'
+      when UserRoles.isSupportAgent(_self.user) then 'dashboard.support'
       else 'dashboard.home'
     $state.go(state)
 

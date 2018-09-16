@@ -127,7 +127,6 @@
                 <div class="col-sm-6">
                   <div class="label-cell">{{'mnoe_admin_panel.dashboard.organization.active_apps' | translate}}
                     <a ng-class="vm.supportDisabledClass" ng-if="(vm.organization.active_apps.length > 0 && vm.hasDisconnectedApps)" ng-click="vm.connectApps()" translate>mnoe_admin_panel.dashboard.organization.connect_apps</a>
-                    <!-- <div ng-if="vm.isSupportAgent"  translate>mnoe_admin_panel.dashboard.organization.connect_apps</div> -->
                   </div>
                 </div>
                 <div ng-class="::vm.managementAndProvisioningEnabled ? 'col-sm-12' : 'col-sm-6'">

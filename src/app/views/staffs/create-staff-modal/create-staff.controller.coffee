@@ -2,7 +2,7 @@
   'ngInject'
   vm = this
 
-  vm.admin_roles = MnoeAdminConfig.adminRoles
+  vm.admin_roles = MnoeAdminConfig.adminRoles()
 
   vm.onSubmit = () ->
     vm.isLoading = true
