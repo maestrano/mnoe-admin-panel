@@ -395,6 +395,7 @@
   "mnoe_admin_panel.dashboard.organization.create_user.save": "Save",
   "mnoe_admin_panel.dashboard.organization.create_user.toastr_error": "An error occurred while adding {username}",
   "mnoe_admin_panel.dashboard.organization.create_user.toastr_success": "{username} has been successfully added.",
+  "mnoe_admin_panel.dashboard.organization.create_user.active_invite_toastr_error": "'{email}' has an active invitation, or already belongs to this organization",
   "mnoe_admin_panel.dashboard.organization.remove_app.yes": "Yes",
   "mnoe_admin_panel.dashboard.organization.remove_app.no": "No",
   "mnoe_admin_panel.dashboard.organization.remove_app.title": "Remove {app_name}",
