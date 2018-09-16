@@ -25,13 +25,14 @@
         angular.copy(response.data, _self.user)
         response.data
     )
+
   @skipIfNotAdmin = () ->
-    _self.getUser().then(=>
-      if UserRoles.isSupportAgent(_self.user)
-        @skipIfSupportManager()
-      else
-        @skipIfNotAdminRole(['admin'])
-    )
+    @skipIfNotAdminRole(['admin'])
+
+  @skipIfSupportManager = () ->
+    # Available roles except support
+    roles = MnoeAdminConfig.adminRoles.filter (role) -> role isnt 'support'
+    @skipIfNotAdminRole(roles)
 
   @skipIfNotAdminRole = (admin_roles) ->
     deferred = $q.defer()
@@ -41,25 +42,17 @@
       else
         $timeout(->
           # Runs after the authentication promise has been rejected.
-          $state.go('dashboard.home')
+          @redirectHome()
         )
         deferred.reject()
     )
     return deferred
 
-  @skipIfSupportManager = () ->
-    deferred = $q.defer()
-    _self.getUser().then(->
-      if UserRoles.isSupportAgent(_self.user)
-        $timeout(->
-          # Runs after the authentication promise has been rejected.
-          $state.go('dashboard.support')
-        )
-        deferred.reject()
-      else
-        deferred.resolve()
-    )
-    return deferred
+  @redirectHome = () ->
+    state = switch
+      when UserRoles.isSupportManager(_self.user) then 'dashboard.support'
+      else 'dashboard.home'
+    $state.go(state)
 
   @logout = ->
     # Reset the cookies for the support user.
