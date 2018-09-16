@@ -22,7 +22,7 @@
 
     MnoeCurrentUser.getUser().then(
       (response) ->
-        scope.isSupportManager = UserRoles.isSupportManager(response)
+        scope.isSupportAgent = UserRoles.isSupportAgent(response)
         scope.supportDisabledClass = UserRoles.supportDisabledClass(response)
     )
 
@@ -76,18 +76,18 @@
         setSearchOrganizationsList()
 
     scope.editRole = (organization) ->
-      return if scope.isSupportManager
+      return if scope.isSupportAgent
       # Keep track of old roles when editing organization's roles.
       organization.beforeEditRole = organization.role
       organization.editMode = true
 
     scope.exitEditRole = (organization) ->
-      return if scope.isSupportManager
+      return if scope.isSupportAgent
       organization.role = organization.beforeEditRole
       organization.editMode = false
 
     scope.updateUserRole = (organization, user) ->
-      return if scope.isSupportManager
+      return if scope.isSupportAgent
       user.isUpdatingRole = true
       # The role must be set on the user for #updateUserRole.
       user.role = organization.role

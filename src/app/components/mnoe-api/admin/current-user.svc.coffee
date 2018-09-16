@@ -27,7 +27,7 @@
     )
   @skipIfNotAdmin = () ->
     _self.getUser().then(=>
-      if UserRoles.isSupportManager(_self.user)
+      if UserRoles.isSupportAgent(_self.user)
         @skipIfSupportManager()
       else
         @skipIfNotAdminRole(['admin'])
@@ -50,7 +50,7 @@
   @skipIfSupportManager = () ->
     deferred = $q.defer()
     _self.getUser().then(->
-      if UserRoles.isSupportManager(_self.user)
+      if UserRoles.isSupportAgent(_self.user)
         $timeout(->
           # Runs after the authentication promise has been rejected.
           $state.go('dashboard.support')

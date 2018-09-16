@@ -10,7 +10,7 @@
 
   MnoeCurrentUser.getUser().then(
     (response) ->
-      vm.isSupportManager = UserRoles.isSupportManager(response)
+      vm.isSupportAgent = UserRoles.isSupportAgent(response)
       vm.supportDisabledClass = UserRoles.supportDisabledClass(response)
   )
 
@@ -100,7 +100,7 @@
     vm.updateOrganization()
 
   vm.openSelectProductModal = () ->
-    return if vm.isSupportManager
+    return if vm.isSupportAgent
     modalInstance = $uibModal.open(
       component: 'mnoProductSelectorModal'
       backdrop: 'static'
@@ -115,12 +115,12 @@
     )
 
   vm.connectApps = () ->
-    return if vm.isSupportManager
+    return if vm.isSupportAgent
     $state.go('dashboard.customers.connect-app',{orgId: vm.organization.id})
 
   # Remove app modal
   vm.openRemoveAppModal = (app, index) ->
-    return if vm.isSupportManager
+    return if vm.isSupportAgent
     modalInstance = $uibModal.open(
       templateUrl: 'app/views/organization/remove-app-modal/remove-app-modal.html'
       controller: 'RemoveAppModalCtrl'
@@ -140,7 +140,7 @@
     )
 
   vm.openTransactionModal = ->
-    return if vm.isSupportManager
+    return if vm.isSupportAgent
     modalInstance = $uibModal.open(
       templateUrl: 'app/views/organization/add-transaction-modal/add-transaction-modal.html'
       controller: 'AddTransactionModalCtrl'

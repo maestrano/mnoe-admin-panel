@@ -14,7 +14,7 @@
 
     MnoeCurrentUser.getUser().then(
       (response) ->
-        vm.isSupportManager = UserRoles.isSupportManager(response)
+        vm.isSupportAgent = UserRoles.isSupportAgent(response)
         vm.supportDisabledClass = UserRoles.supportDisabledClass(response)
     )
 

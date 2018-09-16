@@ -14,13 +14,13 @@
   @isAccountManager = (user) ->
     (user.admin_role == 'staff')
 
-  @isSupportManager = (user) ->
+  @isSupportAgent = (user) ->
     (user.admin_role == 'support')
 
   @supportRoleLoggedIn = (user) ->
-    @isSupportManager(user) && $cookies.get("support_org_id")
+    @isSupportAgent(user) && $cookies.get("support_org_id")
 
   @supportDisabledClass = (user) ->
-    if @isSupportManager(user) then 'support' else ''
+    if @isSupportAgent(user) then 'support' else ''
 
   return @

@@ -32,7 +32,7 @@
     (user) ->
       main.user = user
       main.organizationAvailable = user.organizations? && user.organizations.length > 0
-      main.showSupportScreen = UserRoles.isSupportManager(user)
+      main.showSupportScreen = UserRoles.isSupportAgent(user)
       main.isLoading = false
   )
 

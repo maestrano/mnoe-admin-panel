@@ -14,7 +14,7 @@
     MnoeCurrentUser.getUser().then(
       (response) ->
         ctrl.isAccountManager = UserRoles.isAccountManager(response)
-        ctrl.isSupportManager = UserRoles.isSupportManager(response)
+        ctrl.isSupportAgent = UserRoles.isSupportAgent(response)
         ctrl.supportDisabledClass = UserRoles.supportDisabledClass(response)
       )
 
@@ -31,7 +31,7 @@
         fetchSubscriptionEvents(nbItems, ctrl.subscriptionEvents.offset)
 
       approve: (subscriptionEvent) ->
-        return if ctrl.isSupportManager
+        return if ctrl.isSupportAgent
         modalOptions =
           closeButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.close'
           actionButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.approve_subscriptions.cancel'
@@ -49,7 +49,7 @@
         MnoConfirm.showModal(modalOptions)
 
       reject: (subscriptionEvent) ->
-        return if ctrl.isSupportManager
+        return if ctrl.isSupportAgent
         modalOptions =
           closeButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.close'
           actionButtonText: 'mnoe_admin_panel.dashboard.subscriptions.modal.cancel_subscriptions.cancel'

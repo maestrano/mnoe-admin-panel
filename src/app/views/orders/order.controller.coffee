@@ -68,7 +68,7 @@
   MnoeCurrentUser.getUser().then(
     (response) ->
       vm.isAccountManager = UserRoles.isAccountManager(response)
-      vm.isSupportManager = UserRoles.isSupportManager(response)
+      vm.isSupportAgent = UserRoles.isSupportAgent(response)
   )
 
   vm.getInfo = ->
@@ -90,7 +90,7 @@
     vm.order && (vm.order.status != 'requested')
 
   vm.disableApprovalWorkflow = ->
-    vm.orderUnalterable() || vm.isAccountManager || vm.isSupportManager
+    vm.orderUnalterable() || vm.isAccountManager || vm.isSupportAgent
 
   vm.orderWorkflowExplanation = ->
     if vm.orderUnalterable()

@@ -31,11 +31,11 @@
           <td>{{user.created_at | date: 'dd/MM/yyyy'}}</td>
           <td>{{(user.last_sign_in_at | date: 'dd/MM/yyyy') || ('mnoe_admin_panel.dashboard.users.widget.local_list.last_login.never' | translate)}}</td>
           <td ng-if="organizationContext">
-            <button ng-show="user.status === 'pending'" ng-click="sendInvitation(user)" class="btn btn-xs btn-warning" ng-disabled="user.isSendingInvite || isSupportManager">
+            <button ng-show="user.status === 'pending'" ng-click="sendInvitation(user)" class="btn btn-xs btn-warning" ng-disabled="user.isSendingInvite || isSupportAgent">
               <span ng-show="user.isSendingInvite"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
               {{'mnoe_admin_panel.dashboard.users.widget.local_list.invite' | translate}}
             </button>
-            <button ng-show="user.status === 'invited'" ng-click="sendInvitation(user)" class="btn btn-xs btn-default" ng-disabled="user.isSendingInvite || isSupportManager">
+            <button ng-show="user.status === 'invited'" ng-click="sendInvitation(user)" class="btn btn-xs btn-default" ng-disabled="user.isSendingInvite || isSupportAgent">
               <span ng-show="user.isSendingInvite"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
               {{'mnoe_admin_panel.dashboard.users.widget.local_list.resend_invite' | translate}}
             </button>

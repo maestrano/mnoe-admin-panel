@@ -20,7 +20,7 @@
 
     MnoeCurrentUser.getUser().then(
       (response) ->
-        scope.isSupportManager = UserRoles.isSupportManager(response)
+        scope.isSupportAgent = UserRoles.isSupportAgent(response)
         scope.supportDisabledClass = UserRoles.supportDisabledClass(response)
     )
 
@@ -75,7 +75,7 @@
       scope.updateDisplayState()
 
     scope.editRole = (user) ->
-      return if scope.isSupportManager
+      return if scope.isSupportAgent
       # Keep track of old roles when editing user's roles.
       user.beforeEditRole = user.role
       user.editMode = true
@@ -85,12 +85,12 @@
       user.editMode = false
 
     scope.editEmail = () ->
-      return if scope.isSupportManager
+      return if scope.isSupportAgent
       emailForm.$show()
 
     # Send an invitation to a user
     scope.sendInvitation = (user) ->
-      return if scope.isSupportManager
+      return if scope.isSupportAgent
       user.isSendingInvite = true
       MnoeUsers.inviteUser(scope.organization, user).then(
         (response) ->
@@ -103,7 +103,7 @@
       ).finally(-> user.isSendingInvite = false)
 
     scope.updateUserMail = (user) ->
-      return if scope.isSupportManager
+      return if scope.isSupportAgent
       user.isUpdatingEmail = true
       MnoeUsers.updateStaff(user).then(
         () ->
@@ -131,7 +131,7 @@
       )
 
     scope.removeUserFromOrganization = (user) ->
-      return if scope.isSupportManager
+      return if scope.isSupportAgent
       modalOptions =
         closeButtonText: 'mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.cancel'
         actionButtonText: 'mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.delete'
