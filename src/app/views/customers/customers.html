@@ -2,14 +2,14 @@
   <div class="row">
     <div class="col-lg-3 col-md-6 col-xs-12">
       <mno-kpi class="kpi-color-1" description="{{'mnoe_admin_panel.dashboard.customers.main.kpi_users' | translate}}" icon="fa-users"
-               value="{{vm.users.totalCount}}"
-               loading="!vm.users.totalCount"></mno-kpi>
+               value="{{vm.users.metrics.total_count}}"
+               loading="!vm.users.metrics.total_count"></mno-kpi>
     </div>
 
     <div class="col-lg-3 col-md-6 col-xs-12">
       <mno-kpi class="kpi-color-2" description="{{'mnoe_admin_panel.dashboard.customers.main.kpi_organizations' | translate}}" icon="fa-sitemap"
-               value="{{vm.organizations.totalCount}}"
-               loading="!vm.organizations.totalCount"></mno-kpi>
+               value="{{vm.organizations.kpi.non_demo_count}}"
+               loading="!vm.organizations.kpi.non_demo_count"></mno-kpi>
 
     </div>
   </div>
