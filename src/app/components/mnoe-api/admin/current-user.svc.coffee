@@ -55,9 +55,6 @@
     $state.go(state)
 
   @logout = ->
-    # Reset the cookies for the support user.
-    $cookies.remove('support_org_id', {path: '/'})
-
     # Shutdown the Intercom session
     IntercomSvc.logOut()
     _self.getUser().then(
@@ -73,8 +70,9 @@
   @refreshUser = ->
     userPromise = null
     _self.getUser().then(
-      () ->
-        _self.skipIfNotAdmin()
+      (user) ->
+        _self.skipIfNotAdminRole(['admin', 'support'])
+        user
     )
 
   return @

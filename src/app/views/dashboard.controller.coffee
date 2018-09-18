@@ -36,13 +36,20 @@
       main.isLoading = false
   )
 
-  main.currentSupportOrganization = () ->
-    $cookies.get("support_org_id")
+  main.currentSupportOrganization = ->
+    main.user.support_org_id
 
   main.supportLoggedIn = (user) ->
     UserRoles.supportRoleLoggedIn(user)
 
   main.exit = ->
     MnoeCurrentUser.logout()
+
+  main.refreshUser = ->
+    MnoeCurrentUser.refreshUser().then((user) -> main.user = user)
+
+  $scope.$on('refreshDashboardLayoutSupport', ->
+    main.refreshUser()
+  );
 
   return

@@ -22,6 +22,7 @@
 
     scope.accessOrganizationInfo = (organization) ->
       MnoeUsers.loginSupport(scope.user, organization.external_id).then(() ->
+        scope.$emit('refreshDashboardLayoutSupport')
         $state.go('dashboard.customers.organization', { orgId: organization.id })
       )
 

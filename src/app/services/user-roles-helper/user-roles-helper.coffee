@@ -18,7 +18,7 @@
     (user.admin_role == 'support')
 
   @supportRoleLoggedIn = (user) ->
-    @isSupportAgent(user) && $cookies.get("support_org_id")
+    @isSupportAgent(user) && user.support_org_id
 
   @supportDisabledClass = (user) ->
     if @isSupportAgent(user) then 'support' else ''

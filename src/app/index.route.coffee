@@ -98,8 +98,6 @@
 
         # Logout and redirect the user
         $http.delete(URI.logout).then( ->
-          # Expire support_org_id cookie.
-          $cookies.remove('support_org_id', {path: '/'})
           IntercomSvc.logOut()
           $window.location.href = URI.login
         )
