@@ -50,6 +50,6 @@
 
   $scope.$on('refreshDashboardLayoutSupport', ->
     main.refreshUser()
-  );
+  )
 
   return
