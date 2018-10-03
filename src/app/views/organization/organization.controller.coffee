@@ -95,9 +95,23 @@
         dataFlag: -> 'organization-create-order'
         multiple: -> false
     )
+
     modalInstance.result.then(
       (product) ->
         $state.go('dashboard.provisioning.order', {productId: product.id, orgId: vm.organization.id, editAction: 'provision'})
+    )
+
+  # Sync status info for an app instance
+  vm.openAppInstanceInfoModal = (appInstance) ->
+    modalInstance = $uibModal.open(
+      templateUrl: 'app/views/organization/app-instance-info-modal/app-instance-info-modal.html'
+      controller: 'AppInstanceInfoModal'
+      controllerAs: 'vm'
+      backdrop: 'static'
+      size: 'md'
+      resolve:
+        appInstance: appInstance
+        organization: vm.organization
     )
 
   # Remove app modal
