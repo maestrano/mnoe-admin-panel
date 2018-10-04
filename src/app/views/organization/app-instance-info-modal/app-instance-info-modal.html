@@ -112,7 +112,7 @@
           <span translate>
             {{ vm.syncStatus.messages | notApplicable }}
           </span>
-          <span>
+          <span ng-if="vm.syncStatus.status != 'success'">
             <a class="tooltip_link" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.organization.app_info.messages.tooltip' | translate }}" tooltip-append-to-body="true">
               <i class="fa fa-question-circle"></i>
             </a>
