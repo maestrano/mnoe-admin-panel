@@ -1,4 +1,4 @@
-@App.service 'UserRoles', ($translate, $cookies, USER_ROLES, MnoeAdminConfig) ->
+@App.service 'UserRoles', ($translate, USER_ROLES, MnoeAdminConfig) ->
   _self = @
 
   @availableRoles = _.map(USER_ROLES, 'value')

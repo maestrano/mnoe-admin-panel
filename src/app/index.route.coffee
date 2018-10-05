@@ -93,7 +93,7 @@
         skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
     .state 'logout',
       url: '/logout'
-      controller: ($window, $http, $cookies, IntercomSvc) ->
+      controller: ($window, $http, IntercomSvc) ->
         'ngInject'
 
         # Logout and redirect the user
