@@ -10,5 +10,5 @@
 
 @App.filter('capitalize', () ->
   (input) ->
-    _.startCase(input.toLowerCase());
+    _.startCase(input.toLowerCase())
 )
