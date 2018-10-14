@@ -68,6 +68,7 @@
   MnoeCurrentUser.getUser().then(
     (response) ->
       vm.isAccountManager = UserRoles.isAccountManager(response)
+      vm.isSupportAgent = UserRoles.isSupportAgent(response)
   )
 
   vm.getInfo = ->
@@ -84,16 +85,15 @@
   vm.displayInfoTooltip = ->
     vm.order.status == 'aborted' if vm.order
 
-  # Admin can only accept a #subscription_event(i.e. order) when subscription event is requested.
-  vm.disableApproval = ->
+  # Admin can only accept/reject a #subscription_event(i.e. order) when subscription event is requested.
+  vm.orderUnalterable = ->
     vm.order && (vm.order.status != 'requested')
 
-  # Only disabled cancel if status is already cancelled
-  vm.disableCancel = ->
-    vm.order && (vm.order.status != 'requested')
+  vm.disableApprovalWorkflow = ->
+    vm.orderUnalterable() || vm.isAccountManager || vm.isSupportAgent
 
   vm.orderWorkflowExplanation = ->
-    if vm.disableApproval()
+    if vm.orderUnalterable()
       'mnoe_admin_panel.dashboard.subscriptions.modal.approve_disabled'
 
   vm.approveOrder = ->

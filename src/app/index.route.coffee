@@ -15,6 +15,21 @@
       controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.home.title'
+      resolve:
+        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
+
+    .state 'dashboard.support',
+      data:
+        pageTitle:'Support'
+      url: '/support'
+      templateUrl: 'app/views/support/support.html'
+      controller: 'SupportController'
+      controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.home.support'
+      resolve:
+        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfNotAdminRole(['support'])
+
     .state 'dashboard.reviews',
       data:
         pageTitle:'Reviews'
@@ -74,6 +89,8 @@
         controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.customers.connect_app.title'
+      resolve:
+        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
     .state 'logout',
       url: '/logout'
       controller: ($window, $http, IntercomSvc) ->
@@ -97,6 +114,8 @@
         controllerAs: 'vm'
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.dashboard_templates.title'
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
       .state 'dashboard.dashboard-templates-show',
         url: '/dashboard-templates/:dashboardId'
         templateUrl: 'app/views/impac/impac.html'
@@ -104,6 +123,8 @@
         controllerAs: 'vm'
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.impac.title'
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
 
   if adminConfig.areSettingsEnabled()
     $stateProvider
@@ -176,7 +197,8 @@
         controllerAs: 'vm'
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.finance.title'
-
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
       .state 'dashboard.invoices',
         data:
           pageTitle:'Invoices'
@@ -184,6 +206,8 @@
         templateUrl: 'app/views/invoices/invoices.html'
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.invoices.title'
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
       .state 'dashboard.invoice',
         data:
           pageTitle:'Invoice'
@@ -193,6 +217,8 @@
         controllerAs: 'vm'
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.invoice.title'
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
 
   if adminConfig.isStaffEnabled()
     $stateProvider.state 'dashboard.staffs',
@@ -239,6 +265,8 @@
         controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.sub_tenant.title'
+      resolve:
+        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
 
   if adminConfig.isOrganizationManagementEnabled()
     $stateProvider.state 'dashboard.customers.create-step-1',
@@ -249,6 +277,8 @@
         controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.customers.create_customer.title'
+      resolve:
+        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
 
   if adminConfig.isOrganizationManagementEnabled() && adminConfig.isCustomerBatchImportEnabled()
     $stateProvider.state 'dashboard.customers.batch-upload',
@@ -259,6 +289,8 @@
         controllerAs: 'vm'
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.customers.batch_upload.title'
+      resolve:
+        skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
 
   if adminConfig.isOrganizationManagementEnabled() && adminConfig.isProvisioningEnabled()
     $stateProvider
@@ -267,6 +299,8 @@
         templateUrl: 'app/views/provisioning/layout.html'
         controller: 'ProvisioningLayoutController'
         url: '/provisioning'
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
       .state 'dashboard.provisioning.order',
         data:
           pageTitle:'Purchase - Order'
@@ -277,6 +311,8 @@
           controllerAs: 'vm'
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.provisioning.breadcrumb.order'
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
       .state 'dashboard.provisioning.additional_details',
         data:
           pageTitle:'Purchase - Additional details'
@@ -287,6 +323,8 @@
           controllerAs: 'vm'
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.provisioning.breadcrumb.additional_details'
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
       .state 'dashboard.provisioning.confirm',
         data:
           pageTitle:'Purchase - Confirm'
@@ -297,6 +335,8 @@
           controllerAs: 'vm'
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.provisioning.breadcrumb.confirm'
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
       .state 'dashboard.provisioning.order_summary',
         data:
           pageTitle:'Purchase - Order summary'
@@ -307,6 +347,8 @@
           controllerAs: 'vm'
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.provisioning.breadcrumb.order_summary'
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
 
   if adminConfig.isProductMarkupEnabled()
     $stateProvider
@@ -333,6 +375,8 @@
         controllerAs: 'vm'
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.orders.title'
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
       .state 'dashboard.order',
         data:
           pageTitle:'Order'
@@ -356,6 +400,8 @@
           controllerAs: 'vm'
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.products.title'
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
       .state 'dashboard.product',
         data:
           pageTitle:'Product'
@@ -366,5 +412,7 @@
           controllerAs: 'vm'
         ncyBreadcrumb:
           label: 'mnoe_admin_panel.dashboard.product.title'
+        resolve:
+          skip: (MnoeCurrentUser) -> MnoeCurrentUser.skipIfSupportAgent()
 
   $urlRouterProvider.otherwise '/home'

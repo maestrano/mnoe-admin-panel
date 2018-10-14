@@ -85,6 +85,9 @@
     data = { member: user }
     MnoeAdminApiSvc.one('organizations', organization.id).doPUT(data, '/remove_member')
 
+  @loginSupport = (user, organization_external_id) ->
+    MnoeAdminApiSvc.one('users', user.id).customPOST({ organization_external_id: organization_external_id}, 'login_with_org_external_id')
+
   _getStaffs = (limit, offset, sort, params = {}) ->
     params["order_by"] = sort
     params["limit"] = limit

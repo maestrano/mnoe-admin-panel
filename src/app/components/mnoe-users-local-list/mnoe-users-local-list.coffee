@@ -3,7 +3,7 @@
 # The users-local-list is on the organization's info page and shows the users attached to an organization, while
 # the users-list is on the homepage and shows all the organizations.
 
-@App.directive('mnoeUsersLocalList', ($filter, $log, $translate, toastr, MnoeAdminConfig, MnoeUsers, MnoErrorsHandler, MnoConfirm, UserRoles) ->
+@App.directive('mnoeUsersLocalList', ($filter, $log, $translate, toastr, MnoeAdminConfig, MnoeUsers, MnoErrorsHandler, MnoConfirm, MnoeCurrentUser, UserRoles) ->
   restrict: 'E'
   scope: {
     list: '='
@@ -17,6 +17,12 @@
     scope.userRoles = UserRoles
     scope.editMode = false
     attrs.view = attrs.view || 'all'
+
+    MnoeCurrentUser.getUser().then(
+      (response) ->
+        scope.isSupportAgent = UserRoles.isSupportAgent(response)
+        scope.supportDisabledClass = UserRoles.supportDisabledClass(response)
+    )
 
     # Variables initialization
     scope.users =
@@ -69,6 +75,7 @@
       scope.updateDisplayState()
 
     scope.editRole = (user) ->
+      return if scope.isSupportAgent
       # Keep track of old roles when editing user's roles.
       user.beforeEditRole = user.role
       user.editMode = true
@@ -77,8 +84,13 @@
       user.role = user.beforeEditRole
       user.editMode = false
 
+    scope.editEmail = () ->
+      return if scope.isSupportAgent
+      emailForm.$show()
+
     # Send an invitation to a user
     scope.sendInvitation = (user) ->
+      return if scope.isSupportAgent
       user.isSendingInvite = true
       MnoeUsers.inviteUser(scope.organization, user).then(
         (response) ->
@@ -91,6 +103,7 @@
       ).finally(-> user.isSendingInvite = false)
 
     scope.updateUserMail = (user) ->
+      return if scope.isSupportAgent
       user.isUpdatingEmail = true
       MnoeUsers.updateStaff(user).then(
         () ->
@@ -118,6 +131,7 @@
       )
 
     scope.removeUserFromOrganization = (user) ->
+      return if scope.isSupportAgent
       modalOptions =
         closeButtonText: 'mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.cancel'
         actionButtonText: 'mnoe_admin_panel.dashboard.users.widget.local_list.remove_member.delete'
