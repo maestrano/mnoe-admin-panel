@@ -11,4 +11,9 @@
       if phone && countryCode
         vm.user.phone = '+' + countryCode + phone
   )
+
+  MnoeUsers.getUsersDashboards($stateParams.userId).then((response) ->
+    console.log(response)
+  )
+
   return
