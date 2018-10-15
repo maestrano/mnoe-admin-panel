@@ -13,7 +13,7 @@
 
   vm.canBeDataSynced = MnoAppsInstances.canBeDataSynced(vm.appInstance)
 
-  vm.canBeDataSyncedTooltyip = "mnoe_admin_panel.dashboard.organization.app_info.data_syncable.#{vm.isConnected}.tooltip"
+  vm.canBeDataSyncedTooltyip = "mnoe_admin_panel.dashboard.organization.app_info.data_syncable.#{vm.canBeDataSynced}.tooltip"
   vm.syncStatusTooltip = "mnoe_admin_panel.dashboard.organization.app_info.sync_status.#{vm.syncStatus?.status}.tooltip"
 
   vm.progress = if vm.syncStatus?.progress
