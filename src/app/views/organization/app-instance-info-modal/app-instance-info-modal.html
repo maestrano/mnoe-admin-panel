@@ -41,7 +41,7 @@
           {{ vm.isConnected | yesNo }}
         </span>
         <span>
-          <a class="tooltip_link" uib-tooltip="{{ vm.isConnectedTooltip | translate }}" tooltip-append-to-body="true">
+          <a class="tooltip_link" uib-tooltip="{{ vm.isConnectedTooltip | translate }}">
             <i class="fa fa-question-circle"></i>
           </a>
         </span>
@@ -56,7 +56,7 @@
           {{ vm.canBeDataSynced | yesNo }}
         </span>
         <span>
-          <a class="tooltip_link" uib-tooltip="{{ vm.canBeDataSyncedTooltyip | translate }}" tooltip-append-to-body="true">
+          <a class="tooltip_link" uib-tooltip="{{ vm.canBeDataSyncedTooltyip | translate }}">
             <i class="fa fa-question-circle"></i>
           </a>
         </span>
@@ -72,7 +72,7 @@
             {{ vm.syncStatus.status | capitalize }}
           </span>
           <span>
-            <a class="tooltip_link" uib-tooltip="{{ vm.syncStatusTooltip | translate }}" tooltip-append-to-body="true">
+            <a class="tooltip_link" uib-tooltip="{{ vm.syncStatusTooltip | translate }}">
               <i class="fa fa-question-circle"></i>
             </a>
           </span>
@@ -112,7 +112,7 @@
             {{ vm.syncStatus.messages | notApplicable }}
           </span>
           <span ng-if="vm.syncStatus.status != 'success'">
-            <a class="tooltip_link" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.organization.app_info.messages.tooltip' | translate }}" tooltip-append-to-body="true">
+            <a class="tooltip_link" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.organization.app_info.messages.tooltip' | translate }}">
               <i class="fa fa-question-circle"></i>
             </a>
           </span>
