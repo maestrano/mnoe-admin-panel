@@ -88,7 +88,7 @@
   @loginSupport = (user, organization_external_id) ->
     MnoeAdminApiSvc.one('users', user.id).customPOST({ organization_external_id: organization_external_id}, 'login_with_org_external_id')
 
-  @getUsersDashboards = (userId, sort, limit, offset) ->
+  @getUsersDashboards = (userId, limit, offset, sort) ->
     MnoeAdminApiSvc.all("/impac/dashboards").getList({
       order_by: sort,
       limit: limit,
