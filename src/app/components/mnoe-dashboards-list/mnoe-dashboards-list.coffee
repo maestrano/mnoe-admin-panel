@@ -11,8 +11,10 @@
 
     vm.dashboards =
       sort: "created_at"
-      nbItems: 10
+      nbItems: 5
       page: 1
+      offset: 0
+      nbItemsValues: [5, 10, 20]
       pageChangedCb: (nbItems, page) ->
         vm.dashboards.nbItems = nbItems
         vm.dashboards.page = page

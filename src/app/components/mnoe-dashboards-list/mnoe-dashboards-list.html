@@ -9,10 +9,10 @@
         <!-- Dashboard list header -->
         <thead>
           <tr>
-            <th class="col-lg-4" translate>mnoe_admin_panel.dashboard.dashboard_list.widget.list.name</th>
-            <th class="col-lg-4" translate>mnoe_admin_panel.dashboard.dashboard_list.widget.list.currency</th>
-            <th class="col-lg-4" translate>mnoe_admin_panel.dashboard.dashboard_list.widget.list.updated_at</th>
-            <th class="col-lg-4" translate>mnoe_admin_panel.dashboard.dashboard_list.widget.list.created_at</th>
+            <th st-sort="name" class="col-lg-3" translate>mnoe_admin_panel.dashboard.dashboard_list.widget.list.name</th>
+            <th class="col-lg-3" translate>mnoe_admin_panel.dashboard.dashboard_list.widget.list.currency</th>
+            <th st-sort="updated_at" class="col-lg-3" translate>mnoe_admin_panel.dashboard.dashboard_list.widget.list.updated_at</th>
+            <th st-sort="created_at" class="col-lg-3" translate>mnoe_admin_panel.dashboard.dashboard_list.widget.list.created_at</th>
           </tr>
         </thead>
 
@@ -26,8 +26,8 @@
               {{ dashboard.name }}
             </td>
             <td title="{{ dashboard.full_name }}">{{ $ctrl.currency(dashboard) }}</td>
-            <td title="{{ dashboard.full_name }}">{{ dashboard.updated_at | date: "dd/MM/yyyy \'at\' hh:mm" }}</td>
-            <td title="{{ dashboard.full_name }}">{{ dashboard.created_at |  date: "dd/MM/yyyy \'at\' hh:mm" }}</td>
+            <td title="{{ dashboard.full_name }}">{{ dashboard.updated_at | date: "dd/MM/yyyy \'at\' h:mm a" }}</td>
+            <td title="{{ dashboard.full_name }}">{{ dashboard.created_at |  date: "dd/MM/yyyy \'at\' h:mm a" }}</td>
           </tr>
 
           <!-- Widgets attached to the dashboard -->
@@ -38,7 +38,9 @@
               </span>
               Widgets:
             </td>
-            <td></td>
+            <td>
+            <p ng-if="dashboard.widgets.length == 0" translate>mnoe_admin_panel.dashboard.dashboard_list.widget.list.no_widgets</p>
+            </td>
             <td></td>
             <td></td>
           </tr>
@@ -46,8 +48,8 @@
           <tr ng-if="dashboard.opened && dashboard.widgetOpened" ng-repeat="widget in dashboard.widgets" class="nested-table-one-body">
             <td title="{{ dashboard.full_name }}">{{ widget.name }}</td>
             <td title="{{ dashboard.full_name }}">{{ $ctrl.currency(widget) }}</td>
-            <td title="{{ dashboard.full_name }}">{{ widget.updated_at | date: "dd/MM/yyyy \'at\' hh:mm" }}</td>
-            <td title="{{ dashboard.full_name }}">{{ widget.created_at |  date: "dd/MM/yyyy \'at\' hh:mm" }}</td>
+            <td title="{{ dashboard.full_name }}">{{ widget.updated_at | date: "dd/MM/yyyy \'at\' h:mm a" }}</td>
+            <td title="{{ dashboard.full_name }}">{{ widget.created_at |  date: "dd/MM/yyyy \'at\' h:mm a" }}</td>
           </tr>
 
           <!-- Kpis attached to the dashboard -->
@@ -58,7 +60,9 @@
               </span>
               Kpis:
             </td>
-            <td></td>
+            <td>
+              <p ng-if="dashboard.kpis.length == 0" translate>mnoe_admin_panel.dashboard.dashboard_list.widget.list.no_kpis</p>
+            </td>
             <td></td>
             <td></td>
           </tr>
@@ -66,20 +70,22 @@
           <tr ng-if="dashboard.opened && dashboard.kpiOpened" ng-repeat="kpi in dashboard.kpis" class="nested-table-one-body">
             <td title="{{ dashboard.full_name }}">{{ kpi.name }}</td>
             <td title="{{ dashboard.full_name }}">{{ $ctrl.currency(kpi) }}</td>
-            <td title="{{ dashboard.full_name }}">{{ kpi.updated_at | date: "dd/MM/yyyy \'at\' hh:mm" }}</td>
-            <td title="{{ dashboard.full_name }}">{{ kpi.created_at |  date: "dd/MM/yyyy \'at\' hh:mm" }}</td>
+            <td title="{{ dashboard.full_name }}">{{ kpi.updated_at | date: "dd/MM/yyyy \'at\' h:mm a" }}</td>
+            <td title="{{ dashboard.full_name }}">{{ kpi.created_at |  date: "dd/MM/yyyy \'at\' h:mm a" }}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </mno-widget-body>
   <mno-widget-footer ng-show="$ctrl.dashboards.list">
-    <!-- <mno-pagination
+    <mno-pagination
       page="$ctrl.dashboards.page"
       nb-items="$ctrl.dashboards.nbItems"
       total-items="$ctrl.dashboards.totalItems"
       on-change-cb="$ctrl.dashboards.pageChangedCb(nbItems, page)"
-      is-loading="$ctrl.dashboards.loading">
-    </mno-pagination> -->
+      is-loading="$ctrl.dashboards.loading"
+      nb-items-values="$ctrl.dashboards.nbItemsValues"
+      >
+    </mno-pagination>
   </mno-widget-footer>
 </mno-widget>
