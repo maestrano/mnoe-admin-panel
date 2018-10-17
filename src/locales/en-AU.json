@@ -223,7 +223,7 @@
   "mnoe_admin_panel.dashboard.product_markups.offers.modal.table_headers.final_prices": "Final Prices",
   "mnoe_admin_panel.dashboard.product_markups.offers.modal.usage_based": "usage based",
   "mnoe_admin_panel.dashboard.product_markups.offers.modal.one_off": "one off",
-  "mnoe_admin_panel.dashboard.dashboard_list.widget.list.title": "User Dashboards",
+  "mnoe_admin_panel.dashboard.dashboard_list.widget.list.title": "User dashboards",
   "mnoe_admin_panel.dashboard.dashboard_list.widget.list.name": "Name",
   "mnoe_admin_panel.dashboard.dashboard_list.widget.list.currency": "Currency",
   "mnoe_admin_panel.dashboard.dashboard_list.widget.list.updated_at": "Updated at",

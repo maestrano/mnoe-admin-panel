@@ -168,4 +168,11 @@
   @dashboardTemplatesDatesFormat = ->
     ADMIN_PANEL_CONFIG.dashboard_templates? && ADMIN_PANEL_CONFIG.dashboard_templates.dates_format || 'L'
 
+  @isAdminDashboardViewingEnabled = ->
+    if ADMIN_PANEL_CONFIG.view_user_dashboards
+      ADMIN_PANEL_CONFIG.view_user_dashboards?.enabled
+    else
+      $log.debug("ADMIN_PANEL_CONFIG.view_user_dashboards missing")
+      false
+
   return @

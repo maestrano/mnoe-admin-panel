@@ -86,7 +86,7 @@
         <mnoe-organizations-local-list list="vm.user.organizations" user="vm.user" view="all"></mnoe-organizations-local-list>
       </div>
       <div class="col-sm-12 top-buffer-2 no-padding">
-        <mnoe-dashboards-list></mnoe-organizations-local-list>
+        <mnoe-dashboards-list ng-if="vm.isAdminDashboardViewingEnabled"></mnoe-organizations-local-list>
       </div>
     </div>
   </div>
