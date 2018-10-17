@@ -1,12 +1,9 @@
 #
-# Mnoe Dashboard Templates list
+# Mnoe dashboards list.
 #
 @App.component('mnoeDashboardsList', {
   templateUrl: 'app/components/mnoe-dashboards-list/mnoe-dashboards-list.html',
-  bindings: {
-    userId: '<'
-  },
-  controller: ($uibModal, toastr, MnoeUsers, $stateParams) ->
+  controller: (MnoeUsers, $stateParams) ->
     vm = this
 
     vm.dashboards =
