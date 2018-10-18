@@ -92,7 +92,7 @@
     MnoeAdminApiSvc.all("/impac/dashboards").getList({
       order_by: sort,
       limit: limit,
-      offset: offset
+      offset: offset,
       'where[owner_id]': userId,
       'where[owner_type]': 'User'
     })
