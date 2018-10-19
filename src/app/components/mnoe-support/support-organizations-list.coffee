@@ -81,13 +81,15 @@
       search = scope.organizations.search.toLowerCase()
 
       params = {
-        organization_search: {
-          'where[organization_external_id]': search
+        org_search: {
+          where: {
+            external_id: search
+          }
         }
       }
 
       MnoeOrganizations.supportSearch(params).then((response) ->
-        scope.organizations.list = $filter('orderBy')(response.data, 'created_at')
+        scope.organizations.list = $filter('orderBy')(response.data.organizations, 'created_at')
       ).finally(-> scope.organizations.loading = false)
 
 )
