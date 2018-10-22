@@ -1,4 +1,4 @@
-@App.directive('mnoeSupportOrganizationsList', ($filter, $translate, $state, MnoeOrganizations, MnoeCurrentUser, MnoeUsers, MnoeAdminConfig) ->
+@App.directive('mnoeSupportOrganizationsList', ($filter, $translate, $state, $log, MnoeOrganizations, MnoeCurrentUser, MnoeUsers, MnoeAdminConfig, toastr) ->
   restrict: 'E',
   scope: {
     filterParams: '='
@@ -24,10 +24,14 @@
     )
 
     scope.accessOrganizationInfo = (organization) ->
+      scope.organizations.loading = true
       MnoeUsers.loginSupport(scope.user, organization.external_id).then(() ->
         scope.$emit('refreshDashboardLayoutSupport')
         $state.go('dashboard.customers.organization', { orgId: organization.id })
-      )
+      ).catch((error) ->
+        $log.error('Support cannot be logged in. Check if the org has an external id.', error)
+        toastr.error('mnoe_admin_panel.dashboard.organization.widget.list.support.error')
+      ).finally(() -> scope.organizations.loading = false)
 
     # table generation - need to get the locale first
     $translate(
