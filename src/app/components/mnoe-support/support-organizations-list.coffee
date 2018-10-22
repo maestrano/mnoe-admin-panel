@@ -92,17 +92,23 @@
     # Display only the search results
     setSearchOrganizationsList = () ->
       scope.organizations.loading = true
-
-      params = {
-        org_search: {
-          where: {
-            external_id: scope.organizations.externalIdSearch
-          }
-        }
-      }
-
+      params = searchParams()
       MnoeOrganizations.supportSearch(params).then((response) ->
         scope.organizations.list = $filter('orderBy')(response.data.organizations, 'created_at')
       ).finally(-> scope.organizations.loading = false)
 
+
+    searchParams = () ->
+      if scope.organizations.externalIdSearch
+        org_search:
+          where:
+            external_id: scope.organizations.externalIdSearch
+      else
+        org_search:
+          where:
+            'name.like': "%#{scope.organizations.orgNameSearch}%"
+        user_search:
+          where:
+            'name.like': "%#{scope.organizations.firstNameSearch}%"
+            'surname.like': "%#{scope.organizations.lastNameSearch}%"
 )
