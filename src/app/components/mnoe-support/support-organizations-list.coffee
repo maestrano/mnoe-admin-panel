@@ -10,7 +10,10 @@
 
     # Variables initialization
     scope.organizations =
-      search: ''
+      externalIdSearch: ''
+      orgNameSearch: ''
+      firstNameSearch: ''
+      lastNameSearch: ''
       list: []
 
     scope.noResultsFound = () ->
@@ -66,9 +69,20 @@
         ]
       )
 
-    scope.searchChange = () ->
-      scope.searchMode = true
-      setSearchOrganizationsList(scope.organizations.search)
+    scope.externalIdSearch = () ->
+      return unless scope.organizations.externalIdSearch.length > 2
+      # Reset other search fields.
+      scope.organizations.orgNameSearch = ''
+      scope.organizations.firstNameSearch = ''
+      scope.organizations.lastNameSearch = ''
+      setSearchOrganizationsList()
+
+    scope.nameSearch = () ->
+      org = scope.organizations
+      return unless org.orgNameSearch.length >= 2 && org.firstNameSearch.length >= 2 && org.lastNameSearch.length >= 2
+      # Reset other search field.
+      scope.organizations.externalIdSearch = ''
+      setSearchOrganizationsList()
 
     scope.noResultsText = if scope.isSupportRoleEnabled
       "mnoe_admin_panel.dashboard.organization.widget.list.suport.search_users.no_results"
@@ -76,14 +90,13 @@
       "mnoe_admin_panel.dashboard.organization.widget.list.suport.search_users.support_role_disabled"
 
     # Display only the search results
-    setSearchOrganizationsList = (search) ->
+    setSearchOrganizationsList = () ->
       scope.organizations.loading = true
-      search = scope.organizations.search.toLowerCase()
 
       params = {
         org_search: {
           where: {
-            external_id: search
+            external_id: scope.organizations.externalIdSearch
           }
         }
       }
