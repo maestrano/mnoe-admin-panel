@@ -5,10 +5,10 @@
 
       <div class="row">
         <div class="col-xs-12 top-buffer-1 text-right">
-          <button ng-if="::main.adminConfig.isUserManagementEnabled()" ng-click="vm.users.createUserModal()" ng-disabled="!vm.organization" class="btn btn-primary" translate>
+          <button ng-if="::main.adminConfig.isUserManagementEnabled()" ng-click="vm.users.createUserModal()" class="btn btn-primary" ng-disabled="!vm.organization || vm.isSupportAgent" translate>
             mnoe_admin_panel.dashboard.organization.add_a_user
           </button>
-          <button ng-if="::vm.managementAndProvisioningEnabled" ng-click="vm.openSelectProductModal()" ng-disabled="!vm.organization || vm.isLoadingProducts" class="btn btn-primary">
+          <button ng-if="::vm.managementAndProvisioningEnabled" ng-click="vm.openSelectProductModal()" ng-disabled="!vm.organization || vm.isLoadingProducts || vm.isSupportAgent" class="btn btn-primary">
             <span translate>mnoe_admin_panel.dashboard.organization.create_an_order</span>
           </button>
         </div>
@@ -80,11 +80,17 @@
                   <select ng-model="vm.organization.billing_currency" ng-show="vm.editmode">
                     <option ng-repeat="currency in vm.availableBillingCurrencies" value="{{currency}}">{{currency}}</option>
                   </select>
-                  <span ng-click="vm.editmode = true" ng-hide="vm.editmode">{{vm.organization.billing_currency}}</span>
-                  <a href="" ng-hide="vm.editmode" ng-click="vm.editmode = true"><i class="fa fa-pencil"></i></a>
-                  <a href="" ng-show="vm.editmode" ng-click="vm.updateOrganization()"><i class="fa fa-check"></i></a>
-                  <a href="" ng-show="vm.editmode" ng-click="vm.resetBillingCurrency()"><i class="fa fa-eraser"></i></a>
-                  <span ng-show="vm.isSaving"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+                  <div ng-if="vm.isSupportAgent">
+                    <span>{{vm.organization.billing_currency}}</span>
+                    <a ng-class="vm.supportDisabledClass"><i class="fa fa-pencil"></i></a>
+                  </div>
+                  <div ng-if="!vm.isSupportAgent">
+                    <span ng-click="vm.editCurrency()" ng-hide="vm.editmode">{{vm.organization.billing_currency}}</span>
+                    <a href="" ng-hide="vm.editmode || vm.isSupportAgent" ng-click="vm.editCurrency()"><i class="fa fa-pencil"></i></a>
+                    <a href="" ng-show="vm.editmode" ng-click="vm.updateOrganization()"><i class="fa fa-check"></i></a>
+                    <a href="" ng-show="vm.editmode" ng-click="vm.resetBillingCurrency()"><i class="fa fa-eraser"></i></a>
+                    <span ng-show="vm.isSaving"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+                  </div>
                 </div>
               </div>
               <div class="row">
@@ -112,7 +118,7 @@
                 <div class='col-xs-6'>
                   {{ vm.organization.billing.credit.value | currency: vm.organization.billing.credit.options.symbol }}
                   ({{ vm.organization.billing.credit.options.iso_code }})
-                  <a href='' ng-click="vm.openTransactionModal()">
+                  <a href='' ng-click="vm.openTransactionModal()" ng-class="vm.supportDisabledClass">
                     <i class='fa fa-plus'></i>
                   </a>
                 </div>
@@ -120,14 +126,14 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="label-cell">{{'mnoe_admin_panel.dashboard.organization.active_apps' | translate}}
-                    <a ng-if="vm.organization.active_apps.length > 0 && vm.hasDisconnectedApps" ui-sref="dashboard.customers.connect-app({orgId: vm.organization.id})" translate>mnoe_admin_panel.dashboard.organization.connect_apps</a>
+                    <a ng-class="vm.supportDisabledClass" ng-if="(vm.organization.active_apps.length > 0 && vm.hasDisconnectedApps)" ng-click="vm.connectApps()" translate>mnoe_admin_panel.dashboard.organization.connect_apps</a>
                   </div>
                 </div>
                 <div ng-class="::vm.managementAndProvisioningEnabled ? 'col-sm-12' : 'col-sm-6'">
                   <div class="row apps-box">
                     <div class="app-wrapper col-xs-6 col-sm-4 col-md-3" ng-repeat="app in vm.organization.active_apps">
                       <div class="small-app-card ellipsis" uib-tooltip="{{app.app_name}}">
-                        <i ng-if="::vm.managementAndProvisioningEnabled" class="fa fa-trash app-remove" ng-click="vm.openRemoveAppModal(app, $index)" uib-tooltip="{{'mnoe_admin_panel.dashboard.organization.remove_app' | translate:{'app_name': app.app_name} }}" tooltip-append-to-body="true"></i>
+                        <i ng-if="::vm.managementAndProvisioningEnabled || !vm.isSupportAgent" class="fa fa-trash app-remove" ng-class="vm.supportDisabledClass" ng-click="vm.openRemoveAppModal(app, $index)" uib-tooltip="{{'mnoe_admin_panel.dashboard.organization.remove_app' | translate:{'app_name': app.app_name} }}" tooltip-append-to-body="true"></i>
                         <i ng-show="vm.status[app.nid]" class="fa fa-check-circle app-state state-success" uib-tooltip="{{'mnoe_admin_panel.dashboard.organization.app_connected' | translate:{'app_name': app.app_name} }}" tooltip-append-to-body="true"></i>
                         <i ng-show="!vm.status[app.nid]" class="fa fa-exclamation-circle app-state state-warning" uib-tooltip="{{'mnoe_admin_panel.dashboard.organization.app_not_connected' | translate:{'app_name': app.app_name} }}" tooltip-append-to-body="true"></i>
                         <img ng-click="vm.openAppInstanceInfoModal(app)" ng-src="{{::app.app_logo}}" width="60">
@@ -135,7 +141,7 @@
                       </div>
                     </div>
                     <div class="app-wrapper col-xs-6 col-sm-4 col-md-3" ng-if="::vm.managementAndProvisioningEnabled">
-                      <div class="small-app-card ellipsis add-app" ng-click="vm.openSelectProductModal()">
+                        <div class="small-app-card ellipsis add-app" ng-class="vm.supportDisabledClass" ng-click="vm.openSelectProductModal()">
                         <span>{{'mnoe_admin_panel.dashboard.organization.add_an_app' | translate}}<i class="fa fa-plus"></i></span>
                       </div>
                     </div>

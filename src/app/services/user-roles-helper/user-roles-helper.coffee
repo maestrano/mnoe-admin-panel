@@ -1,4 +1,4 @@
-@App.service 'UserRoles', (USER_ROLES, $translate) ->
+@App.service 'UserRoles', ($translate, USER_ROLES, MnoeAdminConfig) ->
   _self = @
 
   @availableRoles = _.map(USER_ROLES, 'value')
@@ -13,5 +13,14 @@
 
   @isAccountManager = (user) ->
     (user.admin_role == 'staff')
+
+  @isSupportAgent = (user) ->
+    (user.admin_role == 'support')
+
+  @supportRoleLoggedIn = (user) ->
+    @isSupportAgent(user) && user.support_org_id
+
+  @supportDisabledClass = (user) ->
+    if @isSupportAgent(user) then 'support' else ''
 
   return @

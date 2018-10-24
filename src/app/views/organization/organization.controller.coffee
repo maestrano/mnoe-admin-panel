@@ -1,4 +1,4 @@
-@App.controller 'OrganizationController', ($log, $filter, $state, $stateParams, $uibModal, toastr, MnoeAdminConfig, MnoeOrganizations, MnoeUsers, MnoAppsInstances, MnoeTenant) ->
+@App.controller 'OrganizationController', ($log, $filter, $state, $stateParams, $uibModal, $q, toastr, MnoeAdminConfig, MnoeOrganizations, MnoeCurrentUser, MnoAppsInstances, MnoeTenant, UserRoles) ->
   'ngInject'
   vm = this
 
@@ -7,6 +7,15 @@
   vm.hasDisconnectedApps = false
   vm.status = {}
   vm.isLoading = true
+
+  MnoeCurrentUser.getUser().then(
+    (response) ->
+      vm.isSupportAgent = UserRoles.isSupportAgent(response)
+      vm.supportDisabledClass = UserRoles.supportDisabledClass(response)
+  )
+
+  vm.editCurrency = () ->
+    vm.editmode = true
 
   vm.availableBillingCurrencies = MnoeAdminConfig.availableBillingCurrencies()
   vm.managementAndProvisioningEnabled = MnoeAdminConfig.isProvisioningEnabled() && MnoeAdminConfig.isAppManagementEnabled()
@@ -33,7 +42,11 @@
         vm.organization = response.data.plain()
         vm.organization.invoices = $filter('orderBy')(vm.organization.invoices, '-started_at')
         vm.updateStatus()
+    ).catch(->
+      $state.go('dashboard.home')
+      $q.reject()
     ).finally(-> vm.isLoading = false)
+
   initOrganization()
 
   MnoeTenant.get().then(
@@ -87,6 +100,7 @@
     vm.updateOrganization()
 
   vm.openSelectProductModal = () ->
+    return if vm.isSupportAgent
     modalInstance = $uibModal.open(
       component: 'mnoProductSelectorModal'
       backdrop: 'static'
@@ -114,8 +128,13 @@
         organization: vm.organization
     )
 
+  vm.connectApps = () ->
+    return if vm.isSupportAgent
+    $state.go('dashboard.customers.connect-app',{orgId: vm.organization.id})
+
   # Remove app modal
   vm.openRemoveAppModal = (app, index) ->
+    return if vm.isSupportAgent
     modalInstance = $uibModal.open(
       templateUrl: 'app/views/organization/remove-app-modal/remove-app-modal.html'
       controller: 'RemoveAppModalCtrl'
@@ -135,6 +154,7 @@
     )
 
   vm.openTransactionModal = ->
+    return if vm.isSupportAgent
     modalInstance = $uibModal.open(
       templateUrl: 'app/views/organization/add-transaction-modal/add-transaction-modal.html'
       controller: 'AddTransactionModalCtrl'

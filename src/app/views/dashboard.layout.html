@@ -1,4 +1,4 @@
-<mno-admin hide-footer="true" name="{{'mnoe_admin_panel.dashboard.layout.sidebar.title' | translate}}">
+<mno-admin ng-hide="main.isLoading" hide-footer="true" name="{{'mnoe_admin_panel.dashboard.layout.sidebar.title' | translate}}">
   <mno-admin-header>
     <div class="header">
       <div class="header-container">
@@ -8,7 +8,7 @@
             <div class="page">
               {{'mnoe_admin_panel.dashboard.layout.title' | translate}}
             </div>
-            <div class="breadcrumb-links">
+            <div ng-if="!main.showSupportScreen" class="breadcrumb-links">
               <div ncy-breadcrumb></div>
             </div>
           </div>
@@ -37,64 +37,79 @@
   </mno-admin-header>
 
   <mno-admin-nav>
-    <li class="sidebar-list" ui-sref-active="active">
-      <a ui-sref="dashboard.home">{{'mnoe_admin_panel.dashboard.layout.sidebar.home' | translate}}<span class="menu-icon fa fa-tachometer"></span></a>
-    </li>
-    <li class="sidebar-title"><span>{{'mnoe_admin_panel.dashboard.layout.sidebar.customer-management' | translate}}</span></li>
-    <li class="sidebar-list" ui-sref-active="active">
-      <a ui-sref="dashboard.customers">{{'mnoe_admin_panel.dashboard.layout.sidebar.customers' | translate}}<span class="menu-icon fa fa-users"></span></a>
-    </li>
-    <li class="sidebar-list" ui-sref-active="active" ng-if="::main.adminConfig.isFinanceEnabled()">
-      <a ui-sref="dashboard.invoices">{{'mnoe_admin_panel.dashboard.layout.sidebar.invoices' | translate}}<span class="menu-icon fa fa-usd"></span></a>
-    </li>
-    <li class="sidebar-list" ng-if="::main.adminConfig.isProvisioningEnabled()" ui-sref-active="active">
-      <a ui-sref="dashboard.orders">{{'mnoe_admin_panel.dashboard.layout.sidebar.orders' | translate}}<span class="menu-icon fa fa-shopping-basket"></span></a>
-    </li>
-    <li class="sidebar-title" ng-if="main.showProductManagement"><span>{{'mnoe_admin_panel.dashboard.layout.sidebar.product-management' | translate}}</span></li>
-    <div ng-if="::main.adminConfig.areSettingsEnabled()" ng-show="['admin', 'staff'].includes(main.user.admin_role)">
+    <!-- Sidebard for Support Managers -->
+    <div ng-if="main.showSupportScreen">
       <li class="sidebar-list" ui-sref-active="active">
-        <a ui-sref="dashboard.settings-apps">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings-apps' | translate}}<span class="menu-icon fa fa-th-large"></span></a>
+        <a ui-sref="dashboard.support">{{'mnoe_admin_panel.dashboard.layout.sidebar.support' | translate}}<span class="menu-icon fa fa-question-circle"></span></a>
       </li>
+      <div ng-if="main.supportLoggedIn(main.user) && main.isSupportRoleEnabled">
+        <li class="sidebar-list" ui-sref-active="active">
+          <a ui-sref="dashboard.customers.organization({orgId: main.currentSupportOrganization()})">{{'mnoe_admin_panel.dashboard.layout.sidebar.organization' | translate}}<span class="menu-icon fa fa-users"></span></a>
+        </li>
+      </div>
     </div>
-    <li class="sidebar-list" ng-if="::main.adminConfig.areLocalProductsEnabled()" ui-sref-active="active">
-      <a ui-sref="dashboard.products">{{'mnoe_admin_panel.dashboard.layout.sidebar.products' | translate}}<span class="menu-icon fa fa-tag"></span></a>
-    </li>
-    <li class="sidebar-list" ng-if="::main.adminConfig.isProductMarkupEnabled()" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ui-sref-active="active">
-      <a ui-sref="dashboard.product-markups">{{'mnoe_admin_panel.dashboard.layout.sidebar.product_markups' | translate}}<span class="menu-icon fa fa-percent"></span></a>
-    </li>
-    <li class="sidebar-title" ng-if="main.showWebstore"><span>{{'mnoe_admin_panel.dashboard.layout.sidebar.webstore' | translate}}</span></li>
-    <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="::main.adminConfig.isStaffEnabled()" ui-sref-active="active">
-      <a ui-sref="dashboard.staffs">{{'mnoe_admin_panel.dashboard.layout.sidebar.staffs' | translate}}<span class="menu-icon fa fa-wrench"></span></a>
-    </li>
-    <li class="sidebar-list" ng-show="main.user.admin_role == 'admin'" ng-if="::main.adminConfig.isSubTenantEnabled()">
-      <a ui-sref="dashboard.sub-tenants">{{'mnoe_admin_panel.dashboard.layout.sidebar.sub_tenants' | translate}}<span class="menu-icon fa fa-institution"></span></a>
-    </li>
-    <li class="sidebar-list" ng-if="::main.adminConfig.isFinanceEnabled()" ui-sref-active="active">
-      <a ui-sref="dashboard.finance">{{'mnoe_admin_panel.dashboard.layout.sidebar.finance' | translate}}<span class="menu-icon fa fa-money"></span></a>
-    </li>
-    <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="::main.adminConfig.isReviewingEnabled()" ui-sref-active="active">
-      <a ui-sref="dashboard.reviews">{{'mnoe_admin_panel.dashboard.layout.sidebar.reviews' | translate}}<span class="menu-icon fa fa-star-half-o"></span></a>
-    </li>
-    <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="::main.adminConfig.areQuestionsEnabled()" ui-sref-active="active">
-      <a ui-sref="dashboard.questions">{{'mnoe_admin_panel.dashboard.layout.sidebar.questions' | translate}}<span class="menu-icon fa fa-question-circle"></span></a>
-    </li>
-    <li class="sidebar-list" ng-if="::main.adminConfig.isDashboardTemplatesEnabled()" ui-sref-active="active">
-      <a ui-sref="dashboard.dashboard-templates">{{'mnoe_admin_panel.dashboard.layout.sidebar.dashboard_templates' | translate}}<span class="menu-icon fa fa-bar-chart"></span></a>
-    </li>
-    <li class="sidebar-list" ng-show="main.user.admin_role == 'admin'" ng-if="::main.adminConfig.isAuditLogEnabled()" ui-sref-active="active">
-      <a ui-sref="dashboard.audit-log">{{'mnoe_admin_panel.dashboard.layout.sidebar.audit_log' | translate}}<span class="menu-icon fa fa-book"></span></a>
-    </li>
-    <div ng-if="::main.adminConfig.areSettingsEnabled()" ng-show="main.user.admin_role == 'admin'">
-      <li class="sidebar-title"><span>{{'mnoe_admin_panel.dashboard.layout.sidebar.settings' | translate}}</span></li>
+
+    <!-- Main sidebar -->
+    <div ng-if="!main.showSupportScreen">
       <li class="sidebar-list" ui-sref-active="active">
-        <a ui-sref="dashboard.settings-general">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings-general' | translate}}<span class="menu-icon fa fa-cogs"></span></a>
+        <a ui-sref="dashboard.home">{{'mnoe_admin_panel.dashboard.layout.sidebar.home' | translate}}<span class="menu-icon fa fa-tachometer"></span></a>
       </li>
+      <li class="sidebar-title"><span>{{'mnoe_admin_panel.dashboard.layout.sidebar.customer-management' | translate}}</span></li>
       <li class="sidebar-list" ui-sref-active="active">
-        <a ui-sref="dashboard.settings-plugins">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings-plugins' | translate}}<span class="menu-icon fa fa-puzzle-piece"></span></a>
+        <a ui-sref="dashboard.customers">{{'mnoe_admin_panel.dashboard.layout.sidebar.customers' | translate}}<span class="menu-icon fa fa-users"></span></a>
       </li>
-      <li class="sidebar-list" ui-sref-active="active">
-        <a ui-sref="dashboard.settings-domain">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings-domain' | translate}}<span class="menu-icon fa fa-shield"></span></a>
+      <li class="sidebar-list" ui-sref-active="active" ng-if="::main.adminConfig.isFinanceEnabled()">
+        <a ui-sref="dashboard.invoices">{{'mnoe_admin_panel.dashboard.layout.sidebar.invoices' | translate}}<span class="menu-icon fa fa-usd"></span></a>
       </li>
+      <li class="sidebar-list" ng-if="::main.adminConfig.isProvisioningEnabled()" ui-sref-active="active">
+        <a ui-sref="dashboard.orders">{{'mnoe_admin_panel.dashboard.layout.sidebar.orders' | translate}}<span class="menu-icon fa fa-shopping-basket"></span></a>
+      </li>
+      <li class="sidebar-title" ng-if="main.showProductManagement"><span>{{'mnoe_admin_panel.dashboard.layout.sidebar.product-management' | translate}}</span></li>
+      <div ng-if="::main.adminConfig.areSettingsEnabled()" ng-show="['admin', 'staff'].includes(main.user.admin_role)">
+        <li class="sidebar-list" ui-sref-active="active">
+          <a ui-sref="dashboard.settings-apps">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings-apps' | translate}}<span class="menu-icon fa fa-th-large"></span></a>
+        </li>
+      </div>
+      <li class="sidebar-list" ng-if="::main.adminConfig.areLocalProductsEnabled()" ui-sref-active="active">
+        <a ui-sref="dashboard.products">{{'mnoe_admin_panel.dashboard.layout.sidebar.products' | translate}}<span class="menu-icon fa fa-tag"></span></a>
+      </li>
+      <li class="sidebar-list" ng-if="::main.adminConfig.isProductMarkupEnabled()" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ui-sref-active="active">
+        <a ui-sref="dashboard.product-markups">{{'mnoe_admin_panel.dashboard.layout.sidebar.product_markups' | translate}}<span class="menu-icon fa fa-percent"></span></a>
+      </li>
+      <li class="sidebar-title" ng-if="main.showWebstore"><span>{{'mnoe_admin_panel.dashboard.layout.sidebar.webstore' | translate}}</span></li>
+      <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="::main.adminConfig.isStaffEnabled()" ui-sref-active="active">
+        <a ui-sref="dashboard.staffs">{{'mnoe_admin_panel.dashboard.layout.sidebar.staffs' | translate}}<span class="menu-icon fa fa-wrench"></span></a>
+      </li>
+      <li class="sidebar-list" ng-show="main.user.admin_role == 'admin'" ng-if="::main.adminConfig.isSubTenantEnabled()">
+        <a ui-sref="dashboard.sub-tenants">{{'mnoe_admin_panel.dashboard.layout.sidebar.sub_tenants' | translate}}<span class="menu-icon fa fa-institution"></span></a>
+      </li>
+      <li class="sidebar-list" ng-if="::main.adminConfig.isFinanceEnabled()" ui-sref-active="active">
+        <a ui-sref="dashboard.finance">{{'mnoe_admin_panel.dashboard.layout.sidebar.finance' | translate}}<span class="menu-icon fa fa-money"></span></a>
+      </li>
+      <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="::main.adminConfig.isReviewingEnabled()" ui-sref-active="active">
+        <a ui-sref="dashboard.reviews">{{'mnoe_admin_panel.dashboard.layout.sidebar.reviews' | translate}}<span class="menu-icon fa fa-star-half-o"></span></a>
+      </li>
+      <li class="sidebar-list" ng-show="main.staffPageAuthorized.indexOf(main.user.admin_role)!=-1" ng-if="::main.adminConfig.areQuestionsEnabled()" ui-sref-active="active">
+        <a ui-sref="dashboard.questions">{{'mnoe_admin_panel.dashboard.layout.sidebar.questions' | translate}}<span class="menu-icon fa fa-question-circle"></span></a>
+      </li>
+      <li class="sidebar-list" ng-if="::main.adminConfig.isDashboardTemplatesEnabled()" ui-sref-active="active">
+        <a ui-sref="dashboard.dashboard-templates">{{'mnoe_admin_panel.dashboard.layout.sidebar.dashboard_templates' | translate}}<span class="menu-icon fa fa-bar-chart"></span></a>
+      </li>
+      <li class="sidebar-list" ng-show="main.user.admin_role == 'admin'" ng-if="::main.adminConfig.isAuditLogEnabled()" ui-sref-active="active">
+        <a ui-sref="dashboard.audit-log">{{'mnoe_admin_panel.dashboard.layout.sidebar.audit_log' | translate}}<span class="menu-icon fa fa-book"></span></a>
+      </li>
+      <div ng-if="::main.adminConfig.areSettingsEnabled()" ng-show="main.user.admin_role == 'admin'">
+        <li class="sidebar-title"><span>{{'mnoe_admin_panel.dashboard.layout.sidebar.settings' | translate}}</span></li>
+        <li class="sidebar-list" ui-sref-active="active">
+          <a ui-sref="dashboard.settings-general">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings-general' | translate}}<span class="menu-icon fa fa-cogs"></span></a>
+        </li>
+        <li class="sidebar-list" ui-sref-active="active">
+          <a ui-sref="dashboard.settings-plugins">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings-plugins' | translate}}<span class="menu-icon fa fa-puzzle-piece"></span></a>
+        </li>
+        <li class="sidebar-list" ui-sref-active="active">
+          <a ui-sref="dashboard.settings-domain">{{'mnoe_admin_panel.dashboard.layout.sidebar.settings-domain' | translate}}<span class="menu-icon fa fa-shield"></span></a>
+        </li>
+      </div>
     </div>
   </mno-admin-nav>
 

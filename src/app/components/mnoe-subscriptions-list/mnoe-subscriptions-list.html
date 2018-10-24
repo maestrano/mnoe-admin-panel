@@ -53,22 +53,22 @@
               </td>
               <td>
                 <span style="display: flex;" ng-if="subscription.status !== 'cancelled' && !$ctrl.isAccountManager">
-                  <a ng-click="$ctrl.editSubscription(subscription, 'reactivate')" ng-show="$ctrl.showEditAction(subscription, 'reactivate') && !$ctrl.companyCart" class="btn btn-link btn-link-primary subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('reactivate') | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.editSubscription(subscription, 'reactivate')" ng-show="$ctrl.showEditAction(subscription, 'reactivate') && !$ctrl.companyCart" class="btn btn-link btn-link-primary subscription-btn" ng-class="$ctrl.supportDisabledClass" uib-tooltip="{{ $ctrl.editToolTip('reactivate') | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-refresh"></i>
                   </a>
-                  <a ng-click="$ctrl.editSubscription(subscription, 'renew')" ng-show="$ctrl.showEditAction(subscription, 'renew') && !$ctrl.companyCart" class="btn btn-link btn-link-primary subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('renew') | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.editSubscription(subscription, 'renew')" ng-show="$ctrl.showEditAction(subscription, 'renew') && !$ctrl.companyCart" class="btn btn-link btn-link-primary subscription-btn" ng-class="$ctrl.supportDisabledClass" uib-tooltip="{{ $ctrl.editToolTip('renew') | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-check-square"></i>
                   </a>
-                  <a ng-click="$ctrl.editSubscription(subscription, 'change')" ng-show="$ctrl.showEditAction(subscription, 'change')" class="btn btn-link btn-link-warning subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('change') | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.editSubscription(subscription, 'change')" ng-show="$ctrl.showEditAction(subscription, 'change')" class="btn btn-link btn-link-warning subscription-btn" ng-class="$ctrl.supportDisabledClass" uib-tooltip="{{ $ctrl.editToolTip('change') | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-pencil-square-o"></i>
                   </a>
-                  <a ng-click="$ctrl.editSubscription(subscription, 'modify')" ng-show="$ctrl.showEditAction(subscription, 'modify')" class="btn btn-link btn-link-warning subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('modify') | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.editSubscription(subscription, 'modify')" ng-show="$ctrl.showEditAction(subscription, 'modify')" class="btn btn-link btn-link-warning subscription-btn" ng-class="$ctrl.supportDisabledClass" uib-tooltip="{{ $ctrl.editToolTip('modify') | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-pencil"></i>
                   </a>
-                  <a ng-click="$ctrl.editSubscription(subscription, 'suspend')" ng-show="$ctrl.showEditAction(subscription, 'suspend')" class="btn btn-link btn-link-warning subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('suspend') | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.editSubscription(subscription, 'suspend')" ng-show="$ctrl.showEditAction(subscription, 'suspend')" class="btn btn-link btn-link-warning subscription-btn" ng-class="$ctrl.supportDisabledClass" uib-tooltip="{{ $ctrl.editToolTip('suspend') | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-remove"></i>
                   </a>
-                  <a ng-click="$ctrl.editSubscription(subscription, 'cancel')" ng-show="$ctrl.showEditAction(subscription, 'cancel') || $ctrl.showEditAction(subscription, 'abandon')" class="btn btn-link btn-link-warning subscription-btn" uib-tooltip="{{ $ctrl.editToolTip('cancel') | translate }}" tooltip-append-to-body="true">
+                  <a ng-click="$ctrl.editSubscription(subscription, 'cancel')" ng-show="$ctrl.showEditAction(subscription, 'cancel') || $ctrl.showEditAction(subscription, 'abandon')" class="btn btn-link btn-link-warning subscription-btn" ng-class="$ctrl.supportDisabledClass" uib-tooltip="{{ $ctrl.editToolTip('cancel') | translate }}" tooltip-append-to-body="true">
                     <i class="fa fa-ban"></i>
                   </a>
                 </span>

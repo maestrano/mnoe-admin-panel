@@ -178,12 +178,12 @@
                 <div class="label-cell" translate>mnoe_admin_panel.dashboard.order.approval</div>
               </div>
               <div class="col-xs-3">
-                <button role="button" ng-click="vm.approveOrder()" ng-disabled="vm.disableApproval() || vm.isAccountManager" class="btn btn-primary btn-xs" translate>
+                <button role="button" ng-click="vm.approveOrder()" ng-disabled="vm.disableApprovalWorkflow()" class="btn btn-primary btn-xs" translate>
                   mnoe_admin_panel.dashboard.order.approve
                 </button>
               </div>
               <div class="col-xs-3">
-                <button role="button" ng-click="vm.cancelOrder()" ng-disabled="vm.disableCancel() || vm.isAccountManager" class="btn btn-primary btn-xs" translate>
+                <button role="button" ng-click="vm.cancelOrder()" ng-disabled="vm.disableApprovalWorkflow()" class="btn btn-primary btn-xs" translate>
                   mnoe_admin_panel.dashboard.order.reject
                 </button>
               </div>

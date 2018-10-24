@@ -2,12 +2,12 @@
 @App.factory 'MnoeAdminConfig', ($log, ADMIN_ROLES, ADMIN_PANEL_CONFIG, DASHBOARD_CONFIG, INTERCOM_ID) ->
   _self = @
 
-  # Only expose subtenant_admin when subtenants are enabled
+  # Only expose subtenant_admin/support when subtenants/support are enabled
   @adminRoles = () ->
-    if _self.isSubTenantEnabled()
-      ADMIN_ROLES
-    else
-      _.reject(ADMIN_ROLES, (role) -> role.value == 'sub_tenant_admin')
+    admin_roles = ADMIN_ROLES
+    _.remove(admin_roles, (role) -> role.value == 'sub_tenant_admin') unless _self.isSubTenantEnabled()
+    _.remove(admin_roles, (role) -> role.value == 'support') unless _self.isSupportRoleEnabled()
+    admin_roles
 
   # If the feature is enabled a "staff" user can be assigned to customers and can only see those ones
   # If the feature is disabled, the screen to assign customers is not showing and a staff can see all customers (only difference with "admin" in this case is some screens are limited)
@@ -145,6 +145,12 @@
     else
       true
 
+  @isSupportRoleEnabled = () ->
+    if ADMIN_PANEL_CONFIG.support?.enabled?
+      ADMIN_PANEL_CONFIG.support.enabled
+    else
+      false
+
   @marketplaceCurrency = () ->
     if DASHBOARD_CONFIG.marketplace?.pricing?.currency?
       DASHBOARD_CONFIG.marketplace.pricing.currency
@@ -161,5 +167,12 @@
 
   @dashboardTemplatesDatesFormat = ->
     ADMIN_PANEL_CONFIG.dashboard_templates? && ADMIN_PANEL_CONFIG.dashboard_templates.dates_format || 'L'
+
+  @isAdminDashboardViewingEnabled = ->
+    if ADMIN_PANEL_CONFIG.view_user_dashboards
+      ADMIN_PANEL_CONFIG.view_user_dashboards?.enabled
+    else
+      $log.debug("ADMIN_PANEL_CONFIG.view_user_dashboards missing")
+      false
 
   return @
