@@ -1,3 +1,23 @@
+<mno-widget icon="fa-sitemap" heading="{{'mnoe_admin_panel.dashboard.organization.widget.list.support.search_info' | translate}}">
+  <mno-widget-header>
+  </mno-widget-header>
+
+  <mno-widget-body>
+    <div class="mno-list">
+      <h4 class="mno-list-header">
+        {{'mnoe_admin_panel.dashboard.organization.widget.list.support.search_info.explanation' | translate}}
+      </h4>
+      <ul class="mno-list-body">
+        <li>{{'mnoe_admin_panel.dashboard.organization.widget.list.support.search_info.external_id' | translate}}</li>
+        <li>{{'mnoe_admin_panel.dashboard.organization.widget.list.support.search_info.user_name' | translate}}</li>
+        <li>{{'mnoe_admin_panel.dashboard.organization.widget.list.support.search_info.user_name_org_name' | translate}}</li>
+        <li>{{'mnoe_admin_panel.dashboard.organization.widget.list.support.search_info.user_name_org_name.exact' | translate}}</li>
+        <li>{{'mnoe_admin_panel.dashboard.organization.widget.list.support.search_info.user_name.exact' | translate}}</li>
+      </ul>
+    </div>
+  </mno-widget-body>
+</mno-widget>
+
 <mno-widget icon="fa-sitemap" heading="{{'mnoe_admin_panel.dashboard.organization.widget.list.support.last_organizations.title' | translate}}" is-loading="organizations.loading">
   <mno-widget-header>
     <div class="search-top">
@@ -16,9 +36,6 @@
       <input ng-attr-tabindex="2" type="text" ng-disabled="!isSupportRoleEnabled" ng-model="organizations.firstNameSearch" ng-change="nameSearch()" ng-model-options='{ debounce: 1000 }'
       placeholder="{{'mnoe_admin_panel.dashboard.organization.widget.list.suport.search_users.placeholder.search_user_name' | translate}}"
       class="form-control input-sm search-bar" />
-      <span class="pull-right" tooltip-append-to-body="true" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.organization.widget.list.suport.search_users.tooltip' | translate}}">
-        <i class='fa fa-question'></i>
-      </span>
     </div>
   </mno-widget-header>
   <mno-widget-body class="large-auto-height no-padding">
