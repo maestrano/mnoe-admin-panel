@@ -74,7 +74,6 @@
       )
 
     scope.externalIdSearch = () ->
-      return unless scope.organizations.externalIdSearch.length > 2
       # Reset other search fields.
       scope.organizations.orgNameSearch = ''
       scope.organizations.firstNameSearch = ''
@@ -83,7 +82,6 @@
 
     scope.nameSearch = () ->
       org = scope.organizations
-      return unless org.orgNameSearch.length >= 2 && org.firstNameSearch.length >= 2 && org.lastNameSearch.length >= 2
       # Reset other search field.
       scope.organizations.externalIdSearch = ''
       setSearchOrganizationsList()
@@ -95,24 +93,63 @@
 
     # Display only the search results
     setSearchOrganizationsList = () ->
-      scope.organizations.loading = true
       params = searchParams()
+      return unless params
+
+      scope.organizations.loading = true
       MnoeOrganizations.supportSearch(params).then((response) ->
         scope.organizations.list = $filter('orderBy')(response.data.organizations, 'created_at')
       ).finally(-> scope.organizations.loading = false)
 
 
     searchParams = () ->
-      if scope.organizations.externalIdSearch
-        org_search:
-          where:
-            external_id: scope.organizations.externalIdSearch
+      searchNameTerms = [scope.organizations.firstNameSearch, scope.organizations.lastNameSearch, scope.organizations.orgNameSearch]
+      if searchByOrgExternalId()
+        externalIdSearch()
+      # If all search terms are present, search partially if each character is greater than 3.
+      else if searchByUserNameAndOrgName()
+        if meetsMinLength(searchNameTerms, 3) then partialNameSearch() else exactUserNameSearch()
+      else if searchByUserName()
+        searchNameTerms.splice(-1)
+        if meetsMinLength(searchNameTerms, 4) then partialNameSearch() else exactUserNameSearch()
       else
-        org_search:
-          where:
-            'name.like': "%#{scope.organizations.orgNameSearch}%"
-        user_search:
-          where:
-            'name.like': "%#{scope.organizations.firstNameSearch}%"
-            'surname.like': "%#{scope.organizations.lastNameSearch}%"
+        # Invalid search, do not attempt to search.
+        return false
+
+    searchByUserName = () ->
+      scope.organizations.firstNameSearch && scope.organizations.lastNameSearch
+
+    searchByUserNameAndOrgName = () ->
+      searchByUserName() && scope.organizations.orgNameSearch
+
+    searchByOrgExternalId = () ->
+      scope.organizations.externalIdSearch
+
+    meetsMinLength = (arr, minLength) ->
+      arr.every((el) ->
+        el && el.length >= minLength
+      )
+
+    externalIdSearch = () ->
+      org_search:
+        where:
+          external_id: scope.organizations.externalIdSearch
+
+    partialNameSearch = () ->
+      org_search:
+        where:
+          'name.like': "%#{scope.organizations.orgNameSearch}%"
+      user_search:
+        where:
+          'name.like': "%#{scope.organizations.firstNameSearch}%"
+          'surname.like': "%#{scope.organizations.lastNameSearch}%"
+
+    exactUserNameSearch = () ->
+      org_search:
+        where:
+          name: "#{scope.organizations.orgNameSearch}"
+      user_search:
+        where:
+          name: "#{scope.organizations.firstNameSearch}"
+          surname: "#{scope.organizations.lastNameSearch}"
 )
