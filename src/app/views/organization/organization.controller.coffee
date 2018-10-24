@@ -108,6 +108,7 @@
       resolve:
         dataFlag: -> 'organization-create-order'
         multiple: -> false
+        activeInstances: -> vm.organization.active_apps
     )
 
     modalInstance.result.then(

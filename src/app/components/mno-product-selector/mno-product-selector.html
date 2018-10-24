@@ -16,11 +16,11 @@
     </div>
     <div class="products-container">
       <div class="product-icon" ng-repeat="product in $ctrl.filteredProducts">
-        <div class="product-icon-wrapper" ng-click="$ctrl.toggleProduct(product)" uib-tooltip="{{::product.tiny_description}}">
+        <div class="product-icon-wrapper" ng-click="$ctrl.toggleProduct(product)" tooltip-class="{{product.orderDisabled && 'tooltip-info'}}" uib-tooltip="{{$ctrl.toolTipText(product)}}">
           <div class="checked" ng-show="product.checked">
             <i class="fa fa-check fa-5x"></i>
           </div>
-          <img class="product-logo img-thumbnail" ng-src="{{product.logo}}" alt="{{::product.name}} logo"/>
+          <img class="product-logo img-thumbnail" ng-class="{'product-disabled': product.orderDisabled}" ng-src="{{product.logo}}" alt="{{::product.name}} logo"/>
         </div>
         <div class="product-title" uib-tooltip="{{::product.name}}">
           {{::product.name}}

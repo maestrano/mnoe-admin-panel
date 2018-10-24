@@ -10,7 +10,7 @@
     dismiss: '&'
   },
   templateUrl: 'app/components/mno-product-selector/mno-product-selector.html',
-  controller: ($window, $q, orderByFilter, MnoeProducts, MnoeApps, MnoeProvisioning) ->
+  controller: ($window, $q, $translate, orderByFilter, MnoeProducts, MnoeApps, MnoeProvisioning) ->
     'ngInject'
 
     $ctrl = this
@@ -45,7 +45,7 @@
       params = {
         includes: ['categories', 'values']
         fields: {
-          products: ['name, logo, categories, values']
+          products: ['name, nid, logo, categories, values, multi_instantiable']
           categories: ['name']
           values: ['field', 'data']
         },
@@ -56,7 +56,22 @@
       promise =
         switch $ctrl.flag
           when 'organization-create-order'
-            MnoeProducts.products(_, _, _, params)
+            MnoeProducts.products(_, _, _, params).then(
+              (response) ->
+                # Pull nids from organization active app instances
+                activeNids = (product.nid for product in $ctrl.resolve.activeInstances)
+                # Add attributes to all products that are not orderable.
+                # These attributes will be used to disable selection of these products.
+                _.each(response.data, (product) ->
+                  # Check for products that cannot be ordered due to not being
+                  # multi_intantiable.
+                  if !product.multi_instantiable and (product.nid in activeNids)
+                    product.orderDisabled = true
+                    product.disabledToolTip = $translate.instant('mnoe_admin_panel.components.mno-product-selector.tooltip.multi_instantiable')
+                )
+                response
+            )
+
           when 'settings-add-new-app'
             MnoeApps.list().then(
               (response) ->
@@ -97,12 +112,21 @@
       $ctrl.searchTerm = ''
       filterProducts()
 
+    $ctrl.toolTipText = (product) ->
+      # Return tooltip text for each product.
+      # product.disabledToolTip is not to be set
+      # unless the product is to be disabled
+      product.disabledToolTip || product.tiny_description
+
+
     # Select or deselect a product
     $ctrl.toggleProduct = (product) ->
       if product.checked
         _.remove($ctrl.selectedProducts, product)
       else
-        return if (!$ctrl.multiple && $ctrl.selectedProducts.length > 0)
+        # Don't allow more than one product to be selected unless $ctrl.multiple is true,
+        # or if ordering is disabled for a specific product.
+        return if (!$ctrl.multiple && $ctrl.selectedProducts.length > 0) || product.orderDisabled
         $ctrl.selectedProducts.push(product)
       product.checked = !product.checked
 
