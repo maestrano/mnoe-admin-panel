@@ -1,4 +1,4 @@
-@App.controller 'UserController', ($stateParams, MnoeUsers) ->
+@App.controller 'UserController', ($stateParams, MnoeUsers, MnoeAdminConfig) ->
   'ngInject'
   vm = this
 
@@ -11,4 +11,7 @@
       if phone && countryCode
         vm.user.phone = '+' + countryCode + phone
   )
+
+  vm.isAdminDashboardViewingEnabled = MnoeAdminConfig.isAdminDashboardViewingEnabled()
+
   return
