@@ -1,0 +1,152 @@
+<div id="app-instance-info-modal">
+
+  <!-- Modal Header -->
+  <div class="modal-header">
+    <h3 class="modal-title" translate translate-values="{ app_name: vm.appInstance.app_name, organization_name: vm.organization.name}">mnoe_admin_panel.dashboard.organization.app_info.title</h3>
+    <div class="close" type="button" ng-click="vm.closeModal()" >×</div>
+  </div>
+
+  <!-- Modal Body -->
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.app_info.name</div>
+      </div>
+      <div class="col-xs-6">
+        {{ vm.appInstance.app_name }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.app_info.app_instance_uid</div>
+      </div>
+      <div class="col-xs-6">
+        {{ vm.appInstance.uid }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.app_info.app_status</div>
+      </div>
+      <div class="col-xs-6">
+        {{ vm.appInstance.status | capitalize }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.app_info.connected</div>
+      </div>
+      <div class="col-xs-6">
+        <span translate>
+          {{ vm.isConnected | yesNo }}
+        </span>
+        <span>
+          <a class="tooltip_link" uib-tooltip="{{ vm.isConnectedTooltip | translate }}">
+            <i class="fa fa-question-circle"></i>
+          </a>
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.app_info.data_syncable</div>
+      </div>
+      <div class="col-xs-6">
+        <span translate>
+          {{ vm.canBeDataSynced | yesNo }}
+        </span>
+        <span>
+          <a class="tooltip_link" uib-tooltip="{{ vm.canBeDataSyncedTooltyip | translate }}">
+            <i class="fa fa-question-circle"></i>
+          </a>
+        </span>
+      </div>
+    </div>
+    <div ng-if="vm.syncStatus">
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.app_info.sync_status</div>
+        </div>
+        <div class="col-xs-6">
+          <span>
+            {{ vm.syncStatus.status | capitalize }}
+          </span>
+          <span>
+            <a class="tooltip_link" uib-tooltip="{{ vm.syncStatusTooltip | translate }}">
+              <i class="fa fa-question-circle"></i>
+            </a>
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.app_info.progress</div>
+        </div>
+        <div class="col-xs-6" translate>
+          {{ vm.progress }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.app_info.started_at</div>
+        </div>
+        <!-- TODO: Figure out what time zone to put this in. Time zone of customer? -->
+        <div class="col-xs-6">
+          <span translate>
+            {{ vm.syncStatus.started_at | date: "MM/dd/yyyy 'at' h:mma" | notApplicable }}
+          </span>
+          <span ng-if="!vm.syncStatus.started_at">
+            <a class="tooltip_link" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.organization.app_info.sync_status.started_at.not_applicable.tooltip' | translate }}">
+              <i class="fa fa-question-circle"></i>
+            </a>
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.app_info.finished_at</div>
+        </div>
+        <div class="col-xs-6">
+          <span translate>
+            {{ vm.syncStatus.finished_at | date: "MM/dd/yyyy 'at' h:mma" | notApplicable }}
+          </span>
+          <span ng-if="!vm.syncStatus.finished_at">
+            <a class="tooltip_link" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.organization.app_info.sync_status.finished_at.not_applicable.tooltip' | translate }}">
+              <i class="fa fa-question-circle"></i>
+            </a>
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.app_info.messages</div>
+        </div>
+        <div class="col-xs-6">
+          <span translate>
+            {{ vm.syncStatus.messages | notApplicable }}
+          </span>
+          <span ng-if="vm.syncStatus.status != 'success'">
+            <a class="tooltip_link" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.organization.app_info.messages.tooltip' | translate }}">
+              <i class="fa fa-question-circle"></i>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div ng-if="!vm.syncStatus">
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.app_info.sync_registered</div>
+        </div>
+        <div class="col-xs-6" translate>
+          mnoe_admin_panel.constants.no
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Footer -->
+  <div class="modal-footer">
+  </div>
+
+</div>
