@@ -68,6 +68,12 @@
         "less/font-awesome.less",
         "./fonts/*"
       ]
+    },
+    "moment": {
+      "main": [
+        "moment.js",
+        "locale/*.js"
+      ]
     }
   },
   "resolutions": {

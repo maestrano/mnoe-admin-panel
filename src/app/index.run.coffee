@@ -61,3 +61,8 @@
     # bootstrap3 theme. Can be also 'bs2', 'default'
     editableOptions.theme = 'bs3'
   )
+
+  # Configure angular translate depending on the locale used in the path
+  .run((LocaleConfigSvc) ->
+    LocaleConfigSvc.configure()
+  )

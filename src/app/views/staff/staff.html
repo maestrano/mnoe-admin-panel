@@ -35,11 +35,11 @@
         </div>
         <div class="row">
           <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.created_at</div></div>
-          <div class="col-sm-3">{{vm.staff.created_at | amCalendar }}</div>
+          <div class="col-sm-3">{{vm.staff.created_at | amDateFormat:'L' }}</div>
         </div>
         <div class="row">
           <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.updated_at</div></div>
-          <div class="col-sm-3">{{vm.staff.updated_at | amCalendar }}</div>
+          <div class="col-sm-3">{{vm.staff.updated_at | amDateFormat:'L' }}</div>
         </div>
         <div class="row" ng-if="vm.isSubTenantEnabled">
           <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.sub_tenant</div></div>
