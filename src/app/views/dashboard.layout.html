@@ -22,7 +22,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
               <li class="link">
-                <a ng-click="main.exit()" ng-show="main.organizationAvailable" href="">
+                <a ng-click="main.exit()" ng-show="main.organizationAvailable && !main.showSupportScreen" href="">
                   {{'mnoe_admin_panel.dashboard.layout.company_view' | translate}}
                 </a>
                 <a ui-sref="logout" class="default-link">

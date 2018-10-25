@@ -1,4 +1,4 @@
-@App.controller 'UserController', ($stateParams, MnoeUsers, MnoeAdminConfig) ->
+@App.controller 'UserController', ($stateParams, MnoeUsers, MnoeAdminConfig, MnoeCurrentUser, UserRoles) ->
   'ngInject'
   vm = this
 
@@ -13,5 +13,10 @@
   )
 
   vm.isAdminDashboardViewingEnabled = MnoeAdminConfig.isAdminDashboardViewingEnabled()
+
+  MnoeCurrentUser.getUser().then(
+    (response) ->
+      vm.isSupportAgent = UserRoles.isSupportAgent(response)
+  )
 
   return
