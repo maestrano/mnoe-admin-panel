@@ -10,11 +10,11 @@
         </div>
         <div class="row">
           <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.sub_tenant.created_at</div></div>
-          <div class="col-sm-3">{{vm.subTenant.created_at | amCalendar }}</div>
+          <div class="col-sm-3">{{vm.subTenant.created_at | amDateFormat:'L z' }}</div>
         </div>
         <div class="row">
           <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.sub_tenant.updated_at</div></div>
-          <div class="col-sm-3">{{vm.subTenant.updated_at | amCalendar}}</div>
+          <div class="col-sm-3">{{vm.subTenant.updated_at | amDateFormat:'L z'}}</div>
         </div>
       </mno-widget-body>
     </mno-widget>

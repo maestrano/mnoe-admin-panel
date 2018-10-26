@@ -56,7 +56,7 @@
           skip_natural: true
           render: (organization) ->
             template:
-              "<span>{{::organization.created_at | date: 'dd/MM/yyyy'}}</span>"
+              "<span>{{::organization.created_at | amDateFormat:'L'}}</span>"
             scope: {organization: organization}}
         ]
 

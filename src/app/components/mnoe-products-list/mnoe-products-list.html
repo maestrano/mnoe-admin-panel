@@ -27,8 +27,8 @@
               <span ng-if="product.active" translate>mnoe_admin_panel.dashboard.products.widget.list.table.published</span>
               <span ng-if="!product.active" translate>mnoe_admin_panel.dashboard.products.widget.list.table.draft</span>
             </td>
-            <td>{{product.created_at | date: 'dd/MM/yyyy'}}</td>
-            <td>{{product.updated_at | date: 'dd/MM/yyyy'}}</td>
+            <td>{{product.created_at | amDateFormat:'L'}}</td>
+            <td>{{product.updated_at | amDateFormat:'L'}}</td>
             <td>
               <div class="pull-right" ng-hide="$ctrl.isAccountManager">
                 <div class="btn-group">
