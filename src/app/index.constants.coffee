@@ -25,7 +25,6 @@
   .constant('LOCALES', {
     locales: [
       { id: 'en-AU', name: 'English (Australia)' }
-      { id: 'en-US', name: 'English (American)' }
     ],
     preferredLanguage: 'en-AU',
     fallbackLanguage: 'en-AU'

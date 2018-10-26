@@ -1,50 +1,46 @@
 # This service is used to manage the configuration of $translate and momentjs.
 # Locale strategy in order: URL, user settings, webstore default language, fallback locale.
-@App.service('LocaleConfigSvc', ($q, $window, $translate, amMoment, moment, MnoeCurrentUser, LOCALES, URI) ->
+@App.service('LocaleConfigSvc', ($q, $window, $translate, amMoment, moment, MnoeCurrentUser, MnoeTenant, LOCALES, URI) ->
 
-  # TODO: do we want to edit the URL when getting the language from the user?
   @configure = ->
-    $q.all(url: localeFromUrl(), user: localeFromUser()).then(
+    $q.all(url: localeFromUrl(), user: localeFromUser(), tenant: localeFromTenant()).then(
       (response) ->
-        if l = response.url || response.user
-          setLocale(l)
-        else
-          setFallbackStack(LOCALES.preferred_locale)
+        # Order of array represents order in which locales will be chosen.
+        locales = [response.url, response.user, response.tenant]
+        # Uncomment to enable il8n locales.
+        # setIl8nLocales(locales)
+        setAmLocales(locales)
     )
 
-  setLocale = (locale) ->
-    setFallbackStack(locale)
-    $translate.use(locale)
-    amMoment.changeLocale(locale)
+  setIl8nLocales = (locales) ->
+    # Find the first available locale and use it, otherwise use the preferred_locale
+    il8nAvailableLocales = locales.map((l) -> filterAvailableLocales(l))
+    firstAvailLocale = il8nAvailableLocales.find((l) -> !!l)
+    if firstAvailLocale
+      setFallbackStack(firstAvailLocale)
+      $translate.use(firstAvailLocale)
+    else
+      setFallbackStack(LOCALES.preferred_locale)
 
-    # api_root = "/#{locale}#{URI.api_root}"
-    # MnoeApiSvc.setBaseUrl(api_root)
-    # MnoeFullApiSvc.setBaseUrl(api_root)
+  setAmLocales = (locales) ->
+    # No need to filter on available locales, as amMoment automatically loads locales.
+    amMoment.changeLocale(locales.find((l) -> !!l))
 
   # Check if the detected locale is available
   filterAvailableLocales = (locale) ->
     return unless locale
     _.get(_.find(LOCALES.locales, (l) -> locale == l.id ), 'id')
 
-  # Try to determine the locale from the URL
-  localeFromUrl = ->
-    # Get current path (eg. "/en/dashboard/" or "/dashboard/")
-    path = $window.location.pathname
-
-    # Extract the language code if present
-    re = /^\/([A-Za-z]{2}(-[A-Z]{2})?)\/dashboard\//i
-    found = path.match(re)
-
-    # Ex found: ["/en/dashboard/", "en", index: 0, input: "/en/dashboard/"]
-    locale = filterAvailableLocales(found[1]) if found?
-
-    $q.resolve(locale)
-
   # Find the locale from the User#settings
   localeFromUser = ->
-    MnoeCurrentUser.getUser().then(
-      (response) ->
-        filterAvailableLocales(response.settings?.locale)
+    MnoeCurrentUser.getUser().then((response) ->
+      response.settings?.locale
+    )
+
+  # Find the locale from the Tenant#settings
+  localeFromTenant = ->
+    MnoeTenant.get().then((response) ->
+      response.data?.frontend_config?.system?.i18n?.preferred_locale
     )
 
   # Build our fallback stack manually to be ['language', preferredLanguage, LOCALES.fallbackLanguage]
@@ -71,6 +67,21 @@
 
     amMoment.changeLocale(fallbackStack[0])
     $translate.fallbackLanguage(fallbackStack)
+
+  localeFromUrl = ->
+    false
+    # TODO: Uncomment to setup URL locale detection.
+    #   # Get current path (eg. "/en/admin/" or "/admin/")
+    #   path = $window.location.pathname
+    #
+    #   # Extract the language code if present
+    #   re = /^\/([A-Za-z]{2}(-[A-Z]{2})?)\/dashboard\//i
+    #   found = path.match(re)
+    #
+    #   # Ex found: ["/en/dashboard/", "en", index: 0, input: "/en/dashboard/"]
+    #   locale = found[1]) if found?
+    #
+    #   $q.resolve(locale)
 
   return @
 )
