@@ -10,8 +10,6 @@
           setLocale(l)
         else
           setFallbackStack(LOCALES.preferred_locale)
-    ).finally(->
-      $translate.refresh()
     )
 
   setLocale = (locale) ->
