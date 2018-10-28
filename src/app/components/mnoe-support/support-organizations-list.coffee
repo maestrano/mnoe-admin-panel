@@ -94,7 +94,7 @@
     # Display only the search results
     setSearchOrganizationsList = () ->
       params = searchParams()
-      return unless params
+      return scope.organizations.list = [] unless params
 
       scope.organizations.loading = true
       MnoeOrganizations.supportSearch(params).then((response) ->
