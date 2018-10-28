@@ -62,7 +62,8 @@
     editableOptions.theme = 'bs3'
   )
 
-  # Configure angular translate depending on the locale used in the path
+  # Configure momentJs locales.
+  # Strategy uses: user language settings || default webstore settings || fallback locale
   .run((LocaleConfigSvc) ->
     LocaleConfigSvc.configure()
   )
