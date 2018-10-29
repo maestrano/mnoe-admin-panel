@@ -10,7 +10,7 @@
         <div class="panel-body">
           <mno-loading-ellipsis ng-show="!vm.user"></mno-loading-ellipsis>
           <div ng-show="vm.user">
-            <div class="row">
+            <div ng-if="vm.isSupport" class="row">
               <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.user.table.email</div></div>
               <div class="col-md-3">{{::vm.user.email}}</div>
             </div>

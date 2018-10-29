@@ -1,8 +1,42 @@
+<mno-widget icon="fa-sitemap" heading="{{'mnoe_admin_panel.dashboard.organization.widget.list.support.search_info' | translate}}">
+  <mno-widget-header>
+  </mno-widget-header>
+
+  <mno-widget-body>
+    <div class="mno-list">
+      <h4 class="mno-list-header">
+        {{'mnoe_admin_panel.dashboard.organization.widget.list.support.search_info.explanation' | translate}}
+      </h4>
+      <ul class="mno-list-body">
+        <li>{{'mnoe_admin_panel.dashboard.organization.widget.list.support.search_info.external_id' | translate}}</li>
+        <li>{{'mnoe_admin_panel.dashboard.organization.widget.list.support.search_info.user_name' | translate}}</li>
+        <li>{{'mnoe_admin_panel.dashboard.organization.widget.list.support.search_info.user_name_org_name' | translate}}</li>
+        <li>{{'mnoe_admin_panel.dashboard.organization.widget.list.support.search_info.user_name_org_name.exact' | translate}}</li>
+        <li>{{'mnoe_admin_panel.dashboard.organization.widget.list.support.search_info.user_name.exact' | translate}}</li>
+      </ul>
+    </div>
+  </mno-widget-body>
+</mno-widget>
+
 <mno-widget icon="fa-sitemap" heading="{{'mnoe_admin_panel.dashboard.organization.widget.list.support.last_organizations.title' | translate}}" is-loading="organizations.loading">
   <mno-widget-header>
-    <input type="text" ng-disabled="!isSupportRoleEnabled" ng-model="organizations.search" ng-change="searchChange()" ng-model-options='{ debounce: 1000 }'
-    placeholder="{{'mnoe_admin_panel.dashboard.organization.widget.list.suport.search_users.placeholder.search_all' | translate}}"
-    class="form-control input-sm search-bar" />
+    <div class="search-top">
+      <input ng-attr-tabindex="1" type="text" ng-disabled="!isSupportRoleEnabled" ng-model="organizations.externalIdSearch" ng-change="externalIdSearch()" ng-model-options='{ debounce: 1000 }'
+      placeholder="{{'mnoe_admin_panel.dashboard.organization.widget.list.suport.search_users.placeholder.search_external_id' | translate}}"
+      class="form-control input-sm search-bar" />
+    </div>
+    <br>
+    <div class="search-bottom">
+      <input ng-attr-tabindex="4" type="text" ng-disabled="!isSupportRoleEnabled" ng-model="organizations.orgNameSearch" ng-change="nameSearch()" ng-model-options='{ debounce: 1000 }'
+      placeholder="{{'mnoe_admin_panel.dashboard.organization.widget.list.suport.search_users.placeholder.search_org_name' | translate}}"
+      class="form-control input-sm search-bar" />
+      <input ng-attr-tabindex="3" type="text" ng-disabled="!isSupportRoleEnabled" ng-model="organizations.lastNameSearch" ng-change="nameSearch()" ng-model-options='{ debounce: 1000 }'
+      placeholder="{{'mnoe_admin_panel.dashboard.organization.widget.list.suport.search_users.placeholder.search_user_surname' | translate}}"
+      class="form-control input-sm search-bar" />
+      <input ng-attr-tabindex="2" type="text" ng-disabled="!isSupportRoleEnabled" ng-model="organizations.firstNameSearch" ng-change="nameSearch()" ng-model-options='{ debounce: 1000 }'
+      placeholder="{{'mnoe_admin_panel.dashboard.organization.widget.list.suport.search_users.placeholder.search_user_name' | translate}}"
+      class="form-control input-sm search-bar" />
+    </div>
   </mno-widget-header>
   <mno-widget-body class="large-auto-height no-padding">
     <table class="table table-layout-fixed">

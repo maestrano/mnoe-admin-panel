@@ -24,6 +24,9 @@
   @search = (params) ->
     MnoeAdminApiSvc.all("organizations").getList(params)
 
+  @supportSearch = (params) ->
+    MnoeAdminApiSvc.all('organizations').customGET('/support_search', params)
+
   @inArrears = () ->
     MnoeAdminApiSvc.all('organizations').all('in_arrears').getList()
 

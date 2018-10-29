@@ -7,7 +7,6 @@
     # Unwrap api response
     RestangularProvider.addResponseInterceptor(
       (data, operation, what, url, response, deferred) ->
-
         # If the what starts with a '/', return the data as it is
         # Used if the payload is not correctly formatted
         # (eg. MnoeApiSvc.oneUrl('/marketplace'))

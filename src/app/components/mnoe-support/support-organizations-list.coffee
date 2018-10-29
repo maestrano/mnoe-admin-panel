@@ -1,4 +1,4 @@
-@App.directive('mnoeSupportOrganizationsList', ($filter, $translate, $state, MnoeOrganizations, MnoeCurrentUser, MnoeUsers, MnoeAdminConfig) ->
+@App.directive('mnoeSupportOrganizationsList', ($filter, $translate, $state, $log, MnoeOrganizations, MnoeCurrentUser, MnoeUsers, MnoeAdminConfig, toastr) ->
   restrict: 'E',
   scope: {
     filterParams: '='
@@ -10,7 +10,10 @@
 
     # Variables initialization
     scope.organizations =
-      search: ''
+      externalIdSearch: ''
+      orgNameSearch: ''
+      firstNameSearch: ''
+      lastNameSearch: ''
       list: []
 
     scope.noResultsFound = () ->
@@ -21,10 +24,14 @@
     )
 
     scope.accessOrganizationInfo = (organization) ->
+      scope.organizations.loading = true
       MnoeUsers.loginSupport(scope.user, organization.external_id).then(() ->
         scope.$emit('refreshDashboardLayoutSupport')
         $state.go('dashboard.customers.organization', { orgId: organization.id })
-      )
+      ).catch((error) ->
+        $log.error('Support cannot be logged in. Check if the org has an external id.', error)
+        toastr.error('mnoe_admin_panel.dashboard.organization.widget.list.support.error')
+      ).finally(() -> scope.organizations.loading = false)
 
     # table generation - need to get the locale first
     $translate(
@@ -66,9 +73,18 @@
         ]
       )
 
-    scope.searchChange = () ->
-      scope.searchMode = true
-      setSearchOrganizationsList(scope.organizations.search)
+    scope.externalIdSearch = () ->
+      # Reset other search fields.
+      scope.organizations.orgNameSearch = ''
+      scope.organizations.firstNameSearch = ''
+      scope.organizations.lastNameSearch = ''
+      setSearchOrganizationsList()
+
+    scope.nameSearch = () ->
+      org = scope.organizations
+      # Reset other search field.
+      scope.organizations.externalIdSearch = ''
+      setSearchOrganizationsList()
 
     scope.noResultsText = if scope.isSupportRoleEnabled
       "mnoe_admin_panel.dashboard.organization.widget.list.suport.search_users.no_results"
@@ -76,12 +92,64 @@
       "mnoe_admin_panel.dashboard.organization.widget.list.suport.search_users.support_role_disabled"
 
     # Display only the search results
-    setSearchOrganizationsList = (search) ->
+    setSearchOrganizationsList = () ->
+      params = searchParams()
+      return scope.organizations.list = [] unless params
+
       scope.organizations.loading = true
-      search = scope.organizations.search.toLowerCase()
-      params = { organization_external_id: search }
-      MnoeOrganizations.list(null, null, null, params).then((response) ->
-        scope.organizations.list = $filter('orderBy')(response.data, 'created_at')
+      MnoeOrganizations.supportSearch(params).then((response) ->
+        scope.organizations.list = $filter('orderBy')(response.data.organizations, 'created_at')
       ).finally(-> scope.organizations.loading = false)
 
+
+    searchParams = () ->
+      searchNameTerms = [scope.organizations.firstNameSearch, scope.organizations.lastNameSearch, scope.organizations.orgNameSearch]
+      if searchByOrgExternalId()
+        externalIdSearch()
+      # If all search terms are present, search partially if each character is greater than 3.
+      else if searchByUserNameAndOrgName()
+        if meetsMinLength(searchNameTerms, 3) then partialNameSearch() else exactUserNameSearch()
+      else if searchByUserName()
+        searchNameTerms.splice(-1)
+        if meetsMinLength(searchNameTerms, 4) then partialNameSearch() else exactUserNameSearch()
+      else
+        # Invalid search, do not attempt to search.
+        return false
+
+    searchByUserName = () ->
+      scope.organizations.firstNameSearch && scope.organizations.lastNameSearch
+
+    searchByUserNameAndOrgName = () ->
+      searchByUserName() && scope.organizations.orgNameSearch
+
+    searchByOrgExternalId = () ->
+      scope.organizations.externalIdSearch
+
+    meetsMinLength = (arr, minLength) ->
+      arr.every((el) ->
+        el && el.length >= minLength
+      )
+
+    externalIdSearch = () ->
+      org_search:
+        where:
+          external_id: scope.organizations.externalIdSearch
+
+    partialNameSearch = () ->
+      org_search:
+        where:
+          'name.like': "%#{scope.organizations.orgNameSearch}%"
+      user_search:
+        where:
+          'name.like': "%#{scope.organizations.firstNameSearch}%"
+          'surname.like': "%#{scope.organizations.lastNameSearch}%"
+
+    exactUserNameSearch = () ->
+      org_search:
+        where:
+          name: "#{scope.organizations.orgNameSearch}"
+      user_search:
+        where:
+          name: "#{scope.organizations.firstNameSearch}"
+          surname: "#{scope.organizations.lastNameSearch}"
 )
