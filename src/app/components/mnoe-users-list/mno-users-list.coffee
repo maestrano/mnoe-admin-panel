@@ -52,7 +52,7 @@
           style: {width: "130px"}
           render: (user) ->
             template: """
-            <span data-toggle="tooltip" title="{{::user.last_sign_in_at | amDateFormat: 'H:m [-] L'}}">
+            <span data-toggle="tooltip" title="{{::user.last_sign_in_at | amDateFormat: 'L LT'}}">
               {{(user.last_sign_in_at | amTimeAgo) || ('mnoe_admin_panel.dashboard.users.widget.list.never' | translate)}}
             </span>
             """,

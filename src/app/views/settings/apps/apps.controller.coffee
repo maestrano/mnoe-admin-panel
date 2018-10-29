@@ -89,6 +89,7 @@
         vm.categories = angular.copy(response.data.categories)
         vm.displayCategories = vm.categories.length > 0
     ).finally(-> vm.isLoading = false)
+
     MnoeTenant.get().then(
       (response) ->
         vm.tenantManagement = response.data.app_management == "tenant")

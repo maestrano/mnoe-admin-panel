@@ -26,8 +26,8 @@
           <tr>
             <td>{{vm.invoice.slug}}</td>
             <td>{{vm.invoice.organization.name}}</td>
-            <td>{{vm.invoice.started_at | amDateFormat:'L z'}} - {{vm.invoice.ended_at | amDateFormat:'L z'}}</td>
-            <td ng-if="vm.isPaymentEnabled">{{vm.expectedPaymentDate(vm.invoice.ended_at) | amDateFormat:'L z' }}</td>
+            <td>{{vm.invoice.started_at | amCalendar}} - {{vm.invoice.ended_at | amCalendar}}</td>
+            <td ng-if="vm.isPaymentEnabled">{{vm.expectedPaymentDate(vm.invoice.ended_at) | amCalendar }}</td>
             <td>{{vm.invoice.price.currency.iso_code}} {{vm.invoice.price.fractional / 100}}</td>
             <td>
               <span ng-if="vm.invoice.tax_pips_applied && !vm.editableTaxRate">{{vm.invoice.tax_pips_applied / 100}}%</span>

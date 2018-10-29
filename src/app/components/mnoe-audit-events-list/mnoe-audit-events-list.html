@@ -22,8 +22,8 @@
         </tbody>
         <tbody ng-show="!$ctrl.events.loading">
           <tr ng-repeat="event in $ctrl.events.list">
-            <td title="{{ event.created_at | amDateFormat: 'L h:mm:ss a' }}">
-              {{event.created_at | amDateFormat:'L z' }}
+            <td title="{{ event.created_at | amDateFormat: 'L LTS' }}">
+              {{event.created_at | amCalendar }}
             </td>
             <td title="{{event.user.email}}">
               {{event.user.name}} {{event.user.surname}}
