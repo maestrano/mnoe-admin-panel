@@ -5,7 +5,7 @@
     <div class="close" type="button" ng-click="$ctrl.dismissModal()">×</div>
   </div>
   <!-- Modal Body -->
-  <div class="modal-body" style="max-height:{{$ctrl.modalHeight}};">
+  <div ng-if="!$ctrl.billingDetailsRequired" class="modal-body" style="max-height:{{$ctrl.modalHeight}};">
     <div class="products-search">
       <input type="search" placeholder="{{ 'mnoe_admin_panel.components.mno-product-selector.search' | translate }}" ng-model="$ctrl.searchTerm" ng-change="$ctrl.onSearchChange()"/>
       <div class="col-sm-4">
@@ -28,6 +28,9 @@
       </div>
     </div>
   </div>
+  <div ng-if="$ctrl.billingDetailsRequired" class="alert text-center alert-danger" translate>
+    mnoe_admin_panel.components.mno-product-selector.billing_details_req
+  </div>
   <!-- Modal Footer -->
   <div class="modal-footer">
     <div class="row">
@@ -35,7 +38,7 @@
         <button ng-click="$ctrl.dismissModal()" class="btn btn-default" translate>
           mnoe_admin_panel.components.mno-product-selector.cancel
         </button>
-        <button ng-click="$ctrl.closeModal()" ng-disabled="$ctrl.selectedProducts.length === 0 || $ctrl.isLoadingProducts" class="btn btn-primary arrow">
+        <button ng-click="$ctrl.closeModal()" ng-disabled="$ctrl.billingDetailsRequired || $ctrl.selectedProducts.length === 0 || $ctrl.isLoadingProducts" class="btn btn-primary arrow">
           <span ng-show="$ctrl.isLoadingProducts"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
           {{$ctrl.actionButtonText | translate}}
         </button>

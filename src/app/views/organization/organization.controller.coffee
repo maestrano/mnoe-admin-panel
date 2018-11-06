@@ -101,6 +101,15 @@
 
   vm.openSelectProductModal = () ->
     return if vm.isSupportAgent
+
+    # Is an up to date account required to allow app management and is the account past due?
+    paymentRequired = MnoeAdminConfig.isCurrentAccountRequired() && vm.organization.in_arrears
+    # Are billing details required and are they present?
+    detailsRequired = MnoeAdminConfig.areBillingDetailsRequired() && !vm.organization.credit_card.presence
+    # Billing details need to be updated if payment or billing details are required
+    # This is only enforced if payment is enabled (allows end user to add/update billing details)
+    billingDetailsRequired = (paymentRequired || detailsRequired) && MnoeAdminConfig.isPaymentEnabled()
+
     modalInstance = $uibModal.open(
       component: 'mnoProductSelectorModal'
       backdrop: 'static'
@@ -109,6 +118,7 @@
         dataFlag: -> 'organization-create-order'
         multiple: -> false
         activeInstances: -> vm.organization.active_apps
+        billingDetailsRequired: -> billingDetailsRequired
     )
 
     modalInstance.result.then(

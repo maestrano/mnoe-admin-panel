@@ -10,7 +10,7 @@
     filters: '<'
     titleKey: '@'
   }
-  controller: ($state, $uibModal, $stateParams, MnoeCurrentUser, MnoeProvisioning, UserRoles, MnoeObservables, ProvisioningHelper, OBS_KEYS) ->
+  controller: ($state, $uibModal, $stateParams, MnoeAdminConfig, MnoeCurrentUser, MnoeProvisioning, UserRoles, MnoeObservables, ProvisioningHelper, OBS_KEYS) ->
     ctrl = this
     ctrl.organizationId = $stateParams.orgId
     ctrl.skipPriceSelection = ProvisioningHelper.skipPriceSelection
@@ -78,6 +78,7 @@
       'mnoe_admin_panel.dashboard.subscriptions.widget.list.table.' + cartText + editAction.toLowerCase() + '_tooltip'
 
     ctrl.showEditAction = (subscription, editAction) ->
+      return false if MnoeAdminConfig.isCurrentAccountRequired() && subscription.organization.in_arrears
       editAction in subscription.available_actions
 
     ctrl.pendingSubscription = (subscription) ->
