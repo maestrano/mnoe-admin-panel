@@ -61,3 +61,9 @@
     # bootstrap3 theme. Can be also 'bs2', 'default'
     editableOptions.theme = 'bs3'
   )
+
+  # Configure momentJs locales.
+  # Strategy uses: user language settings || default webstore settings || fallback locale
+  .run((LocaleConfigSvc) ->
+    LocaleConfigSvc.configure()
+  )

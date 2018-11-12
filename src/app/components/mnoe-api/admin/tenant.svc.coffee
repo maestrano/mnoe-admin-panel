@@ -2,8 +2,9 @@
 @App.service 'MnoeTenant', (MnoeAdminApiSvc) ->
   _self = @
 
+  tenantPromise = null
   @get = () ->
-    MnoeAdminApiSvc.one('tenant').get()
+    tenantPromise ||= MnoeAdminApiSvc.one('tenant').get()
 
   @update = (config) ->
     MnoeAdminApiSvc.one('tenant').patch(tenant: {frontend_config: config})

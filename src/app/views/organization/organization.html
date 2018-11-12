@@ -98,7 +98,7 @@
                   <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.created_at</div>
                 </div>
                 <div class="col-xs-6">
-                  {{vm.organization.created_at | date: 'dd/MM/yyyy'}}
+                  {{vm.organization.created_at | amDateFormat:'L' }}
                 </div>
               </div>
               <div class="row">
@@ -106,7 +106,7 @@
                   <div class="label-cell" translate>mnoe_admin_panel.dashboard.organization.credit_card_updated</div>
                 </div>
                 <div class="col-xs-6">
-                  {{(vm.organization.credit_card.updated_at | date: 'dd/MM/yyyy') || ('mnoe_admin_panel.dashboard.organization.credit_card_updated.never' | translate)}}
+                  {{(vm.organization.credit_card.updated_at | amDateFormat:'L') || ('mnoe_admin_panel.dashboard.organization.credit_card_updated.never' | translate)}}
                 </div>
               </div>
               <div class='row' ng-show="vm.orgCreditManagement">
@@ -183,8 +183,8 @@
               </thead>
               <tbody>
                 <tr ng-repeat="invoice in vm.organization.invoices">
-                  <td>{{invoice.started_at | date: 'dd/MM/yyyy'}}</a></td>
-                  <td>{{invoice.ended_at | date: 'dd/MM/yyyy'}}</td>
+                  <td>{{invoice.started_at | amDateFormat:'L'}}</a></td>
+                  <td>{{invoice.ended_at | amDateFormat:'L'}}</td>
                   <td>{{invoice.amount.options.iso_code}} {{invoice.amount.value}}</td>
                   <td class="text-center">
                     <span ng-if="invoice.paid" class="text-success" translate>mnoe_admin_panel.dashboard.organization.invoices.table.yes</span>

@@ -46,7 +46,7 @@
             <td><a ui-sref="dashboard.staff({staffId: staffElem.id})">{{staffElem.name}}</a></td>
             <td>{{staffElem.surname}}</td>
             <td>{{staffElem.email}}</td>
-            <td>{{staffElem.created_at | date: 'dd/MM/yyyy'}}</td>
+            <td>{{staffElem.created_at | amDateFormat:'L'}}</td>
             <td><span ng-show="!$ctrl.staff.editmode[staffElem.id]" translate>{{$ctrl.getAdminRoleLabel(staffElem.admin_role)}}</span>
               <select ng-model="staffElem.admin_role" ng-show="$ctrl.staff.editmode[staffElem.id]" class="user-role-select form-control input-sm">
                 <option ng-repeat="role in $ctrl.staff.roles" value="{{role.value}}">{{role.label | translate}}</option>

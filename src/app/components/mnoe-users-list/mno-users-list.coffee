@@ -52,7 +52,7 @@
           style: {width: "130px"}
           render: (user) ->
             template: """
-            <span data-toggle="tooltip" title="{{::user.last_sign_in_at | date: 'H:m - dd/MM/yyyy'}}">
+            <span data-toggle="tooltip" title="{{::user.last_sign_in_at | amDateFormat: 'L LT'}}">
               {{(user.last_sign_in_at | amTimeAgo) || ('mnoe_admin_panel.dashboard.users.widget.list.never' | translate)}}
             </span>
             """,
@@ -66,7 +66,7 @@
           skip_natural: true
           render: (user) ->
             template:
-              "<span>{{::user.created_at | date: 'dd/MM/yyyy'}}</span>"
+              "<span>{{::user.created_at | amDateFormat:'L'}}</span>"
             scope: {user: user}}]
       )
 

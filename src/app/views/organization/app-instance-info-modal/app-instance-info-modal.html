@@ -93,7 +93,7 @@
         <!-- TODO: Figure out what time zone to put this in. Time zone of customer? -->
         <div class="col-xs-6">
           <span translate>
-            {{ vm.syncStatus.started_at | date: "MM/dd/yyyy 'at' h:mma" | notApplicable }}
+            {{ vm.syncStatus.started_at | amDateFormat:'L LT' | notApplicable }}
           </span>
           <span ng-if="!vm.syncStatus.started_at">
             <a class="tooltip_link" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.organization.app_info.sync_status.started_at.not_applicable.tooltip' | translate }}">
@@ -108,7 +108,7 @@
         </div>
         <div class="col-xs-6">
           <span translate>
-            {{ vm.syncStatus.finished_at | date: "MM/dd/yyyy 'at' h:mma" | notApplicable }}
+            {{ vm.syncStatus.finished_at | amDateFormat:'L LT' | notApplicable }}
           </span>
           <span ng-if="!vm.syncStatus.finished_at">
             <a class="tooltip_link" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.organization.app_info.sync_status.finished_at.not_applicable.tooltip' | translate }}">

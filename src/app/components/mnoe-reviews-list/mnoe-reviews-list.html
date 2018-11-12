@@ -41,7 +41,7 @@
               {{review.rating}}
             </td>
             <td>
-              {{review.created_at | date: 'dd/MM/yyyy' }}
+              {{review.created_at | amDateFormat:'L' }}
             </td>
             <td>
               <a href="" ng-hide="review.showComments || review.comments.length == 0" ng-click="review.showComments = true">{{'mnoe_admin_panel.dashboard.reviews_list.comments.show' | translate}}&nbsp;({{review.comments.length}})</a>
@@ -81,7 +81,7 @@
               {{'mnoe_admin_panel.dashboard.reviews_list.not_applicable' | translate}}
             </td>
             <td>
-              {{comment.created_at | date: 'dd/MM/yyyy' }}
+              {{comment.created_at | amDateFormat:'L' }}
             </td>
             <td>
               {{'mnoe_admin_panel.dashboard.reviews_list.not_applicable' | translate}}

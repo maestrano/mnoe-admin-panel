@@ -26,8 +26,8 @@
               {{ dashboard.name }}
             </td>
             <td title="{{ dashboard.full_name }}">{{ $ctrl.currency(dashboard) }}</td>
-            <td title="{{ dashboard.full_name }}">{{ dashboard.updated_at | date: "dd/MM/yyyy \'at\' h:mm a" }}</td>
-            <td title="{{ dashboard.full_name }}">{{ dashboard.created_at |  date: "dd/MM/yyyy \'at\' h:mm a" }}</td>
+            <td title="{{ dashboard.full_name }}">{{ dashboard.updated_at | amDateFormat:'L LT' }}</td>
+            <td title="{{ dashboard.full_name }}">{{ dashboard.created_at | amDateFormat:'L LT' }}</td>
           </tr>
 
           <!-- Widgets attached to the dashboard -->
@@ -48,8 +48,8 @@
           <tr ng-if="dashboard.opened && dashboard.widgetOpened" ng-repeat="widget in dashboard.widgets" class="nested-table-one-body">
             <td title="{{ dashboard.full_name }}">{{ widget.name }}</td>
             <td title="{{ dashboard.full_name }}">{{ $ctrl.currency(widget) }}</td>
-            <td title="{{ dashboard.full_name }}">{{ widget.updated_at | date: "dd/MM/yyyy \'at\' h:mm a" }}</td>
-            <td title="{{ dashboard.full_name }}">{{ widget.created_at |  date: "dd/MM/yyyy \'at\' h:mm a" }}</td>
+            <td title="{{ dashboard.full_name }}">{{ widget.updated_at | amDateFormat:'L LT' }}</td>
+            <td title="{{ dashboard.full_name }}">{{ widget.created_at |  amDateFormat:'L LT' }}</td>
           </tr>
 
           <!-- Kpis attached to the dashboard -->
@@ -70,8 +70,8 @@
           <tr ng-if="dashboard.opened && dashboard.kpiOpened" ng-repeat="kpi in dashboard.kpis" class="nested-table-one-body">
             <td title="{{ dashboard.full_name }}">{{ kpi.name }}</td>
             <td title="{{ dashboard.full_name }}">{{ $ctrl.currency(kpi) }}</td>
-            <td title="{{ dashboard.full_name }}">{{ kpi.updated_at | date: "dd/MM/yyyy \'at\' h:mm a" }}</td>
-            <td title="{{ dashboard.full_name }}">{{ kpi.created_at |  date: "dd/MM/yyyy \'at\' h:mm a" }}</td>
+            <td title="{{ dashboard.full_name }}">{{ kpi.updated_at | amDateFormat:'L LT' }}</td>
+            <td title="{{ dashboard.full_name }}">{{ kpi.created_at |  amDateFormat:'L LT' }}</td>
           </tr>
         </tbody>
       </table>
