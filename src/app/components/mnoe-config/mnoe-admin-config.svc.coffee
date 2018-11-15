@@ -103,6 +103,22 @@
 
     not (payment_disabled || billing_disabled)
 
+  # - App management requirements -
+  # Are billing details required before an organization can place orders?
+  @areBillingDetailsRequired = () ->
+    if DASHBOARD_CONFIG.app_management_requirements?.billing_details?
+      DASHBOARD_CONFIG.app_management_requirements.billing_details
+    else
+      false
+
+  # - App management requirements -
+  # Can an organization place orders if the account is past due?
+  @isCurrentAccountRequired = () ->
+    if DASHBOARD_CONFIG.app_management_requirements?.current_account?
+      DASHBOARD_CONFIG.app_management_requirements.current_account
+    else
+      false
+
   @areQuestionsEnabled  = () ->
     if DASHBOARD_CONFIG.marketplace?.questions?.enabled?
       DASHBOARD_CONFIG.marketplace.questions.enabled

@@ -38,6 +38,7 @@
       $ctrl.searchTerm = ''
       $ctrl.headerText = $ctrl.resolve.headerText || 'mnoe_admin_panel.components.mno-product-selector.title'
       $ctrl.actionButtonText = $ctrl.resolve.actionButtonText || 'mnoe_admin_panel.components.mno-product-selector.create_order'
+      $ctrl.billingDetailsRequired = $ctrl.resolve.billingDetailsRequired
 
     $ctrl.resolveProducts = ->
       $ctrl.isLoadingProducts = true
