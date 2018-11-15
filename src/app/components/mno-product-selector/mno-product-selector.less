@@ -12,6 +12,23 @@
     top: 15px;
   }
 
+  .product-disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background-color: @mnoe-admin-panel-grey;
+  }
+
+  .tooltip.tooltip-info .tooltip-inner {
+    background-color: @brand-info;
+    color: darken(@brand-info, 35%);
+    &:before {
+      content: '\f05a';
+      font-family: FontAwesome;
+      display: inline-block;
+      margin-right: 5px;
+    }
+  }
+
   .products-search {
     display: flex;
     justify-content: flex-start;

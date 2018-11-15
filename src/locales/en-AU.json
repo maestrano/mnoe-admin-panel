@@ -502,6 +502,7 @@
   "mnoe_admin_panel.components.mno-product-selector.create_order": "Create an order",
   "mnoe_admin_panel.components.mno-product-selector.cancel": "Cancel",
   "mnoe_admin_panel.components.mno-product-selector.categories.select_all": "All",
+  "mnoe_admin_panel.components.mno-product-selector.tooltip.multi_instantiable": "An organization may only have one active instance of this product.",
   "mnoe_admin_panel.dashboard.provisioning.breadcrumb.order": "Plan type",
   "mnoe_admin_panel.dashboard.provisioning.breadcrumb.additional_details": "Order details",
   "mnoe_admin_panel.dashboard.provisioning.breadcrumb.confirm": "Confirm",
