@@ -1,0 +1,14 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="logOff()"></button>
+  <h4 class="modal-title" translate >{{ 'mnoe_admin_panel.auth.sessions.timeout.header' }}</h4>
+</div>
+<div class="modal-body">
+  <p translate>{{ 'mnoe_admin_panel.auth.sessions.timeout.body.can_login' }}</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" ng-click="logOff()">{{ 'mnoe_admin_panel.auth.sessions.timeout.log_off'| translate }}</button>
+  <button type="button" class="btn btn-primary" ng-click="stayLoggedIn()" ng-disabled="isLoading">
+    <span ng-show="isLoading"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+     {{ 'mnoe_admin_panel.auth.sessions.timeout.stay_logged_in' | translate }} ({{countdown}})
+  </button>
+</div>
