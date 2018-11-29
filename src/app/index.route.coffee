@@ -157,6 +157,8 @@
 
   if adminConfig.isDashboardTemplatesEnabled
     $stateProvider.state 'dashboard.dashboard-templates',
+      data:
+        dashboardDesigner: true
       url: '/dashboard-templates'
       templateUrl: 'app/views/dashboard-templates/dashboard-templates.html'
       controller: 'DashboardTemplatesController'
@@ -164,6 +166,8 @@
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.dashboard_templates.title'
     .state 'dashboard.dashboard-templates-show',
+      data:
+        dashboardDesigner: true
       url: '/dashboard-templates/:dashboardId'
       templateUrl: 'app/views/impac/impac.html'
       controller: 'ImpacController'

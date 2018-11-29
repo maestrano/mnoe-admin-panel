@@ -9,9 +9,6 @@ angular.module 'frontendAdmin'
   data =
     mnoHub: mnoHub
     impacApi: "#{IMPAC_CONFIG.protocol}://#{IMPAC_CONFIG.host}/api"
-    dashboards:
-      index: "#{mnoHub}/admin/impac/dashboard_templates"
-      show: "#{mnoHub}/admin/impac/dashboard_templates/:id"
     widgets:
       update: "#{mnoHub}/admin/impac/widgets/:id"
       del: "#{mnoHub}/admin/impac/widgets/:id"

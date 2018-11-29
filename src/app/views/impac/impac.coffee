@@ -1,7 +1,15 @@
-@App.controller 'ImpacController', ($rootScope, $stateParams, MnoeDashboardTemplates, ImpacDashboardsSvc) ->
+@App.controller 'ImpacController', (
+  $rootScope, $state, $stateParams
+  MnoeDashboardTemplates, MnoeOrganizations, ImpacConfigSvc, ImpacDashboardsSvc
+) ->
   'ngInject'
   vm = this
   vm.dashboardLoaded = false
+
+  vm.designerMode = $state.current.data.dashboardDesigner
+
+  if vm.designerMode != ImpacConfigSvc.dashboardDesigner
+    ImpacConfigSvc.configureDashboardDesigner(vm.designerMode)
 
   $rootScope.$watch(
     ->
