@@ -7,6 +7,7 @@
   vm.dashboardLoaded = false
 
   vm.designerMode = $state.current.data.dashboardDesigner
+  vm.orgId = $stateParams.orgId
 
   if vm.designerMode != ImpacConfigSvc.dashboardDesigner
     ImpacConfigSvc.configureDashboardDesigner(vm.designerMode)

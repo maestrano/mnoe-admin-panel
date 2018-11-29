@@ -1,9 +1,13 @@
 <div id="impac">
-  <div class="top-navigation">
-    <a class="back" ui-sref="dashboard.dashboard-templates">
+  <div class="top-navigation" ng-switch="vm.designerMode">
+    <a class="back" ui-sref="dashboard.dashboard-templates" ng-switch-when="true">
       &lt;&lt; {{ 'mnoe_admin_panel.dashboard.dashboard_templates.back_link' | translate }}
     </a>
-    <toggle class="pull-right" ng-show="vm.currentDashboard" ng-model="vm.currentDashboard.published" ng-change="vm.toggleTemplatePublished(vm.currentDashboard.id)" on="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.published' | translate }}" off="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.draft' | translate }}" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.published_state_tooltip' | translate }}"></toggle>
+    <a class="back" ui-sref="dashboard.customers.organization({orgId: vm.orgId})" ng-switch-when="false">
+      &lt;&lt; {{ 'mnoe_admin_panel.dashboard.staff_dashboards.back_link' | translate }}
+    </a>
+
+    <toggle class="pull-right" ng-if="vm.designerMode" ng-show="vm.currentDashboard" ng-model="vm.currentDashboard.published" ng-change="vm.toggleTemplatePublished(vm.currentDashboard.id)" on="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.published' | translate }}" off="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.draft' | translate }}" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.published_state_tooltip' | translate }}"></toggle>
   </div>
 
   <impac-dashboard />

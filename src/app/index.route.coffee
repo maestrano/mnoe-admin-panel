@@ -175,4 +175,15 @@
       ncyBreadcrumb:
         label: 'mnoe_admin_panel.dashboard.impac.title'
 
+  if adminConfig.isStaffDashboardsEnabled()
+    $stateProvider.state 'dashboard.staff-dashboard-show',
+      data:
+        dashboardDesigner: false
+      url: '^/organization/:orgId/staff-dashboard/:dashboardId'
+      templateUrl: 'app/views/impac/impac.html'
+      controller: 'ImpacController'
+      controllerAs: 'vm'
+      ncyBreadcrumb:
+        label: 'mnoe_admin_panel.dashboard.staff_dashboards.title'
+
   $urlRouterProvider.otherwise '/home'

@@ -109,4 +109,9 @@
       </mno-widget>
     </div>
   </div>
+  <div class="row" ng-if="::main.adminConfig.isStaffDashboardsEnabled()">
+    <div class="col-sm-12 top-buffer-2">
+      <mnoe-staff-dashboards-list organization="vm.organization"></mnoe-staff-dashboards-list>
+    </div>
+  </div>
 </div>
