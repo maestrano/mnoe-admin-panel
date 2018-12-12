@@ -68,7 +68,7 @@
           </tr>
 
           <tr ng-if="dashboard.opened && dashboard.kpiOpened" ng-repeat="kpi in dashboard.kpis" class="nested-table-one-body">
-            <td title="{{ dashboard.full_name }}">{{ kpi.name }}</td>
+            <td title="{{ dashboard.full_name }}">{{ $ctrl.getKpiName(kpi) }}</td>
             <td title="{{ dashboard.full_name }}">{{ $ctrl.currency(kpi) }}</td>
             <td title="{{ dashboard.full_name }}">{{ kpi.updated_at | amDateFormat:'L LT' }}</td>
             <td title="{{ dashboard.full_name }}">{{ kpi.created_at |  amDateFormat:'L LT' }}</td>

@@ -3,7 +3,7 @@
 #
 @App.component('mnoeDashboardsList', {
   templateUrl: 'app/components/mnoe-dashboards-list/mnoe-dashboards-list.html',
-  controller: (MnoeUsers, $stateParams) ->
+  controller: (MnoeUsers, $stateParams, $translate) ->
     vm = this
 
     vm.dashboards =
@@ -65,6 +65,13 @@
 
     vm.toggleDashboardKpis = (dashboard) ->
       dashboard.kpiOpened = !dashboard.kpiOpened
+
+    vm.getKpiName = (kpi) ->
+      kpiName = kpi.endpoint.split('/').pop()
+      localeName = "mnoe_admin_panel.dashboard.dashboard_list.widget.list.kpis.#{kpiName}"
+      # $translate.instant returns key if key is not found.
+      localeTranslation = $translate.instant(localeName)
+      if (localeName == localeTranslation) then _.startCase(kpiName) else localeTranslation
 
     return
 })
