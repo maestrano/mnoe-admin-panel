@@ -29,6 +29,7 @@ angular.module 'frontendAdmin'
     dataNotFoundConfig:
       content:
         mainMessage: 'mnoe_admin_panel.impac.data_not_found_config.custom_message'
+        linkMessage: null
       linkUrl: '#!/marketplace'
       linkTarget: '_self'
     dhbConfig:
