@@ -43,8 +43,6 @@ angular.module 'frontendAdmin'
     # configurations for the dashboard selector feature.
     dhbSelectorConfig:
       pdfModeEnabled: false
-      addDhbEnabled: false
-      deleteDhbEnabled: false
       selectorType: 'dropdown'
     dhbSettings:
       syncApps:
