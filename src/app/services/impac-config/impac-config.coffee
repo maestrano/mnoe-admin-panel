@@ -50,7 +50,7 @@
   @configureDashboardDesigner = (enabled) ->
     _self.dashboardDesigner = enabled
 
-    $log.info('Configuring dahsboard designer', enabled, _self.dashboardDesigner)
+    $log.info('Configuring dashboard designer', enabled, _self.dashboardDesigner)
 
     # Reconfigure Impac routes to use templates or dashboards
     mnoHub = IMPAC_CONFIG.paths.mnohub_api
@@ -74,6 +74,9 @@
       dhbConfig:
         designerMode:
           enabled: enabled
+      # Disable PDF mode in designer mode
+      dhbSelectorConfig:
+        pdfModeEnabled: !enabled
 
     ImpacTheming.configure(options)
 
