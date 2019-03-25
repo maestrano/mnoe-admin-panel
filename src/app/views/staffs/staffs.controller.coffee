@@ -1,6 +1,8 @@
-@App.controller 'StaffsController', ($filter, $stateParams, $uibModal) ->
+@App.controller 'StaffsController', ($filter, $stateParams, $uibModal, MnoeAdminConfig) ->
   'ngInject'
   vm = this
+
+  vm.isStaffReadOnly = MnoeAdminConfig.isStaffReadOnly()
 
   vm.staff =
     # Display staff creation modal

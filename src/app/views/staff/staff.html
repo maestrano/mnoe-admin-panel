@@ -11,13 +11,13 @@
         <div class="bs-row row">
           <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.name</div></div>
           <div class="col-md-3">
-            <input type="text" class="form-control input-sm" ng-model="vm.staff.name" required>
+            <input type="text" class="form-control input-sm" ng-model="vm.staff.name" ng-disabled="vm.isStaffReadOnly" required>
           </div>
         </div>
         <div class="bs-row row">
           <div class="col-md-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.surname</div></div>
           <div class="col-md-3">
-            <input type="text" class="form-control input-sm" ng-model="vm.staff.surname" required>
+            <input type="text" class="form-control input-sm" ng-model="vm.staff.surname" ng-disabled="vm.isStaffReadOnly" required>
           </div>
         </div>
         <div class="bs-row row">
@@ -28,7 +28,7 @@
           <div class="col-sm-3"><div class="label-cell" translate>mnoe_admin_panel.dashboard.staff.admin_role</div></div>
           <div class="col-md-3">
             <span ng-if="!vm.isAdmin">{{vm.staff.adminRoleName() | translate}}</span>
-            <select ng-model="vm.staff.admin_role" ng-if="vm.isAdmin" class="form-control input-sm">
+            <select ng-model="vm.staff.admin_role" ng-if="vm.isAdmin" ng-disabled="vm.isStaffReadOnly" class="form-control input-sm">
               <option value="{{role.value}}" ng-repeat="role in vm.adminRoles">{{ role.label | translate }}</option>
             </select>
           </div>
@@ -51,7 +51,7 @@
             </select>
           </div>
         </div>
-        <div class="bs-row row">
+        <div class="bs-row row" ng-if="!vm.isStaffReadOnly">
           <div class="col-sm-3">
             <button class="btn btn-primary" ng-show="vm.staff" ng-disabled="vm.isSaving" ng-click="vm.updateStaff()" translate>
               <span ng-show="vm.isSaving"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>

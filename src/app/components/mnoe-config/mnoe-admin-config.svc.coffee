@@ -33,6 +33,13 @@
     else
       true
 
+  # RO staff (still allow for customer assignment)
+  @isStaffReadOnly = () ->
+    if ADMIN_PANEL_CONFIG.staff?
+      ADMIN_PANEL_CONFIG.staff.read_only
+    else
+      false
+
   @isFinanceEnabled = () ->
     if ADMIN_PANEL_CONFIG.finance?
       ADMIN_PANEL_CONFIG.finance.enabled
