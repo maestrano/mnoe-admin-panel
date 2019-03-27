@@ -74,6 +74,9 @@
       dhbConfig:
         designerMode:
           enabled: enabled
+      # For now do not allow to create templates from templates
+      dhbSettings:
+        createFromTemplateEnabled: !enabled
       # Disable PDF mode in designer mode
       dhbSelectorConfig:
         pdfModeEnabled: !enabled

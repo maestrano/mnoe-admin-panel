@@ -91,9 +91,15 @@
     vm.createDashboard = (dashboard) ->
       angular.merge(dashboard, { organization_ids: [vm.organization.id] })
 
+      # TODO: bug when creating after copying (also present on frontend)
+      promise = if dashboard.id
+        ImpacDashboardsSvc.copy(dashboard)
+      else
+        ImpacDashboardsSvc.create(dashboard)
+
       # TODO: toaster
       # refresh dashboard list OR redirect to created dashboard
-      ImpacDashboardsSvc.create(dashboard).then(
+      promise.then(
         (savedDhb) ->
           fetchDashboards()
           # $state.go('dashboard.staff-dashboard-show', dashboardId: dashboard.id, orgId: vm.organization.id)
