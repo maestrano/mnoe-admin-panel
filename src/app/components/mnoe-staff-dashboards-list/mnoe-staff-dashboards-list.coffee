@@ -54,7 +54,7 @@
     fetchDashboards = (limit = vm.dashboards.nbItems, offset = vm.dashboards.offset, sort = vm.dashboards.sort) ->
       vm.dashboards.loading = true
       return unless vm.organization
-      return MnoeDashboards.getStaffDashboards(vm.organization.id, limit, offset, sort).then(
+      return MnoeDashboards.getStaffDashboards(vm.organization.uid, limit, offset, sort).then(
         (response) ->
           vm.dashboards.totalItems = response.headers('x-total-count')
           vm.dashboards.list = response.data

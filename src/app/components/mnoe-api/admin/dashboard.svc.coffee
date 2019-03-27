@@ -3,7 +3,7 @@
   _self = @
 
   # List the staff dashboard for the current user
-  @getStaffDashboards = (organizationId, limit, offset, sort) ->
+  @getStaffDashboards = (organizationUid, limit, offset, sort) ->
     MnoeCurrentUser.getUser().then(
       -> MnoeCurrentUser.user
     ).then(
@@ -14,7 +14,7 @@
           offset: offset,
           'where[owner_id]': user.id,
           'where[owner_type]': 'User',
-          'where[data_sources]': [organizationId]
+          'where[data_sources]': [organizationUid]
         })
     )
 
