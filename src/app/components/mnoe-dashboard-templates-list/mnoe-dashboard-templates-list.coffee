@@ -3,7 +3,7 @@
 #
 @App.component('mnoeDashboardTemplatesList', {
   templateUrl: 'app/components/mnoe-dashboard-templates-list/mnoe-dashboard-templates-list.html',
-  controller: ($uibModal, toastr, MnoeDashboardTemplates, MnoeAdminConfig) ->
+  controller: (toastr, MnoConfirm, MnoeDashboardTemplates, MnoeAdminConfig) ->
     vm = this
 
     vm.datesFormat = MnoeAdminConfig.dashboardTemplatesDatesFormat()
@@ -51,18 +51,25 @@
     # Dashboard Template deletion Modal
     #====================================
     vm.openDeleteModal = (dashboardTemplateId) ->
-      modalInstance = $uibModal.open(
-        templateUrl: 'app/views/dashboard-templates/modals/delete-dashboard-template-modal.html'
-        controller: 'deleteDashboardTemplateCtrl'
-        size: 'lg'
-        resolve:
-          dashboardTemplateId: dashboardTemplateId
-      )
-      modalInstance.result.then(
-        (result) ->
-          # If the user delete a dashboard template
-          if result
-            fetchDashboardTemplates()
+      modalOptions =
+        type: 'danger'
+        closeButtonText: 'mnoe_admin_panel.dashboard.dashboard_templates.modal.cancel'
+        actionButtonText: 'mnoe_admin_panel.dashboard.dashboard_templates.modal.delete'
+        headerText: 'mnoe_admin_panel.dashboard.dashboard_templates.modal.delete_dashboard'
+        bodyText: 'mnoe_admin_panel.dashboard.dashboard_templates.modal.are_you_sure'
+
+      MnoConfirm.showModal(modalOptions).then(
+        ->
+          MnoeDashboardTemplates.delete(dashboardTemplateId).then(
+            (success) ->
+              toastr.success('mnoe_admin_panel.dashboard.dashboard_templates.widget.list.toastr.deleted.successfully')
+              # Reload the list after deletion
+              fetchDashboardTemplates()
+            (error) ->
+              toastr.error('mnoe_admin_panel.dashboard.dashboard_templates.widget.list.toastr.deleted.error')
+          )
+        ->
+          # Cancelled
       )
 
     #====================================
