@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-if="!vm.isStaffReadOnly">
   <div class="col-xs-8 col-lg-offset-1 top-buffer-1">
     <button role="button" ng-click="vm.staff.createModal()" class="btn btn-primary" translate>
       mnoe_admin_panel.dashboard.staffs.add_staff
@@ -8,6 +8,6 @@
 
 <div class="row">
   <div class="col-lg-10 col-lg-offset-1 col-md-12">
-    <mnoe-staffs-list view="all"></mnoe-staffs-list>
+    <mnoe-staffs-list read-only="{{vm.isStaffReadOnly}}"></mnoe-staffs-list>
   </div>
 </div>

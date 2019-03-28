@@ -12,8 +12,8 @@
             <th st-sort="email" class="col-lg-3" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.email</th>
             <th st-sort="created_at" class="col-lg-2" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.created_at</th>
             <th st-sort="admin_role" class="col-lg-3" translate>mnoe_admin_panel.dashboard.staffs.widget.list.table.role</th>
-            <th></th>
-            <th></th>
+            <th ng-if="!$ctrl.readOnly"></th>
+            <th ng-if="!$ctrl.readOnly"></th>
         	</tr>
         	<tr>
             <th>
@@ -32,8 +32,8 @@
                 <option value="{{role.value}}" ng-repeat="role in $ctrl.staff.roles">{{ role.label | translate }}</option>
               </select>
             </th>
-            <th></th>
-            <th></th>
+            <th ng-if="!$ctrl.readOnly"></th>
+            <th ng-if="!$ctrl.readOnly"></th>
         	</tr>
       	</thead>
         <tbody ng-show="$ctrl.staff.loading">
@@ -52,12 +52,12 @@
                 <option ng-repeat="role in $ctrl.staff.roles" value="{{role.value}}">{{role.label | translate}}</option>
               </select>
             </td>
-            <td>
+            <td ng-if="!$ctrl.readOnly">
               <div ng-hide="$ctrl.staff.oneAdminLeft && staffElem.admin_role == 'admin'">
                 <a href="" ng-hide="$ctrl.staff.editmode[staffElem.id]" ng-click="$ctrl.staff.editmode[staffElem.id] = true"><i class="fa fa-pencil"></i></a>
               </div>
             </td>
-            <td>
+            <td ng-if="!$ctrl.readOnly">
               <div ng-hide="$ctrl.staff.oneAdminLeft && staffElem.admin_role == 'admin'">
                 <a href="" ng-hide="$ctrl.staff.editmode[staffElem.id]" ng-click="$ctrl.staff.remove(staffElem)"><i class="fa fa-times"></i></a>
               </div>
