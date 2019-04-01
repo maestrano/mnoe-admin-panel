@@ -4,7 +4,9 @@
   # Keep track of dashboard designer mode
   _self.dashboardDesigner = null
 
-  # TODO: backend?
+  # Used to control Impac Angular UI in staff dashboard mode
+  # We want to remove the create/delete dashboard butttons as this is managed through
+  # the staff-dashboard-list component.
   defaultACL = {
     self: {show: true, update: true, destroy: true},
     related: {
