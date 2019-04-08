@@ -1,5 +1,27 @@
 # Change Log
 
+## [v1.1.0](https://github.com/maestrano/mnoe-admin-panel/tree/v1.1.0) (2019-04-08)
+[Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.10...v1.1.0)
+
+**Dependencies:**
+
+* mno-enterprise v3.4.0
+
+**Implemented enhancements:**
+
+- \[KAPP-175\] Staff Dashboards [\#353](https://github.com/maestrano/mnoe-admin-panel/pull/353) ([ouranos](https://github.com/ouranos))
+- \[KAPP-175\] Add readOnly staff feature flag [\#352](https://github.com/maestrano/mnoe-admin-panel/pull/352) ([ouranos](https://github.com/ouranos))
+- \[KAPP-175\] Improve dashboard templates [\#350](https://github.com/maestrano/mnoe-admin-panel/pull/350) ([ouranos](https://github.com/ouranos))
+- \[MNOE-823\] "Account Manager" feature flag [\#170](https://github.com/maestrano/mnoe-admin-panel/pull/170) ([x4d3](https://github.com/x4d3))
+- Update Dashboard Templates Designer [\#149](https://github.com/maestrano/mnoe-admin-panel/pull/149) ([cesar-tonnoir](https://github.com/cesar-tonnoir))
+- \[MNOE-483\] Add Sub Tenant Feature [\#81](https://github.com/maestrano/mnoe-admin-panel/pull/81) ([ouranos](https://github.com/ouranos))
+
+**Fixed bugs:**
+
+- \[MNOE-822\] Fix roles with subtenant flags [\#169](https://github.com/maestrano/mnoe-admin-panel/pull/169) ([ouranos](https://github.com/ouranos))
+- Fix locales [\#157](https://github.com/maestrano/mnoe-admin-panel/pull/157) ([ouranos](https://github.com/ouranos))
+- Fix subtenant locale [\#146](https://github.com/maestrano/mnoe-admin-panel/pull/146) ([ouranos](https://github.com/ouranos))
+
 ## [v1.0.10](https://github.com/maestrano/mnoe-admin-panel/tree/v1.0.10) (2018-10-26)
 [Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.9...v1.0.10)
 
