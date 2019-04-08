@@ -9,9 +9,6 @@ angular.module 'frontendAdmin'
   data =
     mnoHub: mnoHub
     impacApi: "#{IMPAC_CONFIG.protocol}://#{IMPAC_CONFIG.host}/api"
-    dashboards:
-      index: "#{mnoHub}/admin/impac/dashboard_templates"
-      show: "#{mnoHub}/admin/impac/dashboard_templates/:id"
     widgets:
       update: "#{mnoHub}/admin/impac/widgets/:id"
       del: "#{mnoHub}/admin/impac/widgets/:id"
@@ -30,7 +27,9 @@ angular.module 'frontendAdmin'
   options =
     # link to the marketplace
     dataNotFoundConfig:
-      mainMessage: 'mnoe_admin_panel.impac.data_not_found_config.custom_message'
+      content:
+        mainMessage: 'mnoe_admin_panel.impac.data_not_found_config.custom_message'
+        linkMessage: null
       linkUrl: '#!/marketplace'
       linkTarget: '_self'
     dhbConfig:
@@ -44,8 +43,6 @@ angular.module 'frontendAdmin'
     # configurations for the dashboard selector feature.
     dhbSelectorConfig:
       pdfModeEnabled: false
-      addDhbEnabled: false
-      deleteDhbEnabled: false
       selectorType: 'dropdown'
     dhbSettings:
       syncApps:

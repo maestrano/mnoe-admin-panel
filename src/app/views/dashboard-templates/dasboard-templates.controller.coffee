@@ -1,6 +1,9 @@
-@App.controller 'DashboardTemplatesController', ($state, ImpacDashboardsSvc) ->
+@App.controller 'DashboardTemplatesController', ($state, ImpacDashboardsSvc, ImpacConfigSvc) ->
   'ngInject'
   vm = this
+
+  # Reconfigure Impac to enable the dashboard designer
+  ImpacConfigSvc.enableDashboardDesigner()
 
   vm.createDashboard = (dashboard) ->
     angular.merge(dashboard, { published: false })

@@ -1,0 +1,50 @@
+<mno-widget icon="fa-bar-chart" is-loading="$ctrl.dashboards.loading" heading="{{ 'mnoe_admin_panel.dashboard.staff_dashboards.widget.list.title' | translate}}">
+  <mno-widget-header>
+    <div class="btn-group pull-right">
+      <impac-dashboard-create on-create-dashboard="$ctrl.createDashboard(dashboard)" btn-class="btn-primary" />
+    </div>
+  </mno-widget-header>
+  <mno-widget-body class="no-padding">
+    <div>
+      <table st-pipe="$ctrl.callServer" class="table table-striped" st-table="$ctrl.dashboards.list">
+
+        <!-- Dashboard list header -->
+        <thead>
+          <tr>
+            <th st-sort="name" class="col-lg-3" translate>mnoe_admin_panel.dashboard.staff_dashboards.widget.list.name</th>
+            <th st-sort="created_at" class="col-lg-2" translate></th>
+          </tr>
+        </thead>
+
+        <!-- Dashboard list -->
+        <tbody ng-repeat="dashboard in $ctrl.dashboards.list">
+          <tr>
+            <td title="{{ dashboard.full_name }}">
+              <a ui-sref="dashboard.staff-dashboard-show({ dashboardId: dashboard.id, orgId: $ctrl.organization.id })">{{ dashboard.name }}</a>
+            </td>
+            <td>
+              <div class="pull-right">
+                <div class="btn-group" ng-click="$ctrl.openDeleteModal(dashboard.id)">
+                  <a type="button" class="btn btn-primary" >
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mno-widget-body>
+  <mno-widget-footer ng-show="$ctrl.dashboards.list">
+    <mno-pagination
+      page="$ctrl.dashboards.page"
+      nb-items="$ctrl.dashboards.nbItems"
+      total-items="$ctrl.dashboards.totalItems"
+      on-change-cb="$ctrl.dashboards.pageChangedCb(nbItems, page)"
+      is-loading="$ctrl.dashboards.loading"
+      nb-items-values="$ctrl.dashboards.nbItemsValues"
+      >
+    </mno-pagination>
+  </mno-widget-footer>
+</mno-widget>
