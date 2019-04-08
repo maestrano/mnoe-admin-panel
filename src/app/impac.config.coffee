@@ -33,6 +33,7 @@ angular.module 'frontendAdmin'
       linkUrl: '#!/marketplace'
       linkTarget: '_self'
     dhbConfig:
+      multiCompany: true
       designerMode:
         enabled: true
         dhbLabelName: 'Template'
