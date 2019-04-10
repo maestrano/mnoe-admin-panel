@@ -117,6 +117,7 @@
       # No search string, so display current state
       else if scope.searchMode
         scope.searchMode = false
+        scope.filterParams['terms'] = null if scope.filterParams
         displayCurrentState()
 
     # Display only the search results
