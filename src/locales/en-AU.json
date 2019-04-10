@@ -55,6 +55,7 @@
   "mnoe_admin_panel.dashboard.customers.invite_user_modal.toastr_error": "An error occurred while sending an email to {email}. Please try again...",
   "mnoe_admin_panel.dashboard.customers.create_customer.create_customer": "Create a new customer",
   "mnoe_admin_panel.dashboard.customers.create_customer.organization_details": "Organisation details",
+  "mnoe_admin_panel.dashboard.customers.create_customer.division_details": "Division details",
   "mnoe_admin_panel.dashboard.customers.create_customer.organization_name": "Organisation name",
   "mnoe_admin_panel.dashboard.customers.create_customer.name": "Name",
   "mnoe_admin_panel.dashboard.customers.create_customer.required.name": "Name is required",
