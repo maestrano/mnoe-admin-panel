@@ -936,7 +936,6 @@
   "mnoe_admin_panel.dashboard.pricing.pricing_plans.pricing_type": "Pricing type",
   "mnoe_admin_panel.dashboard.pricing.pricing_plans.pricing_type.recurring": "Fixed recurring",
   "mnoe_admin_panel.dashboard.pricing.pricing_plans.pricing_type.one_off": "One-time payment",
-  "mnoe_admin_panel.dashboard.pricing.pricing_plans.pricing_type.payg": "Usage based",
   "mnoe_admin_panel.dashboard.staffs.title": "Staff",
   "mnoe_admin_panel.dashboard.staffs.add_staff": "Add staff",
   "mnoe_admin_panel.dashboard.staffs.add_staff.modal.title": "Add a new staff member",
