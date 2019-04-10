@@ -16,6 +16,7 @@
             <th translate>mnoe_admin_panel.dashboard.invoice.customer</th>
             <th translate>mnoe_admin_panel.dashboard.invoice.period</th>
             <th ng-if="vm.isPaymentEnabled" translate>mnoe_admin_panel.dashboard.invoice.expected_payment_date</th>
+            <th translate>mnoe_admin_panel.dashboard.invoice.past_due</th>
             <th translate>mnoe_admin_panel.dashboard.invoice.amount</th>
             <th translate>mnoe_admin_panel.dashboard.invoice.tax_rate</th>
             <th translate>mnoe_admin_panel.dashboard.invoice.status</th>
@@ -28,7 +29,11 @@
             <td>{{vm.invoice.organization.name}}</td>
             <td>{{vm.invoice.started_at | amCalendar}} - {{vm.invoice.ended_at | amCalendar}}</td>
             <td ng-if="vm.isPaymentEnabled">{{vm.expectedPaymentDate(vm.invoice.ended_at) | amCalendar }}</td>
-            <td>{{vm.invoice.price.currency.iso_code}} {{vm.invoice.price.fractional / 100}}</td>
+            <td ng-show="vm.invoice.previous_total_due">
+              {{vm.invoice.previous_total_due.currency.iso_code}} {{vm.invoice.previous_total_due.fractional / 100}}
+            </td>
+            <td ng-hide="vm.invoice.previous_total_due">-</td>
+            <td>{{vm.invoice.price.currency.iso_code}} {{vm.totalAmount / 100}}</td>
             <td>
               <span ng-if="vm.invoice.tax_pips_applied && !vm.editableTaxRate">{{vm.invoice.tax_pips_applied / 100}}%</span>
               <span ng-if="!vm.invoice.paid_at && !vm.editableTaxRate">

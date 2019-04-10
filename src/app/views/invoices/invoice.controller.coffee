@@ -10,12 +10,16 @@
   vm.editableTaxRate = false
   vm.invoice = {}
 
-  MnoeInvoices.get($stateParams.invoiceId).then(
-    (response) ->
-      vm.invoice = response.data.plain().invoice
-      vm.isInvoiceEditedPaid = angular.copy(vm.invoice.paid_at)
-      vm.invoice.adjustments = [] unless vm.invoice.adjustments?
-  ).finally(-> vm.isLoading = false)
+  vm.init = ->
+    MnoeInvoices.get($stateParams.invoiceId).then(
+      (response) ->
+        vm.invoice = response.data.plain().invoice
+        vm.totalAmount = parseInt(vm.invoice.price.fractional)
+        vm.totalAmount += parseInt(vm.invoice.tax_payable.fractional) if vm.invoice.tax_payable
+        vm.isInvoiceEditedPaid = angular.copy(vm.invoice.paid_at)
+        vm.invoice.adjustments = [] unless vm.invoice.adjustments?
+    ).finally(-> vm.isLoading = false)
+  vm.init()
 
   # -----------------------------------------------------------------
   # Invoice Management
@@ -48,8 +52,7 @@
     MnoeInvoices.update(vm.invoice).then(
       ->
         toastr.success('mnoe_admin_panel.dashboard.invoice.details.updated')
-    ).finally(-> vm.isLoading = false)
-    $state.reload()
+    ).finally(-> vm.init())
 
   # -----------------------------------------------------------------
   #  Adjustment Management
@@ -69,7 +72,8 @@
         if result
           vm.invoice.adjustments.push(result.adjustment)
           vm.invoice.price = result.invoice.price
-
+          vm.totalAmount = parseInt(vm.invoice.price.fractional)
+          vm.totalAmount += parseInt(result.invoice.tax_payable.fractional) if result.invoice.tax_payable
     )
 
   vm.openDeleteAdjustmentModal = (adjustment) ->
@@ -88,6 +92,8 @@
           vm.invoice.adjustments.splice(indexOfAdjustment, 1)
           toastr.success('mnoe_admin_panel.dashboard.invoice.delete_adjustments.toastr_success')
           vm.invoice.price = response.data.invoice.price
+          vm.totalAmount = parseInt(vm.invoice.price.fractional)
+          vm.totalAmount += parseInt(response.data.invoice.tax_payable.fractional) if response.data.invoice.tax_payable
         (error) ->
           $log.error('Error while deleting adjustment', error)
           # Display an error
