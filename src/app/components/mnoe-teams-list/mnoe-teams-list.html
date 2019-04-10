@@ -20,13 +20,13 @@
             </td>
             <td>
               <div class="bs-row row apps-box">
-                <div ng-if="$ctrl.hasApps(team.app_instances)" class="app-wrapper col-xs-3 col-sm-2 col-md-1" ng-repeat="app in team.app_instances">
+                <div ng-if="$ctrl.hasApps(team.product_instances)" class="app-wrapper col-xs-3 col-sm-2 col-md-1" ng-repeat="app in team.product_instances">
                   <div uib-tooltip="{{ ::app.name }}" class="small-app-card ellipsis">
                     <img ng-src="{{::app.logo}}" width="60">
                   </div>
                 </div>
               </div>
-              <div class="text-center" ng-if="!$ctrl.hasApps(team.app_instances)" translate>
+              <div class="text-center" ng-if="!$ctrl.hasApps(team.product_instances)" translate>
                 mnoe_admin_panel.dashboard.teams.widget.list.table.no_apps
               </div>
             </td>
