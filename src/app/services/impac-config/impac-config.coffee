@@ -88,6 +88,8 @@
     # Configure Dashboard Designer
     options =
       dhbConfig:
+        # Do not enable multi company templates
+        multiCompany: !enabled
         designerMode:
           enabled: enabled
       # For now do not allow to create templates from templates
