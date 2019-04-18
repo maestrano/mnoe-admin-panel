@@ -16,6 +16,9 @@
       kpis: {show: false, create: false, update: false, destroy: false}
     }
   }
+
+  # Used to cache temporarily the getOrganizations promise
+  _self.orgPromises = {}
   
   @getUserData = ->
     MnoeCurrentUser.getUser()
@@ -34,11 +37,14 @@
       )
     else if $stateParams.orgId
       # Staff dashboard mode, returns the current organization
-      $log.info('getOrganizations', 'Loading customer org')
-      MnoeOrganizations.get($stateParams.orgId).then(
+      # Temporary cache the promise and clear the cache when resolved
+      # This avoid multiple call to @getOrganizations generating multiple promises in parallel (and API calls)
+      # We clear the cache at resolution so we don't have stall data and that's enough to avoid extra API query
+      _self.orgPromises[parseInt($stateParams.orgId)] ||= MnoeOrganizations.get($stateParams.orgId).then(
         (response) ->
           currentOrganization = response.data.plain()
           angular.extend(currentOrganization, {acl: defaultACL})
+          _self.orgPromises[parseInt($stateParams.orgId)] = null
           $q.resolve(
             organizations: [currentOrganization],
             currentOrgId: currentOrganization.id
