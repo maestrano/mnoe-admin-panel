@@ -179,7 +179,7 @@
     $stateProvider.state 'dashboard.staff-dashboard-show',
       data:
         dashboardDesigner: false
-      url: '^/organization/:orgId/staff-dashboard/:dashboardId'
+      url: '^/organization/:orgId/staff-dashboards/:dashboardId'
       templateUrl: 'app/views/impac/impac.html'
       controller: 'ImpacController'
       controllerAs: 'vm'
