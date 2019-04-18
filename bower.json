@@ -35,7 +35,8 @@
     "angular-sanitize": "^1.6.2",
     "angular-message-format": "^1.6.2",
     "impac-angular": "~1.8.5",
-    "angular-bootstrap-toggle": "^0.1.2"
+    "angular-bootstrap-toggle": "^0.1.2",
+    "angular-ui-select": "^0.19.8"
   },
   "devDependencies": {
     "angular-mocks": "~1.6.2"

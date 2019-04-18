@@ -1,0 +1,21 @@
+<form class="form-inline">
+  <div class="form-group">
+    <ui-select
+      ng-model="$ctrl.organizations.selected"
+      append-to-body="true"
+      on-select="$ctrl.onSelectCallback($item, $model)"
+      spinner-enabled="true"
+    >
+      <ui-select-match placeholder="Select a customer">
+        <span ng-bind="$select.selected.name"></span>
+      </ui-select-match>
+      <ui-select-choices
+        repeat="org in $ctrl.organizations.list track by org.id"
+        refresh="$ctrl.refreshOrganizations($select.search)"
+        refresh-delay="300"
+      >
+        <div ng-bind-html="org.name | highlight: $select.search"></div>
+      </ui-select-choices>
+    </ui-select>
+  </div>
+</form>
