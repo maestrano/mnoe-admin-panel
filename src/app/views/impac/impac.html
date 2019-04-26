@@ -1,13 +1,19 @@
 <div id="impac">
-  <div class="top-navigation" ng-switch="vm.designerMode">
-    <a class="back" ui-sref="dashboard.dashboard-templates" ng-switch-when="true">
-      &lt;&lt; {{ 'mnoe_admin_panel.dashboard.dashboard_templates.back_link' | translate }}
-    </a>
-    <a class="back" ui-sref="dashboard.customers.organization({orgId: vm.orgId})" ng-switch-when="false">
-      &lt;&lt; {{ 'mnoe_admin_panel.dashboard.staff_dashboards.back_link' | translate }}
-    </a>
+  <div class="row top-navigation" ng-switch="vm.designerMode">
+    <div class="col-md-6">
+      <a class="back" ui-sref="dashboard.dashboard-templates" ng-switch-when="true">
+        &lt;&lt; {{ 'mnoe_admin_panel.dashboard.dashboard_templates.back_link' | translate }}
+      </a>
+      <a class="back" ui-sref="dashboard.customers.organization({orgId: vm.orgId})" ng-switch-when="false">
+        &lt;&lt; {{ 'mnoe_admin_panel.dashboard.staff_dashboards.back_link' | translate }}
+      </a>
+    </div>
 
-    <toggle class="pull-right" ng-if="vm.designerMode" ng-show="vm.currentDashboard" ng-model="vm.currentDashboard.published" ng-change="vm.toggleTemplatePublished(vm.currentDashboard.id)" on="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.published' | translate }}" off="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.draft' | translate }}" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.published_state_tooltip' | translate }}"></toggle>
+    <div class="col-md-6">
+      <toggle class="pull-right" ng-if="vm.designerMode" ng-show="vm.currentDashboard" ng-model="vm.currentDashboard.published" ng-change="vm.toggleTemplatePublished(vm.currentDashboard.id)" on="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.published' | translate }}" off="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.draft' | translate }}" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.published_state_tooltip' | translate }}"></toggle>
+
+      <mnoe-organization-selector organization-id="vm.orgId" class="pull-right" ng-if="!vm.designerMode"></mnoe-organization-selector>
+    </div>
   </div>
 
   <impac-dashboard />
