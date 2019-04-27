@@ -5,13 +5,13 @@
   _self.dashboardDesigner = null
 
   # Used to control Impac Angular UI in staff dashboard mode
-  # We want to remove the create/delete dashboard butttons as this is managed through
+  # We want to remove the delete dashboard button as this is managed through
   # the staff-dashboard-list component.
   defaultACL = {
     self: {show: true, update: true, destroy: true},
     related: {
       impac: {show: true},
-      dashboards: {show: true, create: false, update: true, destroy: false},
+      dashboards: {show: true, create: true, update: true, destroy: false},
       widgets: {show: true, create: true, update: true, destroy: true},
       kpis: {show: false, create: false, update: false, destroy: false}
     }
