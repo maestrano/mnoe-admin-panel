@@ -9,10 +9,10 @@
       </a>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-sm-3 col-sm-offset-3">
       <toggle class="pull-right" ng-if="vm.designerMode" ng-show="vm.currentDashboard" ng-model="vm.currentDashboard.published" ng-change="vm.toggleTemplatePublished(vm.currentDashboard.id)" on="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.published' | translate }}" off="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.draft' | translate }}" uib-tooltip="{{ 'mnoe_admin_panel.dashboard.dashboard_templates.published_state_tooltip' | translate }}"></toggle>
 
-      <mnoe-organization-selector organization-id="vm.orgId" class="pull-right" ng-if="!vm.designerMode"></mnoe-organization-selector>
+      <mnoe-organization-selector organization-id="vm.orgId" ng-if="!vm.designerMode"></mnoe-organization-selector>
     </div>
   </div>
 
