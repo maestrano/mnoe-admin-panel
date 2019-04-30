@@ -25,7 +25,7 @@
       if search
         params['terms'] = {'name.like': "%#{search}%"}
 
-      args = [10, 0, 'name', params]
+      args = [30, 0, 'name', params]
 
       MnoeOrganizations.list(args...).then(
         (response) ->
