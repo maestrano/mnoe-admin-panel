@@ -9,7 +9,7 @@
   bindings: {
     organizationId: '<'
   }
-  controller: ($log, $state, MnoeAdminConfig, MnoeCurrentUser, MnoeOrganizations) ->
+  controller: ($state, MnoeAdminConfig, MnoeCurrentUser, MnoeOrganizations) ->
     ctrl = this
 
     ctrl.refreshOrganizations = (search = null) ->
@@ -35,16 +35,11 @@
           # TODO: refactor this
           # Select organization
           if (orgId = parseInt(ctrl.organizationId))
-            $log.info('Trying to select org')
-            ctrl.organizations.selected = ctrl.organizations.list.find(
-              (org) ->
-                $log.info(org.id, orgId)
-                org.id == orgId
-            )
+            ctrl.organizations.selected = ctrl.organizations.list.find((org) -> org.id == orgId)
+
             # If current organization not available in first page, manually fetch it
             # Unless a search is in progress
             unless ctrl.organizations.selected || search
-              $log.info('Organization not available in page, fetching it')
               MnoeOrganizations.list(
                 1, 0, 'name', angular.extend({terms: {id: orgId}}, params)
               ).then(
