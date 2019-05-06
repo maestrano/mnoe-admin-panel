@@ -89,8 +89,6 @@
     # Advisor Dashboard
     # -----------------------------------------------------------
     vm.createDashboard = (dashboard) ->
-      angular.merge(dashboard, { organization_ids: [vm.organization.id] })
-
       # TODO: bug when creating after copying (also present on frontend)
       promise = if dashboard.id
         ImpacDashboardsSvc.copy(dashboard)

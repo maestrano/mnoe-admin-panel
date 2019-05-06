@@ -1,4 +1,4 @@
-@App.service 'ImpacConfigSvc' , ($state, $stateParams, $log, $q, MnoeCurrentUser, MnoeOrganizations, ImpacMainSvc, ImpacRoutes, ImpacTheming, IMPAC_CONFIG) ->
+@App.service 'ImpacConfigSvc' , ($state, $stateParams, $log, $q, MnoeAdminConfig, MnoeCurrentUser, MnoeOrganizations, ImpacMainSvc, ImpacRoutes, ImpacTheming, IMPAC_CONFIG) ->
   _self = @
 
   # Keep track of dashboard designer mode
@@ -40,15 +40,23 @@
       # Temporary cache the promise and clear the cache when resolved
       # This avoid multiple call to @getOrganizations generating multiple promises in parallel (and API calls)
       # We clear the cache at resolution so we don't have stall data and that's enough to avoid extra API query
-      _self.orgPromises[parseInt($stateParams.orgId)] ||= MnoeOrganizations.get($stateParams.orgId).then(
-        (response) ->
-          currentOrganization = response.data.plain()
-          angular.extend(currentOrganization, {acl: defaultACL})
-          _self.orgPromises[parseInt($stateParams.orgId)] = null
-          $q.resolve(
-            organizations: [currentOrganization],
-            currentOrgId: currentOrganization.id
-          )
+      _self.orgPromises[parseInt($stateParams.orgId)] ||= MnoeCurrentUser.getUser().then( ->
+        params = if MnoeAdminConfig.isAccountManagerEnabled()
+          {sub_tenant_id: MnoeCurrentUser.user.mnoe_sub_tenant_id, account_manager_id: MnoeCurrentUser.user.id}
+        else
+          {}
+
+        # TODO: problem with pagination (only returns first 30 orgs)
+        # Would need rework of the create-dashboard modal in impac-angular
+        MnoeOrganizations.list(30, 0, 'name', params).then(
+          (response) ->
+            organizations = (angular.extend(org, {acl: defaultACL}) for org in response.data)
+            _self.orgPromises[parseInt($stateParams.orgId)] = null
+            $q.resolve(
+              organizations: organizations,
+              currentOrgId: parseInt($stateParams.orgId)
+            )
+        )
       )
     else
       $log.warn('ImpacConfigSvc.getOrganizations: Designer disabled and orgId specified')
@@ -80,6 +88,8 @@
     # Configure Dashboard Designer
     options =
       dhbConfig:
+        # Do not enable multi company templates
+        multiCompany: !enabled
         designerMode:
           enabled: enabled
       # For now do not allow to create templates from templates
