@@ -1,5 +1,5 @@
 <div id="impac" ng-class="{ 'designer': vm.designerMode }">
-  <div class="row top-navigation" ng-switch="vm.designerMode">
+  <div class="row top-navigation hidden-print" ng-switch="vm.designerMode">
     <div class="col-md-6">
       <a class="back" ui-sref="dashboard.dashboard-templates" ng-switch-when="true">
         &lt;&lt; {{ 'mnoe_admin_panel.dashboard.dashboard_templates.back_link' | translate }}
