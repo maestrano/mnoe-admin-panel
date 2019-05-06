@@ -5,17 +5,20 @@
   _self.dashboardDesigner = null
 
   # Used to control Impac Angular UI in staff dashboard mode
-  # We want to remove the create/delete dashboard butttons as this is managed through
+  # We want to remove the delete dashboard button as this is managed through
   # the staff-dashboard-list component.
   defaultACL = {
     self: {show: true, update: true, destroy: true},
     related: {
       impac: {show: true},
-      dashboards: {show: true, create: false, update: true, destroy: false},
+      dashboards: {show: true, create: true, update: true, destroy: false},
       widgets: {show: true, create: true, update: true, destroy: true},
       kpis: {show: false, create: false, update: false, destroy: false}
     }
   }
+
+  # Used to cache temporarily the getOrganizations promise
+  _self.orgPromises = {}
   
   @getUserData = ->
     MnoeCurrentUser.getUser()
@@ -34,11 +37,14 @@
       )
     else if $stateParams.orgId
       # Staff dashboard mode, returns the current organization
-      $log.info('getOrganizations', 'Loading customer org')
-      MnoeOrganizations.get($stateParams.orgId).then(
+      # Temporary cache the promise and clear the cache when resolved
+      # This avoid multiple call to @getOrganizations generating multiple promises in parallel (and API calls)
+      # We clear the cache at resolution so we don't have stall data and that's enough to avoid extra API query
+      _self.orgPromises[parseInt($stateParams.orgId)] ||= MnoeOrganizations.get($stateParams.orgId).then(
         (response) ->
           currentOrganization = response.data.plain()
           angular.extend(currentOrganization, {acl: defaultACL})
+          _self.orgPromises[parseInt($stateParams.orgId)] = null
           $q.resolve(
             organizations: [currentOrganization],
             currentOrgId: currentOrganization.id

@@ -18,7 +18,9 @@
     (loaded) ->
       if loaded
         dashboardId = parseInt($stateParams.dashboardId)
-        ImpacDashboardsSvc.setCurrentDashboard(dashboardId)
+        # Select the dashboard specified in the URL
+        # If none specified, Impac will select the first one
+        ImpacDashboardsSvc.setCurrentDashboard(dashboardId) if dashboardId
         vm.currentDashboard = ImpacDashboardsSvc.getCurrentDashboard()
   )
 

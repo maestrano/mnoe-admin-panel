@@ -9,31 +9,8 @@
   
   .analytics {
     padding-top: 0;
-    margin-left: 0px;
 
     #module__dashboard-selector {
-      .dashboard-title {
-        div[role="button"] {
-          cursor: default;
-          outline: none;
-        }
-        i.fa.fa-pencil {
-          margin: 0 !important;
-          padding-left: 20px;
-          cursor: pointer;
-          outline: none;
-        }
-        .fa.fa-chevron-down { display: none; }
-      }
-
-      .dashboard-select {
-        display: none;
-      }
-
-      .data-source-label {
-        display: none;
-      }
-
       // Overrides bootstrap no-gutters for the dashboard's top-bar
       .row.buttons-bar-row.buttons-bar.no-gutters {
         margin-left: -15px;
@@ -59,12 +36,7 @@
 
     .widget-item {
       display:block !important;
-      .top-buttons {
-        .top-button.btn-refresh { display: none; }
-      }
-      .edit {
-        .part[setting-organizations] { display: none; }
-      }
+
       .data-not-found {
         .message {
           font-size: 12px;
@@ -86,5 +58,47 @@
       }
     }
 
+  }
+}
+
+// Used to customised UI for designer mode
+// TODO: this should be done in impac-angular with the feature flag,
+// For now, just move previous customisation to this class
+#impac.designer {
+  .analytics {
+    #module__dashboard-selector {
+      .dashboard-title {
+        div[role="button"] {
+          cursor: default;
+          outline: none;
+        }
+        i.fa.fa-pencil {
+          margin: 0 !important;
+          padding-left: 20px;
+          cursor: pointer;
+          outline: none;
+        }
+        .fa.fa-chevron-down { display: none; }
+      }
+
+      .dashboard-select {
+        display: none;
+      }
+
+      .data-source-label {
+        display: none;
+      }
+    }
+
+    .widget-item {
+      .top-buttons {
+        .top-button.btn-refresh {
+          display: none;
+        }
+      }
+      .edit {
+        .part[setting-organizations] { display: none; }
+      }
+    }
   }
 }

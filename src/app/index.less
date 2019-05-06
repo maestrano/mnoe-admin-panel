@@ -135,6 +135,12 @@ table {
   z-index: 999;
 }
 
+// Fix issue with ui-select dropdown
+// append-to-body didn't seem to work when minified
+mno-admin {
+  overflow-x: initial;
+}
+
 /**
  *  Do not remove the comments below. It's the markers used by gulp-inject to inject
  *  all your less files automatically
