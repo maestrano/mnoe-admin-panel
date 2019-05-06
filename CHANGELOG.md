@@ -1,5 +1,17 @@
 # Change Log
 
+## [v1.1.1](https://github.com/maestrano/mnoe-admin-panel/tree/v1.1.1) (2019-05-06)
+[Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.1.0...v1.1.1)
+
+**Implemented enhancements:**
+
+- \[KAPP-186\] Add organization selector in the staff dashboard view [\#355](https://github.com/maestrano/mnoe-admin-panel/pull/355) ([ouranos](https://github.com/ouranos))
+- \[KAPP-181\] Enable multi-company staff dashboard [\#354](https://github.com/maestrano/mnoe-admin-panel/pull/354) ([ouranos](https://github.com/ouranos))
+
+**Fixed bugs:**
+
+- \[KAPP-184\] Fix staff dashboard print mode [\#356](https://github.com/maestrano/mnoe-admin-panel/pull/356) ([ouranos](https://github.com/ouranos))
+
 ## [v1.1.0](https://github.com/maestrano/mnoe-admin-panel/tree/v1.1.0) (2019-04-08)
 [Full Changelog](https://github.com/maestrano/mnoe-admin-panel/compare/v1.0.10...v1.1.0)
 
