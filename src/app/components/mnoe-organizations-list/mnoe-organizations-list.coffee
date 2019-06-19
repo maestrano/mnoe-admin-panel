@@ -27,6 +27,7 @@
     fetchOrganizations = (limit, offset, sort = 'name') ->
       scope.organizations.loading = true
       MnoeCurrentUser.getUser().then( ->
+        # TODO: no longer needed with latest mnoe 3.4
         params = if MnoeAdminConfig.isAccountManagerEnabled()
           {sub_tenant_id: MnoeCurrentUser.user.mnoe_sub_tenant_id, account_manager_id: MnoeCurrentUser.user.id}
         else
