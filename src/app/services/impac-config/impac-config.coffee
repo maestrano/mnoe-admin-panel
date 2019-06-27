@@ -80,6 +80,11 @@
       $q.reject(err)
 
   @configureDashboardDesigner = (enabled) ->
+    # When switching from dashboard designer to staff dashboard, we need to clear the ImpacMainSvc cache
+    # as the `dashboard-create` component is not forcing a refresh.
+    # We don't want to force a refresh on this component for performance reason.
+    clearMainSvcCache = _self.dashboardDesigner && !enabled
+
     _self.dashboardDesigner = enabled
 
     $log.info('Configuring dashboard designer', enabled, _self.dashboardDesigner)
@@ -116,6 +121,8 @@
         pdfModeEnabled: !enabled
 
     ImpacTheming.configure(options)
+
+    ImpacMainSvc.loadOrganizations(true) if clearMainSvcCache
 
   @enableDashboardDesigner = ->
     _self.configureDashboardDesigner(true)
