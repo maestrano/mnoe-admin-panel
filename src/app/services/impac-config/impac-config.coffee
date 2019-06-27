@@ -39,24 +39,40 @@
       # Staff dashboard mode, returns the current organization
       # Temporary cache the promise and clear the cache when resolved
       # This avoid multiple call to @getOrganizations generating multiple promises in parallel (and API calls)
-      # We clear the cache at resolution so we don't have stall data and that's enough to avoid extra API query
-      _self.orgPromises[parseInt($stateParams.orgId)] ||= MnoeCurrentUser.getUser().then( ->
-        params = if MnoeAdminConfig.isAccountManagerEnabled()
-          {sub_tenant_id: MnoeCurrentUser.user.mnoe_sub_tenant_id, account_manager_id: MnoeCurrentUser.user.id}
-        else
-          {}
+      # We clear the cache at resolution so we don't have stale data and that's enough to avoid extra API query
 
-        # TODO: problem with pagination (only returns first 30 orgs)
-        # Would need rework of the create-dashboard modal in impac-angular
-        MnoeOrganizations.list(30, 0, 'name', params).then(
-          (response) ->
-            organizations = (angular.extend(org, {acl: defaultACL}) for org in response.data)
-            _self.orgPromises[parseInt($stateParams.orgId)] = null
-            $q.resolve(
-              organizations: organizations,
-              currentOrgId: parseInt($stateParams.orgId)
-            )
-        )
+      # REVIEW: we could re-use vm.organization to avoid the extra currentOrg query
+      promises =
+        currentUser: MnoeCurrentUser.getUser()
+        currentOrg: MnoeOrganizations.get($stateParams.orgId)
+
+      _self.orgPromises[parseInt($stateParams.orgId)] ||= $q.all(promises).then(
+        (results) ->
+
+          # REVIEW: no longer needed with latest mnoe 3.4
+          params = if MnoeAdminConfig.isAccountManagerEnabled()
+            {sub_tenant_id: MnoeCurrentUser.user.mnoe_sub_tenant_id, account_manager_id: MnoeCurrentUser.user.id}
+          else
+            {}
+
+          # TODO: problem with pagination (only returns first 30 orgs)
+          # Would need rework of the create-dashboard modal in impac-angular
+          MnoeOrganizations.list(30, 0, 'name', params).then(
+            (response) ->
+              organizations = (angular.extend(org, {acl: defaultACL}) for org in response.data)
+              _self.orgPromises[parseInt($stateParams.orgId)] = null
+
+              # If organization not in the list due to pagination, we add it to the list
+              unless organizations.some((org) -> org.id == parseInt($stateParams.orgId))
+                currentOrganization = results.currentOrg.data.plain()
+                angular.extend(currentOrganization, {acl: defaultACL})
+                organizations.unshift(currentOrganization)
+
+              $q.resolve(
+                organizations: organizations,
+                currentOrgId: parseInt($stateParams.orgId)
+              )
+          )
       )
     else
       $log.warn('ImpacConfigSvc.getOrganizations: Designer disabled and orgId specified')
